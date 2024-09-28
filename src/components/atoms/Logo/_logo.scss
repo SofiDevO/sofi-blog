@@ -1,0 +1,21 @@
+.logo{
+  @include centerFlex(space-between);
+  gap:1rem;
+  &:hover span{
+    color:aqua;
+  }
+  &__container{
+    display: flex;
+    flex-direction: column;
+  }
+  &__slogan{
+    @include text-gradient("ligth");
+  }
+  &__img {
+    max-width: 4.5rem;
+    flex-basis: 10%;
+  }
+}
+.dark .logo span{
+  color: aqua;
+}

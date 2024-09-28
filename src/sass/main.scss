@@ -1,0 +1,47 @@
+@use "./variables" as v;
+@import "./mixins";
+@import "@sass/animations";
+@import "@atoms/Title/title";
+@import "@atoms/Button/button";
+@import "@atoms/Subtitle/subtitle";
+@import "@atoms/SocialIcons/social-icons";
+@import "@molecules/Header/header";
+
+* {
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   scroll-behavior: smooth;
+ }
+
+html {
+   margin: 0;
+   font-size: 62.5%;
+   font-optical-sizing: auto;
+
+ }
+
+ body {
+   overflow-x: hidden;
+   @include font-family("montserrat");
+   color: v.$mainColor;
+   background: v.$secundaryColor;
+  }
+
+  .dark body{
+    color: v.$secundaryColor;
+    background: v.$mainColor;
+
+ }
+
+ a {
+   text-decoration: none;
+   font-size: 1.6rem;
+   color: v.$secundaryColor;
+ }
+p{
+  font-size: 1.6rem;
+}
+ li {
+   list-style: none;
+ }

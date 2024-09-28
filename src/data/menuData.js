@@ -1,0 +1,10 @@
+const menuData = [
+    {text:"About", href:"#" },
+    { text: "services", link: "#" },
+    { text: "blog", link: "#" },
+    { text: "contact", link: "#" }
+
+]
+
+
+export  {menuData};

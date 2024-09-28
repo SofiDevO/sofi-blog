@@ -1,0 +1,15 @@
+---
+
+import { siteData as data } from "@src/data/siteData";
+---
+<a href="/" class="logo">
+  <img
+    class="logo__img"
+    src={data.siteLogo}
+    alt={`logo de ${data.siteTitle}`}
+  />
+  <div class="logo__container">
+    <h3>{data.name}<span>{data.lastName}</span></h3>
+    <p class="logo__slogan">{data.siteSlogan}</p>
+  </div>
+</a>

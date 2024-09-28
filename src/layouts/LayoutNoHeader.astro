@@ -1,0 +1,24 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import BaseHead from "@components/BaseHead.astro";
+import GradientBg from "@components/atoms/GradientBg/GradientBg.astro";
+import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
+const pathName = Astro.url.pathname;
+
+---
+
+<html lang="en">
+  <head>
+    {
+      pathName === "/"
+        ? <BaseHead  />
+        : <BaseHead title={pathName.charAt(1).toUpperCase() + pathName.slice(2).split("/")[0]} />
+    }
+  </head>
+  <body>
+    <ThemeIcon />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

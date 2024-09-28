@@ -1,0 +1,63 @@
+
+
+@mixin reset-pm {
+	padding: 0;
+	margin: 0;
+}
+
+@mixin centerFlex($justify: center,  $align:center) {
+	display: flex;
+	align-items: $align;
+	justify-content: $justify;
+}
+
+@mixin font-family($type) {
+	@if $type == "montserrat" {
+		font-family: "Montserrat Variable", sans-serif;
+	} @else if $type == "fira-code" {
+		font-family: "fira-code", sans-serif;
+	}@else if $type == "textos" {
+		font-family: 'Questrial', sans-serif;
+	}
+}
+
+
+
+
+@mixin transition-all{
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+	transition-duration: 500ms;
+}
+
+/* responsive breakpoints */
+@mixin respond-to($breakpoint) {
+	@if $breakpoint == "small" {
+		@media (max-width: 320px) {
+			@content;
+		}
+	}@else if $breakpoint == "medium" {
+		@media (max-width: 768px) {
+			@content;
+		}
+	} @else if $breakpoint == "large" {
+		@media (max-width: 1024px) {
+			@content;
+		}
+	}
+}
+
+@mixin text-gradient($mode){
+	@if  $mode == "ligth"{
+		background: v.$text-over-light;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+}@else if $mode  == "dark"{
+	background: v.$text-over-dark;
+	  background-clip: text;
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+}
+}
