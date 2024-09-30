@@ -1,0 +1,83 @@
+---
+// Código de la página principal
+import type { GetStaticPaths } from "astro";
+import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
+import { cardsData } from "@src/services/getCards.js";
+
+// Ordenar los posts por fecha
+const sortedPosts = cardsData.posts.nodes.sort(
+  (a, b) => Date.parse(b.date) - Date.parse(a.date)
+);
+
+// Agrupar los posts por categorías principales
+const postsByCategory = sortedPosts.reduce((acc, post) => {
+  const parentCategory = post.categories.nodes.find(
+    (category) => category.parent?.node
+  )
+    ? post.categories.nodes.find((category) => category.parent?.node).parent
+        .node.name
+    : post.categories.nodes[0].name;
+
+  if (!acc[parentCategory]) {
+    acc[parentCategory] = [];
+  }
+
+  acc[parentCategory].push(post);
+
+  return acc;
+}, {});
+---
+
+<div class="categories__container">
+  {
+    Object.keys(postsByCategory).map((category) => (
+      <section class="category__section" id={category}>
+        <h2 class="category__title">{category}</h2>
+        <ul role="list" class="link-card-grid">
+          {postsByCategory[category].map((post) => {
+            const categories = post.categories.nodes.map((category) => ({
+              name: category.name,
+              slug: category.slug,
+              parentCategory: category.parent?.node?.name || null,
+              parentCategorySlug: category.parent?.node?.slug || null,
+            }));
+
+            // Fallback para la imagen destacada
+            const featuredImage =
+              post.featuredImage?.node?.mediaItemUrl ||
+              "/img/branding/logo.png";
+            const altText =
+              post.featuredImage?.node?.altText || "Imagen no disponible";
+
+            // Lógica para manejar el slug de subcategoría y el padre
+            const primaryCategory = post.categories.nodes[0];
+            const parentCategory = primaryCategory.parent?.node;
+
+            // Generar el slug correcto según tenga o no padre
+            const categorySlug = parentCategory
+              ? `/categories/${parentCategory.slug}/${primaryCategory.slug}` // Combina padre e hijo
+              : `/categories/${primaryCategory.slug}`; // Solo hijo
+
+            return (
+              <PostCard
+                date={post.date}
+                link={`/blog/${post.slug}`}
+                title={post.title}
+                body={post.excerpt}
+                linkBody="Leer más"
+                image={featuredImage}
+                altText={altText}
+                author={post.author.node.name}
+                authorImage={post.author.node.avatar.url}
+                authorFirstName={post.author.node.firstName}
+                authorLastName={post.author.node.lastName}
+                categories={categories}
+                categorySlug={categorySlug}
+              />
+            );
+          })}
+        </ul>
+      </section>
+    ))
+  }
+</div>

@@ -1,0 +1,169 @@
+.post-card {
+  border: 1px solid #c8c5c5d3;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+  }
+
+  &__image-container {
+    position: relative;
+    max-height: 18rem;
+    overflow: hidden;
+
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  &:hover &__image {
+    transform: scale(1.1);
+  }
+
+
+  &__image-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &:hover &__image-overlay {
+    opacity: 1;
+  }
+
+  &__content {
+    padding: 1rem 1.5rem;
+
+  }
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  &__author-image {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    object-fit: cover;
+    transform: translateY(-5rem);
+    transition: transform 0.3s ease-in-out;
+  }
+  &:hover &__author-image {
+    transform: translateY(0);
+  }
+
+  &__author-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__author-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  &__date {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: v.$french-violet;
+  }
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: v.$mainColor;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease-in-out;
+  }
+
+  &:hover &__title {
+    color: v.$french-violet;
+  }
+
+  &__excerpt {
+    font-size: 0.875rem;
+    color: #555;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+
+
+  &__categories {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__category {
+    padding: 0.45rem 0.85rem;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    color: white;
+    background: v.$french-violet;
+    transition: background 0.3s ease-in-out,
+      color 0.3s ease-in-out;
+    &:hover {
+      background: black;
+      color: #fff;
+    }
+  }
+
+  &__read-more {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: v.$french-violet;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color 0.3s ease-in-out;
+    &:hover {
+      @include text-gradient("ligth");
+    }
+  }
+
+  &__read-more-icon {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &:hover &__read-more-icon {
+    transform: translateX(0.25rem);
+  }
+}
+
+.dark .post-card {
+  background-color: #1c1f26;
+  border: 1px solid #1a2a2e;
+  color: #fff;
+  &__title {
+    color: v.$secundaryColor;
+  }
+  &__excerpt {
+    color: #cdcdcd;
+  }
+  &__author-name{
+    color: v.$secundaryColor;
+  }
+  &__date {
+    color: v.$ufo-green;
+  }
+}

@@ -1,0 +1,33 @@
+---
+import type { Block } from '@wp-block-tools/styles';
+type Props = {
+    blocks: Block[];
+}
+const {blocks} = Astro.props
+
+
+
+---
+<div>
+    {
+        blocks.map( (block) => {
+            switch (block.name) {
+                case "core/post-content":
+                    return <div> post content</div>
+                    break;
+                default:
+                    return null;
+                    break;
+            }
+    })
+    }
+</div>
+
+
+
+<!-- Esto se usará en donde se va a llamar la query
+
+    // Parse the response
+// const { data } = await response.json();
+// const blocks = (data.nodeByUri?.blocks || []) as Block[];
+-->

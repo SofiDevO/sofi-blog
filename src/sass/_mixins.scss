@@ -61,3 +61,15 @@
 	  -webkit-text-fill-color: transparent;
 }
 }
+
+
+@mixin isTheme($type) {
+    @if $type == "ligth" {
+        background: v.$secundaryColor;
+        color: v.$mainColor;
+
+    } @else if $type == "dark" {
+        background: v.$bgDark;
+        color: v.$secundaryColor;
+    }
+}
