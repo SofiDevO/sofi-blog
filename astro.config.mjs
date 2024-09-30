@@ -5,6 +5,6 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https:/Frida-ai.com',
+  site: 'https://blog.itssofi.dev',
   integrations: [react(), tailwind()]
 });
