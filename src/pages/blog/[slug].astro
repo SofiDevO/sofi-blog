@@ -1,0 +1,76 @@
+---
+import { wpquery } from "@src/data/wordpress";
+import Layout from "@src/layouts/Layout.astro";
+import BlockRenderer from "@molecules/BlockRenderer/BlockRenderer.astro";
+
+
+
+export async function getStaticPaths(slug) {
+    const data = await wpquery({
+        query: `
+        query getPostContent {
+            posts {
+                nodes {
+                    author {
+                        node {
+                            avatar {
+                                url
+                            }
+                            lastName
+                            name
+                            firstName
+                            description
+                        }
+                    }
+                    categories {
+                        nodes {
+                            name
+                            slug
+                            parent {
+                                node {
+                                    name
+                                    slug
+                                }
+                            }
+                        }
+                    }
+                    slug
+                    date
+                    title
+                    blocks(htmlContent: true)
+                }
+            }
+            tags {
+                nodes {
+                    name
+                }
+            }
+        }
+        `,
+    });
+    return data.posts.nodes.map((post: any) => {
+        return {
+            params: { slug: post.slug },
+            props: { post },
+        };
+    });
+}
+
+const { post } = Astro.props; // Obtén el post desde las propiedades
+
+---
+
+<Layout>
+    <section class="flex items-center justify-center w-full pt-36 pb-20 px-10">
+        <article class="flex flex-col w-full max-w-[900px]">
+            <div class="flex gap-3 items-center my-5 px-3">
+                <img class="w-14 h-14" src={post.author.node.avatar.url} alt={post.author.node.name} />
+                <p class="text-ms font-bold">{post.author.node.name}</p>
+            </div>
+            <h1 class="text-3xl md:text-5xl mb-10 text-center">{post.title}</h1>
+            <div class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left">
+                <BlockRenderer blocks={post.blocks} />
+            </div>
+        </article>
+    </section>
+</Layout>
