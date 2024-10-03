@@ -1,9 +1,52 @@
 ---
-import { wpquery } from "@src/data/wordpress";
-import Layout from "@src/layouts/Layout.astro";
-import BlockRenderer from "@molecules/BlockRenderer/BlockRenderer.astro";
+import { wpquery } from "@src/data/wordpress"; // Importa la función para obtener datos de WordPress
+import Layout from "@src/layouts/Layout.astro"; // Importa el diseño de la página
+import BlockRenderer from "@molecules/BlockRenderer/BlockRenderer.astro"; // Importa el nuevo BlockRenderer
+
+// Define la interfaz para el autor del post
+interface Author {
+    node: {
+        avatar: { url: string };
+        lastName: string;
+        name: string;
+        firstName: string;
+        description: string;
+    };
+}
+
+// Define la interfaz para las categorías
+interface Category {
+    nodes: {
+        name: string;
+        slug: string;
+        parent: {
+            node: {
+                name: string;
+                slug: string;
+            };
+        };
+    }[];
+}
+
+// Define la interfaz para un bloque
+interface Block {
+    // Define aquí las propiedades necesarias de los bloques
+    name: string;
+    attributes: {
+        content?: string; // Agrega más propiedades según sea necesario
+    };
+    innerBlocks?: Block[];
+}
 
 
+interface Post {
+    author: Author;
+    categories: Category[];
+    slug: string;
+    date: string;
+    title: string;
+    blocks: Block[]; // Asegúrate de que esta propiedad exista
+}
 
 export async function getStaticPaths(slug) {
     const data = await wpquery({
@@ -48,7 +91,8 @@ export async function getStaticPaths(slug) {
         }
         `,
     });
-    return data.posts.nodes.map((post: any) => {
+
+    return data.posts.nodes.map((post: Post) => { // Usa la interfaz Post aquí
         return {
             params: { slug: post.slug },
             props: { post },
@@ -56,7 +100,7 @@ export async function getStaticPaths(slug) {
     });
 }
 
-const { post } = Astro.props; // Obtén el post desde las propiedades
+const { post } = Astro.props as { post: Post }; // Tipifica correctamente post
 
 ---
 
