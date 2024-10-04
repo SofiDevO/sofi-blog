@@ -39,7 +39,18 @@ export async function getStaticPaths() {
 
         `,
   });
-
+  interface Post {
+  author: {
+    node: {
+      avatar: {
+        url: string;
+      };
+      name: string;
+    };
+  };
+  title: string;
+  content: string;
+}
   return data.posts.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
@@ -47,7 +58,7 @@ export async function getStaticPaths() {
     };
   });
 }
-const { post } = Astro.props;
+const { post }: any = Astro.props;
 
 ---
 
