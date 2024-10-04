@@ -1,7 +1,7 @@
 ---
 import { wpquery } from "@src/data/wordpress"; // Importa la función para obtener datos de WordPress
 import Layout from "@src/layouts/Layout.astro"; // Importa el diseño de la página
-export async function getStaticPaths(slug) {
+export async function getStaticPaths() {
   const data = await wpquery({
     query: `
         query getPostContent {
@@ -39,26 +39,15 @@ export async function getStaticPaths(slug) {
 
         `,
   });
-  interface Post {
-  author: {
-    node: {
-      avatar: {
-        url: string;
-      };
-    };
-  };
-}
 
-  return data.posts.nodes.map((post) => {
-    // Usa la interfaz Post aquí
+  return data.posts.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
       props: { post },
     };
   });
 }
-
-const { post } = Astro.props as { post: Post };
+const { post } = Astro.props;
 
 ---
 
@@ -77,7 +66,7 @@ const { post } = Astro.props as { post: Post };
       <div
         class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
-      <Fragment  set:html={post?.content}/>
+      <Fragment  set:html={post.content || ""}/>
       </div>
     </article>
   </section>
