@@ -44,7 +44,7 @@ export async function getStaticPaths(slug) {
         `,
   });
 
-  return data.posts.nodes.map((post: Post) => {
+  return data.posts.nodes.map((post) => {
     // Usa la interfaz Post aquí
     return {
       params: { slug: post.slug },
@@ -53,7 +53,7 @@ export async function getStaticPaths(slug) {
   });
 }
 
-const { post } = Astro.props as { post: Post };
+const { post } = Astro.props;
 ---
 
 <Layout>
