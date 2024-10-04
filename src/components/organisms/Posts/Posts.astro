@@ -1,9 +1,10 @@
 ---
-// Código de la página principal
+import type { GetStaticPaths } from "astro";
+
 import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
 import { cardsData } from "@src/services/getCards.js";
 
-// Verificar si cardsData contiene los posts
+
 if (!cardsData?.posts?.nodes) {
   throw new Error("Los datos de las publicaciones no están disponibles.");
 }
