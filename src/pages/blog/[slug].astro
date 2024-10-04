@@ -1,7 +1,7 @@
 ---
 import { wpquery } from "@src/data/wordpress";
 import Layout from "@src/layouts/Layout.astro";
-export const prerender = true;
+
 
 export async function getStaticPaths() {
   const data = await wpquery({
@@ -41,18 +41,7 @@ export async function getStaticPaths() {
 
         `,
   });
-  interface Post {
-  author: {
-    node: {
-      avatar: {
-        url: string;
-      };
-      name: string;
-    };
-  };
-  title: string;
-  content: string;
-}
+
   return data.posts.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
