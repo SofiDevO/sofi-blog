@@ -32,6 +32,7 @@ a {
   text-decoration: none;
   font-size: 1.6rem;
   color: v.$secundaryColor;
+  cursor: pointer;
 }
 p {
   font-size: 1.6rem;
@@ -39,6 +40,58 @@ p {
 li {
   list-style: none;
 }
+h1 {
+  font-size: 3rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+code {
+  font-size: 1.5rem;
+  background-color: #1f1f1f;
+  padding: 0.4rem;
+  color: v.$ufo-green;
+  border-radius: 0.3rem;
+}
+
+#post {
+  a {
+    color: v.$french-violet;
+  }
+
+.wp-block-kevinbatdorf-code-block-pro.cbp-has-line-numbers,
+.wp-block-kevinbatdorf-code-block-pro {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  kbd,
+  samp,
+  pre {
+    text-wrap: wrap;
+    width: 100%;
+    height: auto;
+    min-height: 100%;
+    line-height: 1.5;
+    padding: 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+}
+.wp-block-list {
+  li {
+    list-style: disc;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
+}
+
 
 .dark {
   body {

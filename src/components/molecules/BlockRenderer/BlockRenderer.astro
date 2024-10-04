@@ -14,10 +14,12 @@ const { blocks } = Astro.props;
 {blocks.map((block) => {
   const { styles, classes } = getBlockStyling(block);
   switch (block.name) {
+    case "core/image":
+      return <img set:html={block.attributes?.content} class={classes} style={styles} />;
     case "core/post-content":
       return (
         <div class={classes} style={styles}>
-          <BlockRendererInner blocks={block.innerBlocks} />
+          <BlockRendererInner blocks={block.innerBlocks || []} />
         </div>
       );
     case "core/template-part":

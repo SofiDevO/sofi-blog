@@ -4,6 +4,11 @@ import type { GetStaticPaths } from "astro";
 import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
 import { cardsData } from "@src/services/getCards.js";
 
+// Verificar si cardsData contiene los posts
+if (!cardsData?.posts?.nodes) {
+  throw new Error("Los datos de las publicaciones no están disponibles.");
+}
+
 // Ordenar los posts por fecha
 const sortedPosts = cardsData.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
@@ -26,6 +31,11 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
 
   return acc;
 }, {});
+
+// Verificar que `postsByCategory` tiene datos
+if (Object.keys(postsByCategory).length === 0) {
+  throw new Error("No hay posts agrupados por categorías.");
+}
 ---
 
 <div class="categories__container">

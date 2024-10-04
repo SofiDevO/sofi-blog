@@ -1,120 +1,82 @@
 ---
 import { wpquery } from "@src/data/wordpress"; // Importa la función para obtener datos de WordPress
 import Layout from "@src/layouts/Layout.astro"; // Importa el diseño de la página
-import BlockRenderer from "@molecules/BlockRenderer/BlockRenderer.astro"; // Importa el nuevo BlockRenderer
-
-// Define la interfaz para el autor del post
-interface Author {
-    node: {
-        avatar: { url: string };
-        lastName: string;
-        name: string;
-        firstName: string;
-        description: string;
-    };
-}
-
-// Define la interfaz para las categorías
-interface Category {
-    nodes: {
-        name: string;
-        slug: string;
-        parent: {
-            node: {
-                name: string;
-                slug: string;
-            };
-        };
-    }[];
-}
-
-// Define la interfaz para un bloque
-interface Block {
-    // Define aquí las propiedades necesarias de los bloques
-    name: string;
-    attributes: {
-        content?: string; // Agrega más propiedades según sea necesario
-    };
-    innerBlocks?: Block[];
-}
 
 
-interface Post {
-    author: Author;
-    categories: Category[];
-    slug: string;
-    date: string;
-    title: string;
-    blocks: Block[]; // Asegúrate de que esta propiedad exista
-}
+
 
 export async function getStaticPaths(slug) {
-    const data = await wpquery({
-        query: `
+  const data = await wpquery({
+    query: `
         query getPostContent {
-            posts {
+            cssVariables
+             posts {
                 nodes {
-                    author {
-                        node {
-                            avatar {
-                                url
-                            }
-                            lastName
-                            name
-                            firstName
-                            description
-                        }
+                author {
+                    node {
+                    avatar {
+                        url
                     }
-                    categories {
-                        nodes {
-                            name
-                            slug
-                            parent {
-                                node {
-                                    name
-                                    slug
-                                }
-                            }
-                        }
+                    lastName
+                    name
+                    firstName
+                    description
                     }
-                    slug
-                    date
-                    title
-                    blocks(htmlContent: true)
+                }
+                slug
+                date
+                title
+                content(format: RENDERED)
+                contentType {
+                    node {
+                    id
+                    }
+                }
                 }
             }
             tags {
                 nodes {
-                    name
+                name
                 }
             }
-        }
-        `,
-    });
+            }
 
-    return data.posts.nodes.map((post: Post) => { // Usa la interfaz Post aquí
-        return {
-            params: { slug: post.slug },
-            props: { post },
-        };
-    });
+        `,
+  });
+
+  return data.posts.nodes.map((post: Post) => {
+    // Usa la interfaz Post aquí
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
 }
 
-const { post } = Astro.props as { post: Post }; // Tipifica correctamente post
-
+const { post } = Astro.props as { post: Post };
 ---
 
 <Layout>
-    <section class="flex items-center justify-center w-full pt-36 pb-20 px-10">
-        <article class="flex flex-col w-full max-w-[900px]">
-            <div class="flex gap-3 items-center my-5 px-3">
-                <img class="w-14 h-14" src={post.author.node.avatar.url} alt={post.author.node.name} />
-                <p class="text-ms font-bold">{post.author.node.name}</p>
-            </div>
-            <h1 class="text-3xl md:text-5xl mb-10 text-center">{post.title}</h1>
-            <div class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left">
-                <BlockRenderer blocks={post.blocks} />
-            </div>
-        </article>
-    </section>
+
+    <head>
+
+    </head>
+  <section id="post" class="flex items-center justify-center w-full pt-36 pb-20 px-10">
+    <article class="flex flex-col w-full max-w-[900px]">
+      <div class="flex gap-3 items-center my-5 px-3">
+        <img
+          class="w-14 h-14"
+          src={post.author.node.avatar.url}
+          alt={post.author.node.name}
+        />
+        <p class="text-ms font-bold">{post.author.node.name}</p>
+      </div>
+      <h1 class="text-3xl md:text-5xl mb-10 text-center">{post.title}</h1>
+      <div
+        class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
+      >
+      <Fragment  set:html={post.content}/>
+      </div>
+    </article>
+  </section>
 </Layout>
