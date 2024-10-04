@@ -1,0 +1,1 @@
+import"https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js";import"./themeToggle.controller.BoQ-H2Uu.js";document.getElementById("backButton").addEventListener("click",function(){window.history.back()});

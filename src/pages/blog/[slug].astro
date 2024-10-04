@@ -1,6 +1,8 @@
 ---
-import { wpquery } from "@src/data/wordpress"; // Importa la función para obtener datos de WordPress
-import Layout from "@src/layouts/Layout.astro"; // Importa el diseño de la página
+import { wpquery } from "@src/data/wordpress";
+import Layout from "@src/layouts/Layout.astro";
+export const prerender = true;
+
 export async function getStaticPaths() {
   const data = await wpquery({
     query: `

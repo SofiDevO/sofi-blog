@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/png" href="/img/branding/logo.png"><meta name="generator" content="Astro v4.11.5"><title>SofiBlog | Blog</title><!-- Canonical URL --><link rel="canonical" href="https://blog.itssofi.dev/blog/javascript-funciones/"><!-- Primary Meta Tags --><meta name="title" content="SofiBlog" title="Blog"><meta name="description" content="Desarrollo web"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.itssofi.dev/blog/javascript-funciones/"><meta property="og:title" content="SofiBlog"><meta property="og:description" content="Desarrollo web"><meta property="og:image" content="https://blog.itssofi.dev/img/branding/logo.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.itssofi.dev/blog/javascript-funciones/"><meta property="twitter:title" content="SofiBlog"><meta property="twitter:description" content="Desarrollo web"><meta property="twitter:image" content="https://blog.itssofi.dev/img/branding/logo.png"><!-- css librerias/ cdn --><!-- Iconify CDN --><link rel="stylesheet" href="/_astro/_slug_.r3eOjDDL.css">
+<link rel="stylesheet" href="/_astro/_slug_.B2iRIXZa.css">
+<style>.to__top[data-astro-cid-hov2kthu].show{display:flex;align-items:center;justify-content:center;position:fixed;margin-right:3.8rem;top:75%;right:0;width:40px;height:40px;background-color:#20006a;z-index:999;border-radius:50%;cursor:pointer;transition:opacity .3s ease-in-out;opacity:1}.to__top[data-astro-cid-hov2kthu]{display:none;opacity:0}
+</style><script type="module" src="/_astro/hoisted.DQHZO_kV.js"></script></head> <body>  <button id="themeToggle" data-astro-cid-hsoaq6cp> <iconify-icon class="sun" icon="line-md:sun-rising-loop" width="32" height="32" style="color: #ad8700" data-astro-cid-hsoaq6cp></iconify-icon> <iconify-icon class="moon" icon="line-md:moon-loop" width="27" height="27" style="color: #00ffff" data-astro-cid-hsoaq6cp></iconify-icon> </button>  <div class="to__top " data-astro-cid-hov2kthu> <iconify-icon icon="codicon:triangle-up" width="30" height="30" style="color: #63f6f4e9" data-astro-cid-hov2kthu></iconify-icon> </div> <script>
+  const cajaToTop = document.querySelector(".to__top");
+
+  cajaToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      cajaToTop.classList.add("show");
+    } else {
+      cajaToTop.classList.remove("show");
+    }
+  });
+</script>   <header class="header"> <div class="header__container "> <a href="/" class="logo"> <img class="logo__img" src="/img/branding/logo.png" alt="logo de SofiDev"> <div class="logo__container"> <h3>Sofi<span>Dev</span></h3> <p class="logo__slogan">Desarrollo Web</p> </div> </a> <nav class="header__menu"> <ul class="header__list"> <li class="header__item"> <a class="header__link" href="/">Home</a> </li> <li class="header__item"> <a class="header__link"> About </a> </li><li class="header__item"> <a class="header__link" href="#"> services </a> </li><li class="header__item"> <a class="header__link" href="#"> blog </a> </li><li class="header__item"> <a class="header__link" href="https://itssofi.dev/"> Portafolio </a> </li> <div class="header__icons"></div> </ul> </nav> <button class="hamburger hamburger--collapse" type="button"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> </div> </header> <main>  <section id="post" class="flex items-center justify-center w-full pt-36 pb-20 px-10"> <article class="flex flex-col w-full max-w-[900px]"> <div class="flex gap-3 items-center my-5 px-3"> <img class="w-14 h-14" src="https://secure.gravatar.com/avatar/4e32e5128b71c018e5ecfd20cf01cef9?s=96&d=mm&r=g" alt="SofiDev"> <p class="text-ms font-bold">SofiDev</p> </div> <h1 class="text-3xl md:text-5xl mb-10 text-center">JavaScript:Funciones y ambito de las variables</h1> <div class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"> 
+<p>En esta segunda entrega de nuestra guía práctica de JavaScript, veremos las funciones y exploraremos las sutilezas entre&nbsp;<code>var</code>,&nbsp;<code>let</code>&nbsp;y&nbsp;<code>const</code>. Prepárate para desentrañar estos conceptos cruciales en tu viaje por el desarrollo web.</p>
+
+
+
+<h2 class="wp-block-heading has-large-font-size" id="funciones-en-javascript">Funciones en JavaScript</h2>
+
+
+
+<p>Las funciones son bloques de código reutilizables que realizan una tarea específica. Crear una función implica dos pasos fundamentales: la declaración y la ejecución.</p>
+
+
+
+<h3 class="wp-block-heading has-medium-font-size" id="declaración-de-funciones">Declaración de Funciones</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="function saludar(nombre) {
+  console.log(`¡Hola, ${nombre}!`);
+}" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">function</span><span style="color: #B392F0"> saludar(nombre) {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(</span><span style="color: #FFAB70">`¡Hola, </span><span style="color: #F97583">${</span><span style="color: #B392F0">nombre</span><span style="color: #F97583">}</span><span style="color: #FFAB70">!`</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #B392F0">}</span></span></code></pre></div>
+
+
+
+<p>Aquí, <code>saludar</code> es el nombre de la función, y <code>(nombre)</code> son los parámetros que puede aceptar.</p>
+
+
+
+<h3 class="wp-block-heading" id="ejecución-de-funciones">Ejecución de Funciones</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="saludar(&quot;Juan&quot;);
+// Salida: ¡Hola, Juan!" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #B392F0">saludar(</span><span style="color: #FFAB70">&quot;Juan&quot;</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #6B737C">// Salida: ¡Hola, Juan!</span></span></code></pre></div>
+
+
+
+<p>Al llamar a la función&nbsp;<code>saludar</code>&nbsp;con el argumento&nbsp;<code>"Juan"</code>, ejecutamos el código dentro de la función y obtenemos la salida esperada.</p>
+
+
+
+<h3 class="wp-block-heading has-large-font-size" id="tipos-de-funciones">Tipos de Funciones</h3>
+
+
+
+<h4 class="wp-block-heading has-medium-font-size" id="funciones-con-valor-de-retorno">Funciones con Valor de Retorno</h4>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="function sumar(a, b) {
+  return a + b;
+}
+
+let resultado = sumar(3, 5);
+// resultado: 8" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">function</span><span style="color: #B392F0"> sumar(a</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> b) {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #F97583">return</span><span style="color: #B392F0"> a </span><span style="color: #F97583">+</span><span style="color: #B392F0"> b;</span></span>
+<span class="line"><span style="color: #B392F0">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> resultado </span><span style="color: #F97583">=</span><span style="color: #B392F0"> sumar(</span><span style="color: #F8F8F8">3</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">5</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #6B737C">// resultado: 8</span></span></code></pre></div>
+
+
+
+<p>Funciones Anónimas<br></p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let saludar = function(nombre) {
+  console.log(`¡Hola, ${nombre}!`);
+};
+
+saludar(&quot;Ana&quot;);
+// Salida: ¡Hola, Ana!" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> saludar </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F97583">function</span><span style="color: #B392F0">(nombre) {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(</span><span style="color: #FFAB70">`¡Hola, </span><span style="color: #F97583">${</span><span style="color: #B392F0">nombre</span><span style="color: #F97583">}</span><span style="color: #FFAB70">!`</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #B392F0">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">saludar(</span><span style="color: #FFAB70">&quot;Ana&quot;</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #6B737C">// Salida: ¡Hola, Ana!</span></span></code></pre></div>
+
+
+
+<p></p>
+
+
+
+<h4 class="wp-block-heading has-medium-font-size" id="arrow-functions">Arrow Functions</h4>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let multiplicar = (a, b) =&gt; a * b;
+
+let producto = multiplicar(4, 6);
+// producto: 24" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> multiplicar </span><span style="color: #F97583">=</span><span style="color: #B392F0"> (a</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> b) </span><span style="color: #F97583">=&gt;</span><span style="color: #B392F0"> a </span><span style="color: #F97583">*</span><span style="color: #B392F0"> b;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> producto </span><span style="color: #F97583">=</span><span style="color: #B392F0"> multiplicar(</span><span style="color: #F8F8F8">4</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">6</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #6B737C">// producto: 24</span></span></code></pre></div>
+
+
+
+<p>Las funciones de flecha (<code>arrow functions</code>) son una forma más concisa de escribir funciones.</p>
+
+
+
+<h2 class="wp-block-heading" id="variables-var-let-y-const">Variables: var, let y const</h2>
+
+
+
+<h3 class="wp-block-heading" id="var"><code>var</code></h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="function ejemploVar() {
+  if (true) {
+    var x = 10;
+  }
+  console.log(x);
+}
+
+ejemploVar();
+// Salida: 10" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">function</span><span style="color: #B392F0"> ejemploVar() {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #F97583">if</span><span style="color: #B392F0"> (</span><span style="color: #79B8FF">true</span><span style="color: #B392F0">) {</span></span>
+<span class="line"><span style="color: #B392F0">    </span><span style="color: #F97583">var</span><span style="color: #B392F0"> x </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">10</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #B392F0">  }</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(x);</span></span>
+<span class="line"><span style="color: #B392F0">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">ejemploVar();</span></span>
+<span class="line"><span style="color: #6B737C">// Salida: 10</span></span></code></pre></div>
+
+
+
+<p><code>var</code>&nbsp;tiene un ámbito de función, lo que significa que su declaración se eleva al nivel superior de su contexto de ejecución.</p>
+
+
+
+<h3 class="wp-block-heading" id="let"><code>let</code></h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="function ejemploLet() {
+  if (true) {
+    let y = 20;
+  }
+  console.log(y); // ¡Error!
+}
+
+ejemploLet();" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">function</span><span style="color: #B392F0"> ejemploLet() {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #F97583">if</span><span style="color: #B392F0"> (</span><span style="color: #79B8FF">true</span><span style="color: #B392F0">) {</span></span>
+<span class="line"><span style="color: #B392F0">    </span><span style="color: #F97583">let</span><span style="color: #B392F0"> y </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">20</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #B392F0">  }</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(y); </span><span style="color: #6B737C">// ¡Error!</span></span>
+<span class="line"><span style="color: #B392F0">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">ejemploLet();</span></span></code></pre></div>
+
+
+
+<p><code>let</code>&nbsp;tiene un ámbito de bloque, lo que significa que está limitado al bloque de código más cercano.</p>
+
+
+
+<h3 class="wp-block-heading" id="const"><code>const</code></h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="function ejemploConst() {
+  const PI = 3.14;
+  console.log(PI);
+}
+
+ejemploConst();
+// Salida: 3.14" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">function</span><span style="color: #B392F0"> ejemploConst() {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #F97583">const</span><span style="color: #B392F0"> </span><span style="color: #79B8FF">PI</span><span style="color: #B392F0"> </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">3.14</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(</span><span style="color: #79B8FF">PI</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #B392F0">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">ejemploConst();</span></span>
+<span class="line"><span style="color: #6B737C">// Salida: 3.14</span></span></code></pre></div>
+
+
+
+<p>En este ejemplo,&nbsp;<code>const</code>&nbsp;se utiliza para declarar una constante&nbsp;<code>PI</code>&nbsp;y se le asigna el valor de&nbsp;<code>3.14</code>. Aunque es posible asignar un valor a&nbsp;<code>const</code>&nbsp;solo una vez, ten en cuenta que esto no impide que el contenido del objeto al que se refiere cambie si es un objeto mutable.</p>
+
+
+
+<h2 class="wp-block-heading" id="scope-en-javascript">Scope en JavaScript</h2>
+
+
+
+<p>El scope se refiere a la accesibilidad y visibilidad de las variables en diferentes partes del código.</p>
+
+
+
+<h3 class="wp-block-heading" id="scope-global">Scope Global</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let globalVar = &quot;Soy global&quot;;
+
+function ejemploScopeGlobal() {
+  console.log(globalVar);
+}
+
+ejemploScopeGlobal();
+// Salida: Soy global
+" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> globalVar </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;Soy global&quot;</span><span style="color: #B392F0">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #F97583">function</span><span style="color: #B392F0"> ejemploScopeGlobal() {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(globalVar);</span></span>
+<span class="line"><span style="color: #B392F0">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">ejemploScopeGlobal();</span></span>
+<span class="line"><span style="color: #6B737C">// Salida: Soy global</span></span>
+<span class="line"></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="scope-local">Scope Local</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="function ejemploScopeLocal() {
+  let localVar = &quot;Soy local&quot;;
+  console.log(localVar);
+}
+
+ejemploScopeLocal();
+// Salida: Soy local
+
+console.log(localVar); // ¡Error!" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">function</span><span style="color: #B392F0"> ejemploScopeLocal() {</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #F97583">let</span><span style="color: #B392F0"> localVar </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;Soy local&quot;</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #B392F0">  </span><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(localVar);</span></span>
+<span class="line"><span style="color: #B392F0">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #B392F0">ejemploScopeLocal();</span></span>
+<span class="line"><span style="color: #6B737C">// Salida: Soy local</span></span>
+<span class="line"></span>
+<span class="line"><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(localVar); </span><span style="color: #6B737C">// ¡Error!</span></span></code></pre></div>
+
+
+
+<p>Las variables declaradas con&nbsp;<code>let</code>&nbsp;y&nbsp;<code>const</code>&nbsp;tienen un ámbito de bloque, limitando su accesibilidad al bloque en el que se declaran.</p>
+
+
+
+<h2 class="wp-block-heading" id="conclusión">Conclusión</h2>
+
+
+
+<p>En esta parte de nuestra guía de JavaScript, hemos explorado cómo crear y ejecutar funciones, así como las diferencias entre&nbsp;<code>var</code>,&nbsp;<code>let</code>&nbsp;y&nbsp;<code>const</code>. Entender estos conceptos es esencial para construir aplicaciones sólidas y comprender cómo las variables afectan el flujo y la estructura de tu código. En la próxima entrega, nos sumergiremos en conceptos más avanzados y te llevaremos a través de ejercicios prácticos para consolidar tus conocimientos. ¡Sigue explorando y desbloquea el potencial de JavaScript en tus proyectos web! 🚀✨</p>
+ </div> </article> </section>  </main> </body></html>

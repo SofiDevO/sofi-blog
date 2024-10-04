@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/png" href="/img/branding/logo.png"><meta name="generator" content="Astro v4.11.5"><title>SofiBlog | Blog</title><!-- Canonical URL --><link rel="canonical" href="https://blog.itssofi.dev/blog/introduccion-a-javascript-una-guia-practica/"><!-- Primary Meta Tags --><meta name="title" content="SofiBlog" title="Blog"><meta name="description" content="Desarrollo web"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://blog.itssofi.dev/blog/introduccion-a-javascript-una-guia-practica/"><meta property="og:title" content="SofiBlog"><meta property="og:description" content="Desarrollo web"><meta property="og:image" content="https://blog.itssofi.dev/img/branding/logo.png"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://blog.itssofi.dev/blog/introduccion-a-javascript-una-guia-practica/"><meta property="twitter:title" content="SofiBlog"><meta property="twitter:description" content="Desarrollo web"><meta property="twitter:image" content="https://blog.itssofi.dev/img/branding/logo.png"><!-- css librerias/ cdn --><!-- Iconify CDN --><link rel="stylesheet" href="/_astro/_slug_.r3eOjDDL.css">
+<link rel="stylesheet" href="/_astro/_slug_.B2iRIXZa.css">
+<style>.to__top[data-astro-cid-hov2kthu].show{display:flex;align-items:center;justify-content:center;position:fixed;margin-right:3.8rem;top:75%;right:0;width:40px;height:40px;background-color:#20006a;z-index:999;border-radius:50%;cursor:pointer;transition:opacity .3s ease-in-out;opacity:1}.to__top[data-astro-cid-hov2kthu]{display:none;opacity:0}
+</style><script type="module" src="/_astro/hoisted.DQHZO_kV.js"></script></head> <body>  <button id="themeToggle" data-astro-cid-hsoaq6cp> <iconify-icon class="sun" icon="line-md:sun-rising-loop" width="32" height="32" style="color: #ad8700" data-astro-cid-hsoaq6cp></iconify-icon> <iconify-icon class="moon" icon="line-md:moon-loop" width="27" height="27" style="color: #00ffff" data-astro-cid-hsoaq6cp></iconify-icon> </button>  <div class="to__top " data-astro-cid-hov2kthu> <iconify-icon icon="codicon:triangle-up" width="30" height="30" style="color: #63f6f4e9" data-astro-cid-hov2kthu></iconify-icon> </div> <script>
+  const cajaToTop = document.querySelector(".to__top");
+
+  cajaToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      cajaToTop.classList.add("show");
+    } else {
+      cajaToTop.classList.remove("show");
+    }
+  });
+</script>   <header class="header"> <div class="header__container "> <a href="/" class="logo"> <img class="logo__img" src="/img/branding/logo.png" alt="logo de SofiDev"> <div class="logo__container"> <h3>Sofi<span>Dev</span></h3> <p class="logo__slogan">Desarrollo Web</p> </div> </a> <nav class="header__menu"> <ul class="header__list"> <li class="header__item"> <a class="header__link" href="/">Home</a> </li> <li class="header__item"> <a class="header__link"> About </a> </li><li class="header__item"> <a class="header__link" href="#"> services </a> </li><li class="header__item"> <a class="header__link" href="#"> blog </a> </li><li class="header__item"> <a class="header__link" href="https://itssofi.dev/"> Portafolio </a> </li> <div class="header__icons"></div> </ul> </nav> <button class="hamburger hamburger--collapse" type="button"> <span class="hamburger-box"> <span class="hamburger-inner"></span> </span> </button> </div> </header> <main>  <section id="post" class="flex items-center justify-center w-full pt-36 pb-20 px-10"> <article class="flex flex-col w-full max-w-[900px]"> <div class="flex gap-3 items-center my-5 px-3"> <img class="w-14 h-14" src="https://secure.gravatar.com/avatar/4e32e5128b71c018e5ecfd20cf01cef9?s=96&d=mm&r=g" alt="SofiDev"> <p class="text-ms font-bold">SofiDev</p> </div> <h1 class="text-3xl md:text-5xl mb-10 text-center">Introducción a JavaScript: Una Guía Práctica</h1> <div class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"> 
+<p>¡Bienvenidos a la fascinante travesía en el mundo de JavaScript! En esta guía exploraremos los conceptos más fundamentales para que puedas dar tus primeros pasos con confianza y comprender la verdadera magia de JavaScript. ¿Listos para sumergirse en el maravilloso universo de JavaScript? ¡Comencemos!</p>
+
+
+
+<h2 class="wp-block-heading" id="qué-es-javascript">¿Qué es JavaScript?</h2>
+
+
+
+<p>JavaScript es un lenguaje de programación dinámico y versátil que se emplea extensamente para añadir interactividad a las páginas web. Su ejecución directa en el navegador del usuario facilita la manipulación de elementos HTML, la gestión de eventos y la realización de acciones que dotan de vida y dinamismo a las páginas web. Como componente esencial en el desarrollo web contemporáneo, JavaScript desempeña un papel fundamental en la mejora de la experiencia del usuario y la creación de aplicaciones web modernas e interactivas.</p>
+
+
+
+<figure class="wp-block-image aligncenter"><img loading="lazy" decoding="async" width="710" height="444" src="https://blog-sofi.api-wordpress.tech/wp-content/uploads/2024/09/image-5.webp" alt="Javascript" class="wp-image-46" srcset="https://blog-sofi.api-wordpress.tech/wp-content/uploads/2024/09/image-5.webp 710w, https://blog-sofi.api-wordpress.tech/wp-content/uploads/2024/09/image-5-300x188.webp 300w" sizes="(max-width: 710px) 100vw, 710px" /></figure>
+
+
+
+<h2 class="wp-block-heading" id="descripción-técnica">Descripción técnica</h2>
+
+
+
+<p>JavaScript es un lenguaje de programación de alto nivel, interpretado y orientado a objetos. Diseñado principalmente para el desarrollo web, su capacidad para ejecutarse en el lado del cliente permite la manipulación dinámica de contenido HTML, interacción con el usuario y la gestión de eventos en tiempo real.</p>
+
+
+
+<p>Es conocido por su naturaleza versátil, ya que puede ser utilizado tanto para el desarrollo del frontend como del backend, gracias a entornos como Node.js. JavaScript sigue el estándar ECMAScript y ha evolucionado con el tiempo, incorporando nuevas características y mejoras que han contribuido a su posición central en el panorama del desarrollo web. Su sintaxis sencilla y su integración fluida con HTML y CSS lo convierten en una herramienta fundamental para la creación de experiencias interactivas y aplicaciones web modernas.</p>
+
+
+
+<h2 class="wp-block-heading" id="cómo-ejecutar-javascript-diversos-métodos">Cómo Ejecutar JavaScript: Diversos Métodos</h2>
+
+
+
+<p>Existen varias formas de ejecutar JavaScript, proporcionando flexibilidad a los desarrolladores. Aquí algunos métodos comunes:</p>
+
+
+
+<h3 class="wp-block-heading" id="1-integración-directa-en-html">1. Integración Directa en HTML</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(2 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Mi Página con JavaScript&lt;/title&gt;
+    &lt;script&gt;
+      // Tu código JavaScript va aquí
+      alert(&quot;¡Hola, Mundo!&quot;);
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Contenido de la página --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #B392F0">&lt;!</span><span style="color: #FFAB70">doctype</span><span style="color: #B392F0"> html&gt;</span></span>
+<span class="line"><span style="color: #B392F0">&lt;</span><span style="color: #FFAB70">html</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;</span><span style="color: #FFAB70">head</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">    &lt;</span><span style="color: #FFAB70">title</span><span style="color: #B392F0">&gt;Mi Página con JavaScript&lt;/</span><span style="color: #FFAB70">title</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">    &lt;</span><span style="color: #FFAB70">script</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">      </span><span style="color: #6B737C">// Tu código JavaScript va aquí</span></span>
+<span class="line"><span style="color: #B392F0">      alert(</span><span style="color: #FFAB70">&quot;¡Hola, Mundo!&quot;</span><span style="color: #B392F0">);</span></span>
+<span class="line"><span style="color: #B392F0">    &lt;/</span><span style="color: #FFAB70">script</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;/</span><span style="color: #FFAB70">head</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;</span><span style="color: #FFAB70">body</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">    </span><span style="color: #6B737C">&lt;!-- Contenido de la página --&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;/</span><span style="color: #FFAB70">body</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">&lt;/</span><span style="color: #FFAB70">html</span><span style="color: #B392F0">&gt;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="2-archivos-externos">2. Archivos Externos</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(2 * 0.6 * .875rem);--cbp-line-highlight-color:rgba(175, 131, 255, 0.2);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Mi Página con JavaScript Externo&lt;/title&gt;
+    &lt;script src=&quot;mi_script.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Contenido de la página --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #B392F0">&lt;!</span><span style="color: #FFAB70">doctype</span><span style="color: #B392F0"> html&gt;</span></span>
+<span class="line"><span style="color: #B392F0">&lt;</span><span style="color: #FFAB70">html</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;</span><span style="color: #FFAB70">head</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">    &lt;</span><span style="color: #FFAB70">title</span><span style="color: #B392F0">&gt;Mi Página con JavaScript Externo&lt;/</span><span style="color: #FFAB70">title</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">    &lt;</span><span style="color: #FFAB70">script</span><span style="color: #B392F0"> src</span><span style="color: #F97583">=</span><span style="color: #FFAB70">&quot;mi_script.js&quot;</span><span style="color: #B392F0">&gt;&lt;/</span><span style="color: #FFAB70">script</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;/</span><span style="color: #FFAB70">head</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;</span><span style="color: #FFAB70">body</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">    </span><span style="color: #6B737C">&lt;!-- Contenido de la página --&gt;</span></span>
+<span class="line"><span style="color: #B392F0">  &lt;/</span><span style="color: #FFAB70">body</span><span style="color: #B392F0">&gt;</span></span>
+<span class="line"><span style="color: #B392F0">&lt;/</span><span style="color: #FFAB70">html</span><span style="color: #B392F0">&gt;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="3-consola-del-navegador">3. Consola del Navegador</h3>
+
+
+
+<p>La consola del navegador es un lugar excelente para probar fragmentos de código de JavaScript en tiempo real.</p>
+
+
+
+<h2 class="wp-block-heading" id="tipos-de-datos-en-javascript">Tipos de Datos en JavaScript</h2>
+
+
+
+<p>JavaScript maneja varios tipos de datos que son esenciales para cualquier programador. Aquí algunos ejemplos:</p>
+
+
+
+<h3 class="wp-block-heading" id="número">Número</h3>
+
+
+
+<p>Los números en JavaScript pueden ser enteros o decimales.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let edad = 25;
+let precio = 19.99;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> edad </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">25</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> precio </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">19.99</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="cadenas-de-texto-string">Cadenas de Texto (String)</h3>
+
+
+
+<p>Las cadenas de texto representan secuencias de caracteres.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let nombre = &quot;Juan&quot;;
+let mensaje = &quot;Hola, ¿cómo estás?&quot;;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> nombre </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;Juan&quot;</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> mensaje </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;Hola, ¿cómo estás?&quot;</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="booleano">Booleano</h3>
+
+
+
+<p>Los booleanos representan valores de verdadero o falso.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let esMayorDeEdad = true;
+let llueve = false;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> esMayorDeEdad </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #79B8FF">true</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> llueve </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #79B8FF">false</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="arreglo">Arreglo</h3>
+
+
+
+<p>Los arreglos son listas ordenadas de valores.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let colores = [&quot;rojo&quot;, &quot;verde&quot;, &quot;azul&quot;];
+let numeros = [1, 2, 3, 4, 5];" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> colores </span><span style="color: #F97583">=</span><span style="color: #B392F0"> [</span><span style="color: #FFAB70">&quot;rojo&quot;</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;verde&quot;</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;azul&quot;</span><span style="color: #B392F0">];</span></span>
+<span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> numeros </span><span style="color: #F97583">=</span><span style="color: #B392F0"> [</span><span style="color: #F8F8F8">1</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">2</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">3</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">4</span><span style="color: #BBBBBB">,</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">5</span><span style="color: #B392F0">];</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="objeto">Objeto</h3>
+
+
+
+<p>Los objetos son estructuras de datos que almacenan pares clave-valor.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let persona = {
+  nombre: &quot;Ana&quot;,
+  edad: 30,
+  ciudad: &quot;Ejemploville&quot;,
+};" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> persona </span><span style="color: #F97583">=</span><span style="color: #B392F0"> {</span></span>
+<span class="line"><span style="color: #B392F0">  nombre</span><span style="color: #F97583">:</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;Ana&quot;</span><span style="color: #BBBBBB">,</span></span>
+<span class="line"><span style="color: #B392F0">  edad</span><span style="color: #F97583">:</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">30</span><span style="color: #BBBBBB">,</span></span>
+<span class="line"><span style="color: #B392F0">  ciudad</span><span style="color: #F97583">:</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;Ejemploville&quot;</span><span style="color: #BBBBBB">,</span></span>
+<span class="line"><span style="color: #B392F0">};</span></span></code></pre></div>
+
+
+
+<p>Además de los tipos previamente mencionados, es crucial entender dos tipos adicionales: null y undefined.</p>
+
+
+
+<h3 class="wp-block-heading" id="null">Null</h3>
+
+
+
+<p>null es un valor especial en JavaScript que indica la ausencia intencional de algún objeto o valor. Se utiliza cuando queremos representar la falta de un valor o la no existencia de un objeto.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let miVariable = null;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> miVariable </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #79B8FF">null</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="undefined">Undefined</h3>
+
+
+
+<p>undefined se asigna automáticamente a las variables que han sido declaradas pero no inicializadas. También es el valor retornado por funciones que no tienen una declaración return.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let variableSinValor;
+console.log(variableSinValor); // Salida: undefined" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> variableSinValor;</span></span>
+<span class="line"><span style="color: #79B8FF">console</span><span style="color: #B392F0">.log(variableSinValor); </span><span style="color: #6B737C">// Salida: undefined</span></span></code></pre></div>
+
+
+
+<h2 class="wp-block-heading" id="diferencias-entre-null-y-undefined">Diferencias Entre Null y Undefined</h2>
+
+
+
+<p>La principal diferencia entre null y undefined radica en su origen y uso. null es un valor que el programador asigna para indicar la falta de valor, mientras que undefined indica la falta de asignación o la no existencia de un valor asignado.</p>
+
+
+
+<p>En resumen, null es una asignación intencional para indicar la ausencia de valor, mientras que undefined generalmente significa que la variable ha sido declarada pero aún no se le ha asignado ningún valor.</p>
+
+
+
+<h2 class="wp-block-heading" id="qué-son-las-variables">Qué Son las Variables</h2>
+
+
+
+<p>Las variables son contenedores que almacenan datos en JavaScript. Pueden declararse con las palabras clave <code>var</code>, <code>let</code>, o <code>const</code>.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let miVariable = &quot;Hola, Mundo!&quot;;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> miVariable </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;Hola, Mundo!&quot;</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h2 class="wp-block-heading" id="tipos-de-variables-y-sus-diferencias">Tipos de Variables y Sus Diferencias</h2>
+
+
+
+<pre class="wp-block-code"><code class=""><code>var</code></code></pre>
+
+
+
+<p>Fue la forma clásica de declarar variables, pero tiene ámbito de función y puede tener comportamientos inesperados.</p>
+
+
+
+<pre class="wp-block-code"><code lang="javascript" class="language-javascript line-numbers"><code>let</code></code></pre>
+
+
+
+<p>Introducido en ES6, tiene un ámbito de bloque y es preferible a&nbsp;<code>var</code>.</p>
+
+
+
+<pre class="wp-block-code"><code class=""><code>const</code></code></pre>
+
+
+
+<p>Se utiliza para declarar variables constantes cuyo valor no cambia. También tiene ámbito de bloque.</p>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let variableLet = 5;
+const PI = 3.14;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> variableLet </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">5</span><span style="color: #B392F0">;</span></span>
+<span class="line"><span style="color: #F97583">const</span><span style="color: #B392F0"> </span><span style="color: #79B8FF">PI</span><span style="color: #B392F0"> </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #F8F8F8">3.14</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h2 class="wp-block-heading" id="diversas-formas-de-escribir-y-asignar-variables">Diversas Formas de Escribir y Asignar Variables</h2>
+
+
+
+<h3 class="wp-block-heading" id="camel-case">Camel Case</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let nombreUsuario = &quot;John&quot;;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> nombreUsuario </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;John&quot;</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="snake-case">Snake Case</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let nombre_usuario = &quot;John&quot;;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> nombre_usuario </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;John&quot;</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h3 class="wp-block-heading" id="pascal-case-para-nombres-de-clases-o-constructores">Pascal Case (para nombres de clases o constructores)</h3>
+
+
+
+<div class="wp-block-kevinbatdorf-code-block-pro cbp-has-line-numbers" data-code-block-pro-font-family="Code-Pro-JetBrains-Mono" style="font-size:.875rem;font-family:Code-Pro-JetBrains-Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;--cbp-line-number-color:#b392f0;--cbp-line-number-width:calc(1 * 0.6 * .875rem);line-height:1.25rem;--cbp-tab-width:2;tab-size:var(--cbp-tab-width, 2)"><span style="display:block;padding:16px 0 0 16px;margin-bottom:-1px;width:100%;text-align:left;background-color:#1f1f1f"><svg xmlns="http://www.w3.org/2000/svg" width="54" height="14" viewBox="0 0 54 14"><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><circle cx="6" cy="6" r="6" fill="#FF5F56" stroke="#E0443E" stroke-width=".5"></circle><circle cx="26" cy="6" r="6" fill="#FFBD2E" stroke="#DEA123" stroke-width=".5"></circle><circle cx="46" cy="6" r="6" fill="#27C93F" stroke="#1AAB29" stroke-width=".5"></circle></g></svg></span><span role="button" tabindex="0" data-code="let NombreUsuario = &quot;John&quot;;" style="color:#b392f0;display:none" aria-label="Copy" class="code-block-pro-copy-button"><svg xmlns="http://www.w3.org/2000/svg" style="width:24px;height:24px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path class="with-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path><path class="without-check" stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg></span><pre class="shiki min-dark" style="background-color: #1f1f1f" tabindex="0"><code><span class="line"><span style="color: #F97583">let</span><span style="color: #B392F0"> NombreUsuario </span><span style="color: #F97583">=</span><span style="color: #B392F0"> </span><span style="color: #FFAB70">&quot;John&quot;</span><span style="color: #B392F0">;</span></span></code></pre></div>
+
+
+
+<h2 class="wp-block-heading" id="en-resumen">💛En resumen</h2>
+
+
+
+<p>En esta primera parte de nuestra guía práctica de JavaScript, hemos explorado los fundamentos esenciales. Desde qué es JavaScript y cómo ejecutarlo, hasta los tipos de datos y el manejo de variables, ahora tienes una base sólida. A medida que avanzamos, profundizaremos en temas más avanzados y te guiaremos a través de proyectos prácticos para consolidar tus conocimientos. ¡No te pierdas las próximas entregas y prepárate para desbloquear todo el potencial de JavaScript en tus proyectos web! 🚀✨</p>
+ </div> </article> </section>  </main> </body></html>
