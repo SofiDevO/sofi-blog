@@ -1,6 +1,6 @@
 import { wpquery } from "@src/data/wordpress";
 
-// Fetch the data server-side
+
 
 export const cardsData = await wpquery({
   query: `
