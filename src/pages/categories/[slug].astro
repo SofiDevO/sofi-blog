@@ -1,0 +1,109 @@
+---
+// Import necessary components and data
+import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
+import { wpquery } from "@src/data/wordpress";
+import Layout from "@src/layouts/Layout.astro";
+import { cardsData } from "@src/services/getCards.js";
+
+// Get static paths for categories
+export async function getStaticPaths() {
+  const categoryData = await wpquery({
+    query: `
+      query getCategories {
+        posts {
+          nodes {
+            categories {
+              nodes {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    `,
+  });
+
+  // Map to get slugs and props
+  const paths = categoryData.posts.nodes.flatMap((post) =>
+    post.categories.nodes.map((category: any) => ({
+      params: { slug: category.slug },
+      props: { category },
+    }))
+  );
+  return paths;
+}
+
+const { category } = Astro.props; // Destructure only the needed property
+console.log("slug actual:", category.slug);
+
+const allPosts = cardsData.posts.nodes;
+
+const filteredPosts = allPosts.filter((post) =>
+  post.categories.nodes.map((cat) => cat.slug).includes(category.slug)
+);
+console.log("posts filtrados:", filteredPosts);
+
+// Sort the filtered posts by date
+const sortedPosts = filteredPosts.sort(
+  (a, b) => Date.parse(b.date) - Date.parse(a.date)
+);
+console.log("posts por fecha y filtrados 🐈", sortedPosts);
+---
+
+<Layout>
+  <section class="categories">
+    <div class="categories__container">
+      <h2 class="category__title">
+        Posts de la categoría: {category.name}
+      </h2>
+      {
+        sortedPosts.length > 0 ? (
+          <ul role="list" class="link-card-grid">
+            {sortedPosts.map((post) => {
+              const featuredImage = post.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
+              const altText = post.featuredImage?.node?.altText || "Imagen no disponible";
+
+              // Logic for handling the slug of subcategory and parent
+              const primaryCategory = post.categories.nodes[0];
+              const parentCategory = primaryCategory.parent?.node;
+
+              // Generate the correct slug based on parent presence
+              const categorySlug = parentCategory
+                ? `/categories/${parentCategory.slug}/${primaryCategory.slug}` // Combine parent and child
+                : `/categories/${primaryCategory.slug}`; // Only child
+
+              return (
+                <li key={post.slug}>
+                  <PostCard
+                    date={post.date}
+                    link={`/blog/${post.slug}`}
+                    title={post.title}
+                    body={post.excerpt}
+                    linkBody="Leer más"
+                    image={featuredImage}
+                    altText={altText}
+                    author={post.author.node.name}
+                    authorImage={post.author.node.avatar.url}
+                    authorFirstName={post.author.node.firstName}
+                    authorLastName={post.author.node.lastName}
+                    categories={post.categories.nodes} // Assuming this is the correct reference
+                    categorySlug={categorySlug}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <p>No se encontraron posts en esta categoría.</p>
+        )
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .categories {
+    padding-top: 4rem;
+  }
+</style>

@@ -1,7 +1,4 @@
 import { wpquery } from "@src/data/wordpress";
-
-
-
 export const cardsData = await wpquery({
   query: `
       query getPostCards {
