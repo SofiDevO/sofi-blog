@@ -5,6 +5,13 @@ import { wpquery } from "@src/data/wordpress";
 import Layout from "@src/layouts/Layout.astro";
 import { cardsData } from "@src/services/getCards.js";
 
+interface Category {
+  name: string;
+  slug: string;
+
+}
+
+
 // Get static paths for categories
 export async function getStaticPaths() {
   const categoryData = await wpquery({
@@ -34,7 +41,7 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { category } = Astro.props; // Destructure only the needed property
+const { category }: { category: Category | null } = Astro.props;
 console.log("slug actual:", category.slug);
 
 const allPosts = cardsData.posts.nodes;
@@ -55,7 +62,7 @@ console.log("posts por fecha y filtrados 🐈", sortedPosts);
   <section class="categories">
     <div class="categories__container">
       <h2 class="category__title">
-        Posts de la categoría: {category.name}
+        Posts de la categoría: {category?.name }
       </h2>
       {
         sortedPosts.length > 0 ? (
@@ -74,7 +81,7 @@ console.log("posts por fecha y filtrados 🐈", sortedPosts);
                 : `/categories/${primaryCategory.slug}`; // Only child
 
               return (
-                <li key={post.slug}>
+                <li >
                   <PostCard
                     date={post.date}
                     link={`/blog/${post.slug}`}
