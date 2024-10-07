@@ -83,6 +83,7 @@
     color: v.$french-violet;
   }
   &__title {
+    min-height: 54px;
     font-size: 1.8rem;
     font-weight: 600;
     color: v.$mainColor;
@@ -94,13 +95,13 @@
     color: v.$french-violet;
   }
 
-  &__excerpt {
-    font-size: 0.875rem;
+  &__excerpt p {
+    font-size: 1.5rem;
     color: #555;
     margin-bottom: 1rem;
     line-height: 1.5;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

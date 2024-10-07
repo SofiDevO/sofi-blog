@@ -10,8 +10,6 @@ interface Category {
   slug: string;
 
 }
-
-
 // Get static paths for categories
 export async function getStaticPaths() {
   const categoryData = await wpquery({
@@ -42,20 +40,20 @@ export async function getStaticPaths() {
 }
 
 const { category }: { category: Category | null } = Astro.props;
-console.log("slug actual:", category.slug);
+
 
 const allPosts = cardsData.posts.nodes;
 
 const filteredPosts = allPosts.filter((post) =>
   post.categories.nodes.map((cat) => cat.slug).includes(category.slug)
 );
-console.log("posts filtrados:", filteredPosts);
+
 
 // Sort the filtered posts by date
 const sortedPosts = filteredPosts.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
-console.log("posts por fecha y filtrados 🐈", sortedPosts);
+
 ---
 
 <Layout>
@@ -109,8 +107,13 @@ console.log("posts por fecha y filtrados 🐈", sortedPosts);
   </section>
 </Layout>
 
-<style>
+<style lang="scss">
   .categories {
     padding-top: 4rem;
+    max-width: 1300px;
+    margin:0 auto;
+    &__container{
+        align-items: center;
+    }
   }
 </style>
