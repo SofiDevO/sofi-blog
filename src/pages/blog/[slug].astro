@@ -1,7 +1,7 @@
 ---
 import { wpquery } from "@src/data/wordpress";
 import Layout from "@src/layouts/Layout.astro";
-
+import { replaceIframes } from "@src/utils/index"
 
 export async function getStaticPaths() {
   const data = await wpquery({
@@ -68,8 +68,11 @@ const { post }: any = Astro.props;
       <div
         class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
-      <Fragment  set:html={post.content || ""}/>
+      <Fragment  set:html={replaceIframes(post.content) || ""}/>
       </div>
     </article>
   </section>
 </Layout>
+<script>
+  import { fastYoutube } from "@src/utils/fast-youtube";
+</script>
