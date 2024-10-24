@@ -56,17 +56,18 @@ const { post }: any = Astro.props;
 <Layout>
   <section id="post" class="flex items-center justify-center w-full pt-36 pb-20 px-10">
     <article class="flex flex-col w-full max-w-[900px]">
-      <div class="flex gap-3 items-center my-5 px-3">
+
+      <div class="flex gap-3 items-center my-5 px-3 group">
         <img
-          class="w-14 h-14"
+          class="w-24 h-24 group-hover:scale-110 rounded-full"
           src={post.author.node.avatar.url}
           alt={post.author.node.name}
         />
-        <p class="text-ms font-bold">{post.author.node.name}</p>
+        <p class="text-3xl font-bold">{post.author.node.name}</p>
       </div>
-      <h1 class="text-3xl md:text-5xl mb-10 text-center">{post.title}</h1>
+      <h1 class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty">{post.title}</h1>
       <div
-        class="max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
+        class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
       <Fragment  set:html={replaceIframes(post.content) || ""}/>
       </div>
