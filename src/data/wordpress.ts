@@ -1,7 +1,7 @@
 const baseURL = `${import.meta.env.WPGRAPHQL_URL}`;
 
 interface WPGraphQLParams {
-  query: string;
+  query?: string;
   variables?: object;
 }
 

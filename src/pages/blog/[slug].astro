@@ -1,47 +1,10 @@
 ---
-import { wpquery } from "@src/data/wordpress";
 import Layout from "@src/layouts/Layout.astro";
 import { replaceIframes } from "@src/utils/index"
+import { Postdata} from "@src/services/getPostContent.js"
 
 export async function getStaticPaths() {
-  const data = await wpquery({
-    query: `
-        query getPostContent {
-            cssVariables
-             posts {
-                nodes {
-                author {
-                    node {
-                    avatar {
-                        url
-                    }
-                    lastName
-                    name
-                    firstName
-                    description
-                    }
-                }
-                slug
-                date
-                title
-                content(format: RENDERED)
-                contentType {
-                    node {
-                    id
-                    }
-                }
-                }
-            }
-            tags {
-                nodes {
-                name
-                }
-            }
-            }
-
-        `,
-  });
-
+  const data = Postdata;
   return data.posts.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
@@ -51,21 +14,30 @@ export async function getStaticPaths() {
 }
 const { post }: any = Astro.props;
 
+const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
+
 ---
 
-<Layout>
+<Layout  image={postImage} title={post.title} description={post.excerpt}>
   <section id="post" class="flex items-center justify-center w-full pt-36 pb-20 px-10">
     <article class="flex flex-col w-full max-w-[900px]">
-
-      <div class="flex gap-3 items-center my-5 px-3 group">
+      <div class="w-full max-w-[1300px] mx-auto overflow-hidden">
         <img
-          class="w-24 h-24 group-hover:scale-110 rounded-full"
-          src={post.author.node.avatar.url}
-          alt={post.author.node.name}
+          transition:name=`${post.title}-image`
+          class="w-full h-full object-cover"
+          src={post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png"}
+          alt={post.title}
         />
-        <p class="text-3xl font-bold">{post.author.node.name}</p>
       </div>
       <h1 class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty">{post.title}</h1>
+      <div class="flex gap-3 items-center my-5 px-3 group">
+          <img
+            class="w-24 h-24 group-hover:scale-110 rounded-full"
+            src={post.author.node.avatar.url}
+            alt={post.author.node.name}
+          />
+        <p class="text-2xl font-bold">{post.author.node.firstName} {post.author.node.lastName }</p>
+      </div>
       <div
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >

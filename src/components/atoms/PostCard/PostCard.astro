@@ -1,7 +1,7 @@
 ---
 const {
   link,
-  linkBody = 'Leer más',
+  linkBody = "Leer más",
   title,
   body,
   image,
@@ -11,9 +11,10 @@ const {
   authorFirstName,
   authorLastName,
   categories,
-  categorySlug,  // Recibir el slug de categoría
+  categorySlug, // Recibir el slug de categoría
   date,
 } = Astro.props;
+import { fade } from "astro:transitions";
 ---
 
 <article class="post-card">
@@ -23,6 +24,8 @@ const {
       alt={altdesc}
       src={image || "/img/branding/logo.png"}
       class="post-card__image"
+      transition:name=`${title}-image`
+      transition:animate={fade({ duration: "1s" })}
     />
     <div class="post-card__image-overlay"></div>
   </div>
@@ -38,7 +41,9 @@ const {
       />
       <div class="post-card__author-info">
         <p class="post-card__author-name">{authorFirstName} {authorLastName}</p>
-        <time datetime={date} class="post-card__date">{new Date(date).toLocaleDateString()}</time>
+        <time datetime={date} class="post-card__date"
+          >{new Date(date).toLocaleDateString()}</time
+        >
       </div>
     </div>
     <!-- Título -->
@@ -51,11 +56,13 @@ const {
 
     <!-- Categorías -->
     <div class="post-card__categories">
-      {categories.map((category) => (
-        <a href={`/categories/${category.slug}`} class="post-card__category">
-          {category.name}
-        </a>
-      ))}
+      {
+        categories.map((category) => (
+          <a href={`/categories/${category.slug}`} class="post-card__category">
+            {category.name}
+          </a>
+        ))
+      }
     </div>
 
     <!-- Leer más link -->

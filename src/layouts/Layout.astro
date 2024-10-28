@@ -3,13 +3,14 @@ import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
+import ViewTransitions from "astro/components/ViewTransitions.astro";
 const pathName = Astro.url.pathname;
 
 ---
 
 <html lang="en">
   <head>
-
+    <ViewTransitions />
     {
       pathName === "/"
         ? <BaseHead  />
