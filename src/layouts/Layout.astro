@@ -4,18 +4,18 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
 import ViewTransitions from "astro/components/ViewTransitions.astro";
-const pathName = Astro.url.pathname;
+const {
+  title,
+  description,
+  image,
+} = Astro.props;
 
 ---
 
 <html lang="en">
   <head>
+    <BaseHead  title={title} description={description} image={image}  />
     <ViewTransitions />
-    {
-      pathName === "/"
-        ? <BaseHead  />
-        : <BaseHead title={pathName.charAt(1).toUpperCase() + pathName.slice(2).split("/")[0]} />
-    }
   </head>
   <body>
     <ThemeIcon />

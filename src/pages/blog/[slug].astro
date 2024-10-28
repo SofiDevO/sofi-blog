@@ -15,6 +15,7 @@ export async function getStaticPaths() {
 const { post }: any = Astro.props;
 
 const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
+console.log(postImage);
 
 ---
 
