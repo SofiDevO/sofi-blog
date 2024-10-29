@@ -45,6 +45,8 @@
 
   &__content {
     padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
 
   }
   &__author {
@@ -52,6 +54,7 @@
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 1rem;
+    z-index: 600;
   }
 
   &__author-image {
@@ -89,15 +92,17 @@
     color: v.$mainColor;
     margin-bottom: 0.5rem;
     transition: color 0.3s ease-in-out;
+    &:hover {
+      color: v.$french-violet;
+    }
   }
 
-  &:hover &__title {
+ /*  &:hover &__title {
     color: v.$french-violet;
-  }
+  } */
 
   &__excerpt p {
     font-size: 1.5rem;
-    color: #555;
     margin-bottom: 1rem;
     line-height: 1.5;
     display: -webkit-box;
@@ -130,33 +135,34 @@
   }
 
   &__read-more {
+    margin-top: 1rem;
     font-size: 1.6rem;
     font-weight: 600;
     color: v.$french-violet;
     display: inline-flex;
+    flex: 1;
     align-items: center;
-    gap: 0.25rem;
-    transition: color 0.3s ease-in-out;
-    &:hover {
-      @include text-gradient("ligth");
-    }
+    gap: .25rem;
+    transition: color .3s ease-in-out;
   }
-
   &__read-more-icon {
     transition: transform 0.3s ease-in-out;
   }
 
-  &:hover &__read-more-icon {
-    transform: translateX(0.25rem);
+  .post-card__read-more:hover &__read-more-icon {
+    transform: translateX(0.8rem);
   }
+
 }
 
 .dark .post-card {
   background-color: #1c1f26;
   border: 1px solid #1a2a2e;
-  color: #fff;
   &__title {
-    color: v.$secundaryColor;
+    transition: .5s ease-in-out;
+    &:hover {
+      @include text-gradient("ligth");
+    }
   }
   &__excerpt {
     color: #cdcdcd;
@@ -165,6 +171,9 @@
     color: v.$secundaryColor;
   }
   &__date {
+    color: v.$ufo-green;
+  }
+  &__read-more {
     color: v.$ufo-green;
   }
 }

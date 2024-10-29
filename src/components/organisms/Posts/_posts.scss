@@ -20,7 +20,7 @@
 
 .link-card-grid {
   display: grid;
-  place-content: center;
+  place-content: start;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 30%));
   grid-template-rows:  minmax(40rem, 1fr);
   gap: 3rem;
