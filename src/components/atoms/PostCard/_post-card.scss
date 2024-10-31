@@ -6,6 +6,9 @@
   transition:
     transform 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    min-height: 43.7rem;
   &:hover {
     transform: scale(1.01);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
@@ -14,7 +17,7 @@
 
   &__image-container {
     position: relative;
-    max-height: 18rem;
+    height: 15rem;
     overflow: hidden;
 
   }
@@ -47,14 +50,13 @@
     padding: 1rem 1.5rem;
     display: flex;
     flex-direction: column;
-
+    z-index: 3;
   }
   &__author {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    margin-bottom: 1rem;
-    z-index: 600;
+    z-index: 200;
   }
 
   &__author-image {
@@ -86,7 +88,6 @@
     color: v.$french-violet;
   }
   &__title {
-    min-height: 54px;
     font-size: 1.8rem;
     font-weight: 600;
     color: v.$mainColor;
@@ -160,6 +161,7 @@
   border: 1px solid #1a2a2e;
   &__title {
     transition: .5s ease-in-out;
+    color: v.$secundaryColor;
     &:hover {
       @include text-gradient("ligth");
     }

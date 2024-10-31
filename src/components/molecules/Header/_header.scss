@@ -6,7 +6,7 @@
   @include centerFlex(center);
   width: 100%;
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   padding: 1rem 1rem;
   &__container {
     backdrop-filter: blur(17px);

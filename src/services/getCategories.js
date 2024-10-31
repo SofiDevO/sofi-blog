@@ -1,14 +1,11 @@
 import { wpquery } from "@src/data/wordpress";
-export const data = await wpquery({
+export const categoryData = await wpquery({
     query: `
       query getCategories {
-        posts {
+        categories {
           nodes {
-            categories {
-              nodes {
-                slug
-              }
-            }
+            slug
+            name
           }
         }
       }

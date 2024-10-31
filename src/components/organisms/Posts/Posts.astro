@@ -15,12 +15,8 @@ const sortedPosts = cardsData.posts.nodes.sort(
 
 // Agrupar los posts por categorías principales
 const postsByCategory = sortedPosts.reduce((acc, post) => {
-  const parentCategory = post.categories.nodes.find(
-    (category) => category.parent?.node
-  )
-    ? post.categories.nodes.find((category) => category.parent?.node).parent
-        .node.name
-    : post.categories.nodes[0].name;
+  const parentCategory = post.categories.nodes.map((category) => category.name)[0];
+
 
   if (!acc[parentCategory]) {
     acc[parentCategory] = [];
@@ -30,6 +26,7 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
 
   return acc;
 }, {});
+
 ---
 
 <!-- Renderizado de los posts -->

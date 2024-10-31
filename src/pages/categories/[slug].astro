@@ -8,34 +8,27 @@ import { cardsData } from "@src/services/getCards.js";
 interface Category {
   name: string;
   slug: string;
-
 }
 // Get static paths for categories
 export async function getStaticPaths() {
   const categoryData = await wpquery({
     query: `
-      query getCategories {
-        posts {
-          nodes {
-            categories {
-              nodes {
-                name
-                slug
-              }
-            }
-          }
+    query getCategories {
+      categories {
+        nodes {
+          slug
+          name
         }
       }
+    }
     `,
   });
 
   // Map to get slugs and props
-  const paths = categoryData.posts.nodes.flatMap((post) =>
-    post.categories.nodes.map((category: any) => ({
+  const paths = categoryData.categories.nodes.map((category: any) => ({
       params: { slug: category.slug },
       props: { category },
-    }))
-  );
+    }));
   return paths;
 }
 

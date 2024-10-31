@@ -1,38 +1,159 @@
 ---
-import { menuData } from "@data/menuData";
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
 const pagePathname = Astro.url.pathname;
+import { menuData } from "@src/services/getMenu";
+const staticMenu = {text: "Portfolio", url: "https://itssofi.dev/"}
+
+
+// Función para extraer el slug de la URL
+function obtenerSlug(url) {
+  const urlSinBarraFinal = url.endsWith('/') ? url.slice(0, -1) : url;
+  const partes = urlSinBarraFinal.split('/');
+  return partes[partes.length - 1];
+}
+
+// Función para transformar la lista plana en jerárquica
+const flatListToHierarchical = (
+    data = [],
+    { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {}
+) => {
+    const tree = [];
+    const childrenOf = {};
+    data.forEach((item) => {
+        const newItem = { ...item, slug: obtenerSlug(item.url) };
+        const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+        childrenOf[id] = childrenOf[id] || [];
+        newItem[childrenKey] = childrenOf[id];
+        parentId
+            ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+            : tree.push(newItem);
+    });
+    return tree;
+};
+
+// Extraer los nodos de elementos de menú y transformar el menú a jerárquico
+const menuItems = menuData.menu.menuItems.nodes;
+const hierarchicalMenu = flatListToHierarchical(menuItems);
 ---
 
 <script>
   import "@controllers/hamburger.controller";
-
 </script>
+
 <header class="header">
-  <div class="header__container ">
+  <div class="header__container">
     <Logo />
     <nav class="header__menu">
       <ul class="header__list">
-        { pagePathname !== "/"
-       &&
-       <li class="header__item">
-        <a class="header__link" href="/">Home</a>
-        </li>
+        { pagePathname !== "/" &&
+          <li class="header__item">
+            <a class="header__link" href="/">Home</a>
+          </li>
         }
         {
-          menuData.map((data) => (
-            <li class="header__item">
-              <a class="header__link" href={data.link}>
-                {data.text}
+          hierarchicalMenu.map((item) => (
+            <li class="header__item" >
+              <a class="header__link" href={`/categories/${item.slug}`}>
+                {item.label}
               </a>
+              {
+                item.children.length > 0 && (
+
+                  <iconify-icon icon="gridicons:dropdown" width="20" height="20"></iconify-icon>
+                  <ul class="dropdown">
+                    {
+                      item.children.map((child) => (
+                        <li class="header__item dropdown__item">
+                          <a class="dropdown__link" href={`/categories/${child.slug}`}>
+                            {child.label}
+                          </a>
+                        </li>
+                      ))
+                    }
+                  </ul>
+
+                )
+              }
             </li>
+
           ))
         }
-        <div class="header__icons">
-        </div>
+        <li class="header__item"><a class="header__link" href={staticMenu.url}>
+          {staticMenu.text}
+          <iconify-icon icon="iconamoon:link-external" width="19" height="19" style="color: #00c8f0"></iconify-icon>
+        </a>
+      </li>
       </ul>
     </nav>
     <HamburgerButton />
   </div>
 </header>
+
+<style lang="scss">
+  .header {
+    &__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &__menu {
+      display: flex;
+    }
+    &__list {
+      display: flex;
+      list-style: none;
+      margin-right: .5rem;
+    }
+    &__item {
+      position: relative;
+      margin-right: 1rem;
+      display: flex;
+      align-items: center;
+      iconify-icon {
+        color: aqua;
+      }
+
+      &:hover .dropdown {
+        display: block;
+      }
+    }
+    &__link {
+      text-decoration: none;
+      color: aqua;
+      display: flex;
+      align-items: center;
+      gap:.3rem;
+    }
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 150px;
+    z-index: 10;
+    &__item {
+      padding: 0.5rem 1rem;
+      white-space: nowrap;
+    }
+  }
+
+
+  .dropdown__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+  }
+
+  .header__item:hover .dropdown {
+    display: block;
+  }
+</style>

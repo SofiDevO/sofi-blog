@@ -17,15 +17,17 @@ const {
 import { fade } from "astro:transitions";
 ---
 
-<article class="post-card">
+<article
+  class="post-card"
+  transition:name=`${title}-title`
+  transition:animate={fade({ duration: ".4s" })}
+>
   <!-- Imagen del post -->
   <div class="post-card__image-container">
     <img
       alt={altdesc}
       src={image || "/img/branding/logo.png"}
       class="post-card__image"
-      transition:name=`${title}-image`
-      transition:animate={fade({ duration: "1s" })}
     />
     <div class="post-card__image-overlay"></div>
   </div>
