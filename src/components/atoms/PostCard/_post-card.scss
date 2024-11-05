@@ -6,20 +6,19 @@
   transition:
     transform 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    min-height: 43.7rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 43.7rem;
+
   &:hover {
     transform: scale(1.01);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-
   }
 
   &__image-container {
     position: relative;
     height: 15rem;
     overflow: hidden;
-
   }
 
   &__image {
@@ -32,7 +31,6 @@
   &:hover &__image {
     transform: scale(1.1);
   }
-
 
   &__image-overlay {
     position: absolute;
@@ -62,13 +60,9 @@
   &__author-image {
     width: 8rem;
     height: 8rem;
-    border-radius: 50%;
+    border-radius: 100%;
     object-fit: cover;
-    transform: translateY(-5rem);
     transition: transform 0.3s ease-in-out;
-  }
-  &:hover &__author-image {
-    transform: translateY(0);
   }
 
   &__author-info {
@@ -83,9 +77,15 @@
   }
 
   &__date {
+    color: v.$ufo-green;
     font-size: 1.4rem;
     font-weight: 500;
-    color: v.$french-violet;
+    padding: 3px;
+    background-color: #1a2a2e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
   }
   &__title {
     font-size: 1.8rem;
@@ -96,11 +96,11 @@
     &:hover {
       color: v.$french-violet;
     }
-  }
 
- /*  &:hover &__title {
-    color: v.$french-violet;
-  } */
+    iconify-icon {
+      color: v.$french-violet;
+    }
+  }
 
   &__excerpt p {
     font-size: 1.5rem;
@@ -111,8 +111,6 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
-
 
   &__categories {
     display: flex;
@@ -127,7 +125,8 @@
     font-size: 1.2rem;
     color: white;
     background: v.$french-violet;
-    transition: background 0.3s ease-in-out,
+    transition:
+      background 0.3s ease-in-out,
       color 0.3s ease-in-out;
     &:hover {
       background: black;
@@ -143,8 +142,8 @@
     display: inline-flex;
     flex: 1;
     align-items: center;
-    gap: .25rem;
-    transition: color .3s ease-in-out;
+    gap: 0.25rem;
+    transition: color 0.3s ease-in-out;
   }
   &__read-more-icon {
     transition: transform 0.3s ease-in-out;
@@ -153,28 +152,29 @@
   .post-card__read-more:hover &__read-more-icon {
     transform: translateX(0.8rem);
   }
-
 }
 
 .dark .post-card {
   background-color: #1c1f26;
   border: 1px solid #1a2a2e;
   &__title {
-    transition: .5s ease-in-out;
+    transition: 0.5s ease-in-out;
     color: v.$secundaryColor;
     &:hover {
       @include text-gradient("ligth");
+    }
+
+    iconify-icon {
+      color: v.$ufo-green;
     }
   }
   &__excerpt {
     color: #cdcdcd;
   }
-  &__author-name{
+  &__author-name {
     color: v.$secundaryColor;
   }
-  &__date {
-    color: v.$ufo-green;
-  }
+
   &__read-more {
     color: v.$ufo-green;
   }

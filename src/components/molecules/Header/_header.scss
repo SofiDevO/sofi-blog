@@ -1,7 +1,6 @@
 @import "@atoms/Logo/logo";
 @import "@atoms/hamburgerBtn/hamburger";
 
-
 .header {
   @include centerFlex(center);
   width: 100%;
@@ -15,7 +14,7 @@
     min-height: 8dvh;
     max-width: 1200px;
     background: black;
-    background:rgba(0, 0, 0, 0.767);
+    background: rgba(0, 0, 0, 0.767);
     border-radius: 16px;
     padding: 1rem 2rem;
   }
@@ -34,42 +33,41 @@
     .header__list {
       display: flex;
       align-items: center;
-      .header__icons{
+      .header__icons {
         display: none;
-        @include respond-to("medium"){
+        @include respond-to("medium") {
           display: block;
         }
       }
     }
-}
-
-
-.header__link {
-  font-weight: bold;
-  &:hover {
-    @include text-gradient("ligth");
   }
-}
-.header__link {
-  position: relative;
-}
 
-.header__link::after {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  content: "";
-  width: 100%;
-  transform: scale(0);
-  transform-origin: 1;
-  height: 2px;
-  transition: 0.35s transform;
-  background: v.$ufo-green;
-}
+  .header__link {
+    font-weight: bold;
+    &:hover {
+      @include text-gradient("ligth");
+    }
+  }
+  .header__link {
+    position: relative;
+  }
 
-.header__link:hover::after {
-  transform: scale(1);
-}
+  .header__link::after {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    content: "";
+    width: 100%;
+    transform: scale(0);
+    transform-origin: 1;
+    height: 2px;
+    transition: 0.35s transform;
+    background: v.$ufo-green;
+  }
+
+  .header__link:hover::after {
+    transform: scale(1);
+  }
 }
 
 @include respond-to("medium") {
@@ -103,7 +101,7 @@
     }
   }
 
-  .header__link{
+  .header__link {
     color: white;
   }
 
@@ -117,5 +115,44 @@
 .dark {
   .header__link {
     color: aqua;
+  }
+}
+
+.header__menu .header__list .dropdown {
+  background-color: #383838;
+  position: absolute;
+  left: 100%;
+  transform: translateX(-100%);
+  width: max-content;
+  overflow: hidden;
+  border-radius: 6px;
+
+  & li {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  & a {
+    text-transform: capitalize;
+    text-align: center;
+    padding: 5px 0px;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out;
+    color: white;
+
+    &:hover {
+      background-color: #717171;
+    }
+  }
+}
+
+.dark .header__menu .header__list .dropdown {
+  background-color: #030405;
+
+  & a {
+    &:hover {
+      background-color: #383838;
+    }
   }
 }
