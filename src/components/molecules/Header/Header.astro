@@ -64,7 +64,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
                   <ul class="dropdown">
                     {
                       item.children.map((child) => (
-                        <li class="header__item dropdown__item">
+                        <li class="dropdown__item">
                           <a class="dropdown__link" href={`/categories/${child.slug}`}>
                             {child.label}
                           </a>
