@@ -74,6 +74,7 @@ const sortedPosts = filteredPosts.sort(
               return (
                 <li >
                   <PostCard
+                    server:defer
                     date={post.date}
                     link={`/blog/${post.slug}`}
                     title={post.title}
