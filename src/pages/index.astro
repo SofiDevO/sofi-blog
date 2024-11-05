@@ -1,18 +1,20 @@
 ---
+
 import Layout from "../layouts/Layout.astro";
 import Posts from "@organisms/Posts/Posts.astro";
-
 
 ---
 
 <Layout>
   <main>
-    <Posts  server:defer/>
-
+    <Posts server:defer transition:persist />
   </main>
 </Layout>
 
 <style is:global lang="scss">
+  @view-transition {
+    navigation: auto;
+  }
   main {
     margin: auto;
     padding: 3rem 1rem 1rem 1rem;

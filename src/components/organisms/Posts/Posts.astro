@@ -60,7 +60,7 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
 
           return (
             <PostCard
-              server:defer
+
               date={post.date}
               link={`/blog/${post.slug}`}
               title={post.title}

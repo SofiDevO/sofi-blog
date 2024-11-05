@@ -2,7 +2,6 @@
 import Layout from "@src/layouts/Layout.astro";
 import { replaceIframes } from "@src/utils/index"
 import { Postdata} from "@src/services/getPostContent.js"
-
 export async function getStaticPaths() {
   const data = Postdata;
   return data.posts.nodes.map((post: any) => {
@@ -41,7 +40,7 @@ const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo
       <div
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
-      <Fragment  set:html={replaceIframes(post.content) || ""}/>
+      <Fragment server:defer set:html={replaceIframes(post.content) || ""}/>
       </div>
     </article>
   </section>
