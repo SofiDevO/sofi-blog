@@ -23,12 +23,15 @@
 }
 
 .link-card-grid {
-  display: grid;
-  place-content: start;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 25%));
-  grid-template-rows: minmax(40rem, 1fr);
-  gap: 3rem;
-  justify-content: start;
+     display: grid;
+    place-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 25%));
+    grid-template-rows: minmax(40rem, 1fr);
+    gap: 3rem;
+    justify-content: start;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
   @include respond-to("medium") {
     justify-content: center;
   }
