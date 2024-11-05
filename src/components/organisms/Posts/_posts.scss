@@ -8,12 +8,15 @@
   padding-block: 2rem;
   writing-mode: horizontal-tb;
   .category__section {
+    width: 1100px;
+
     .category__title {
-      border-bottom: .2px solid v.$mainColor;
+      border-bottom: 0.2px solid v.$mainColor;
       padding: 0.5rem;
       margin-bottom: 2rem;
       font-size: 3rem;
       font-weight: 700;
+      width: 100%;
     }
   }
 }
@@ -21,15 +24,15 @@
 .link-card-grid {
   display: grid;
   place-content: start;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 30%));
-  grid-template-rows:  minmax(40rem, 1fr);
+  grid-template-columns: repeat(auto-fit, 30rem);
+  grid-template-rows: minmax(40rem, 1fr);
   gap: 3rem;
 }
 
 .dark {
   .category__section {
     .category__title {
-      border-bottom: .2px solid v.$ufo-green;
+      border-bottom: 0.2px solid v.$ufo-green;
     }
   }
 }

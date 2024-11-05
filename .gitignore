@@ -131,3 +131,6 @@ dist
 
 #astro settings
 .astro
+
+# prettier ignore
+.prettierignore
