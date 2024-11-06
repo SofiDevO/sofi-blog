@@ -1,0 +1,32 @@
+---
+import { getCommentsByPostSlug } from "@src/services/comments";
+
+const { slug } = Astro.props;
+
+const comments = await getCommentsByPostSlug(slug);
+console.log(comments)
+---
+<h2 class="text-2xl font-bold">Comentarios</h2>
+{
+  comments.length > 0 && comments.map((comment) => {
+    return (
+    <div class="flex flex-col gap-3 border border-gray-300 p-5 w-full">
+        <div class="flex gap-3 my-5 px-3 group flex-col">
+          <img
+            class="w-24 h-24 group-hover:scale-110 rounded-full"
+            src={comment.author.node.avatar.url}
+            alt={comment.author.node.name}
+          />
+          <p class="text-2xl font-bold">{comment.author.node.name}</p>
+          <span class="text-2xl font-bold">{comment.date}</span>
+        </div>
+        <div set:html={comment.content}></div>
+        <button class="open__replies" data-commentId={comment.id}>Ver respuestas</button>
+        <div class="replies">
+            {/* Comments; Agregar logica para llamar a las respuestas 
+            haciendo fetch a /api/commests/replies?commentId= */}
+        </div>
+    </div>
+    )
+  })
+}
