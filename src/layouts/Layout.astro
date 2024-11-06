@@ -3,7 +3,7 @@ import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
-import ViewTransitions from "astro/components/ViewTransitions.astro";
+
 const {
   title,
   description,
@@ -15,12 +15,12 @@ const {
 <html lang="en">
   <head>
     <BaseHead  title={title} description={description} image={image}  />
-    <ViewTransitions />
+
   </head>
   <body>
     <ThemeIcon />
     <ButtonToTop />
-    <Header  server:defer/>
+    <Header server:defer transition:persist />
     <main>
       <slot />
     </main>

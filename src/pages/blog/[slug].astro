@@ -1,8 +1,9 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
+
 import { replaceIframes } from "@src/utils/index";
 import { Postdata } from "@src/services/getPostContent.js";
-
+        
 export async function getStaticPaths() {
   const data = Postdata;
   return data.posts.nodes.map((post: any) => {

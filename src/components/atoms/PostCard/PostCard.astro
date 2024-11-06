@@ -21,7 +21,8 @@ const newBody = body.substring(0, 100) + "..." + "</p>";
 <article
   class="post-card"
   transition:name=`${title}-title`
-  transition:animate={fade({ duration: ".4s" })}
+  transition:animate={fade({ duration: ".4s" })
+}
 >
   <!-- Imagen del post -->
   <div class="post-card__image-container">
@@ -50,7 +51,7 @@ const newBody = body.substring(0, 100) + "..." + "</p>";
       </div>
     </div>
     <!-- Título -->
-    <a href={link}>
+    <a href={link} >
       <h3 class="post-card__title group">
         {title}
         <iconify-icon
@@ -67,7 +68,7 @@ const newBody = body.substring(0, 100) + "..." + "</p>";
     <div class="post-card__categories">
       {
         categories.map((category) => (
-          <a href={`/categories/${category.slug}`} class="post-card__category">
+          <a href={`/categories/${category.slug}`} class="post-card__category" data-astro-reload>
             {category.name}
           </a>
         ))

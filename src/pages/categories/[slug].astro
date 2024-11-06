@@ -26,14 +26,13 @@ export async function getStaticPaths() {
 
   // Map to get slugs and props
   const paths = categoryData.categories.nodes.map((category: any) => ({
-      params: { slug: category.slug },
-      props: { category },
-    }));
+    params: { slug: category.slug },
+    props: { category },
+  }));
   return paths;
 }
 
 const { category }: { category: Category | null } = Astro.props;
-
 
 const allPosts = cardsData.posts.nodes;
 
@@ -41,26 +40,27 @@ const filteredPosts = allPosts.filter((post) =>
   post.categories.nodes.map((cat) => cat.slug).includes(category.slug)
 );
 
-
 // Sort the filtered posts by date
 const sortedPosts = filteredPosts.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
-
 ---
 
-<Layout>
+<Layout >
   <section class="categories">
     <div class="categories__container">
       <h2 class="category__title">
-        Posts de la categoría: {category?.name }
+        Posts de la categoría: {category?.name}
       </h2>
       {
         sortedPosts.length > 0 ? (
           <ul role="list" class="link-card-grid">
             {sortedPosts.map((post) => {
-              const featuredImage = post.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
-              const altText = post.featuredImage?.node?.altText || "Imagen no disponible";
+              const featuredImage =
+                post.featuredImage?.node?.mediaItemUrl ||
+                "/img/branding/logo.png";
+              const altText =
+                post.featuredImage?.node?.altText || "Imagen no disponible";
 
               // Logic for handling the slug of subcategory and parent
               const primaryCategory = post.categories.nodes[0];
@@ -72,8 +72,9 @@ const sortedPosts = filteredPosts.sort(
                 : `/categories/${primaryCategory.slug}`; // Only child
 
               return (
-                <li >
+                <li>
                   <PostCard
+                    transition:persist
                     server:defer
                     date={post.date}
                     link={`/blog/${post.slug}`}
@@ -86,7 +87,13 @@ const sortedPosts = filteredPosts.sort(
                     authorImage={post.author.node.avatar.url}
                     authorFirstName={post.author.node.firstName}
                     authorLastName={post.author.node.lastName}
-                    categories={post.categories.nodes} // Assuming this is the correct reference
+                    categories={post.categories.nodes}
+                    Assuming
+                    this
+                    is
+                    the
+                    correct
+                    reference
                     categorySlug={categorySlug}
                   />
                 </li>
@@ -105,9 +112,9 @@ const sortedPosts = filteredPosts.sort(
   .categories {
     padding-top: 4rem;
     max-width: 1300px;
-    margin:0 auto;
-    &__container{
-        align-items: center;
+    margin: 0 auto;
+    &__container {
+      align-items: center;
     }
   }
 </style>
