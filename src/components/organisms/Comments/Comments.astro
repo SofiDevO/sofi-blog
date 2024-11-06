@@ -1,10 +1,10 @@
 ---
 import { getCommentsByPostSlug } from "@src/services/comments";
 
-const { slug } = Astro.params;
+const { slug } = Astro.props;
 
-const comments = await getCommentsByPostSlug( slug );
-
+const comments = await getCommentsByPostSlug(slug);
+console.log(comments)
 ---
 <h2 class="text-2xl font-bold">Comentarios</h2>
 {
