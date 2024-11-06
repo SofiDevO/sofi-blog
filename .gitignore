@@ -134,3 +134,6 @@ dist
 
 # prettier ignore
 .prettierignore
+
+# ingore vercel file
+.vercel/
