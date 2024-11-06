@@ -4,6 +4,7 @@
 import "../sass/main.scss";
 
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { ViewTransitions } from "astro:transitions";
 interface Props {
   title?: string;
   description?: string;
@@ -54,3 +55,4 @@ const {
 <!-- Iconify CDN -->
 <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"
 ></script>
+<ViewTransitions />
