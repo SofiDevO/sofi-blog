@@ -20,7 +20,7 @@ const {
   <body>
     <ThemeIcon />
     <ButtonToTop />
-    <Header/>
+    <Header server:defer transition:persist pagePathname={Astro.url.pathname} />
     <main>
       <slot />
     </main>

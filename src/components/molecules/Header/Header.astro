@@ -4,8 +4,6 @@ import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
 import { menuData } from "@src/services/getMenu";
 const staticMenu = {text: "Portfolio", url: "https://itssofi.dev/"}
 
-const pagePathname = Astro.url.pathname;
-
 // Función para extraer el slug de la URL
 function obtenerSlug(url) {
   const urlSinBarraFinal = url.endsWith('/') ? url.slice(0, -1) : url;
@@ -35,6 +33,8 @@ const flatListToHierarchical = (
 // Extraer los nodos de elementos de menú y transformar el menú a jerárquico
 const menuItems = menuData.menu.menuItems.nodes;
 const hierarchicalMenu = flatListToHierarchical(menuItems);
+
+const { pagePathname } = Astro.props;
 ---
 
 <script>
