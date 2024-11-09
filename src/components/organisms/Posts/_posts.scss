@@ -3,21 +3,31 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-top: 3rem;
+  gap: 8rem;
+  margin-top: 6rem;
   padding-block: 2rem;
   writing-mode: horizontal-tb;
+
   .category__section {
     width: 90vw;
     max-width: 1180px;
 
     .category__title {
       border-bottom: 0.2px solid v.$mainColor;
-      padding: 0.5rem;
-      margin-bottom: 2rem;
-      font-size: 3rem;
-      font-weight: 700;
+      margin-bottom: 4rem;
       width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      & h2{
+        font-size: 1.8rem;
+        font-weight: 500;
+        position: absolute;
+        background-color: #f1f1f1;
+        padding: 0px 10px;
+      }
     }
   }
 }
@@ -28,7 +38,7 @@
     grid-template-columns: repeat(auto-fit, minmax(30rem, 25%));
     grid-template-rows: minmax(40rem, 1fr);
     gap: 3rem;
-    justify-content: start;
+    justify-content: center;
     width: 100%;
     margin: 0 auto;
     max-width: 1200px;
@@ -41,6 +51,9 @@
   .category__section {
     .category__title {
       border-bottom: 0.2px solid v.$ufo-green;
+      & h2{
+        background-color: #0e1217;
+      }
     }
   }
 }

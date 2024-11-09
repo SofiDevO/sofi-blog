@@ -33,7 +33,9 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
 <div class="categories__container">
   {Object.keys(postsByCategory).map((category) => (
     <section class="category__section" id={category}>
-      <h2 class="category__title">{category}</h2>
+      <span  class="category__title">
+        <h2>{category}</h2>
+      </span>
       <ul role="list" class="link-card-grid">
         {postsByCategory[category].map((post) => {
           const categories = post.categories.nodes.map((category) => ({
@@ -60,7 +62,6 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
 
           return (
             <PostCard
-
               date={post.date}
               link={`/blog/${post.slug}`}
               title={post.title}
