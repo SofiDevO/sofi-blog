@@ -1,47 +1,16 @@
 ---
-// Import necessary components and data
-import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
-import { wpquery } from "@src/data/wordpress";
 import Layout from "@src/layouts/Layout.astro";
-import { cardsData } from "@src/services/getCards.js";
+import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
+import { getCategorieBySlug } from "@src/services/categories";
+export const prerender = false;
+const { slug } = Astro.params;
 
-interface Category {
-  name: string;
-  slug: string;
-}
-// Get static paths for categories
-export async function getStaticPaths() {
-  const categoryData = await wpquery({
-    query: `
-    query getCategories {
-      categories {
-        nodes {
-          slug
-          name
-        }
-      }
-    }
-    `,
-  });
-
-  // Map to get slugs and props
-  const paths = categoryData.categories.nodes.map((category: any) => ({
-    params: { slug: category.slug },
-    props: { category },
-  }));
-  return paths;
+const category = await getCategorieBySlug(slug);
+if (!category) {
+  return Astro.redirect("/404");
 }
 
-const { category }: { category: Category | null } = Astro.props;
-
-const allPosts = cardsData.posts.nodes;
-
-const filteredPosts = allPosts.filter((post) =>
-  post.categories.nodes.map((cat) => cat.slug).includes(category.slug)
-);
-
-// Sort the filtered posts by date
-const sortedPosts = filteredPosts.sort(
+const sortedPosts = category.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
 ---
@@ -74,8 +43,6 @@ const sortedPosts = filteredPosts.sort(
               return (
                 <li>
                   <PostCard
-                    transition:persist
-                    server:defer
                     date={post.date}
                     link={`/blog/${post.slug}`}
                     title={post.title}
