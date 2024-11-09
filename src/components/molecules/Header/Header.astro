@@ -1,10 +1,9 @@
 ---
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
-const pagePathname = Astro.url.pathname;
 import { menuData } from "@src/services/getMenu";
 const staticMenu = {text: "Portfolio", url: "https://itssofi.dev/"}
-
+export const prerender = false;
 
 // Función para extraer el slug de la URL
 function obtenerSlug(url) {
@@ -12,6 +11,8 @@ function obtenerSlug(url) {
   const partes = urlSinBarraFinal.split('/');
   return partes[partes.length - 1];
 }
+
+const { page } = Astro.props;
 
 // Función para transformar la lista plana en jerárquica
 const flatListToHierarchical = (
@@ -41,12 +42,12 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
   import "@controllers/hamburger.controller";
 </script>
 
-<header class="header">
+<header class="header" transition:name="fade" >
   <div class="header__container">
     <Logo />
     <nav class="header__menu">
       <ul class="header__list">
-        { pagePathname !== "/" &&
+        { page !== "/" &&
           <li class="header__item">
             <a class="header__link" href="/">Home</a>
           </li>

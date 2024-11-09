@@ -10,6 +10,7 @@ const {
   image,
 } = Astro.props;
 
+const url = Astro.url.pathname
 ---
 
 <html lang="en">
@@ -20,7 +21,7 @@ const {
   <body>
     <ThemeIcon />
     <ButtonToTop />
-    <Header server:defer transition:persist />
+    <Header server:defer transition:persist page={ url}/>
     <main>
       <slot />
     </main>
