@@ -15,14 +15,23 @@ const {
 } = Astro.props;
 import { fade } from "astro:transitions";
 
-const newBody = body.substring(0, 100) + "..." + "</p>";
+const newBody = body.substring(0, 150) + "..." + "</p>";
+
+const formatDate = new Date(date);
+const day = formatDate.getDate();
+const before_month = formatDate
+  .toLocaleString("default", { month: "long" })
+  .slice(0, 3);
+const month = before_month.charAt(0).toUpperCase() + before_month.slice(1);
+const year = formatDate.getFullYear();
+
+const newDateFormat = `${day} / ${month} / ${year}`;
 ---
 
 <article
   class="post-card"
   transition:name=`${title}-title`
-  transition:animate={fade({ duration: ".4s" })
-}
+  transition:animate={fade({ duration: ".4s" })}
 >
   <!-- Imagen del post -->
   <div class="post-card__image-container">
@@ -45,13 +54,14 @@ const newBody = body.substring(0, 100) + "..." + "</p>";
       />
       <div class="post-card__author-info">
         <p class="post-card__author-name">{authorFirstName} {authorLastName}</p>
-        <time datetime={date} class="post-card__date"
-          >{new Date(date).toLocaleDateString()}</time
-        >
+        <time datetime={date} class="post-card__date">
+          <iconify-icon icon="majesticons:clock"></iconify-icon>
+          {newDateFormat}
+        </time>
       </div>
     </div>
     <!-- Título -->
-    <a href={link} >
+    <a href={link}>
       <h3 class="post-card__title group">
         {title}
         <iconify-icon
@@ -68,7 +78,11 @@ const newBody = body.substring(0, 100) + "..." + "</p>";
     <div class="post-card__categories">
       {
         categories.map((category) => (
-          <a href={`/categories/${category.slug}`} class="post-card__category" data-astro-reload>
+          <a
+            href={`/categories/${category.slug}`}
+            class="post-card__category"
+            data-astro-reload
+          >
             {category.name}
           </a>
         ))

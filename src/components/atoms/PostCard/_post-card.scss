@@ -80,12 +80,15 @@
     color: v.$ufo-green;
     font-size: 1.4rem;
     font-weight: 500;
-    padding: 3px;
     background-color: #1a2a2e;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
+    width: fit-content;
+    width: 100%;
+    padding: .3rem 0;
+    gap: .5rem;
   }
   &__title {
     font-size: 1.8rem;
