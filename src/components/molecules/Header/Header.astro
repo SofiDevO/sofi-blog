@@ -1,10 +1,10 @@
 ---
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
-const pagePathname = Astro.url.pathname;
 import { menuData } from "@src/services/getMenu";
 const staticMenu = {text: "Portfolio", url: "https://itssofi.dev/"}
 
+const pagePathname = Astro.url.pathname;
 
 // Función para extraer el slug de la URL
 function obtenerSlug(url) {
