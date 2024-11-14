@@ -14,6 +14,18 @@ if (!post) {
     return Astro.redirect("/404");
 }
 const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
+
+
+const{ date} =Astro.props;
+const formatDate = new Date(date);
+const day = formatDate.getDate();
+const before_month = formatDate
+  .toLocaleString("default", { month: "long" })
+  .slice(0, 3);
+const month = before_month.charAt(0).toUpperCase() + before_month.slice(1);
+const year = formatDate.getFullYear();
+
+const newDateFormat = `${day} / ${month} / ${year}`;
 ---
 
 <Layout  image={postImage} title={post.title} description={post.excerpt}>

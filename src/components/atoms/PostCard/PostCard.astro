@@ -2,7 +2,7 @@
 const {
   link,
   title,
-  body,
+  excerpt,
   image,
   altdesc,
   author,
@@ -15,7 +15,7 @@ const {
 } = Astro.props;
 import { fade } from "astro:transitions";
 
-const newBody = body.substring(0, 150) + "..." + "</p>";
+
 
 const formatDate = new Date(date);
 const day = formatDate.getDate();
@@ -72,7 +72,7 @@ const newDateFormat = `${day} / ${month} / ${year}`;
     </a>
 
     <!-- Descripción -->
-    <fragment class="post-card__excerpt" set:html={newBody} />
+    <fragment class="post-card__excerpt" set:html={excerpt} />
 
     <!-- Categorías -->
     <div class="post-card__categories">
