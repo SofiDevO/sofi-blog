@@ -1,66 +1,52 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
-import { replaceIframes } from "@src/utils/index";
-import { Postdata } from "@src/services/getPostContent.js";
-export async function getStaticPaths() {
-  const data = Postdata;
-  return data.posts.nodes.map((post: any) => {
-    return {
-      params: { slug: post.slug },
-      props: { post },
-    };
-  });
-}
-const { post }: any = Astro.props;
+import Comments from "@organisms/Comments/Comments.astro";
+import { replaceIframes } from "@src/utils/index"
+import { getPostsBySlug } from "@src/services/posts";
 
-const postImage =
-  post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
+
+export const prerender = false;
+const { slug } = Astro.params;
+
+const post = await getPostsBySlug(slug);
+
+if (!post) {
+    return Astro.redirect("/404");
+}
+const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 ---
 
-<Layout image={postImage} title={post.title} description={post.excerpt}>
-  <section
-    id="post"
-    class="flex items-center justify-center w-full pt-36 pb-20 px-10"
-  >
-    <article
-      class="flex flex-col w-full max-w-[900px]"
-      transition:name=`${post.title}-title`
-    >
+<Layout  image={postImage} title={post.title} description={post.excerpt}>
+  <section id="post" class="flex items-center justify-center w-full pt-36 pb-20 px-10" >
+    <article class="flex flex-col w-full max-w-[900px]" transition:name=`${post.title}-title`>
       <div class="w-full max-w-[1300px] mx-auto overflow-hidden">
         <img
           class="w-full h-full object-cover"
-          src={post?.featuredImage?.node?.mediaItemUrl ||
-            "/img/branding/logo.png"}
+          src={post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png"}
           alt={post.title}
         />
       </div>
-      <h1
-        class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty"
-      >
-        {post.title}
-      </h1>
+      <h1 class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty" >{post.title}</h1>
       <div class="flex gap-3 items-center my-5 px-3 group">
-        <img
-          class="w-24 h-24 group-hover:scale-110 rounded-full"
-          src={post.author.node.avatar.url}
-          alt={post.author.node.name}
-        />
-        <p class="text-2xl font-bold">
-          {post.author.node.firstName}
-          {post.author.node.lastName}
-        </p>
+          <img
+            class="w-24 h-24 group-hover:scale-110 rounded-full"
+            src={post.author?.node?.avatar?.url}
+            alt={post.author?.node?.name}
+          />
+        <p class="text-2xl font-bold">{post.author?.node?.firstName} {post.author?.node?.lastName }</p>
       </div>
       <div
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
-        <Fragment server:defer set:html={replaceIframes(post.content) || ""} />
+      <Fragment set:html={replaceIframes(post.content) || ""}/>
+      <Comments slug={slug} server:defer />
       </div>
     </article>
   </section>
 </Layout>
 <script>
   import { fastYoutube } from "@src/utils/fast-youtube";
-  import { InsertButtonCopy } from "./button-copy";
+  import { InsertButtonCopy } from "@pages/blog/button-copy";
   document.addEventListener("astro:page-load", () => {
     InsertButtonCopy();
   });
