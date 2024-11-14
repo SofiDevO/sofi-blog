@@ -130,7 +130,7 @@ export class fastYoutube extends HTMLElement {
   }
 
   private getId(src: string) {
-    const regex = /https:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9]+)/;
+    const regex = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^#&?\s]*)/i;
     const match = src.match(regex);
     return match ? match[1] : new URL(src).searchParams.get("v");
   }
