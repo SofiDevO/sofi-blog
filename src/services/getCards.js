@@ -1,5 +1,7 @@
 import { wpquery } from "@src/data/wordpress";
-export const cardsData = await wpquery({
+export  const cardsData = async () =>{
+ try{
+  const data = await wpquery({
   query: `
       query getPostCards {
         posts {
@@ -41,4 +43,9 @@ export const cardsData = await wpquery({
         }
       }
     `,
-});
+})
+  return data;
+ } catch (error) {
+  return {}
+ }
+}
