@@ -1,6 +1,6 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
-import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
+import PostCard from "@src/components/atoms/PostCard/PostCard.jsx";
 import { getCategorieBySlug } from "@src/services/categories";
 export const prerender = false;
 const { slug } = Astro.params;
@@ -43,25 +43,17 @@ const sortedPosts = category.posts.nodes.sort(
               return (
                 <li>
                   <PostCard
+                    key={post.id}
                     date={post.date}
                     link={`/blog/${post.slug}`}
                     title={post.title}
-                    body={post.excerpt}
-                    linkBody="Leer más"
+                    excerpt={post.excerpt}
                     image={featuredImage}
-                    altText={altText}
                     author={post.author.node.name}
                     authorImage={post.author.node.avatar.url}
                     authorFirstName={post.author.node.firstName}
                     authorLastName={post.author.node.lastName}
                     categories={post.categories.nodes}
-                    Assuming
-                    this
-                    is
-                    the
-                    correct
-                    reference
-                    categorySlug={categorySlug}
                   />
                 </li>
               );

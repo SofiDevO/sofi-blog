@@ -46,4 +46,11 @@ const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo
 </Layout>
 <script>
   import { fastYoutube } from "@src/utils/fast-youtube";
+  import { InsertButtonCopy } from "@pages/blog/button-copy";
+  document.addEventListener("astro:page-load", () => {
+    InsertButtonCopy();
+  });
+</script>
+<script>
+  import { fastYoutube } from "@src/utils/fast-youtube";
 </script>

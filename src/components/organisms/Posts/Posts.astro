@@ -15,8 +15,9 @@ const sortedPosts = cardsData.posts.nodes.sort(
 
 // Agrupar los posts por categorías principales
 const postsByCategory = sortedPosts.reduce((acc, post) => {
-  const parentCategory = post.categories.nodes.map((category) => category.name)[0];
-
+  const parentCategory = post.categories.nodes.map(
+    (category) => category.name
+  )[0];
 
   if (!acc[parentCategory]) {
     acc[parentCategory] = [];
@@ -26,59 +27,60 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
 
   return acc;
 }, {});
-
 ---
 
 <!-- Renderizado de los posts -->
 <div class="categories__container">
-  {Object.keys(postsByCategory).map((category) => (
-    <section class="category__section" id={category}>
-      <span  class="category__title">
-        <h2>{category}</h2>
-      </span>
-      <ul role="list" class="link-card-grid">
-        {postsByCategory[category].map((post) => {
-          const categories = post.categories.nodes.map((category) => ({
-            name: category.name,
-            slug: category.slug,
-            parentCategory: category.parent?.node?.name || null,
-            parentCategorySlug: category.parent?.node?.slug || null,
-          }));
+  {
+    Object.keys(postsByCategory).map((category) => (
+      <section class="category__section" id={category}>
+        <span class="category__title">
+          <h2>{category}</h2>
+        </span>
+        <ul role="list" class="link-card-grid">
+          {postsByCategory[category].slice(0, 3).map((post) => {
+            const categories = post.categories.nodes.map((category) => ({
+              name: category.name,
+              slug: category.slug,
+              parentCategory: category.parent?.node?.name || null,
+              parentCategorySlug: category.parent?.node?.slug || null,
+            }));
 
-          // Fallback para la imagen destacada
-          const featuredImage =
-            post.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
-          const altText =
-            post.featuredImage?.node?.altText || "Imagen no disponible";
+            // Fallback para la imagen destacada
+            const featuredImage =
+              post.featuredImage?.node?.mediaItemUrl ||
+              "/img/branding/logo.png";
+            const altText =
+              post.featuredImage?.node?.altText || "Imagen no disponible";
 
-          // Lógica para manejar el slug de subcategoría y el padre
-          const primaryCategory = post.categories.nodes[0];
-          const parentCategory = primaryCategory.parent?.node;
+            // Lógica para manejar el slug de subcategoría y el padre
+            const primaryCategory = post.categories.nodes[0];
+            const parentCategory = primaryCategory.parent?.node;
 
-          // Generar el slug correcto según tenga o no padre
-          const categorySlug = parentCategory
-            ? `/categories/${parentCategory.slug}/${primaryCategory.slug}` // Combina padre e hijo
-            : `/categories/${primaryCategory.slug}`; // Solo hijo
+            // Generar el slug correcto según tenga o no padre
+            const categorySlug = parentCategory
+              ? `/categories/${parentCategory.slug}/${primaryCategory.slug}` // Combina padre e hijo
+              : `/categories/${primaryCategory.slug}`; // Solo hijo
 
-          return (
-            <PostCard
-              date={post.date}
-              link={`/blog/${post.slug}`}
-              title={post.title}
-              body={post.excerpt}
-              linkBody="Leer más"
-              image={featuredImage}
-              altText={altText}
-              author={post.author.node.name}
-              authorImage={post.author.node.avatar.url}
-              authorFirstName={post.author.node.firstName}
-              authorLastName={post.author.node.lastName}
-              categories={categories}
-              categorySlug={categorySlug}
-            />
-          );
-        })}
-      </ul>
-    </section>
-  ))}
+            return (
+              <PostCard
+                date={post.date}
+                link={`/blog/${post.slug}`}
+                title={post.title}
+                excerpt={post.excerpt}
+                image={featuredImage}
+                altText={altText}
+                author={post.author.node.name}
+                authorImage={post.author.node.avatar.url}
+                authorFirstName={post.author.node.firstName}
+                authorLastName={post.author.node.lastName}
+                categories={categories}
+                categorySlug={categorySlug}
+              />
+            );
+          })}
+        </ul>
+      </section>
+    ))
+  }
 </div>
