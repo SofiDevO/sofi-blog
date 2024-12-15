@@ -1,5 +1,8 @@
 import { wpquery } from "@src/data/wordpress";
-export const Postdata = await wpquery({
+export const Postdata =  async () => {
+  try {
+
+const data = await wpquery({
     query: `
        query getPostContent {
         posts {
@@ -85,3 +88,8 @@ export const Postdata = await wpquery({
 
         `,
   });
+}
+catch (error) {
+    console.log(error);
+  }
+};

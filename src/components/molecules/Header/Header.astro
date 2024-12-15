@@ -1,12 +1,20 @@
 ---
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
-import { menuData } from "@src/services/getMenu";
-const staticMenu = {text: "Portfolio", url: "https://itssofi.dev/"}
-
+import { fetchMenuData } from "@src/services/getMenu";
 const pagePathname = Astro.url.pathname;
+const staticMenu = { text: "Portfolio", url: "https://itssofi.dev/" };
 
-// Función para extraer el slug de la URL
+
+let menuData = {};
+try {
+  menuData = await fetchMenuData();
+} catch (error) {
+  console.error("Error loading menu data:", error);
+}
+
+// Verificarsi hay  datos disponibles antes de continuar
+const menuItems = menuData?.menu?.menuItems?.nodes || [];
 function obtenerSlug(url) {
   const urlSinBarraFinal = url.endsWith('/') ? url.slice(0, -1) : url;
   const partes = urlSinBarraFinal.split('/');
@@ -32,8 +40,7 @@ const flatListToHierarchical = (
     return tree;
 };
 
-// Extraer los nodos de elementos de menú y transformar el menú a jerárquico
-const menuItems = menuData.menu.menuItems.nodes;
+// Transforma los datos a formato jerárquico
 const hierarchicalMenu = flatListToHierarchical(menuItems);
 ---
 
