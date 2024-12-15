@@ -2,42 +2,64 @@
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
 import { fetchMenuData } from "@src/services/getMenu";
+
 const pagePathname = Astro.url.pathname;
 const staticMenu = { text: "Portfolio", url: "https://itssofi.dev/" };
 
 
-let menuData = {};
+interface MenuItem {
+  id: number;
+  parentId?: number;
+  url: string;
+  label: string;
+  children?: MenuItem[];
+}
+
+interface MenuData {
+  menu: {
+    menuItems: {
+      nodes: MenuItem[];
+    };
+  };
+}
+
+
+let menuData: MenuData | null = null;
+
 try {
-  menuData = await fetchMenuData();
+  const response = await fetchMenuData();
+  menuData = response as MenuData; 
 } catch (error) {
   console.error("Error loading menu data:", error);
 }
 
-// Verificarsi hay  datos disponibles antes de continuar
+// Manejo de datos del menú con fallback en caso de que sea null
 const menuItems = menuData?.menu?.menuItems?.nodes || [];
+
+// Función para obtener el slug de una URL
 function obtenerSlug(url) {
-  const urlSinBarraFinal = url.endsWith('/') ? url.slice(0, -1) : url;
-  const partes = urlSinBarraFinal.split('/');
+  const urlSinBarraFinal = url.endsWith("/") ? url.slice(0, -1) : url;
+  const partes = urlSinBarraFinal.split("/");
   return partes[partes.length - 1];
 }
 
 // Función para transformar la lista plana en jerárquica
 const flatListToHierarchical = (
-    data = [],
-    { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {}
+  data = [],
+  { idKey = "id", parentKey = "parentId", childrenKey = "children" } = {}
 ) => {
-    const tree = [];
-    const childrenOf = {};
-    data.forEach((item) => {
-        const newItem = { ...item, slug: obtenerSlug(item.url) };
-        const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
-        childrenOf[id] = childrenOf[id] || [];
-        newItem[childrenKey] = childrenOf[id];
-        parentId
-            ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
-            : tree.push(newItem);
-    });
-    return tree;
+  const tree = [];
+  const childrenOf = {};
+  data.forEach((item) => {
+    const newItem = { ...item, slug: obtenerSlug(item.url) };
+    const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+    childrenOf[id] = childrenOf[id] || [];
+    newItem[childrenKey] = childrenOf[id];
+    parentId
+      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+      : tree.push(newItem);
+  });
+  return tree;
 };
 
 // Transforma los datos a formato jerárquico
@@ -53,45 +75,54 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
     <Logo />
     <nav class="header__menu">
       <ul class="header__list">
-        { pagePathname !== "/" &&
+        {pagePathname !== "/" && (
           <li class="header__item">
             <a class="header__link" href="/">Home</a>
           </li>
-        }
-        {
-          hierarchicalMenu.map((item) => (
-            <li class="header__item" >
-              <a class="header__link" href={`/categories/${item.slug}`}>
-                {item.label}
-              </a>
-              {
-                item.children.length > 0 && (
-
-                  <iconify-icon icon="gridicons:dropdown" width="20" height="20"></iconify-icon>
-                  <ul class="dropdown">
-                    {
-                      item.children.map((child) => (
-                        <li class="dropdown__item">
-                          <a class="dropdown__link" href={`/categories/${child.slug}`}>
-                            {child.label}
-                          </a>
-                        </li>
-                      ))
-                    }
-                  </ul>
-
-                )
-              }
-            </li>
-
-          ))
-        }
+        )}
+        {hierarchicalMenu.map((item) => (
+          <li class="header__item">
+            <a class="header__link" href={`/categories/${item.slug}`}>
+              {item.label}
+            </a>
+            {item.children.length > 0 && (
+              <>
+                <iconify-icon
+                  icon="gridicons:dropdown"
+                  width="20"
+                  height="20"
+                ></iconify-icon>
+                <ul class="dropdown">
+                  {item.children.map((child) => (
+                    <li class="dropdown__item">
+                      <a
+                        class="dropdown__link"
+                        href={`/categories/${child.slug}`}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </li>
+        ))}
         <li class="header__item">
-        <a class="header__link" href={staticMenu.url} target="_blank">
-          {staticMenu.text}
-          <iconify-icon icon="iconamoon:link-external" width="19" height="19" style="color: #00c8f0"></iconify-icon>
-        </a>
-      </li>
+          <a
+            class="header__link"
+            href={staticMenu.url}
+            target="_blank"
+          >
+            {staticMenu.text}
+            <iconify-icon
+              icon="iconamoon:link-external"
+              width="19"
+              height="19"
+              style="color: #00c8f0"
+            ></iconify-icon>
+          </a>
+        </li>
       </ul>
     </nav>
     <HamburgerButton />
@@ -111,7 +142,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
     &__list {
       display: flex;
       list-style: none;
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
     &__item {
       position: relative;
@@ -131,7 +162,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
       color: aqua;
       display: flex;
       align-items: center;
-      gap:.3rem;
+      gap: 0.3rem;
     }
   }
 
@@ -147,13 +178,12 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
     margin: 0;
     min-width: 150px;
     z-index: 10;
-    margin-top: .3rem;
+    margin-top: 0.3rem;
     &__item {
       padding: 0.5rem 1rem;
       white-space: nowrap;
     }
   }
-
 
   .dropdown__link {
     text-decoration: none;
