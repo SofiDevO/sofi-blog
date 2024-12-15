@@ -1,7 +1,5 @@
-import Comment from "@src/components/molecules/comment/comment.astro"
 export function commentsController() {
     const comments = document.querySelector('section#comments')
-    console.log(Comment)
     document.addEventListener('click', async (e) => {
 
         if (e.target.tagName !== 'BUTTON') return
