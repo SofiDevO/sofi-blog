@@ -1,6 +1,6 @@
 ---
 import { getCommentsByPostSlug, getRepliesByCommentId } from "@src/services/comments";
-import Comment from "@src/components/molecules/comment/comment.astro";
+import Comment from "@src/components/molecules/Comment/Comment.astro";
 const { slug } = Astro.props;
 
 const comments = await getCommentsByPostSlug(slug);
