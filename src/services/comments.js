@@ -62,6 +62,8 @@ export const getRepliesByCommentId = async (id) => {
                                     }
                                 }
                                 id
+                                date
+                                parentId
                             }
                         }
                     }
