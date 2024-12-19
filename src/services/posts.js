@@ -41,3 +41,20 @@ export const getPostsBySlug = async (slug) => {
     }
     
 }
+
+export async function getPostsByUserID( id ) {
+    const query = `
+        query getPostsByUserrId {
+            posts(where: {author: ${id}}) {
+                edges {
+                    node {
+                        id
+                        title
+                    }
+                }
+            }
+        }
+    `;
+    const data = await wpquery({ query });
+    return data;
+}
