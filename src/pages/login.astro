@@ -1,0 +1,53 @@
+---
+import Layout from "@src/layouts/Layout.astro";
+import { isLoggedIn } from "@src/services/auth";
+export const prerender = false
+const { cookies, redirect } = Astro;
+const data = isLoggedIn(cookies);
+if (!data) {
+  redirect("/dashboard");
+}
+---
+<Layout title="Login">
+  <div class="container__login">
+    <form action="/api/auth/login" method="post" id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required />
+      <button type="submit">
+        Login
+      </button>
+    </form>
+  </div>
+</Layout>
+
+<style>
+  .container__login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background: #1f2335;
+    padding: 2rem;
+    border-radius: 10px;
+  }
+
+  button {
+    padding: 0.5rem;
+    background: #673AB7;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  textarea:focus, input:focus {
+    color: #201b2b79;
+  }
+</style>

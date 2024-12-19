@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { isLoggedIn } from "@src/services/auth";
+import { getPostsByUserID } from "@src/services/posts";
+export const prerender = false;
+const { cookies } = Astro;
+const user = isLoggedIn(cookies);
+if (!user) {
+  return Astro.redirect("/login");
+}
+const posts = await getPostsByUserID(user[0]);
+---
+
+<Layout >
+  <section id="dashboard">
+    <div class="container__dashboard">
+        <h1>  Dashboard :v ; Bienvenido { user[1] } </h1>
+        <h2> Mis Posts </h2>
+        {
+            posts.posts.edges.map((post) => (
+                <div>
+                <h3> { post.node.title } </h3>
+                </div>
+            ))
+        }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  h1 {
+    color: #ffffff;
+  }
+  section#dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .container__dashboard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    justify-content: center;
+    margin-top: 103px;
+  }
+</style>
