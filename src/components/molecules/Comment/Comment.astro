@@ -1,0 +1,45 @@
+---
+const comment = Astro.props;
+---
+
+<article>
+    <header class="flex space-x-10 items-center h-fit">
+        {/* image */}
+        <img
+          class="w-20 h-20 rounded-full"
+          src={comment.author.node.avatar.url}
+          alt={comment.author.node.name}
+        />
+        <div class="flex flex-col min-h-fit space-y-2">
+          {/* name */}
+          <h3 class="text-[50px]">{comment.author.node.name}</h3>
+          {/* date */}
+          <span class="flex justify-center items-center gap-2.5 text-2xl h-14 px-5 bg-[#141a20] rounded-lg">
+            <iconify-icon icon="bx:calendar" width="18" height="18" />
+            {comment.date}
+          </span>
+        </div>
+    </header>
+      {/* comment content */}
+      <div
+        set:html={comment.content}
+        class="w-full pl-20 border-l-2 border-[#26303f] border-dashed ml-10 pt-10 pb-7"
+      />
+      {/* button read more */}
+      <div
+        data-commentId={comment.id}
+        class="flex items-center w-full justify-center mt-10"
+      >
+        <button
+          data-commentId={comment.id}
+          class="flex items-center text-2xl gap-3 tracking-wide hover:bg-[#141a20] px-6 rounded-3xl h-14 transition-all duration-300 ease-linear"
+        >
+          <iconify-icon icon="game-icons:read" width="20" height="20" />
+          Leer respuestas
+        </button>
+      </div>
+      {/* replies the comment */}
+      <div class="replies ml-20">
+        <slot />
+      </div>
+</article>
