@@ -1,6 +1,7 @@
 import WPAPI from 'wpapi';
 import Jwt from 'jsonwebtoken';
 import type { AstroCookies } from "astro";
+import type { LoggedUser } from '@src/types/loggedUser.type';
 
 const { SECRET_KEY, WPGRAPHQL_URL } = import.meta.env
 
@@ -8,23 +9,30 @@ const { SECRET_KEY, WPGRAPHQL_URL } = import.meta.env
  * Checks if a user is logged in by verifying the access token stored in cookies.
  *
  * @param {AstroCookies} cookies - The cookies object containing the access token.
- * @returns {boolean | string[]} - Returns false if the user is not logged in or if 
- * the token is invalid. If the token is valid, returns an array of values from the 
- * decoded token.
+ * @returns {LoggedUser | null} - Returns null if the user is not logged in or if the token is
+ * invalid. If the token is valid, returns the user data as a LoggedUser object.
  */
-
-export function isLoggedIn(cookies: AstroCookies): boolean | string[] {
+export function isLoggedIn(cookies: AstroCookies): LoggedUser {
     const accessToken = cookies.get("accessToken")?.value;
-    if (!accessToken ) return false
+    if (!accessToken ) return null;
     try {
         const decoded = Jwt.verify(accessToken, SECRET_KEY);
-        return Object.values(decoded);
+        return decoded as LoggedUser;
     }
     catch (error) {
-        return false
+        if (error instanceof Jwt.TokenExpiredError) {
+            console.error("Token Expired:", error.message);
+            return null;
+        } 
+        
+        if (error instanceof Jwt.JsonWebTokenError) {
+            console.error("Invalid Token:", error.message);
+            return null;
+        }
+        console.error(error);
+        return null;
     }
 }
-
 
 /**
  * Verifies if a user is valid by checking the credentials against the WordPress REST API.
@@ -46,7 +54,15 @@ export async function isValidUser(user: string, password: string) {
         return userData;
         
     } catch (error) {
+        if(error.code ===  "incorrect_password" || error.code === "invalid_username") {
+            console.error("Invalid Credentials:", error.message);
+            return null;
+        }
+        if (error.code === "rest_not_logged_in") {
+            console.error("Wordpress connection error:", error.message);
+            return null;
+        }
+        console.error(error.code, error.message);
         return null;
-        console.error("JWT Verification Error:", error.message);
     }
 }
