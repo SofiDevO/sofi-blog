@@ -14,11 +14,10 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     const user = (formData.get("username") as string) || undefined;
     const password = (formData.get("password") as string) || undefined;
 
-    if (!user || !password) return redirect("/login?error=true"); 
+    if (!user || !password) return redirect("/login?error=true&message=Please fill in all fields."); 
     
     const data = await isValidUser(user, password);
-    console.log(data);
-    if (!data) return redirect("/login?error=true");
+    if (!data) return redirect("/login?error=true&message=Invalid Credentials.");
 
     const token = Jwt.sign(data, SECRET_KEY, { expiresIn: "1h" });
     cookies.set("accessToken", token, { path: "/" });
