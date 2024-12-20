@@ -10,8 +10,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Astro", "Blog", "Wordpress", "Tailwind", "SofiDev"],
+  "author": "SofiDev",
   "license": "ISC",
   "dependencies": {
     "@astrojs/check": "^0.9.4",
