@@ -8,13 +8,13 @@ const user = isLoggedIn(cookies);
 if (!user) {
   return Astro.redirect("/login");
 }
-const posts = await getPostsByUserID(user[0]);
+const posts = await getPostsByUserID(user.id);
 ---
 
 <Layout >
   <section id="dashboard">
     <div class="container__dashboard">
-        <h1>  Dashboard :v ; Bienvenido { user[1] } </h1>
+        <h1>Bienvenid@ { user.name } </h1>
         <h2> Mis Posts </h2>
         {
             posts.posts.edges.map((post) => (
