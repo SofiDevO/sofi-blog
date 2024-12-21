@@ -1,5 +1,5 @@
-@use "./variables" as v;
-@forward "./mixins";
+@use '@sass/variables' as v;
+@use "@sass/mixins" as mixins;
 @use "@sass/animations" as animations;
 @use "@atoms/Title/title" as title;
 @use "@atoms/Button/button" as button;
@@ -24,8 +24,8 @@ html {
 
 body {
   overflow-x: hidden;
-  @include font-family("montserrat");
-  @include isTheme("ligth");
+  @include mixins.font-family("montserrat");
+  @include mixins.isTheme("ligth");
 }
 
 a {
@@ -65,7 +65,7 @@ code {
 
 #post {
   h1 {
-    @include text-gradient("dark");
+    @include mixins.text-gradient("dark");
   }
 
   h2 {
@@ -151,11 +151,11 @@ code {
 
 .dark {
   body {
-    @include isTheme("dark");
+    @include mixins.isTheme("dark");
   }
   #post {
     h1 {
-      @include text-gradient("ligth");
+      @include mixins.text-gradient("ligth");
     }
   }
 }

@@ -1,5 +1,7 @@
+
+@use "@sass/mixins" as mixins;
 .logo{
-  @include centerFlex(space-between);
+  @include mixins.centerFlex(space-between);
   gap:1rem;
   &:hover span{
     color:aqua;
@@ -9,7 +11,7 @@
     flex-direction: column;
   }
   &__slogan{
-    @include text-gradient("ligth");
+    @include mixins.text-gradient("ligth");
   }
   &__img {
     max-width: 4.5rem;

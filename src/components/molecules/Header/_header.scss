@@ -1,15 +1,17 @@
-@import "@atoms/Logo/logo";
-@import "@atoms/hamburgerBtn/hamburger";
+@use '@sass/variables' as v;
+@use "@sass/mixins" as mixins;
+@use "@atoms/Logo/logo";
+@use "@atoms/hamburgerBtn/hamburger";
 
 .header {
-  @include centerFlex(center);
+  @include mixins.centerFlex(center);
   width: 100%;
   position: fixed;
   z-index: 1000;
   padding: 1rem 1rem;
   &__container {
     backdrop-filter: blur(17px);
-    @include centerFlex(space-between);
+    @include mixins.centerFlex(space-between);
     width: 100%;
     min-height: 8dvh;
     max-width: 1200px;
@@ -21,7 +23,7 @@
 
   &__list > *:not(a) {
     margin-right: 1.5rem;
-    @include respond-to("medium") {
+    @include mixins.respond-to("medium") {
       margin-bottom: 2rem;
       .header__link {
         font-size: 2rem;
@@ -29,13 +31,13 @@
     }
   }
   &__menu {
-    @include centerFlex(flex-start);
+    @include mixins.centerFlex(flex-start);
     .header__list {
       display: flex;
       align-items: center;
       .header__icons {
         display: none;
-        @include respond-to("medium") {
+        @include mixins.respond-to("medium") {
           display: block;
         }
       }
@@ -45,7 +47,7 @@
   .header__link {
     font-weight: bold;
     &:hover {
-      @include text-gradient("ligth");
+      @include mixins.text-gradient("ligth");
     }
   }
   .header__link {
@@ -70,7 +72,7 @@
   }
 }
 
-@include respond-to("medium") {
+@include mixins.respond-to("medium") {
   .header {
     .header__container {
       justify-content: space-between;

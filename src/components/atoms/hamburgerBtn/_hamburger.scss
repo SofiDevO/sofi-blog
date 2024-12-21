@@ -1,8 +1,10 @@
+@use '@sass/variables' as v;
+@use "@sass/mixins" as mixins;
 .hamburger {
   display: none;
 }
 
-@include respond-to("medium") {
+@include mixins.respond-to("medium") {
   .hamburger {
     font: inherit;
     display: inline-block;

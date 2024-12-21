@@ -1,5 +1,6 @@
-
 @use '@sass/variables' as v;
+
+
 
 
 // Reset padding and margin
@@ -65,6 +66,6 @@
     color: v.$mainColor;
   } @else if $type == "dark" {
     background: v.$bgDark;
-    color: v.$secondaryColor;
+    color: v.$secundaryColor;
   }
 }
