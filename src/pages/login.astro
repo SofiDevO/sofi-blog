@@ -2,10 +2,10 @@
 import Layout from "@src/layouts/Layout.astro";
 import { isLoggedIn } from "@src/services/auth";
 export const prerender = false
-const { cookies, redirect } = Astro;
+const { cookies } = Astro;
 const data = isLoggedIn(cookies);
-if (!data) {
-  redirect("/dashboard");
+if (data) {
+  return Astro.redirect("/dashboard");
 }
 ---
 <Layout title="Login">
