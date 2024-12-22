@@ -2,8 +2,10 @@ import WPAPI from 'wpapi';
 import Jwt from 'jsonwebtoken';
 import type { AstroCookies } from "astro";
 import type { LoggedUser } from '@src/types/loggedUser.type';
+import type { RegisterUser, RegisterUserResponse } from '@src/types/registerUser.type';
+import { wpquery } from '@src/data/wordpress';
 
-const { SECRET_KEY, WPGRAPHQL_URL } = import.meta.env
+const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD   } = import.meta.env
 
 /**
  * Checks if a user is logged in by verifying the access token stored in cookies.
@@ -63,6 +65,50 @@ export async function isValidUser(user: string, password: string) {
             return null;
         }
         console.error(error.code, error.message);
+        return null;
+    }
+}
+
+/**
+ * Registers a new user in WordPress using the GraphQL API.
+ *
+ * @param {RegisterUser} user - The user data to register.
+ * @returns {Promise<RegisterUserResponse>} - The registered user data if the registration is
+ * successful, or null if the registration fails.
+ */
+export async function registerUser(user: RegisterUser): Promise<RegisterUserResponse> {
+    const query = `
+        mutation createUser(
+            $username: String = "", 
+            $password: String = "", 
+            $lastName: String = "", 
+            $firstName: String = "", 
+            $email: String = ""
+        ) {
+            createUser(
+                input: {
+                    username: $username, 
+                    email: $email, 
+                    password: $password, 
+                    firstName: $firstName, 
+                    lastName: $lastName
+                }
+            ) {
+                user {
+                    username
+                    email
+                }
+            }
+        }
+    `
+    try {
+        const headers = {
+            'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
+        }
+
+        const response = await wpquery({query, variables:user, headers});
+        return response.createUser.user as RegisterUserResponse;
+    } catch (error) {
         return null;
     }
 }

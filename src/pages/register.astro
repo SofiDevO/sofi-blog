@@ -10,13 +10,25 @@ if (data) {
 ---
 <Layout title="Login">
   <div class="container__login">
-    <form action="/api/auth/login" method="post" id="loginForm">
+    <form action="/api/auth/register" method="post" id="loginForm">
+      <div class="form__group">
+        <div>
+          <label for="firstName">First Name:</label>
+          <input type="text" name="firstName" id="firstName" required />
+        </div>
+        <div>
+          <label for="lastName">Last Name:</label>
+          <input type="text" name="firstName" id="firstName" required />
+        </div>
+      </div>
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required />
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" required />
       <label for="password">Password</label>
       <input type="password" name="password" id="password" required />
       <button type="submit">
-        Login
+        Register
       </button>
     </form>
   </div>
