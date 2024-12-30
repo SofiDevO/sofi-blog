@@ -1,3 +1,7 @@
+@use '@sass/variables' as v;
+@use "@sass/mixins" as mixins;
+
+
 .button{
     background: v.$french-violet;
     padding: 1rem 2rem;
@@ -11,7 +15,7 @@
         transform: scale(.98)
     }
     &__content{
-        @include text-gradient("ligth");
+        @include mixins.text-gradient("ligth");
         &:hover{
             color: black;
         }

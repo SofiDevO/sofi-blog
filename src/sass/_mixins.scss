@@ -1,67 +1,71 @@
+@use '@sass/variables' as v;
 
 
+
+
+// Reset padding and margin
 @mixin reset-pm {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
-@mixin centerFlex($justify: center,  $align:center) {
-	display: flex;
-	align-items: $align;
-	justify-content: $justify;
+// Center flexbox
+@mixin centerFlex($justify: center, $align: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
 }
 
+// Font family mixin
 @mixin font-family($type) {
-	@if $type == "montserrat" {
-		font-family: "Montserrat Variable", sans-serif;
-	} @else if $type == "fira-code" {
-		font-family: "fira-code", sans-serif;
-	}@else if $type == "textos" {
-		font-family: 'Questrial', sans-serif;
-	}
+  @if $type == "montserrat" {
+    font-family: "Montserrat Variable", sans-serif;
+  } @else if $type == "fira-code" {
+    font-family: "fira-code", sans-serif;
+  } @else if $type == "textos" {
+    font-family: 'Questrial', sans-serif;
+  }
 }
 
-
-
-/* responsive breakpoints */
+// Responsive breakpoints
 @mixin respond-to($breakpoint) {
-	@if $breakpoint == "small" {
-		@media (max-width: 320px) {
-			@content;
-		}
-	}@else if $breakpoint == "medium" {
-		@media (max-width: 768px) {
-			@content;
-		}
-	} @else if $breakpoint == "large" {
-		@media (max-width: 1024px) {
-			@content;
-		}
-	}
-}
-
-@mixin text-gradient($mode){
-	@if  $mode == "ligth"{
-		background: v.$text-over-light;
-		background-clip: text;
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-}@else if $mode  == "dark"{
-	background: v.$text-over-dark;
-	  background-clip: text;
-	  -webkit-background-clip: text;
-	  -webkit-text-fill-color: transparent;
-}
-}
-
-
-@mixin isTheme($type) {
-    @if $type == "ligth" {
-        background: v.$secundaryColor;
-        color: v.$mainColor;
-
-    } @else if $type == "dark" {
-        background: v.$bgDark;
-        color: v.$secundaryColor;
+  @if $breakpoint == "small" {
+    @media (max-width: 320px) {
+      @content;
     }
+  } @else if $breakpoint == "medium" {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == "large" {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  }
+}
+
+// Text gradient mixin
+@mixin text-gradient($mode) {
+  @if $mode == "light" {
+    background: v.$text-over-light;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  } @else if $mode == "dark" {
+    background: v.$text-over-dark;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+// Theme-based styling
+@mixin isTheme($type) {
+  @if $type == "light" {
+    background: v.$secondaryColor;
+    color: v.$mainColor;
+  } @else if $type == "dark" {
+    background: v.$bgDark;
+    color: v.$secundaryColor;
+  }
 }

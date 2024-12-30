@@ -1,13 +1,13 @@
-@use "./variables" as v;
-@import "./mixins";
-@import "@sass/animations";
-@import "@atoms/Title/title";
-@import "@atoms/Button/button";
-@import "@atoms//PostCard/post-card";
-@import "@atoms/Subtitle/subtitle";
-@import "@atoms/SocialIcons/social-icons";
-@import "@molecules/Header/header";
-@import "@organisms/Posts/posts";
+@use '@sass/variables' as v;
+@use "@sass/mixins" as mixins;
+@use "@sass/animations" as animations;
+@use "@atoms/Title/title" as title;
+@use "@atoms/Button/button" as button;
+@use "@atoms/PostCard/post-card" as postCard;
+@use "@atoms/Subtitle/subtitle" as subtitle;
+@use "@atoms/SocialIcons/social-icons" as socialIcons;
+@use "@molecules/Header/header" as header;
+@use "@organisms/Posts/posts" as posts;
 
 * {
   box-sizing: border-box;
@@ -24,8 +24,8 @@ html {
 
 body {
   overflow-x: hidden;
-  @include font-family("montserrat");
-  @include isTheme("ligth");
+  @include mixins.font-family("montserrat");
+  @include mixins.isTheme("ligth");
 }
 
 a {
@@ -65,7 +65,7 @@ code {
 
 #post {
   h1 {
-    @include text-gradient("dark");
+    @include mixins.text-gradient("dark");
   }
 
   h2 {
@@ -151,11 +151,11 @@ code {
 
 .dark {
   body {
-    @include isTheme("dark");
+    @include mixins.isTheme("dark");
   }
   #post {
     h1 {
-      @include text-gradient("ligth");
+      @include mixins.text-gradient("ligth");
     }
   }
 }

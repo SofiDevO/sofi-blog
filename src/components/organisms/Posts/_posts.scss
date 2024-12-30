@@ -1,3 +1,5 @@
+@use '@sass/variables' as v;
+@use "@sass/mixins" as mixins;
 .categories__container {
   display: flex;
   flex-direction: column;
@@ -42,7 +44,7 @@
     width: 100%;
     margin: 0 auto;
     max-width: 1200px;
-  @include respond-to("medium") {
+  @include mixins.respond-to("medium") {
     justify-content: center;
   }
 }
