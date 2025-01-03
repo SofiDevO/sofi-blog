@@ -36,7 +36,7 @@ a {
   color: v.$secundaryColor;
   cursor: pointer;
 }
-p {
+p, b, strong, pre {
   font-size: 1.6rem;
 }
 li {
@@ -52,9 +52,13 @@ h3 {
   font-size: 1.7rem;
   font-weight: 700;
 }
-
+h4 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
 figure {
   width: 100%;
+  overflow-x: auto;
 }
 
 code {
@@ -68,7 +72,9 @@ code {
 
 
 table{
+  width:100%;
   border:1px solid rgba(0,0,0,.05); 
+  border-collapse: collapse;
 }
 
  tr:nth-of-type(odd) {
