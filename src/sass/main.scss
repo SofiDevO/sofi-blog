@@ -8,6 +8,8 @@
 @use "@atoms/SocialIcons/social-icons" as socialIcons;
 @use "@molecules/Header/header" as header;
 @use "@organisms/Posts/posts" as posts;
+@use "@molecules/Comment/comment" as comment;
+@use "@organisms/Comments/comments" as comments;
 
 * {
   box-sizing: border-box;
@@ -63,6 +65,30 @@ code {
   border-radius: 0.3rem;
 }
 
+
+
+table{
+  border:1px solid rgba(0,0,0,.05); 
+}
+
+ tr:nth-of-type(odd) {
+  background: rgba(0,0,0,.05);
+}
+  
+table thead th,
+table tfoot th {
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: rgba(0,0,0,.1);
+}
+table caption {
+  padding:1rem;
+}
+table th,
+table td {
+  padding: 1rem;
+  border: 1px solid lightgrey;
+}
 #post {
   h1 {
     @include mixins.text-gradient("dark");
