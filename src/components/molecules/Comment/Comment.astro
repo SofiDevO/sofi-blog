@@ -14,7 +14,7 @@ const comment = Astro.props;
           {/* name */}
           <h3 class="text-[50px]">{comment.author.node.name}</h3>
           {/* date */}
-          <span class="flex justify-center items-center gap-2.5 text-2xl h-14 px-5 bg-[#141a20] rounded-lg">
+          <span class="flex justify-center items-center gap-2.5 text-2xl h-14 px-5 bg-[] rounded-lg">
             <iconify-icon icon="bx:calendar" width="18" height="18" />
             {comment.date}
           </span>
@@ -43,3 +43,4 @@ const comment = Astro.props;
         <slot />
       </div>
 </article>
+
