@@ -89,6 +89,7 @@ table td {
   padding: 1rem;
   border: 1px solid lightgrey;
 }
+
 #post {
   h1 {
     @include mixins.text-gradient("dark");
