@@ -8,6 +8,8 @@
 @use "@atoms/SocialIcons/social-icons" as socialIcons;
 @use "@molecules/Header/header" as header;
 @use "@organisms/Posts/posts" as posts;
+@use "@molecules/Comment/comment" as comment;
+@use "@organisms/Comments/comments" as comments;
 
 * {
   box-sizing: border-box;
@@ -62,6 +64,7 @@ code {
   color: v.$ufo-green;
   border-radius: 0.3rem;
 }
+
 
 
 table{
