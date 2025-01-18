@@ -60,7 +60,7 @@ const { postId = null, parentId = "", name, email="", website="", content=""  } 
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");
   const button = form.querySelector("button");
-  console.log(form);
+
   button.addEventListener("click", async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
@@ -74,12 +74,9 @@ const { postId = null, parentId = "", name, email="", website="", content=""  } 
 
   async function addComment(formData) {
     try {
-        await fetch(`/api/comments/replies?commentId=null`,{
+        await fetch(`/api/comments/replies`,{
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(formData)
+            body:formData
         })
 
     } catch (error) {
