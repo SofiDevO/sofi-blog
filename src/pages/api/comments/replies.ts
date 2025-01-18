@@ -1,6 +1,8 @@
 import type { APIRoute } from "astro";
 import { getRepliesByCommentId } from "@src/services/comments";
 import postComment from "@src/services/postComment";
+import { isLoggedIn } from "@src/services/auth";
+
 export const prerender = false;
 
 export const GET: APIRoute = async ({ params, url }) => {
@@ -13,22 +15,34 @@ export const GET: APIRoute = async ({ params, url }) => {
     return new Response(JSON.stringify({replies: replies}), { status: 200 });
 }
 
-export const POST: APIRoute = async ({ params,request, }) => {
+export const POST: APIRoute = async ({ params, request, cookies }) => {
+    const cookiesExist = cookies.get("accessToken");
     const formData = await request.formData();
     const commentId = formData.get("commentId") || null;
     const content = formData.get("content") || null;
     const author = formData.get("author") || null;
     const email = formData.get("authorEmail") || null;
-    const website = formData.get("website") || null;
-    const input = {
+    const website = formData.get("authorUrl") || null;
+
+    let input = {
         author: author,
         authorUrl: website,
-        commentOn: commentId,
+        commentOn: 7,
         content: content,
         parent: commentId,
         authorEmail: email,
     }
-    // if (!content || !author || !email) return new Response(JSON.stringify({message: "Missing required fields"}), { status: 400 });
+    const dataUserLogged = isLoggedIn(cookies)
+    if (cookiesExist && dataUserLogged) {
+        input = {
+            author: dataUserLogged.name,
+            authorUrl: dataUserLogged.website,
+            commentOn: 7,
+            content: content,
+            authorEmail: "",
+            parent: commentId,
+        }
+    }
     try {
         const comment = await postComment(input);
         return new Response(JSON.stringify({comment: comment}), { status: 200 });
