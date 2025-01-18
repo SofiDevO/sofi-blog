@@ -32,7 +32,7 @@ export const getCommentsByPostSlug = async (slug) => {
         const filterReplies = (comment) => {
             return comment.parentId === null
         }
-        
+
         const comments = data.postBy.comments.nodes.filter(filterReplies)
 
         return comments
@@ -40,7 +40,7 @@ export const getCommentsByPostSlug = async (slug) => {
     catch (error) {
         return []
     }
-    
+
 }
 
 export const getRepliesByCommentId = async (id) => {

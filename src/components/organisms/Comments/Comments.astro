@@ -1,18 +1,19 @@
 ---
 import { getCommentsByPostSlug, getRepliesByCommentId } from "@src/services/comments";
 import Comment from "@src/components/molecules/Comment/Comment.astro";
-const { slug } = Astro.props;
+import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
+import type { AstroCookies } from "astro";
 
+const { slug, userData } = Astro.props;
 const comments = await getCommentsByPostSlug(slug);
 ---
 
 <h2 class="text-2xl font-bold">Comentarios</h2>
 <section class="flex flex-col mt-14 w-full" id="comments">
-          
 
 {
   comments.length > 0 &&
-    comments.map( async (comment, index) => { 
+    comments.map( async (comment, index) => {
       const areFirstTwoComments = index < 2;
       const replies = await getRepliesByCommentId(comment.id);
       return (
@@ -30,8 +31,5 @@ const comments = await getCommentsByPostSlug(slug);
     })
 
 }
+<CommentForm name={userData?.name} email={userData?.email}, website={userData?.website} />
 </section>
-<script>
-  import { commentsController } from "@controllers/comments.controller";
-  commentsController();
-</script>
