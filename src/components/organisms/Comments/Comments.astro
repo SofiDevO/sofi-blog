@@ -2,7 +2,6 @@
 import { getCommentsByPostSlug, getRepliesByCommentId } from "@src/services/comments";
 import Comment from "@src/components/molecules/Comment/Comment.astro";
 import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
-import type { AstroCookies } from "astro";
 
 const { slug, userData } = Astro.props;
 const comments = await getCommentsByPostSlug(slug);
@@ -31,5 +30,5 @@ const comments = await getCommentsByPostSlug(slug);
     })
 
 }
-<CommentForm name={userData?.name} email={userData?.email}, website={userData?.website} />
+<CommentForm />
 </section>

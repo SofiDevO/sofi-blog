@@ -1,10 +1,11 @@
 import { wpquery } from "@data/wordpress.ts";
-const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD } = import.meta.env;
+const { SECRET_USER, SECRET_PASSWORD } = import.meta.env;
 
 const postComment = async (input, postId = null, parentId = null) => {
     const headers = {
         'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
     }
+ 
     const query = `
       mutation postComment(
             $author: String = "Juan Perez",

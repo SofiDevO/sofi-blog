@@ -1,6 +1,7 @@
 export interface LoggedUser {
     id: number;
     name: string;
+    email: string;
     url: string;
     description: string;
     link: string;
@@ -10,6 +11,8 @@ export interface LoggedUser {
     _links: any;
     iat: number;
     exp: number;
+    website: string;
+    adictional: any;
 }
 interface Avatar {
     '24': string;
