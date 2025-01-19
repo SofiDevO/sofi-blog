@@ -13,6 +13,7 @@ export async function addPost( authorId, title, content, slug) {
             }
         }
   `;
+
     const variables = { id };
     const data = await wpquery({ query, variables });
     return data;
