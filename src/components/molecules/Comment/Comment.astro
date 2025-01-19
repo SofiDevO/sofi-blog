@@ -1,4 +1,5 @@
 ---
+
 const comment = Astro.props;
 ---
 
@@ -25,6 +26,7 @@ const comment = Astro.props;
         set:html={comment.content}
         class="w-full pl-20 border-l-2 border-[#26303f] border-dashed ml-10 pt-10 pb-7"
       />
+
       {/* button read more */}
       <div
         data-commentId={comment.id}
@@ -42,5 +44,5 @@ const comment = Astro.props;
       <div class="replies ml-20">
         <slot />
       </div>
-</article>
 
+</article>

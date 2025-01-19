@@ -1,0 +1,87 @@
+---
+const { postId = null, parentId = "", name, email="", website="", content=""  } = Astro.props;
+---
+
+<form method="POST" id="comment-form" class="space-y-4 max-w-md mx-auto" data-post-id={postId} data-parent-id={parentId}>
+  <div>
+    <label for="author" class="block text-sm font-medium text-gray-700">Nombre</label>
+    <input
+      id="author"
+      name="author"
+      type="text"
+      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+
+      value={name}
+    />
+  </div>
+  <div>
+    <label for="authorEmail" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+    <input
+      id="authorEmail"
+      name="authorEmail"
+      type="email"
+      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+      value={email}
+
+    />
+  </div>
+  <div>
+    <label   for="authorUrl" class="block text-sm font-medium text-gray-700">Sitio web (opcional)</label>
+    <input
+      id="authorUrl"
+      name="authorUrl"
+      type="url"
+      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+      value={website}
+    />
+  </div>
+  <div>
+    <label for="content" class="block text-sm font-medium text-gray-700">Comentario</label>
+    <textarea
+      id="content"
+      name="content"
+      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+      value={content}
+
+    ></textarea>
+  </div>
+  <button
+    type="submit"
+    class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700"
+  >
+    Publicar Comentario
+  </button>
+  <p id="success-message" class="text-green-600 mt-2 hidden">Comentario publicado exitosamente.</p>
+  <p id="error-message" class="text-red-600 mt-2 hidden">Hubo un problema al publicar tu comentario.</p>
+</form>
+
+<script is:inline>
+  const form = document.getElementById("comment-form");
+  const successMessage = document.getElementById("success-message");
+  const errorMessage = document.getElementById("error-message");
+  const button = form.querySelector("button");
+
+  button.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    try {
+      await addComment(formData);
+    } catch (error) {
+      successMessage.classList.add("hidden");
+      errorMessage.classList.remove("hidden");
+    }
+  });
+
+  async function addComment(formData) {
+    try {
+        await fetch(`/api/comments/replies`,{
+            method: 'POST',
+            body:formData
+        })
+
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+</script>

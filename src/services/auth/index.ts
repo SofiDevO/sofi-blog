@@ -4,6 +4,7 @@ import type { AstroCookies } from "astro";
 import type { LoggedUser } from '@src/types/loggedUser.type';
 import type { RegisterUser, RegisterUserResponse } from '@src/types/registerUser.type';
 import { wpquery } from '@src/data/wordpress';
+import { getUserById } from './getUserById';
 
 const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD   } = import.meta.env
 
@@ -25,8 +26,8 @@ export function isLoggedIn(cookies: AstroCookies): LoggedUser {
         if (error instanceof Jwt.TokenExpiredError) {
             console.error("Token Expired:", error.message);
             return null;
-        } 
-        
+        }
+
         if (error instanceof Jwt.JsonWebTokenError) {
             console.error("Invalid Token:", error.message);
             return null;
@@ -52,9 +53,14 @@ export async function isValidUser(user: string, password: string) {
             password: password,
             auth: true,
         });
-        const userData = await wp.users().me();
+        let userData = await wp.users().me();
+        userData.website = userData.url;
+        if (userData.id) {
+            const user = await getUserById(btoa(`user:${userData.id}`));
+            userData.data = user.user;
+        }
         return userData;
-        
+
     } catch (error) {
         if(error.code ===  "incorrect_password" || error.code === "invalid_username") {
             console.error("Invalid Credentials:", error.message);
@@ -79,18 +85,18 @@ export async function isValidUser(user: string, password: string) {
 export async function registerUser(user: RegisterUser): Promise<RegisterUserResponse> {
     const query = `
         mutation createUser(
-            $username: String = "", 
-            $password: String = "", 
-            $lastName: String = "", 
-            $firstName: String = "", 
+            $username: String = "",
+            $password: String = "",
+            $lastName: String = "",
+            $firstName: String = "",
             $email: String = ""
         ) {
             createUser(
                 input: {
-                    username: $username, 
-                    email: $email, 
-                    password: $password, 
-                    firstName: $firstName, 
+                    username: $username,
+                    email: $email,
+                    password: $password,
+                    firstName: $firstName,
                     lastName: $lastName
                 }
             ) {
