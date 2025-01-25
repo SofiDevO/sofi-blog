@@ -2,14 +2,13 @@ import { wpquery } from "@src/data/wordpress";
 
 const { SECRET_USER, SECRET_PASSWORD   } = import.meta.env
 
-export async function getUserById( id: string ) {
+export async function getUserByName( id: string ) {
     const query = `
-       query MyQuery7 {
-            user(id: "${id}") {
-                email
-                userId
-                username
-                slug
+        query getUserByEmail {
+            users(where: {login: "${id}"}) {
+                nodes {
+                    email
+                }
             }
         }
   `;
