@@ -4,6 +4,15 @@ import Comments from "@organisms/Comments/Comments.astro";
 import { replaceIframes } from "@src/utils/index"
 import { getPostsBySlug } from "@src/services/posts";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
+import { isLoggedIn } from "@src/services/auth";
+
+const { cookies } = Astro;
+const isLogged = isLoggedIn(cookies);
+let userData = {}
+if (!isLogged) {
+  userData = isLogged;
+}
+
 export const prerender = false;
 const { slug } = Astro.params;
 
@@ -54,7 +63,7 @@ const newDateFormat = `${day} / ${month} / ${year}`;
         <div slot="fallback">
           <Loader />
         </div>
-      </Comments >
+      </Comments>
       </div>
     </article>
   </section>
