@@ -7,7 +7,7 @@ export const prerender = false;
 
 export const GET: APIRoute = async ({ params, url }) => {
     const id = url.searchParams.get("commentId") || undefined;
-    console.log(url)
+
     if (!id) return new Response(JSON.stringify({message: "No id provided"}), { status: 400 });
 
     const replies = await getRepliesByCommentId(id);
@@ -18,7 +18,17 @@ export const GET: APIRoute = async ({ params, url }) => {
 export const POST: APIRoute = async ({ params, request, cookies }) => {
     const cookiesExist = cookies.get("accessToken");
     const formData = await request.formData();
-    const commentId = formData.get("commentId") || null;
+
+    const postId = formData.get("postId") || null;
+    const commentOn = postId 
+        ? parseInt(atob( postId as string ).split(":")[1])
+        : null;
+
+    let commentId = formData.get("parentId") || null;
+    const parentId = commentId 
+        ? parseInt(commentId as string)
+        : null;
+    
     const content = formData.get("content") || null;
     const author = formData.get("author") || null;
     const email = formData.get("authorEmail") || null;
@@ -27,9 +37,9 @@ export const POST: APIRoute = async ({ params, request, cookies }) => {
     let input = {
         author: author,
         authorUrl: website,
-        commentOn: 7,
+        commentOn: commentOn,
         content: content,
-        parent: commentId,
+        parent: parentId,
         authorEmail: email,
     }
     const dataUserLogged = isLoggedIn(cookies)
@@ -37,15 +47,18 @@ export const POST: APIRoute = async ({ params, request, cookies }) => {
         input = {
             author: dataUserLogged.name,
             authorUrl: dataUserLogged.website,
-            commentOn: 7,
+            commentOn: commentOn,
             content: content,
-            authorEmail: "",
-            parent: commentId,
+            authorEmail: dataUserLogged.email,
+            parent: parentId,
         }
     }
     try {
+
         const comment = await postComment(input);
-        return new Response(JSON.stringify({comment: comment}), { status: 200 });
+        return new Response(JSON.stringify({
+            message: "Comment posted successfully",
+        }), { status: 200 });
     }
     catch (e) {
         return new Response(JSON.stringify({message: e.message}), { status: 500 });
