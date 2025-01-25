@@ -5,6 +5,7 @@ export const getPostsBySlug = async (slug) => {
             query: `
                 query getPostBySlug {
                     postBy(slug: "${slug}") {
+                        id
                         title
                         slug
                         author {
@@ -39,7 +40,7 @@ export const getPostsBySlug = async (slug) => {
     catch (error) {
         return null
     }
-    
+
 }
 
 export async function getPostsByUserID( id ) {

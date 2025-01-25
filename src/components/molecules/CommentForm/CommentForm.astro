@@ -1,8 +1,10 @@
 ---
-const { postId = null, parentId = "", name, email="", website="", content=""  } = Astro.props;
+const { postId = null, name, email="", website="", content=""  } = Astro.props;
 ---
 
-<form method="POST" id="comment-form" class="space-y-4 max-w-md mx-auto" data-post-id={postId} data-parent-id={parentId}>
+<form method="POST" id="comment-form" class="space-y-4 max-w-md mx-auto">
+  <input type="hidden" name="postId" value={postId} />
+  <input type="hidden" name="parentId" value="" />
   <div>
     <label for="author" class="block text-sm font-medium text-gray-700">Nombre</label>
     <input
@@ -56,6 +58,15 @@ const { postId = null, parentId = "", name, email="", website="", content=""  } 
 </form>
 
 <script is:inline>
+  const comments = document.getElementById("comments");
+
+  comments.addEventListener("click", (event) => {
+    if (event.target.classList.contains("reply")) {
+      const commentId = event.target.dataset.commentId;
+      const form = document.getElementById("comment-form");
+      form.querySelector("input[name='parentId']").value = commentId;
+    }
+  })
   const form = document.getElementById("comment-form");
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");

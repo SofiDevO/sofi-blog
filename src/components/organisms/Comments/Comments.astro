@@ -3,7 +3,7 @@ import { getCommentsByPostSlug, getRepliesByCommentId } from "@src/services/comm
 import Comment from "@src/components/molecules/Comment/Comment.astro";
 import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
 
-const { slug, userData } = Astro.props;
+const { slug, postId } = Astro.props;
 const comments = await getCommentsByPostSlug(slug);
 ---
 
@@ -21,7 +21,7 @@ const comments = await getCommentsByPostSlug(slug);
                 replies.length > 0 && areFirstTwoComments &&
                 replies.slice(0,2).map((reply) => {
                     return (
-                        <Comment {...reply} />
+                        <Comment {...reply} isReply />
                     );
                 })
             }
@@ -30,5 +30,5 @@ const comments = await getCommentsByPostSlug(slug);
     })
 
 }
-<CommentForm />
+<CommentForm postId={postId} />
 </section>
