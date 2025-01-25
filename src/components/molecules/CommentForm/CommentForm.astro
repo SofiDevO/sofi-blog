@@ -62,7 +62,10 @@ const { postId = null, name, email="", website="", content=""  } = Astro.props;
 
   comments.addEventListener("click", (event) => {
     if (event.target.classList.contains("reply")) {
-      const commentId = event.target.dataset.commentId;
+      console.log(event.target)
+      let commentId = event.target.getAttribute("data-commentId");
+      commentId = commentId ? atob(commentId).split(':')[1] : null;
+      console.log(commentId)
       const form = document.getElementById("comment-form");
       form.querySelector("input[name='parentId']").value = commentId;
     }
