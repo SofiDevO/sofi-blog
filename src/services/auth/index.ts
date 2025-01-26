@@ -4,7 +4,7 @@ import type { AstroCookies } from "astro";
 import type { LoggedUser } from '@src/types/loggedUser.type';
 import type { RegisterUser, RegisterUserResponse } from '@src/types/registerUser.type';
 import { wpquery } from '@src/data/wordpress';
-import { getUserById } from './getUserById';
+import { getUserByName } from './getUserByName';
 
 const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD   } = import.meta.env
 
@@ -47,17 +47,21 @@ export function isLoggedIn(cookies: AstroCookies): LoggedUser {
  */
 export async function isValidUser(user: string, password: string) {
     try {
+        const url = new URL(WPGRAPHQL_URL);
+        const  endpoint = `${url.protocol}//${url.hostname}/wp-json`;
+
         const wp = new WPAPI({
-            endpoint: `${WPGRAPHQL_URL.replace("/graphql", "")}/wp-json`,
+            endpoint: endpoint,
             username: user,
             password: password,
             auth: true,
         });
         let userData = await wp.users().me();
         userData.website = userData.url;
+        
         if (userData.id) {
-            const user = await getUserById(btoa(`user:${userData.id}`));
-            userData.data = user.user;
+            const userEmail = await getUserByName(user);
+            userData.email = userEmail.users.nodes[0].email;
         }
         return userData;
 
