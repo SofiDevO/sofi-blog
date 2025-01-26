@@ -5,7 +5,7 @@ export const getCommentsByPostSlug = async (slug) => {
             query: `
                 query getComments {
                     postBy(slug: "${slug}") {
-                        comments {
+                        comments(last: 100) {
                             nodes {
                                 content
                                 author {

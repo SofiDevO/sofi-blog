@@ -15,6 +15,7 @@ const posts = await getPostsByUserID(user.id);
   <section id="dashboard">
     <div class="container__dashboard">
         <h1>Bienvenid@ { user.name } </h1>
+        <span> { user.email } </span>
         <h2> Mis Posts </h2>
         {
             posts.posts.edges.map((post) => (

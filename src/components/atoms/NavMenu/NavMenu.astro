@@ -1,0 +1,53 @@
+---
+const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
+---
+
+<nav class="header__menu">
+  <ul class="header__list">
+    {
+      pagePathname !== "/" && (
+        <li class="header__item">
+          <a class="header__link" href="/">
+            Home
+          </a>
+        </li>
+      )
+    }
+    {
+      hierarchicalMenu.map((item) => (
+        <li class="header__item">
+          <a class="header__link" href={`/categories/${item.slug}`}>
+            {item.label}
+          </a>
+          {item.children.length > 0 && (
+            <>
+              <iconify-icon icon="gridicons:dropdown" width="20" height="20" />
+              <ul class="dropdown">
+                {item.children.map((child) => (
+                  <li class="dropdown__item">
+                    <a
+                      class="dropdown__link"
+                      href={`/categories/${child.slug}`}
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </li>
+      ))
+    }
+    <li class="header__item">
+      <a class="header__link" href={staticMenu.url} target="_blank">
+        {staticMenu.text}
+        <iconify-icon
+          icon="iconamoon:link-external"
+          width="19"
+          height="19"
+          style="color: #00c8f0"></iconify-icon>
+      </a>
+    </li>
+  </ul>
+</nav>
