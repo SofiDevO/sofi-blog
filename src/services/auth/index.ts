@@ -27,8 +27,8 @@ export function isLoggedIn(cookies: AstroCookies): LoggedUser {
         if (error instanceof Jwt.TokenExpiredError) {
             console.error("Token Expired:", error.message);
             return null;
-        } 
-        
+        }
+
         if (error instanceof Jwt.JsonWebTokenError) {
             console.error("Invalid Token:", error.message);
             return null;
@@ -60,16 +60,16 @@ export async function isValidUser(user: string, password: string) {
 
         let userData = await wp.users().me();
         userData.website = userData.url;
-        
+
         if (userData.id) {
             const userEmail = await getUserByName(user);
             userData.email = userEmail.users.nodes[0].email;
         }
 
-        const userData = await wp.users().me();
+        /* const userData = await wp.users().me(); */
 
         return userData;
-        
+
     } catch (error) {
         if(error.code ===  "incorrect_password" || error.code === "invalid_username") {
             console.error("Invalid Credentials:", error.message);
@@ -94,18 +94,18 @@ export async function isValidUser(user: string, password: string) {
 export async function registerUser(user: RegisterUser): Promise<RegisterUserResponse> {
     const query = `
         mutation createUser(
-            $username: String = "", 
-            $password: String = "", 
-            $lastName: String = "", 
-            $firstName: String = "", 
+            $username: String = "",
+            $password: String = "",
+            $lastName: String = "",
+            $firstName: String = "",
             $email: String = ""
         ) {
             createUser(
                 input: {
-                    username: $username, 
-                    email: $email, 
-                    password: $password, 
-                    firstName: $firstName, 
+                    username: $username,
+                    email: $email,
+                    password: $password,
+                    firstName: $firstName,
                     lastName: $lastName
                 }
             ) {

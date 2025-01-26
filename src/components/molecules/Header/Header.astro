@@ -1,6 +1,7 @@
 ---
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
+import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
 import { fetchMenuData } from "@src/services/getMenu";
 
 const pagePathname = Astro.url.pathname;
@@ -28,7 +29,7 @@ let menuData: MenuData | null = null;
 
 try {
   const response = await fetchMenuData();
-  menuData = response as MenuData; 
+  menuData = response as MenuData;
 } catch (error) {
   console.error("Error loading menu data:", error);
 }
@@ -73,63 +74,12 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
 <header class="header">
   <div class="header__container">
     <Logo />
-    <nav class="header__menu">
-      <ul class="header__list">
-        {pagePathname !== "/" && (
-          <li class="header__item">
-            <a class="header__link" href="/">Home</a>
-          </li>
-        )}
-        {hierarchicalMenu.map((item) => (
-          <li class="header__item">
-            <a class="header__link" href={`/categories/${item.slug}`}>
-              {item.label}
-            </a>
-            {item.children.length > 0 && (
-              <>
-                <iconify-icon
-                  icon="gridicons:dropdown"
-                  width="20"
-                  height="20"
-                ></iconify-icon>
-                <ul class="dropdown">
-                  {item.children.map((child) => (
-                    <li class="dropdown__item">
-                      <a
-                        class="dropdown__link"
-                        href={`/categories/${child.slug}`}
-                      >
-                        {child.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-          </li>
-        ))}
-        <li class="header__item">
-          <a
-            class="header__link"
-            href={staticMenu.url}
-            target="_blank"
-          >
-            {staticMenu.text}
-            <iconify-icon
-              icon="iconamoon:link-external"
-              width="19"
-              height="19"
-              style="color: #00c8f0"
-            ></iconify-icon>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <NavMenu server:defer pagePathname={pagePathname} hierarchicalMenu={hierarchicalMenu} staticMenu={staticMenu} />
     <HamburgerButton />
   </div>
 </header>
 
-<style lang="scss">
+<style lang="scss" is:global>
   .header {
     &__container {
       display: flex;

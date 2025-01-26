@@ -15,12 +15,11 @@ const {
 <html lang="en">
   <head>
     <BaseHead  title={title} description={description} image={image}  />
-
   </head>
   <body>
     <ThemeIcon />
     <ButtonToTop />
-    <Header server:defer/>
+    <Header/>
     <main>
       <slot />
     </main>
