@@ -58,10 +58,12 @@ export const POST: APIRoute = async ({ params, request, cookies }) => {
         const comment = await postComment(input);
         return new Response(JSON.stringify({
             message: "Comment posted successfully",
+            data: input
         }), { status: 200 });
     }
     catch (e) {
-        return new Response(JSON.stringify({message: e.message}), { status: 500 });
+        console.error(e);
+        return new Response(JSON.stringify({message: "success"}), { status: 500 });
     }
 
 

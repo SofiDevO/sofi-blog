@@ -79,19 +79,45 @@ const { postId = null, name, email="", website="", content=""  } = Astro.props;
     event.preventDefault();
     const formData = new FormData(form);
     try {
-      await addComment(formData);
+      const commentData = await addComment(formData);
+      insertComment(commentData.data);
+
     } catch (error) {
       successMessage.classList.add("hidden");
       errorMessage.classList.remove("hidden");
     }
   });
 
+  function insertComment(comment) {
+
+    const firstComment = document.querySelector(".comment");
+    const comments = document.querySelector("#comments");
+    const clone = document.querySelector(".comment").cloneNode(true);
+
+    clone.querySelector(".comment__author").innerText = comment.author;
+    clone.querySelector(".comment__content").innerHTML = comment.content;
+    const fecha = new Date();
+
+    const formatt = fecha.toLocaleDateString('es-ES', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    clone.querySelector(".comment__date").innerText = formatt;
+
+    comments.insertBefore(clone, firstComment);
+    console.log("comment added")
+}
+
   async function addComment(formData) {
     try {
-        await fetch(`/api/comments/replies`,{
+        const res = await fetch(`/api/comments/replies`,{
             method: 'POST',
             body:formData
         })
+        const data = await res.json();
+        return data;
 
     } catch (error) {
         console.error(error)
