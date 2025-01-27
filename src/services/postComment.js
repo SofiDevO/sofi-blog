@@ -1,3 +1,6 @@
+const { SECRET_USER, SECRET_PASSWORD } = import.meta.env
+import { wpquery } from "@src/data/wordpress";
+
 const postComment = async (input, postId = null, parentId = null) => {
     const headers = {
         'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
