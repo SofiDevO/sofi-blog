@@ -110,6 +110,7 @@ const { postId = null, name, email="", website="", content=""  } = Astro.props;
     console.log("comment added")
 }
 
+
   async function addComment(formData) {
     try {
         const res = await fetch(`/api/comments/replies`,{
