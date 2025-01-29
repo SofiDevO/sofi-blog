@@ -10,6 +10,8 @@ export interface LoggedUser {
     _links: any;
     iat: number;
     exp: number;
+    email: string;
+    website: string;
 }
 interface Avatar {
     '24': string;

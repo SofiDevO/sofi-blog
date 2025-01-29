@@ -1,8 +1,7 @@
 ---
 // Importar PostCard y los datos
-import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
-import { cardsData as data}  from "@src/services/getCards.js";
-
+import PostCard from "@atoms/PostCard/PostCard.astro";
+import { cardsData as data}  from "@services/getCards.js";
 
 const cardsData = await data();
 if (!cardsData) {
@@ -12,60 +11,50 @@ if (!cardsData) {
 if (!cardsData?.posts?.nodes) {
   throw new Error("Los datos de las publicaciones no están disponibles.");
 }
-
 // Ordenar los posts por fecha
 const sortedPosts = cardsData.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
-
 // Agrupar los posts por categorías principales
 const postsByCategory = sortedPosts.reduce((acc, post) => {
-  const parentCategory = post.categories.nodes.map(
-    (category) => category.name
-  )[0];
-
-  if (!acc[parentCategory]) {
-    acc[parentCategory] = [];
-  }
-
-  acc[parentCategory].push(post);
-
+  post.categories.nodes.forEach((category) => {
+    if (!acc[category.name]) {
+      acc[category.name] = [];
+    }
+    acc[category.name].push(post);
+  });
   return acc;
 }, {});
 ---
-
 <!-- Renderizado de los posts -->
 <div class="categories__container">
   {
     Object.keys(postsByCategory).map((category) => (
       <section class="category__section" id={category}>
-        <span class="category__title">
+        <div class="category__title">
           <h2>{category}</h2>
-        </span>
-        <ul role="list" class="link-card-grid">
-          {postsByCategory[category].slice(0, 3).map((post) => {
-            const categories = post.categories.nodes.map((category) => ({
-              name: category.name,
-              slug: category.slug,
-              parentCategory: category.parent?.node?.name || null,
-              parentCategorySlug: category.parent?.node?.slug || null,
-            }));
+          <a href={`/categories/${category}`} class="category__title__link">
+            Ver más
+            <iconify-icon class="title__arrow" icon="fe:arrow-right" width="24" height="24"  style="color: current"></iconify-icon>
+          </a>
+        </div>
 
+        <ul role="list" class="link-card-grid">
+        {postsByCategory[category].slice(0,4).map((post) => {
+            const categories = post.categories.nodes.map((category) => ({
+                name: category.name,
+                slug: category.slug,
+            }));
             // Fallback para la imagen destacada
             const featuredImage =
               post.featuredImage?.node?.mediaItemUrl ||
-              "/img/branding/logo.png";
+              "/img/branding/defaultBanner.png";
             const altText =
-              post.featuredImage?.node?.altText || "Imagen no disponible";
+              post.featuredImage?.node?.altText || "Imagen por defecto";
 
             // Lógica para manejar el slug de subcategoría y el padre
             const primaryCategory = post.categories.nodes[0];
-            const parentCategory = primaryCategory.parent?.node;
 
-            // Generar el slug correcto según tenga o no padre
-            const categorySlug = parentCategory
-              ? `/categories/${parentCategory.slug}/${primaryCategory.slug}` // Combina padre e hijo
-              : `/categories/${primaryCategory.slug}`; // Solo hijo
 
             return (
               <PostCard
@@ -80,7 +69,7 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
                 authorFirstName={post.author.node.firstName}
                 authorLastName={post.author.node.lastName}
                 categories={categories}
-                categorySlug={categorySlug}
+
               />
             );
           })}

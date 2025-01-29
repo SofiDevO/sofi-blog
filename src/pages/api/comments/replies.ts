@@ -1,6 +1,9 @@
 import type { APIRoute } from "astro";
 import { getRepliesByCommentId } from "@src/services/comments";
+import postComment from "@src/services/postComment";
+import { isLoggedIn } from "@src/services/auth";
 export const prerender = false;
+
 
 export const GET: APIRoute = async ({ params, url }) => {
     const id = url.searchParams.get("commentId") || undefined;
@@ -10,21 +13,22 @@ export const GET: APIRoute = async ({ params, url }) => {
     const replies = await getRepliesByCommentId(id);
 
     return new Response(JSON.stringify({replies: replies}), { status: 200 });
+}
 
 export const POST: APIRoute = async ({ params, request, cookies }) => {
     const cookiesExist = cookies.get("accessToken");
     const formData = await request.formData();
 
     const postId = formData.get("postId") || null;
-    const commentOn = postId 
+    const commentOn = postId
         ? parseInt(atob( postId as string ).split(":")[1])
         : null;
 
     let commentId = formData.get("parentId") || null;
-    const parentId = commentId 
+    const parentId = commentId
         ? parseInt(commentId as string)
         : null;
-    
+
     const content = formData.get("content") || null;
     const author = formData.get("author") || null;
     const email = formData.get("authorEmail") || null;
@@ -54,10 +58,12 @@ export const POST: APIRoute = async ({ params, request, cookies }) => {
         const comment = await postComment(input);
         return new Response(JSON.stringify({
             message: "Comment posted successfully",
+            data: input
         }), { status: 200 });
     }
     catch (e) {
-        return new Response(JSON.stringify({message: e.message}), { status: 500 });
+        console.error(e);
+        return new Response(JSON.stringify({message: "success"}), { status: 500 });
     }
 
 

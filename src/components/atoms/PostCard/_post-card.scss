@@ -1,4 +1,4 @@
-@use '@sass/variables' as v;
+@use "@sass/variables" as v;
 @use "@sass/mixins" as mixins;
 
 .post-card {
@@ -11,30 +11,25 @@
     box-shadow 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  min-height: 43.7rem;
-
+  min-height: 38rem;
   &:hover {
     transform: scale(1.01);
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   }
-
   &__image-container {
     position: relative;
-    height: 15rem;
+    height: 13rem;
     overflow: hidden;
   }
-
   &__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease-in-out;
   }
-
   &:hover &__image {
     transform: scale(1.1);
   }
-
   &__image-overlay {
     position: absolute;
     inset: 0;
@@ -90,11 +85,11 @@
     border-radius: 4px;
     width: fit-content;
     width: 100%;
-    padding: .3rem 0;
-    gap: .5rem;
+    padding: 0.3rem 0;
+    gap: 0.5rem;
   }
   &__title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 600;
     color: v.$mainColor;
     margin-bottom: 0.5rem;
@@ -108,8 +103,8 @@
     }
   }
 
-  &__excerpt  {
-    font-size: 1.5rem;
+  &__excerpt p {
+    font-size: 1.3rem;
     margin-bottom: 1rem;
     line-height: 1.5;
     display: -webkit-box;
@@ -126,9 +121,9 @@
   }
 
   &__category {
-    padding: 0.45rem 0.85rem;
+    padding: 0.42rem 0.83rem;
     border-radius: 16px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: white;
     background: v.$french-violet;
     transition:
@@ -165,7 +160,7 @@
   border: 1px solid #1a2a2e;
   &__title {
     transition: 0.5s ease-in-out;
-    color: v.$secundaryColor;
+    color: v.$seccondaryColor;
     &:hover {
       @include mixins.text-gradient("ligth");
     }
@@ -178,7 +173,7 @@
     color: #cdcdcd;
   }
   &__author-name {
-    color: v.$secundaryColor;
+    color: v.$seccondaryColor;
   }
 
   &__read-more {
