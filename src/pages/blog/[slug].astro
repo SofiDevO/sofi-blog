@@ -1,14 +1,14 @@
 ---
-import Layout from "@src/layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 import Comments from "@organisms/Comments/Comments.astro";
-import { replaceIframes } from "@src/utils/index"
+import { replaceIframes } from "@src/utils/index";
 import { getPostsBySlug } from "@src/services/posts";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import { isLoggedIn } from "@src/services/auth";
 
 const { cookies } = Astro;
 const isLogged = isLoggedIn(cookies);
-let userData = {}
+let userData = {};
 if (!isLogged) {
   userData = isLogged;
 }
@@ -19,12 +19,12 @@ const { slug } = Astro.params;
 const post = await getPostsBySlug(slug);
 
 if (!post) {
-    return Astro.redirect("/404");
+  return Astro.redirect("/404");
 }
-const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
+const postImage =
+  post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
-
-const{ date} =Astro.props;
+const { date } = Astro.props;
 const formatDate = new Date(date);
 const day = formatDate.getDate();
 const before_month = formatDate
@@ -34,36 +34,57 @@ const month = before_month.charAt(0).toUpperCase() + before_month.slice(1);
 const year = formatDate.getFullYear();
 
 const newDateFormat = `${day} / ${month} / ${year}`;
+const author = post.author?.node;
+const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
+
 ---
 
-<Layout  image={postImage} title={post.title} description={post.excerpt}>
-  <section id="post" class="flex items-center justify-center w-full pt-36 pb-20 px-10" >
-    <article class="flex flex-col w-full max-w-[900px]" transition:name=`${post.title}-title`>
+<Layout image={postImage} title={post.title} description={post.excerpt}>
+  <meta slot="head" name="author" content=`${author.firstName} ${author.lastName}, ${post.author.node.name} `>
+  <meta slot="head" property="article:published_time" content={post.date} >
+  <meta slot="head" property="article:modified_time" content={post.modified} >
+  <meta slot="head" name="keywords" content={keyWords} />
+  <section
+    id="post"
+    class="flex items-center justify-center w-full pt-36 pb-20 px-10"
+  >
+    <article
+      class="flex flex-col w-full max-w-[900px]"
+      transition:name=`${post.title+1}-${post.categories.nodes[0].name}`
+    >
       <div class="w-full max-w-[1300px] mx-auto overflow-hidden">
         <img
           class="w-full h-full object-cover"
-          src={post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png"}
+          src={post?.featuredImage?.node?.mediaItemUrl ||
+            "/img/branding/logo.png"}
           alt={post.title}
         />
       </div>
-      <h1 class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty" >{post.title}</h1>
+      <h1
+        class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty"
+      >
+        {post.title}
+      </h1>
       <div class="flex gap-3 items-center my-5 px-3 group">
-          <img
-            class="w-24 h-24 group-hover:scale-110 rounded-full"
-            src={post.author?.node?.avatar?.url}
-            alt={post.author?.node?.name}
-          />
-        <p class="text-2xl font-bold">{post.author?.node?.firstName} {post.author?.node?.lastName }</p>
+        <img
+          class="w-24 h-24 group-hover:scale-110 rounded-full"
+          src={author.avatar?.url}
+          alt={author.name}
+        />
+        <p class="text-2xl font-bold">
+          {author.firstName}
+          {author.lastName}
+        </p>
       </div>
       <div
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
-      <Fragment set:html={replaceIframes(post.content) || ""}/>
-      <Comments slug={slug} postId={post.id} server:defer >
-        <div slot="fallback">
-          <Loader />
-        </div>
-      </Comments>
+        <Fragment set:html={replaceIframes(post.content) || ""} />
+        <Comments slug={slug} postId={post.id}  server:defer>
+          <div slot="fallback">
+            <Loader />
+          </Comments >
+          </div>
       </div>
     </article>
   </section>

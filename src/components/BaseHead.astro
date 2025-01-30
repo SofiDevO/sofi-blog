@@ -2,9 +2,10 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import "../sass/main.scss";
+import { ClientRouter } from 'astro:transitions';
+/* import { ViewTransitions } from "astro:transitions"; */
 
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
-import { ViewTransitions } from "astro:transitions";
 interface Props {
   title?: string;
   description?: string;
@@ -25,6 +26,7 @@ const {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/png" href="/img/branding/logo.png" />
+<meta name=”robots” content=”index, follow”>
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
 <!-- Canonical URL -->
@@ -49,10 +51,13 @@ const {
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+
+
 <!-- css librerias/ cdn -->
 
 
 <!-- Iconify CDN -->
 <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"
 ></script>
-<ViewTransitions />
+<!-- <ViewTransitions /> -->
+<ClientRouter />

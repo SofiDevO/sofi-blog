@@ -9,23 +9,43 @@ export const getPostsBySlug = async (slug) => {
                         title
                         slug
                         author {
-                            node {
-                                name
+                             node {
                                 avatar {
                                     url
                                 }
-                                firstName
                                 lastName
+                                name
+                                firstName
+                                description
+                                id
+                                }
                             }
-                        }
-                        content
+                        content(format: RENDERED)
                         date
                         excerpt
                         featuredImage {
                             node {
                                 mediaItemUrl
                                 altText
+                                srcSet
                             }
+                        }
+                         tags {
+                            nodes {
+                            name
+                            }
+                        }
+                        categories {
+                            nodes {
+                            name
+                            }
+                        }
+                        commentCount
+                        dateGmt
+                        modified
+                        seo {
+                            cornerstone
+                            readingTime
                         }
                     }
                 }
