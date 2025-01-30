@@ -26,8 +26,9 @@ export const getPostsBySlug = async (slug) => {
                         featuredImage {
                             node {
                                 mediaItemUrl
-                                altText
                                 srcSet
+                                altText
+                                sizes
                             }
                         }
                          tags {
@@ -46,6 +47,7 @@ export const getPostsBySlug = async (slug) => {
                         seo {
                             cornerstone
                             readingTime
+                            metaDesc
                         }
                     }
                 }

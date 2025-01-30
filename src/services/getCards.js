@@ -10,8 +10,10 @@ export  const cardsData = async () =>{
             slug
             featuredImage {
               node {
-                altText
                 mediaItemUrl
+                srcSet
+                sizes
+                altText
               }
             }
             author {

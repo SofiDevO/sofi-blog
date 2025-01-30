@@ -6,6 +6,8 @@ const {
   title,
   excerpt,
   image,
+  srcSet,
+  sizes,
   altdesc,
   author,
   authorImage,
@@ -17,7 +19,6 @@ const {
 import { fade } from "astro:transitions";
 console.log(slug);
 
-
 const formatDate = new Date(date);
 const day = formatDate.getDate();
 const before_month = formatDate
@@ -27,7 +28,6 @@ const month = before_month.charAt(0).toUpperCase() + before_month.slice(1);
 const year = formatDate.getFullYear();
 
 const newDateFormat = `${day} / ${month} / ${year}`;
-
 ---
 
 <article
@@ -38,6 +38,8 @@ const newDateFormat = `${day} / ${month} / ${year}`;
   <!-- Imagen del post -->
   <div class="post-card__image-container">
     <img
+      srcset={srcSet}
+      sizes={sizes}
       alt={altdesc}
       src={image || "/img/branding/logo.png"}
       class="post-card__image"
@@ -63,7 +65,7 @@ const newDateFormat = `${day} / ${month} / ${year}`;
       </div>
     </div>
     <!-- Título -->
-    <a href={link} >
+    <a href={link} data-astro-prefetch>
       <h3 class="post-card__title group">
         {title}
         <iconify-icon
@@ -81,9 +83,9 @@ const newDateFormat = `${day} / ${month} / ${year}`;
       {
         categories.map((category) => (
           <a
+            data-astro-prefetch
             href={`/categories/${category.slug}`}
             class="post-card__category"
-
           >
             {category.name}
           </a>
