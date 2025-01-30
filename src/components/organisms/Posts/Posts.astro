@@ -1,7 +1,7 @@
 ---
 // Importar PostCard y los datos
 import PostCard from "@atoms/PostCard/PostCard.astro";
-import { cardsData as data}  from "@services/getCards.js";
+import { cardsData as data } from "@services/getCards.js";
 
 const cardsData = await data();
 if (!cardsData) {
@@ -18,14 +18,18 @@ const sortedPosts = cardsData.posts.nodes.sort(
 // Agrupar los posts por categorías principales
 const postsByCategory = sortedPosts.reduce((acc, post) => {
   post.categories.nodes.forEach((category) => {
-    if (!acc[category.name]) {
-      acc[category.name] = [];
+    if (!category.parent) {
+      if (!acc[category.name]) {
+        acc[category.name] = [];
+      }
+      acc[category.name].push(post);
     }
-    acc[category.name].push(post);
   });
   return acc;
 }, {});
+import { fade } from "astro:transitions";
 ---
+
 <!-- Renderizado de los posts -->
 <div class="categories__container">
   {
@@ -33,18 +37,29 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
       <section class="category__section" id={category}>
         <div class="category__title">
           <h2>{category}</h2>
-          <a href={`/categories/${category}`} class="category__title__link">
+          <a href={`/categories/${category}`} class="category__title__link"
+            transition:name={category}
+            transition:animate={fade({ duration: ".4s" })}
+            >
             Ver más
-            <iconify-icon class="title__arrow" icon="fe:arrow-right" width="24" height="24"  style="color: current"></iconify-icon>
+            <iconify-icon
+              class="title__arrow"
+              icon="fe:arrow-right"
+              width="24"
+              height="24"
+              style="color: current"
+            />
           </a>
         </div>
 
         <ul role="list" class="link-card-grid">
-        {postsByCategory[category].slice(0,4).map((post) => {
-            const categories = post.categories.nodes.map((category) => ({
+          {postsByCategory[category].slice(0, 4).map((post) => {
+            const categories = post.categories.nodes
+              .filter((category) => !category.parent) // Filtrar solo categorías padre
+              .map((category) => ({
                 name: category.name,
                 slug: category.slug,
-            }));
+              }));
             // Fallback para la imagen destacada
             const featuredImage =
               post.featuredImage?.node?.mediaItemUrl ||
@@ -52,24 +67,20 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
             const altText =
               post.featuredImage?.node?.altText || "Imagen por defecto";
 
-            // Lógica para manejar el slug de subcategoría y el padre
-            const primaryCategory = post.categories.nodes[0];
-
-
             return (
               <PostCard
+                key={post.id}
                 date={post.date}
+                slug={post.slug}
                 link={`/blog/${post.slug}`}
                 title={post.title}
                 excerpt={post.excerpt}
                 image={featuredImage}
-                altText={altText}
                 author={post.author.node.name}
                 authorImage={post.author.node.avatar.url}
                 authorFirstName={post.author.node.firstName}
                 authorLastName={post.author.node.lastName}
                 categories={categories}
-
               />
             );
           })}

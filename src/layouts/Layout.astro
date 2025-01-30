@@ -4,6 +4,7 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
 
+
 const {
   title,
   description,
@@ -15,6 +16,7 @@ const {
 <html lang="en">
   <head>
     <BaseHead  title={title} description={description} image={image}  />
+    <slot name="head" />
   </head>
   <body>
     <ThemeIcon />

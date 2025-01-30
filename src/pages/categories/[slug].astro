@@ -17,8 +17,8 @@ const sortedPosts = category.posts.nodes.sort(
 
 <Layout >
   <section class="categories">
-    <div class="categories__container">
-      <h2 class="category__title">
+    <div class="categories__container" >
+      <h2 class="category__title"transition:name=`${category?.name}`>
         Posts de la categoría: {category?.name}
       </h2>
       {

@@ -16,72 +16,36 @@ const data = await wpquery({
                 name
                 firstName
                 description
-                comments {
-                  nodes {
-                    author {
-                      node {
-                        url
-                        name
-                        avatar {
-                          default
-                          url
-                        }
-                      }
-                    }
-                    commentId
-                    content(format: RENDERED)
-                    date
-                    id
-                    replies {
-                      nodes {
-                        author {
-                          node {
-                            url
-                            name
-                            avatar {
-                              default
-                              url
-                            }
-                          }
-                        }
-                        content(format: RENDERED)
-                        date
-                      }
-                    }
-                  }
-                }
+                id
               }
             }
             slug
             date
             title
             content(format: RENDERED)
-            contentType {
-              node {
-                id
-                isComment
-              }
-            }
             featuredImage {
               node {
                 mediaItemUrl
+                srcSet
               }
             }
+            isComment
+            databaseId
+            id
             tags {
               nodes {
                 name
               }
             }
-            isComment
+            categories {
+              nodes {
+                name
+              }
+            }
           }
           pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
-        }
-        tags {
-          nodes {
-            name
+            endCursor
+            startCursor
           }
         }
       }
