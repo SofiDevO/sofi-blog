@@ -38,7 +38,6 @@ const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
 
 ---
-
 <Layout image={postImage} title={post.title} description={post.excerpt}>
   <meta slot="head" name="author" content=`${author.firstName} ${author.lastName}, ${post.author.node.name} `>
   <meta slot="head" property="article:published_time" content={post.date} >
