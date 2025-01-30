@@ -28,6 +28,8 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
   return acc;
 }, {});
 import { fade } from "astro:transitions";
+
+console.log(sortedPosts);
 ---
 
 <!-- Renderizado de los posts -->
@@ -37,10 +39,12 @@ import { fade } from "astro:transitions";
       <section class="category__section" id={category}>
         <div class="category__title">
           <h2>{category}</h2>
-          <a href={`/categories/${category}`} class="category__title__link"
+          <a
+            href={`/categories/${category}`}
+            class="category__title__link"
             transition:name={category}
             transition:animate={fade({ duration: ".4s" })}
-            >
+          >
             Ver más
             <iconify-icon
               class="title__arrow"
@@ -81,6 +85,8 @@ import { fade } from "astro:transitions";
                 authorFirstName={post.author.node.firstName}
                 authorLastName={post.author.node.lastName}
                 categories={categories}
+                srcSet={post.featuredImage?.node?.srcSet}
+                sizes={post.featuredImage?.node?.sizes}
               />
             );
           })}

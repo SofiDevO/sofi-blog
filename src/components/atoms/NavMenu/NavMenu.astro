@@ -7,7 +7,7 @@ const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
     {
       pagePathname !== "/" && (
         <li class="header__item">
-          <a class="header__link" href="/">
+          <a class="header__link" href="/" data-astro-prefetch>
             Home
           </a>
         </li>
@@ -26,6 +26,7 @@ const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
                 {item.children.map((child) => (
                   <li class="dropdown__item">
                     <a
+                      data-astro-prefetch
                       class="dropdown__link"
                       href={`/categories/${child.slug}`}
                     >
@@ -40,7 +41,7 @@ const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
       ))
     }
     <li class="header__item">
-      <a class="header__link" href={staticMenu.url} target="_blank">
+      <a class="header__link" href={staticMenu.url} target="_blank" >
         {staticMenu.text}
         <iconify-icon
           icon="iconamoon:link-external"

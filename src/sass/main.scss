@@ -1,4 +1,4 @@
-@use '@sass/variables' as v;
+@use "@sass/variables" as v;
 @use "@sass/mixins" as mixins;
 @use "@sass/animations" as animations;
 @use "@atoms/Title/title" as title;
@@ -36,7 +36,10 @@ a {
   color: v.$seccondaryColor;
   cursor: pointer;
 }
-p, b, strong, pre {
+p,
+b,
+strong,
+pre {
   font-size: 1.6rem;
 }
 li {
@@ -64,31 +67,29 @@ figure {
 code {
   font-size: 1.5rem;
   background-color: #1f1f1f;
-  padding: 0.1rem .3rem;
+  padding: 0.1rem 0.3rem;
   color: v.$ufo-green;
   border-radius: 0.3rem;
 }
 
-
-
-table{
-  width:100%;
-  border:1px solid rgba(0,0,0,.05);
+table {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.05);
   border-collapse: collapse;
 }
 
- tr:nth-of-type(odd) {
-  background: rgba(0,0,0,.05);
+tr:nth-of-type(odd) {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 table thead th,
 table tfoot th {
   font-size: 1.8rem;
   font-weight: bold;
-  background: rgba(0,0,0,.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 table caption {
-  padding:1rem;
+  padding: 1rem;
 }
 table th,
 table td {
@@ -113,6 +114,7 @@ table td {
   }
   a {
     color: v.$french-violet;
+    font-weight: 600;
   }
 
   .wp-block-kevinbatdorf-code-block-pro.cbp-has-line-numbers,
@@ -135,7 +137,6 @@ table td {
       padding: 1rem;
       border-radius: 0 0 0.5rem 0.5rem;
     }
-
   }
   .wp-block-list {
     display: flex;
@@ -159,38 +160,42 @@ table td {
     overflow-x: auto;
   }
   /* width */
-::-webkit-scrollbar {
-  width: 2px;
-  height: 4px;
-}
+  ::-webkit-scrollbar {
+    width: 2px;
+    height: 4px;
+  }
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #1f1f1f;
-}
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #1f1f1f;
+  }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: v.$ufo-green;
-}
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: v.$ufo-green;
+  }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: black;
-  height: 5px;
-}
-
-
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: black;
+    height: 5px;
+  }
 
 }
 
+.text-gradient {
+  @include mixins.text-gradient("dark");
+}
 .dark {
   body {
     @include mixins.isTheme("dark");
   }
   #post {
     h1 {
-      @include mixins.text-gradient("ligth");
+      @include mixins.text-gradient("light");
     }
+  }
+  .text-gradient {
+    @include mixins.text-gradient("light");
   }
 }
