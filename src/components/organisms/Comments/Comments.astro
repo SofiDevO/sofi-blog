@@ -1,11 +1,9 @@
 ---
 import { getCommentsByPostSlug, getRepliesByCommentId } from "@src/services/comments";
 import Comment from "@src/components/molecules/Comment/Comment.astro";
-import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
 
-const { slug, postId } = Astro.props;
-const comments = await getCommentsByPostSlug(slug);
-
+const { slug, haveComments = false } = Astro.props;
+let comments = !haveComments ? [] : await getCommentsByPostSlug(slug);
 ---
 
 
@@ -17,8 +15,9 @@ const comments = await getCommentsByPostSlug(slug);
       <h2>Rompe el Hielo</h2>
     )
   }
-{
-  comments.length > 0 &&
+  <Comment comment={null}/>
+  {
+    comments.length > 0 &&
     comments.map( async (comment, index) => {
       const areFirstTwoComments = index < 2;
       const replies = await getRepliesByCommentId(comment.id);
@@ -28,16 +27,16 @@ const comments = await getCommentsByPostSlug(slug);
                 replies.length > 0 && areFirstTwoComments &&
                 replies.slice(0,2).map((reply) => {
                     return (
-                        <Comment {...reply} isReply />
+                      <Comment {...reply} isReply />
                     );
-                })
-            }
+                  })
+                }
         </Comment>
       );
     })
-
-}
-<CommentForm postId={postId} />
+    
+  }
+  <slot/>
 </section>
 <script>
   import { commentsController } from "@controllers/comments.controller";
