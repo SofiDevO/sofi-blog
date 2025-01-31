@@ -1,40 +1,41 @@
 ---
-const { postId = null, name, email="", website="", content=""  } = Astro.props;
+const { postId = null, isLogged = false  } = Astro.props;
+const hidden = isLogged ? true : false ;
 ---
 
 <form method="POST" id="comment-form" class="space-y-4 max-w-md mx-auto">
+  {
+    isLogged && (
+      <h3 class="text-2xl font-bold">Conectado como <span class="text-blue-500">{ isLogged.name }</span>. Deja un comentario</h3>
+    ) 
+  }
   <input type="hidden" name="postId" value={postId} />
   <input type="hidden" name="parentId" value="" />
-  <div>
+  <div {hidden}>
     <label for="author" class="block text-sm font-medium text-gray-700">Nombre</label>
     <input
       id="author"
       name="author"
       type="text"
-      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-
-      value={name}
+      class="mt-1 w-full border-gray-300 rounded-md shadow-sm"
     />
   </div>
-  <div>
+  <div {hidden}>
     <label for="authorEmail" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
     <input
       id="authorEmail"
       name="authorEmail"
       type="email"
-      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-      value={email}
-
+      class="mt-1 w-full border-gray-300 rounded-md shadow-sm"
     />
   </div>
-  <div>
+  <div {hidden}>
     <label   for="authorUrl" class="block text-sm font-medium text-gray-700">Sitio web (opcional)</label>
     <input
       id="authorUrl"
       name="authorUrl"
       type="url"
-      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-      value={website}
+      class="mt-1 w-full border-gray-300 rounded-md shadow-sm"
     />
   </div>
   <div>
@@ -43,8 +44,6 @@ const { postId = null, name, email="", website="", content=""  } = Astro.props;
       id="content"
       name="content"
       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-      value={content}
-
     ></textarea>
   </div>
   <button

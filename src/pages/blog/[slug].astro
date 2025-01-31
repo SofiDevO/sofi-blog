@@ -5,17 +5,12 @@ import { replaceIframes } from "@src/utils/index";
 import { getPostsBySlug } from "@src/services/posts";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import { isLoggedIn } from "@src/services/auth";
+import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
 
-// Por que hay errores de los imports?
+export const prerender = false;
 
 const { cookies } = Astro;
 const isLogged = isLoggedIn(cookies);
-let userData = {};
-if (!isLogged) {
-  userData = isLogged;
-}
-
-export const prerender = false;
 const { slug } = Astro.params;
 
 const post = await getPostsBySlug(slug);
@@ -38,8 +33,6 @@ const year = formatDate.getFullYear();
 const newDateFormat = `${day} / ${month} / ${year}`;
 const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
-
-console.log(post.seo.metaDesc);
 ---
 
 <Layout image={postImage} title={post.title} description={post.seo.metaDesc}>
@@ -98,10 +91,16 @@ console.log(post.seo.metaDesc);
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
         <Fragment set:html={replaceIframes(post.content) || ""} />
-        <Comments slug={slug} postId={post.id} server:defer>
+        <Comments 
+          slug={slug} 
+          postId={post.id} 
+          server:defer 
+          haveComments={ post.commentCount > 0 ? true : false }   
+          >
           <div slot="fallback">
             <Loader />
           </div>
+          <CommentForm postId={post.id} {isLogged}/>
         </Comments>
       </div>
     </article>
@@ -117,6 +116,8 @@ console.log(post.seo.metaDesc);
 </script>
 <style lang="scss" is:global>
   @use "src/sass/variables" as v;
+
+
   .progress {
     height: 0.2rem;
     width: 100%;
