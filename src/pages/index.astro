@@ -1,15 +1,14 @@
 ---
-
 import Layout from "@layouts/Layout.astro";
 import Posts from "@organisms/Posts/Posts.astro";
+import BackgroundGradient from "../components/atoms/BackgroundGradient /BackgroundGradient.astro";
+import DividerTop from "../components/atoms/DividerTop /DividerTop.astro";
 export const prerender = false;
 ---
-
-
-<Layout >
-  <main>
-    <Posts />
-  </main>
+<Layout>
+  <BackgroundGradient slot="background" />
+  <DividerTop />
+  <Posts />
 </Layout>
 
 <style is:global lang="scss">

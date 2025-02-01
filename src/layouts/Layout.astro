@@ -3,6 +3,7 @@ import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
+import DividerTop from "../components/atoms/DividerTop /DividerTop.astro";
 
 
 const {
@@ -22,6 +23,8 @@ const {
     <ThemeIcon />
     <ButtonToTop />
     <Header/>
+    <slot name="background" />
+
     <main>
       <slot />
     </main>

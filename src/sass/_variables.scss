@@ -8,7 +8,49 @@ $aqua: #58ecff;
 $bgDark: #0e1217 ;
 $text-color: #555;
 
+
+
 /* Gradientes del texto */
 
 $text-over-dark: radial-gradient(circle, #6600cc 0%, #009990 100%);
 $text-over-light: radial-gradient(circle, #33ff76 0%, #58ecff 100%);
+
+
+
+/*Gradiente Ligth mode   */
+$color-background-body-ligth: #06080c;
+$color-background-before-ligth: #090c12;
+$color-gradient1-start-ligth: rgba(121, 26, 244, 0.3);
+$color-gradient1-end-ligth: rgba(50, 0, 124, 0);
+$color-gradient2-start-ligth: rgba(117, 26, 244, 0.5);
+$color-gradient2-middle-ligth: rgba(48, 0, 124, 0.4);
+$color-gradient2-end-ligth: rgba(50, 0, 124, 0);
+$color-gradient3-start-ligth: rgba(142, 26, 244, 0.2);
+$color-gradient3-middle-ligth: rgba(58, 0, 124, 0.1);
+$color-gradient3-end-ligth: rgba(54, 0, 124, 0);
+$color-gradient4-start-ligth: rgba(52, 0, 124, 0.075);
+$color-gradient4-end-ligth: rgba(52, 0, 124, 0.05);
+$color-background-gradient5-ligth: #100d17;
+$color-gradient6-start-ligth: rgba(102, 40, 218, 0.5);
+$color-background-gradient6-ligth: #110d17;
+$color-background-after-ligth: #18131c;
+
+
+
+/*Gradiente dark mode   */
+$color-background-body: #06080c;
+$color-background-before: #090c12;
+$color-gradient1-start: rgba(17, 3, 40, 0.3);
+$color-gradient1-end: rgba(8, 4, 16, 0);
+$color-gradient2-start: rgba(131, 66, 244, 0.632);
+$color-gradient2-middle: rgba(8, 13, 28, 0.4);
+$color-gradient2-end: rgba(3, 91, 159, 0);
+$color-gradient3-start: rgba(13, 12, 26, 0.2);
+$color-gradient3-middle: rgba(70, 0, 124, 0.1);
+$color-gradient3-end: rgba(0, 0, 124, 0);
+$color-gradient4-start: rgba(68, 0, 124, 0.075);
+$color-gradient4-end: rgba(70, 0, 124, 0.05);
+$color-background-gradient5: #100d17;
+$color-gradient6-start: rgba(41, 10, 151, 0.462);
+$color-background-gradient6: #0e0d17;
+$color-background-after: #13131c;
