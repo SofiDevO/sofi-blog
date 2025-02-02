@@ -8,7 +8,24 @@ $aqua: #58ecff;
 $bgDark: #0e1217 ;
 $text-color: #555;
 
+:root {
+    --mainColor: rgb(12, 12, 12);
+    --secondaryColor: #f1f1f1;
+    --frenchViolet: #6600cc;
+    --cetaceanPurple: #140030;
+    --ufoGreen: #33ff76;
+    --aqua: #58ecff;
+    --bgDark: #0e1217;
+    --textColor: #555;
+  }
 
+  /* Tema oscuro */
+  .dark {
+    --mainColor: #f1f1f1;
+    --secondaryColor: rgb(12, 12, 12);
+    --frenchViolet: #9933ff;
+    --textColor: #ddd;
+  }
 
 /* Gradientes del texto */
 

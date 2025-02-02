@@ -28,8 +28,6 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
   return acc;
 }, {});
 import { fade } from "astro:transitions";
-
-
 ---
 
 <!-- Renderizado de los posts -->
@@ -59,7 +57,7 @@ import { fade } from "astro:transitions";
         <ul role="list" class="link-card-grid">
           {postsByCategory[category].slice(0, 4).map((post) => {
             const categories = post.categories.nodes
-              .filter((category) => !category.parent) // Filtrar solo categorías padre
+              .filter((category) => !category.parent)
               .map((category) => ({
                 name: category.name,
                 slug: category.slug,
@@ -70,7 +68,6 @@ import { fade } from "astro:transitions";
               "/img/branding/defaultBanner.png";
             const altText =
               post.featuredImage?.node?.altText || "Imagen por defecto";
-
             return (
               <PostCard
                 key={post.id}
@@ -87,6 +84,7 @@ import { fade } from "astro:transitions";
                 categories={categories}
                 srcSet={post.featuredImage?.node?.srcSet}
                 sizes={post.featuredImage?.node?.sizes}
+                currentGroupcategory={category}
               />
             );
           })}

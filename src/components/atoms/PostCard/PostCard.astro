@@ -14,10 +14,11 @@ const {
   authorFirstName,
   authorLastName,
   categories,
+  currentGroupcategory,
   date,
 } = Astro.props;
+
 import { fade } from "astro:transitions";
-console.log(slug);
 
 const formatDate = new Date(date);
 const day = formatDate.getDate();
@@ -26,13 +27,27 @@ const before_month = formatDate
   .slice(0, 3);
 const month = before_month.charAt(0).toUpperCase() + before_month.slice(1);
 const year = formatDate.getFullYear();
-
 const newDateFormat = `${day} / ${month} / ${year}`;
+
+// Usar currentGroupcategory directamente (sin JSON.stringify)
+const currentGroup = currentGroupcategory;
+console.log("💜 Current Group:", currentGroup);
+
+// Ordenar las categorías para que la categoría del grupo actual aparezca primero
+const sortedCategories = categories.sort((a, b) => {
+  if (a.name === currentGroup) return -1; // La categoría actual va primero
+  if (b.name === currentGroup) return 1;
+  return 0;
+});
+
+// Obtener la primera categoría para el transition:name
+const getFirstcategory = sortedCategories.map((category) => category.name);
+console.log("🧡 First Category:", getFirstcategory[0]);
 ---
 
 <article
   class="post-card"
-  transition:name=`${title+1}-${categories[0].name}`
+  transition:name=`${title}-${getFirstcategory[0]}`
   transition:animate={fade({ duration: ".4s" })}
 >
   <!-- Imagen del post -->
@@ -81,7 +96,7 @@ const newDateFormat = `${day} / ${month} / ${year}`;
     <!-- Categorías -->
     <div class="post-card__categories">
       {
-        categories.map((category) => (
+        sortedCategories.map((category) => (
           <a
             data-astro-prefetch
             href={`/categories/${category.slug}`}

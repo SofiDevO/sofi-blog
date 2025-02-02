@@ -4,6 +4,7 @@ import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
 import { getCategorieBySlug } from "@src/services/categories";
 export const prerender = false;
 const { slug } = Astro.params;
+const { indexNum } = Astro.props;
 
 const category = await getCategorieBySlug(slug);
 if (!category) {
@@ -13,12 +14,13 @@ if (!category) {
 const sortedPosts = category.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
----
 
+
+---
 <Layout >
   <section class="categories">
     <div class="categories__container" >
-      <h2 class="category__title"transition:name=`${category?.name}`>
+      <h2 class="category__title">
         Posts de la categoría: {category?.name}
       </h2>
       {
@@ -30,15 +32,6 @@ const sortedPosts = category.posts.nodes.sort(
                 "/img/branding/logo.png";
               const altText =
                 post.featuredImage?.node?.altText || "Imagen no disponible";
-
-              // Logic for handling the slug of subcategory and parent
-              const primaryCategory = post.categories.nodes[0];
-              const parentCategory = primaryCategory.parent?.node;
-
-              // Generate the correct slug based on parent presence
-              const categorySlug = parentCategory
-                ? `/categories/${parentCategory.slug}/${primaryCategory.slug}` // Combine parent and child
-                : `/categories/${primaryCategory.slug}`; // Only child
 
               return (
                 <li>

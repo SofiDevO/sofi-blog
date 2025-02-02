@@ -3,11 +3,14 @@ import { cardsData as data } from "@services/getCards.js";
 
 const cardsData = await data();
 const getStickyPost = cardsData.posts.nodes.find((post) => post.isSticky === true);
+const MostrecentPost = cardsData.posts.nodes.sort(
+  (a, b) => Date.parse(b.date) - Date.parse(a.date)
+);
 
-console.log(getStickyPost);
+console.log(MostrecentPost[0]);
 ---
 
-{getStickyPost && <h1 class="text-4xl text-center h-full min-h-[100vh] flex items-center justify-center">{getStickyPost.title}</h1>}}
+{getStickyPost ? <h1 class="text-4xl text-center h-full min-h-[100vh] flex items-center justify-center">{getStickyPost.title}</h1> : <h1 class="text-4xl text-center h-full min-h-[100vh] flex items-center justify-center">{MostrecentPost[0].title}</h1>}
 
 
 
