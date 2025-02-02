@@ -9,7 +9,7 @@
 
 <style lang="scss" is:global>
 @use "../../../sass/variables" as v;
-@import "../../../sass/mixins" ;
+@use "../../../sass/mixins" as mixins;
 
 .backgroud{
 	min-height: 100dvh;
@@ -37,12 +37,12 @@
 
 }
 .backgroud:before{
-	@include theme-gradient("dark");
+	@include mixins.theme-gradient("dark");
 
 }
 .dark{
 	.backgroud:before  {
-	  @include theme-gradient("dark");
+	  @include mixins.theme-gradient("dark");
   }
   .background:after {
     content: "";

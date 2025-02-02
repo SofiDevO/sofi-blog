@@ -3,10 +3,12 @@ import Layout from "@layouts/Layout.astro";
 import Posts from "@organisms/Posts/Posts.astro";
 import BackgroundGradient from "../components/atoms/BackgroundGradient /BackgroundGradient.astro";
 import DividerTop from "../components/atoms/DividerTop /DividerTop.astro";
+import Hero from "@organisms/Hero/Hero.astro";
 export const prerender = false;
 ---
 <Layout>
-  <BackgroundGradient slot="background" />
+
+  <Hero slot="hero"/>
   <DividerTop />
   <Posts />
 </Layout>
@@ -15,12 +17,5 @@ export const prerender = false;
   @view-transition {
     navigation: auto;
   }
-  main {
-    margin: 0 auto;
-    padding: 3rem 1rem 1rem 1rem;
-    width: 100%;
-    max-width: 1300px;
-    font-size: 20px;
-    line-height: 1.6;
-  }
+
 </style>

@@ -10,6 +10,7 @@ export  const cardsData = async () =>{
             slug
             featuredImage {
               node {
+                altText
                 mediaItemUrl
                 srcSet
                 sizes
@@ -37,9 +38,20 @@ export  const cardsData = async () =>{
                   node {
                     name
                     slug
+                    id
                   }
                 }
+                id
+                uri
               }
+            }
+            isSticky
+          }
+        }
+        comments {
+          edges {
+            node {
+              id
             }
           }
         }

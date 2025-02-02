@@ -1,0 +1,16 @@
+---
+import { cardsData as data } from "@services/getCards.js";
+
+const cardsData = await data();
+const getStickyPost = cardsData.posts.nodes.find((post) => post.isSticky === true);
+
+console.log(getStickyPost);
+---
+
+{getStickyPost && <h1 class="text-4xl text-center h-full min-h-[100vh] flex items-center justify-center">{getStickyPost.title}</h1>}}
+
+
+
+<style lang="scss" is:global>
+
+</style>

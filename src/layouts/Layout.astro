@@ -23,10 +23,20 @@ const {
     <ThemeIcon />
     <ButtonToTop />
     <Header/>
-    <slot name="background" />
-
-    <main>
+    <slot name="hero" />
+    <main >
       <slot />
     </main>
   </body>
 </html>
+
+<style is:global lang="scss">
+    main {
+    margin: 5rem  auto;
+    padding: 3rem 1rem 1rem 1rem;
+    width: 100%;
+    max-width: 1300px;
+    font-size: 20px;
+    line-height: 1.6;
+  }
+</style>
