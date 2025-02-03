@@ -43,18 +43,15 @@
       }
     }
   }
-  .header__link {
+  &__link {
     font-weight: bold;
     color: white;
+    position: relative;
     &:hover {
       @include mixins.text-gradient("ligth");
     }
   }
-  .header__link {
-    position: relative;
-  }
-
-  .header__link::after {
+  &__link::after {
     position: absolute;
     top: 25px;
     left: 0;
@@ -67,7 +64,7 @@
     background: v.$ufo-green;
   }
 
-  .header__link:hover::after {
+  &__link:hover::after {
     transform: scale(1);
   }
 }

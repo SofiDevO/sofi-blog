@@ -10,6 +10,10 @@
     display: flex;
     flex-direction: column;
   }
+  &__title{
+    font-size: 1.9rem;
+
+  }
   &__slogan{
     @include mixins.text-gradient("ligth");
   }
