@@ -1,5 +1,6 @@
 ---
 const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
+import { fade } from "astro:transitions";
 ---
 
 <nav class="header__menu">
@@ -7,7 +8,7 @@ const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
     {
       pagePathname !== "/" && (
         <li class="header__item">
-          <a class="header__link" href="/" data-astro-prefetch>
+          <a class="header__link" href="/" data-astro-prefetch   transition:name="home" transition:animate={fade({ duration: ".4s" })}>
             Home
           </a>
         </li>
@@ -16,12 +17,12 @@ const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
     {
       hierarchicalMenu.map((item) => (
         <li class="header__item">
-          <a class="header__link" href={`/categories/${item.slug}`}>
+          <a class="header__link" href={`/categories/${item.slug}`} data-astro-prefetch>
             {item.label}
           </a>
           {item.children.length > 0 && (
             <>
-              <iconify-icon icon="gridicons:dropdown" width="20" height="20" />
+              <iconify-icon class="dropdown__icon" icon="gridicons:dropdown"  />
               <ul class="dropdown">
                 {item.children.map((child) => (
                   <li class="dropdown__item">
@@ -29,6 +30,7 @@ const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
                       data-astro-prefetch
                       class="dropdown__link"
                       href={`/categories/${child.slug}`}
+                      data-astro-prefetch
                     >
                       {child.label}
                     </a>
@@ -41,7 +43,7 @@ const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
       ))
     }
     <li class="header__item">
-      <a class="header__link" href={staticMenu.url} target="_blank" >
+      <a class="header__link" href={staticMenu.url} target="_blank"  data-astro-prefetch>
         {staticMenu.text}
         <iconify-icon
           icon="iconamoon:link-external"

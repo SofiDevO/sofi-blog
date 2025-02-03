@@ -15,12 +15,12 @@ const sortedPosts = category.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
 
-
+import { fade } from "astro:transitions";
 ---
 <Layout >
   <section class="categories">
     <div class="categories__container" >
-      <h2 class="category__title">
+      <h2 class="category__title"  transition:name={category.name} transition:animate={fade({ duration: ".4s" })}>
         Posts de la categoría: {category?.name}
       </h2>
       {
@@ -38,7 +38,7 @@ const sortedPosts = category.posts.nodes.sort(
                   <PostCard
                     key={post.id}
                     date={post.date}
-                    link={`/blog/${post.slug}`}
+                    link={post.slug}
                     title={post.title}
                     excerpt={post.excerpt}
                     image={featuredImage}
@@ -60,9 +60,11 @@ const sortedPosts = category.posts.nodes.sort(
   </section>
 </Layout>
 
-<style lang="scss">
+<style lang="scss" is:global>
+  main {
+    margin-top: 0;
+  }
   .categories {
-    padding-top: 4rem;
     max-width: 1300px;
     margin: 0 auto;
     &__container {
