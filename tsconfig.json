@@ -1,9 +1,10 @@
 {
   "extends": "astro/tsconfigs/base",
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "allowJs": true,
     "baseUrl": ".",
     "paths": {
       "@src/*": ["src/*"],
@@ -20,5 +21,4 @@
       "@img/*": ["public/img/*"]
       },
     }
-
 }

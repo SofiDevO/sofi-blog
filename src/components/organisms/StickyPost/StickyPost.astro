@@ -2,18 +2,77 @@
 import { cardsData as data } from "@services/getCards.js";
 
 const cardsData = await data();
-const getStickyPost = cardsData.posts.nodes.find((post) => post.isSticky === true);
+const getStickyPost = cardsData.posts.nodes.find(
+  (post) => post.isSticky === true
+);
 const MostrecentPost = cardsData.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
-
-console.log(MostrecentPost[0]);
 ---
 
-{getStickyPost ? <h1 class="text-4xl text-center h-full min-h-[100vh] flex items-center justify-center">{getStickyPost.title}</h1> : <h1 class="text-4xl text-center h-full min-h-[100vh] flex items-center justify-center">{MostrecentPost[0].title}</h1>}
-
-
+{
+  getStickyPost ? (
+    <article class="sticky-post">
+      <img
+        class="sticky-post__image"
+        srcset={getStickyPost.featuredImage?.node?.srcSet}
+        sizes={getStickyPost.featuredImage?.node?.sizes}
+        src={getStickyPost.featuredImage?.node?.mediaItemUrl}
+        alt={getStickyPost.featuredImage?.node?.altText}
+      />
+      <div class="sticky-post__content">
+        <h2 class="sticky-post__title">{getStickyPost.title}</h2>
+        <fragment class="sticky-post__excerpt" set:html={getStickyPost.excerpt} />
+      </div>
+    </article>
+  ) : (
+    <h1 class="most-recent-post__title">{MostrecentPost[0].title}</h1>
+  )
+}
 
 <style lang="scss" is:global>
+.sticky-post {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  align-items: flex-start;
+  height: 100%;
 
+  &__image {
+    width: 100%;
+    max-width: 599px;
+    min-height: 336px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.75rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: 2.25rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ufoGreen);
+  }
+
+  &__excerpt {
+    color: white;
+  }
+}
+
+.most-recent-post__title {
+  font-size: 2.25rem;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
