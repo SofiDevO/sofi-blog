@@ -10,7 +10,25 @@
 @use "@organisms/Posts/posts" as posts;
 @use "@molecules/Comment/comment" as comment;
 @use "@organisms/Comments/comments" as comments;
-
+:root {
+  --mainColor: rgb(12, 12, 12);
+  --bg-color: #f1f1f1;
+  --frenchViolet: #6600cc;
+  --cetaceanPurple: #140030;
+  --ufoGreen: #33ff76;
+  --aqua: #58ecff;
+  --bgDark: rgb(14, 18, 23);
+  --textColor: #555;
+  --text-gradient: radial-gradient(circle, #6600cc 0%, #009990 100%);
+}
+/* Tema oscuro */
+.dark {
+  --mainColor: #f1f1f1;
+  --bg-color: rgb(11 7 20);
+  --frenchViolet: #9933ff;
+  --textColor: #ddd;
+  --text-gradient: radial-gradient(circle, #33ff76 0%, #58ecff 100%);
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -27,7 +45,7 @@ html {
 body {
   overflow-x: hidden;
   @include mixins.font-family("montserrat");
-  background-color: var(--secondaryColor);
+  background: var(--bg-color);
   color: var(--textColor);
 }
 

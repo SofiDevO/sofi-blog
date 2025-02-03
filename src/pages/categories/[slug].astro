@@ -4,7 +4,7 @@ import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
 import { getCategorieBySlug } from "@src/services/categories";
 export const prerender = false;
 const { slug } = Astro.params;
-const { indexNum } = Astro.props;
+
 
 const category = await getCategorieBySlug(slug);
 if (!category) {
