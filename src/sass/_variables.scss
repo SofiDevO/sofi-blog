@@ -1,38 +1,39 @@
+:root {
+  --mainColor: rgb(12, 12, 12);
+  --secondaryColor: #f1f1f1;
+  --frenchViolet: #6600cc;
+  --cetaceanPurple: #140030;
+  --ufoGreen: #33ff76;
+  --aqua: #58ecff;
+  --bgDark: #0e1217;
+  --textColor: #555;
+  --text-gradient: radial-gradient(circle, #6600cc 0%, #009990 100%);
+}
 
+/* Tema oscuro */
+.dark {
+  --mainColor: #f1f1f1;
+  --secondaryColor: rgb(12, 12, 12);
+  --frenchViolet: #9933ff;
+  --textColor: #ddd;
+  --text-gradient: radial-gradient(circle, #33ff76 0%, #58ecff 100%);
+}
+
+
+/* // VARIABLES DE SCSS */
 $mainColor: rgb(12 12 12);
 $seccondaryColor: #f1f1f1;
 $french-violet: #6600cc;
 $cetacean-purple: #140030;
 $ufo-green: #33ff76;
 $aqua: #58ecff;
-$bgDark: #0e1217 ;
+$bgDark: #0e1217;
 $text-color: #555;
-
-:root {
-    --mainColor: rgb(12, 12, 12);
-    --secondaryColor: #f1f1f1;
-    --frenchViolet: #6600cc;
-    --cetaceanPurple: #140030;
-    --ufoGreen: #33ff76;
-    --aqua: #58ecff;
-    --bgDark: #0e1217;
-    --textColor: #555;
-  }
-
-  /* Tema oscuro */
-  .dark {
-    --mainColor: #f1f1f1;
-    --secondaryColor: rgb(12, 12, 12);
-    --frenchViolet: #9933ff;
-    --textColor: #ddd;
-  }
 
 /* Gradientes del texto */
 
 $text-over-dark: radial-gradient(circle, #6600cc 0%, #009990 100%);
 $text-over-light: radial-gradient(circle, #33ff76 0%, #58ecff 100%);
-
-
 
 /*Gradiente Ligth mode   */
 $color-background-body-ligth: #06080c;
@@ -51,8 +52,6 @@ $color-background-gradient5-ligth: #100d17;
 $color-gradient6-start-ligth: rgba(102, 40, 218, 0.5);
 $color-background-gradient6-ligth: #110d17;
 $color-background-after-ligth: #18131c;
-
-
 
 /*Gradiente dark mode   */
 $color-background-body: #06080c;

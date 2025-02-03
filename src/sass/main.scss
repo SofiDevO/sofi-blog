@@ -27,7 +27,8 @@ html {
 body {
   overflow-x: hidden;
   @include mixins.font-family("montserrat");
-  @include mixins.isTheme("ligth");
+  background-color: var(--secondaryColor);
+  color: var(--textColor);
 }
 
 a {
@@ -180,22 +181,13 @@ table td {
     background: black;
     height: 5px;
   }
-
 }
 
 .text-gradient {
-  @include mixins.text-gradient("dark");
+  @include mixins.text-gradient();
 }
-.dark {
-  body {
-    @include mixins.isTheme("dark");
-  }
-  #post {
-    h1 {
-      @include mixins.text-gradient("light");
-    }
-  }
-  .text-gradient {
-    @include mixins.text-gradient("light");
+#post {
+  h1 {
+    @include mixins.text-gradient();
   }
 }

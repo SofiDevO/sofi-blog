@@ -15,7 +15,7 @@
         transform: scale(.98)
     }
     &__content{
-        @include mixins.text-gradient("ligth");
+        @include mixins.text-gradient();
         &:hover{
             color: black;
         }

@@ -15,7 +15,7 @@
 
   }
   &__slogan{
-    @include mixins.text-gradient("ligth");
+    @include mixins.text-gradient();
   }
   &__img {
     max-width: 4.5rem;

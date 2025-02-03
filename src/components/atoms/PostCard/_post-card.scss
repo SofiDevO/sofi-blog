@@ -162,7 +162,7 @@
     transition: 0.5s ease-in-out;
     color: v.$seccondaryColor;
     &:hover {
-      @include mixins.text-gradient("ligth");
+      @include mixins.text-gradient();
     }
 
     iconify-icon {
