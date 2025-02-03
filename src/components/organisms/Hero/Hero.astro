@@ -1,14 +1,23 @@
 ---
-import BackgroundGradient from "../../atoms/BackgroundGradient /BackgroundGradient.astro";
+import BackgroundGradient from "@atoms/BackgroundGradient/BackgroundGradient.astro";
 import StickyPost from "../StickyPost/StickyPost.astro";
-
-
 ---
 
-
 <BackgroundGradient>
-    <section class="hero flex flex-col justify-center items-center min-h-[100dvh] max-w-[1200px] m-auto">
-        <StickyPost />
-
+    <section class="hero">
+        <StickyPost server:defer />
     </section>
 </BackgroundGradient>
+
+<style lang="scss" is:global>
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+</style>

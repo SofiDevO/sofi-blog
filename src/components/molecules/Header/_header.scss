@@ -48,7 +48,7 @@
     color: white;
     position: relative;
     &:hover {
-      @include mixins.text-gradient("ligth");
+      @include mixins.text-gradient();
     }
   }
   &__link::after {

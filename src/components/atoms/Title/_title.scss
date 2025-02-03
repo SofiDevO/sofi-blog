@@ -4,7 +4,7 @@
   font-size: 45px;
 }
 .title-light {
-  @include mixins.text-gradient("ligth");
+  @include mixins.text-gradient();
 }
 .dark .title-light {
   @include mixins.text-gradient("dark");
@@ -14,5 +14,5 @@
 }
 
 .dark .title-dark {
-  @include mixins.text-gradient("ligth");
+  @include mixins.text-gradient();
 }

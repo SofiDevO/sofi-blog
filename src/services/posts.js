@@ -25,10 +25,13 @@ export const getPostsBySlug = async (slug) => {
                         excerpt
                         featuredImage {
                             node {
-                                mediaItemUrl
-                                srcSet
                                 altText
-                                sizes
+                                mediaItemUrl
+                                srcSet(size: LARGE)
+                                sizes(size: LARGE)
+                                altText
+                                link
+                                sourceUrl(size: LARGE)
                             }
                         }
                          tags {

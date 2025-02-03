@@ -54,6 +54,7 @@ console.log("💡",post.categories.nodes[0].name);
     <article
       class="flex flex-col w-full max-w-[900px]"
       transition:name=`${post.title}-${post.categories.nodes[0].name}`
+      transition:name=`styckyPost-${post.title}`
     >
       <div class="w-full max-w-[1300px] mx-auto overflow-hidden">
         <img
@@ -116,7 +117,7 @@ console.log("💡",post.categories.nodes[0].name);
   });
 </script>
 <style lang="scss" is:global>
-  @use "src/sass/variables" as v;
+  @use "@sass/variables" as v;
 
   main {
     margin-top: 0;

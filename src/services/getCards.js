@@ -12,9 +12,11 @@ export  const cardsData = async () =>{
               node {
                 altText
                 mediaItemUrl
-                srcSet
-                sizes
+                srcSet(size: MEDIUM)
+                sizes(size: MEDIUM)
                 altText
+                link
+                sourceUrl(size: MEDIUM)
               }
             }
             author {
@@ -54,6 +56,7 @@ export  const cardsData = async () =>{
               id
             }
           }
+
         }
       }
     `,
