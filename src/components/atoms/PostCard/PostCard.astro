@@ -31,7 +31,7 @@ const newDateFormat = `${day} / ${month} / ${year}`;
 
 // Usar currentGroupcategory directamente (sin JSON.stringify)
 const currentGroup = currentGroupcategory;
-console.log("💜 Current Group:", currentGroup);
+
 
 // Ordenar las categorías para que la categoría del grupo actual aparezca primero
 const sortedCategories = categories.sort((a, b) => {
@@ -42,7 +42,7 @@ const sortedCategories = categories.sort((a, b) => {
 
 // Obtener la primera categoría para el transition:name
 const getFirstcategory = sortedCategories.map((category) => category.name);
-console.log("🧡 First Category:", getFirstcategory[0]);
+
 ---
 
 <article
@@ -80,7 +80,7 @@ console.log("🧡 First Category:", getFirstcategory[0]);
       </div>
     </div>
     <!-- Título -->
-    <a href={`/blog/${link}`} data-astro-prefetch>
+    <a href={`/blog/${link}`} >
       <h3 class="post-card__title group">
         {title}
         <iconify-icon
@@ -98,7 +98,6 @@ console.log("🧡 First Category:", getFirstcategory[0]);
       {
         sortedCategories.map((category) => (
           <a
-            data-astro-prefetch
             href={`/categories/${category.slug}`}
             class="post-card__category"
           >
