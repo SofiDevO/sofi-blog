@@ -1,10 +1,10 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
 import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
+import Pagination from "@atoms/Pagination/Pagination.astro";
 import { getCategorieBySlug } from "@src/services/categories";
 export const prerender = false;
 const { slug } = Astro.params;
-
 
 const category = await getCategorieBySlug(slug);
 if (!category) {
@@ -15,18 +15,33 @@ const sortedPosts = category.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
 
+// Configuración de paginación
+const postsPerPage = 3;
+const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
+const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+
+// Obtener los posts para la página actual
+const startIndex = (currentPage - 1) * postsPerPage;
+const endIndex = startIndex + postsPerPage;
+const paginatedPosts = sortedPosts.slice(startIndex, endIndex);
+
 import { fade } from "astro:transitions";
 ---
-<Layout >
+
+<Layout>
   <section class="categories">
-    <div class="categories__container" >
-      <h2 class="category__title"  transition:name={category.name} transition:animate={fade({ duration: ".4s" })}>
+    <div class="categories__cards">
+      <h2
+        class="categories__title"
+        transition:name={category.name}
+        transition:animate={fade({ duration: ".4s" })}
+      >
         Posts de la categoría: {category?.name}
       </h2>
       {
-        sortedPosts.length > 0 ? (
+        paginatedPosts.length > 0 ? (
           <ul role="list" class="link-card-grid">
-            {sortedPosts.map((post) => {
+            {paginatedPosts.map((post) => {
               const featuredImage =
                 post.featuredImage?.node?.mediaItemUrl ||
                 "/img/branding/logo.png";
@@ -53,22 +68,51 @@ import { fade } from "astro:transitions";
             })}
           </ul>
         ) : (
-          <p>No se encontraron posts en esta categoría.</p>
+          <div class="categories__cards">
+
+              <p>No se encontraron posts en esta categoría. 🦝</p>
+
+          </div>
         )
       }
     </div>
+    {
+      totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          baseUrl={Astro.url.pathname}
+        />
+      )
+    }
   </section>
 </Layout>
 
 <style lang="scss" is:global>
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as mixins;
   main {
-    margin-top: 0;
+    margin: auto;
   }
   .categories {
     max-width: 1300px;
     margin: 0 auto;
-    &__container {
-      align-items: center;
+    display: grid;
+    place-content: center;
+    min-height: 100dvh;
+    &__title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: v.$french-violet;
+      margin-bottom: 5rem;
+      transition: color 0.3s ease-in-out;
+    }
+    &__cards {
+      width: 100%;
+      @include mixins.centerFlex(center);
+      min-height: 380px;
+      flex-direction: column;
+      margin-bottom: 3rem;
     }
   }
 </style>

@@ -1,0 +1,85 @@
+@use "@sass/variables" as v;
+@use "@sass/mixins" as mixins;
+
+#post {
+    h1 {
+      @include mixins.text-gradient("dark");
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    a {
+      color: v.$french-violet;
+      font-weight: 600;
+    }
+
+    .wp-block-kevinbatdorf-code-block-pro.cbp-has-line-numbers,
+    .wp-block-kevinbatdorf-code-block-pro {
+      width: 100%;
+      height: auto;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      kbd,
+      samp,
+      pre {
+        overflow-x: scroll;
+        text-wrap: wrap;
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        line-height: 1.5;
+        padding: 1rem;
+        border-radius: 0 0 0.5rem 0.5rem;
+      }
+    }
+    .wp-block-list {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        width: 100%;
+        list-style: disc;
+        font-size: 1.6rem;
+        font-weight: 500;
+      }
+    }
+    .wp-block-image img {
+      margin: 0 auto;
+    }
+    figure {
+      margin: 0 auto;
+      width: 100%;
+    }
+    code span {
+      width: 100%;
+      overflow-x: auto;
+    }
+    /* width */
+    ::-webkit-scrollbar {
+      width: 2px;
+      height: 4px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #1f1f1f;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: v.$ufo-green;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: black;
+      height: 5px;
+    }
+  }

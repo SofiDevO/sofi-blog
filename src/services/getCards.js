@@ -13,10 +13,10 @@ export  const cardsData = async () =>{
                 altText
                 mediaItemUrl
                 srcSet(size: MEDIUM)
-                sizes(size: MEDIUM)
+                sizes(size: LARGE)
                 altText
                 link
-                sourceUrl(size: MEDIUM)
+                sourceUrl(size: LARGE)
               }
             }
             author {
