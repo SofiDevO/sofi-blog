@@ -2,13 +2,12 @@
 import Layout from "@layouts/Layout.astro";
 import Comments from "@organisms/Comments/Comments.astro";
 import { replaceIframes } from "@src/utils/index";
-import { getPostsBySlug } from "@src/services/posts";
+import { getPostsBySlug } from "@src/services/getPostsBySlug";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import { isLoggedIn } from "@src/services/auth";
 import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
 
 export const prerender = false;
-
 const { cookies } = Astro;
 const isLogged = isLoggedIn(cookies);
 const { slug } = Astro.params;

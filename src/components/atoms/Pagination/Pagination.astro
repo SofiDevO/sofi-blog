@@ -1,0 +1,68 @@
+---
+const { currentPage, totalPages, baseUrl } = Astro.props;
+---
+
+<section class="pagination">
+  <div class="pagination__container">
+    <a
+      href={`${baseUrl}?page=${currentPage - 1}`}
+      class:list={[
+        "pagination__link pagination__link--disabled",
+        currentPage >1 && "pagination__link--active",
+      ]}>Anterior</a
+    >
+    {
+      Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+        <a
+          href={`${baseUrl}?page=${page}`}
+          class:list={["pagination__link", page === currentPage ? "pagination__link--current" : ""]}
+        >
+          {page}
+        </a>
+      ))
+    }
+    <a href={`${baseUrl}?page=${currentPage + 1}`} class:list={[
+        "pagination__link pagination__link--disabled",
+        currentPage < totalPages && "pagination__link--active",
+      ]}
+      >Siguiente</a
+    >
+  </div>
+</section>
+
+<style lang="scss" define:vars={{ baseUrl }}>
+    @use "@sass/variables" as v;
+    @use "@sass/mixins" as mixins;
+  .pagination {
+    @include mixins.centerFlex(center);
+    margin-top: auto;
+    &__container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    &__link {
+      padding: 5px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      background-color: v.$french-violet;
+      &--disabled {
+        pointer-events: none;
+        background-color: rgba(102, 102, 102, 0.637);
+      }
+      &--active {
+        background-color: v.$french-violet;
+        color: white;
+        pointer-events: initial;
+      }
+      &--current {
+        background-color: #300068;
+        color: v.$ufo-green;
+        pointer-events: initial;
+      }
+    }
+  }
+</style>
