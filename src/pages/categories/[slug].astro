@@ -93,13 +93,13 @@ import { fade } from "astro:transitions";
   @use "@sass/mixins" as mixins;
   main {
     margin:0 auto!important;
+    padding-top: 15rem;
   }
   .categories {
     max-width: 1300px;
     margin: 0 auto;
     display: grid;
-    place-content: center;
-    min-height: 100dvh;
+
     &__title {
       font-size: 2.5rem;
       font-weight: 600;
@@ -110,8 +110,8 @@ import { fade } from "astro:transitions";
     &__cards {
       width: 100%;
       @include mixins.centerFlex(center);
+      flex-direction: column;
       min-height: 380px;
-      flex-wrap: wrap;
       margin-bottom: 3rem;
     }
   }

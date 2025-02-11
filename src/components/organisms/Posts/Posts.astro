@@ -18,7 +18,7 @@ const sortedPosts = cardsData.posts.nodes.sort(
 // Agrupar los posts por categorías principales
 const postsByCategory = sortedPosts.reduce((acc, post) => {
   post.categories.nodes.forEach((category) => {
-    if (!category.parent) {
+    if (!category.parent || category.parent === null) {
       if (!acc[category.name]) {
         acc[category.name] = [];
       }
@@ -57,7 +57,7 @@ import { fade } from "astro:transitions";
         <ul role="list" class="link-card-grid">
           {postsByCategory[category].slice(0, 4).map((post) => {
             const categories = post.categories.nodes
-              .filter((category) => !category.parent)
+              .filter((category) => !category.parent || category.parent === null)
               .map((category) => ({
                 name: category.name,
                 slug: category.slug,
