@@ -1,13 +1,12 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import Posts from "@organisms/Posts/Posts.astro";
-import DividerTop from "../components/atoms/DividerTop /DividerTop.astro";
+import DividerTop from "../components/atoms/DividerTop/DividerTop.astro";
 import Hero from "@organisms/Hero/Hero.astro";
-
 ---
-<Layout>
 
-  <Hero slot="hero"  transition:name="home"/>
+<Layout>
+  <Hero slot="hero" transition:name="home" />
   <DividerTop />
   <Posts />
 </Layout>
@@ -16,5 +15,4 @@ import Hero from "@organisms/Hero/Hero.astro";
   @view-transition {
     navigation: auto;
   }
-
 </style>
