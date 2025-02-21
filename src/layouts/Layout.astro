@@ -23,6 +23,15 @@ const { title, description, image } = Astro.props;
     <main>
       <slot />
     </main>
+    <script is:inline src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script is:inline>
+  kofiWidgetOverlay.draw('sofidev', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Support me',
+    'floating-chat.donateButton.background-color': '#00b9fe',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>
   </body>
 </html>
 
