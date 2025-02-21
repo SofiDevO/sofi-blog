@@ -4,35 +4,31 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
 
-
-
-const {
-  title,
-  description,
-  image,
-} = Astro.props;
-
+const { title, description, image } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead  title={title} description={description} image={image}  />
+    <BaseHead title={title} description={description} image={image} />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4HD0MHWJHW"
+    ></script>
     <slot name="head" />
   </head>
   <body>
     <ThemeIcon />
     <ButtonToTop />
-    <Header/>
+    <Header />
     <slot name="hero" />
-    <main >
+    <main>
       <slot />
     </main>
   </body>
 </html>
 
 <style is:global lang="scss">
-    main {
-    margin: 5rem  auto;
+  main {
+    margin: 5rem auto;
     padding: 3rem 1rem 1rem 1rem;
     width: 100%;
     max-width: 1300px;
