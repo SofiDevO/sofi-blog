@@ -3,14 +3,14 @@ import Layout from "@layouts/Layout.astro";
 import Posts from "@organisms/Posts/Posts.astro";
 import DividerTop from "@atoms/DividerTop/DividerTop.astro";
 import Hero from "@organisms/Hero/Hero.astro";
-export const prerender = true
+export const prerender = true;
 
 ---
 <Layout>
 
   <Hero slot="hero"  transition:name="home"/>
   <DividerTop />
-  <Posts />
+  <Posts/>
 </Layout>
 
 <style is:global lang="scss">

@@ -18,15 +18,66 @@ if (!post) {
   return Astro.redirect("/404");
   } */
 
-import { PostContentData } from "@src/services/getPostContent";
+/* import { PostContentData  } from "@src/services/getPostContent"; */
 export async function getStaticPaths() {
-  const data = PostContentData;
-
-  return PostContentData.posts.nodes.map((post: any) => {
-    if (!post.slug) {
-      throw new Error("Post slug is undefined");
-    }
-
+  const data = await wpquery({
+  query: `
+    query getPostContent {
+        posts(first: 500) {
+            nodes {
+            slug
+            date
+            title
+            databaseId
+            id
+             author {
+                node {
+                avatar {
+                    url
+                }
+                lastName
+                name
+                firstName
+                description
+                id
+                }
+            }
+            content(format: RENDERED)
+             featuredImage {
+                node {
+                    altText
+                    mediaItemUrl
+                    srcSet(size: LARGE)
+                    sizes(size: LARGE)
+                    altText
+                    link
+                    sourceUrl(size: LARGE)
+                }
+            }
+            tags {
+                nodes {
+                name
+                }
+            }
+            categories {
+                nodes {
+                name
+                }
+            }
+            commentCount
+            dateGmt
+            modified
+            seo {
+                cornerstone
+                readingTime
+                metaDesc
+            }
+            }
+        }
+        }
+    `,
+});
+  return data?.posts?.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
       props: { post },
@@ -34,37 +85,8 @@ export async function getStaticPaths() {
   });
 }
 
-interface AstroProps {
-  post: {
-    featuredImage?: {
-      node?: {
-        mediaItemUrl?: string;
-        srcSet?: string;
-        sizes?: string;
-        altText?: string;
-      };
-    };
-    title: string;
-    author?: {
-      node?: {
-        firstName?: string;
-        lastName?: string;
-        name?: string;
-        avatar?: { url?: string };
-      };
-    };
-    seo: { metaDesc?: string; readingTime?: number };
-    date: string;
-    modified: string;
-    tags: { nodes: { name: string }[] };
-    content: string;
-    categories: { nodes: { name: string }[] };
-    id: string;
-  };
-  date: string;
-}
 
-const { post } = Astro.props as AstroProps;
+const { post } = Astro.props as any; ;
 
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
@@ -142,6 +164,7 @@ const postID = atob(post.id).split(":")[1];
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
         <Fragment set:html={replaceIframes(post.content) || ""} />
+
         <Comments slug={slug} server:defer>
           <div slot="fallback">
             <Loader />
@@ -153,7 +176,7 @@ const postID = atob(post.id).split(":")[1];
   </section>
   <div class="progress"></div>
 </Layout>
-<script>
+<script >
   import { fastYoutube } from "@src/utils/fast-youtube";
   import { InsertButtonCopy } from "@pages/blog/button-copy";
   document.addEventListener("astro:page-load", () => {
