@@ -28,6 +28,8 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
   return acc;
 }, {});
 import { fade } from "astro:transitions";
+export const prerender = false;
+
 ---
 
 <!-- Renderizado de los posts -->

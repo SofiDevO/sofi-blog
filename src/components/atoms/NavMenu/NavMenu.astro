@@ -1,6 +1,7 @@
 ---
 const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
 import { fade } from "astro:transitions";
+export const prerender = false
 ---
 
 <nav class="header__menu">
@@ -27,7 +28,6 @@ import { fade } from "astro:transitions";
                 {item.children.map((child) => (
                   <li class="dropdown__item">
                     <a
-                      data-astro-prefetch
                       class="dropdown__link"
                       href={`/categories/${child.slug}`}
                       data-astro-prefetch

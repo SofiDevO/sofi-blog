@@ -6,8 +6,6 @@ import { getPostsBySlug } from "@src/services/getPostsBySlug";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import { isLoggedIn } from "@src/services/auth";
 import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
-
-export const prerender = false;
 const { cookies } = Astro;
 const isLogged = isLoggedIn(cookies);
 const { slug } = Astro.params;
@@ -33,6 +31,8 @@ const newDateFormat = `${day} / ${month} / ${year}`;
 const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
 console.log("💡",post.categories.nodes[0].name);
+export const prerender = false
+
 ---
 
 <Layout image={postImage} title={post.title} description={post.seo.metaDesc}>

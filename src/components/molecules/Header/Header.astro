@@ -2,6 +2,7 @@
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
 import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
+export const prerender = false
 import { fetchMenuData } from "@src/services/getMenu";
 
 const pagePathname = Astro.url.pathname;
@@ -71,7 +72,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
 <header class="header">
   <div class="header__container">
     <Logo />
-    <NavMenu server:defer pagePathname={pagePathname} hierarchicalMenu={hierarchicalMenu} staticMenu={staticMenu} />
+    <NavMenu  pagePathname={pagePathname} hierarchicalMenu={hierarchicalMenu} staticMenu={staticMenu} />
     <HamburgerButton />
   </div>
 </header>

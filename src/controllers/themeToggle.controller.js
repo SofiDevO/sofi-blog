@@ -1,5 +1,6 @@
 
 export const ThemeColor = document.addEventListener('astro:page-load', () => {
+
 const theme = (() => {
 
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
