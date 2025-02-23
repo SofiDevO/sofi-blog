@@ -1,13 +1,13 @@
 ---
 import BackgroundGradient from "@atoms/BackgroundGradient/BackgroundGradient.astro";
 import StickyPost from "../StickyPost/StickyPost.astro";
-export const prerender = false
+export const prerender = true
 
 ---
 
 <BackgroundGradient>
     <section class="hero">
-        <StickyPost server:defer />
+        <StickyPost  />
     </section>
 </BackgroundGradient>
 

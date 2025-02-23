@@ -15,7 +15,7 @@ const sortedPosts = category.posts.nodes.sort(
 );
 
 // Configuración de paginación
-const postsPerPage = 3;
+const postsPerPage = 4;
 const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
 const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
 

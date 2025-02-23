@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { registerUser } from "@src/services/auth";
-export const prerender = false;
+export const prerender = true;
 
 export const POST: APIRoute = async ({ request, redirect }) => {
 
@@ -16,11 +16,11 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     // añadir validaciones de email y password
 
     const data = await registerUser({
-         username: user, 
-         password, 
-         email, 
-         firstName, 
-         lastName 
+         username: user,
+         password,
+         email,
+         firstName,
+         lastName
     });
 
     if (!data) return redirect("/register?error=invalid-credentials");

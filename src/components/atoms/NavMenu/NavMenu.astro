@@ -1,7 +1,7 @@
 ---
 const { pagePathname, hierarchicalMenu, staticMenu } = Astro.props;
 import { fade } from "astro:transitions";
-export const prerender = false
+
 ---
 
 <nav class="header__menu">
@@ -18,7 +18,7 @@ export const prerender = false
     {
       hierarchicalMenu.map((item) => (
         <li class="header__item">
-          <a class="header__link" href={`/categories/${item.slug}`} data-astro-prefetch>
+          <a class="header__link" href={`/categories/${item.slug}`} >
             {item.label}
           </a>
           {item.children.length > 0 && (
@@ -30,7 +30,7 @@ export const prerender = false
                     <a
                       class="dropdown__link"
                       href={`/categories/${child.slug}`}
-                      data-astro-prefetch
+
                     >
                       {child.label}
                     </a>
@@ -43,7 +43,7 @@ export const prerender = false
       ))
     }
     <li class="header__item">
-      <a class="header__link" href={staticMenu.url} target="_blank"  data-astro-prefetch>
+      <a class="header__link" href={staticMenu.url} target="_blank"  >
         {staticMenu.text}
         <iconify-icon
           icon="iconamoon:link-external"

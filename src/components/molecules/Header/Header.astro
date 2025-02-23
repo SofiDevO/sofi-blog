@@ -2,7 +2,7 @@
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
 import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
-export const prerender = false
+export const prerender = true
 import { fetchMenuData } from "@src/services/getMenu";
 
 const pagePathname = Astro.url.pathname;
@@ -26,12 +26,10 @@ interface MenuData {
 
 let menuData: MenuData | null = null;
 
-try {
-  const response = await fetchMenuData();
+
+  const response = await fetchMenuData;
   menuData = response as MenuData;
-} catch (error) {
-  console.error("Error loading menu data:", error);
-}
+
 
 const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes) ? [...menuData.menu.menuItems.nodes] : [];
 
@@ -41,6 +39,7 @@ function getSlug(url) {
   const parts = urlWithoutTrailingSlash.split("/");
   return parts[parts.length - 1];
 }
+
 
 // Function to transform the flat list into a hierarchical structure
 const flatListToHierarchical = (

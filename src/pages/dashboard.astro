@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { isLoggedIn } from "@src/services/auth";
 import { getPostsByUserID } from "@src/services/getPostsBySlug";
-export const prerender = false;
+export const prerender = true;
 const { cookies } = Astro;
 const user = isLoggedIn(cookies);
 if (!user) {

@@ -1,20 +1,71 @@
 ---
+export const prerender = true;
 import Layout from "@layouts/Layout.astro";
 import Comments from "@organisms/Comments/Comments.astro";
 import { replaceIframes } from "@src/utils/index";
-import { getPostsBySlug } from "@src/services/getPostsBySlug";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import { isLoggedIn } from "@src/services/auth";
 import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
 const { cookies } = Astro;
 const isLogged = isLoggedIn(cookies);
+import { wpquery } from "@src/data/wordpress";
 const { slug } = Astro.params;
 
+/* import { getPostsBySlug } from "@src/services/getPostsBySlug";
 const post = await getPostsBySlug(slug);
 
 if (!post) {
   return Astro.redirect("/404");
+  } */
+
+import { PostContentData } from "@src/services/getPostContent";
+export async function getStaticPaths() {
+  const data = PostContentData;
+
+  return PostContentData.posts.nodes.map((post: any) => {
+    if (!post.slug) {
+      throw new Error("Post slug is undefined");
+    }
+
+    return {
+      params: { slug: post.slug },
+      props: { post },
+    };
+  });
 }
+
+interface AstroProps {
+  post: {
+    featuredImage?: {
+      node?: {
+        mediaItemUrl?: string;
+        srcSet?: string;
+        sizes?: string;
+        altText?: string;
+      };
+    };
+    title: string;
+    author?: {
+      node?: {
+        firstName?: string;
+        lastName?: string;
+        name?: string;
+        avatar?: { url?: string };
+      };
+    };
+    seo: { metaDesc?: string; readingTime?: number };
+    date: string;
+    modified: string;
+    tags: { nodes: { name: string }[] };
+    content: string;
+    categories: { nodes: { name: string }[] };
+    id: string;
+  };
+  date: string;
+}
+
+const { post } = Astro.props as AstroProps;
+
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
@@ -30,9 +81,8 @@ const year = formatDate.getFullYear();
 const newDateFormat = `${day} / ${month} / ${year}`;
 const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
-console.log("💡",post.categories.nodes[0].name);
-export const prerender = false
 
+const postID = atob(post.id).split(":")[1];
 ---
 
 <Layout image={postImage} title={post.title} description={post.seo.metaDesc}>
@@ -92,16 +142,11 @@ export const prerender = false
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
         <Fragment set:html={replaceIframes(post.content) || ""} />
-        <Comments
-          slug={slug}
-          postId={post.id}
-          server:defer
-          haveComments={ post.commentCount > 0 ? true : false }
-          >
+        <Comments slug={slug} server:defer>
           <div slot="fallback">
             <Loader />
           </div>
-          <CommentForm postId={post.id} {isLogged}/>
+          <CommentForm postId={postID} {isLogged} server:defer />
         </Comments>
       </div>
     </article>
@@ -115,7 +160,6 @@ export const prerender = false
     InsertButtonCopy();
   });
 </script>
-
 
 <style lang="scss" is:global>
   @use "@sass/variables" as v;

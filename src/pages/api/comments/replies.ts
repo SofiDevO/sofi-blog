@@ -2,7 +2,7 @@ import type { APIRoute } from "astro";
 import { getRepliesByCommentId } from "@src/services/comments";
 import postComment from "@src/services/postComment";
 import { isLoggedIn } from "@src/services/auth";
-export const prerender = false;
+export const prerender = true;
 
 
 export const GET: APIRoute = async ({ params, url }) => {

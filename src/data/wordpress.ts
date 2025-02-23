@@ -7,7 +7,7 @@ interface WPGraphQLParams {
 }
 
 export async function wpquery({ query, variables = {}, headers = {} }: WPGraphQLParams) {
-  
+
   const res = await fetch(baseURL, {
     method: "post",
     headers: {

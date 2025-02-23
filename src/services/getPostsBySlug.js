@@ -58,7 +58,7 @@ export const getPostsBySlug = async (slug) => {
         });
 
         if (data.postBy === null) {
-            throw new Error("Post not found");
+            throw new Error("Post not f ound");
         }
         return data.postBy
     }

@@ -1,42 +1,58 @@
 ---
-import { getCommentsByPostSlug, getRepliesByCommentId } from "@src/services/comments";
+import {
+  getCommentsByPostSlug,
+  getRepliesByCommentId,
+} from "@src/services/comments";
 import Comment from "@src/components/molecules/Comment/Comment.astro";
 
-const { slug, haveComments = false } = Astro.props;
-let comments = !haveComments ? [] : await getCommentsByPostSlug(slug);
----
+const { slug } = Astro.props;
 
+import { getPostsBySlug } from "@src/services/getPostsBySlug";
+const post = await getPostsBySlug(slug);
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+let comments = post.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
+let postId = atob(post.id).split(":")[1];
+
+let  commentId =  comments.map((comment ) => {
+    return atob(comment.id).split(":")[1];
+});
+
+console.log("🦝CommentId:", commentId[1]);
+
+/* console.log("🦝",post) */
+console.log("🦝", comments);
+export const prerender = false;
+---
 
 <section class="flex flex-col mt-14 w-full" id="comments">
   {
-   comments.length > 0  ? (
+    comments.length > 0 ? (
       <h2 class="text-2xl font-bold">Comentarios</h2>
     ) : (
       <h2>Rompe el Hielo</h2>
     )
   }
-  <Comment comment={null}/>
+  <Comment comment={null} />
   {
     comments.length > 0 &&
-    comments.map( async (comment, index) => {
-      const areFirstTwoComments = index < 2;
-      const replies = await getRepliesByCommentId(comment.id);
-      return (
-        <Comment {...comment}>
-            {
-                replies.length > 0 && areFirstTwoComments &&
-                replies.slice(0,2).map((reply) => {
-                    return (
-                      <Comment {...reply} isReply />
-                    );
-                  })
-                }
-        </Comment>
-      );
-    })
-    
+    comments.map(async (comment, index) => {
+        const areFirstTwoComments = index < 2;
+        const replies = await getRepliesByCommentId(atob(comment.id).split(":")[1]);
+        return (
+          <Comment {...comment}>
+            {replies.length > 0 &&
+              areFirstTwoComments &&
+              replies.slice(0, 2).map((reply) => {
+                return <Comment {...reply} isReply />;
+              })}
+          </Comment>
+        );
+      })
   }
-  <slot/>
+  <slot />
 </section>
 <script>
   import { commentsController } from "@controllers/comments.controller";

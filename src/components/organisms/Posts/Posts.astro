@@ -1,5 +1,5 @@
 ---
-// Importar PostCard y los datos
+
 import PostCard from "@atoms/PostCard/PostCard.astro";
 import { cardsData as data } from "@services/getCards.js";
 
@@ -18,7 +18,7 @@ const sortedPosts = cardsData.posts.nodes.sort(
 // Agrupar los posts por categorías principales
 const postsByCategory = sortedPosts.reduce((acc, post) => {
   post.categories.nodes.forEach((category) => {
-    if (!category.parent || category.parent === null) {
+    if (!category.parent ) {
       if (!acc[category.name]) {
         acc[category.name] = [];
       }
@@ -28,7 +28,7 @@ const postsByCategory = sortedPosts.reduce((acc, post) => {
   return acc;
 }, {});
 import { fade } from "astro:transitions";
-export const prerender = false;
+export const prerender = true;
 
 ---
 
@@ -59,7 +59,7 @@ export const prerender = false;
         <ul role="list" class="link-card-grid">
           {postsByCategory[category].slice(0, 4).map((post) => {
             const categories = post.categories.nodes
-              .filter((category) => !category.parent || category.parent === null)
+              .filter((category) => !category.parent )
               .map((category) => ({
                 name: category.name,
                 slug: category.slug,

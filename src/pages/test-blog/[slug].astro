@@ -1,11 +1,12 @@
 ---
+import type { GetStaticPaths } from "astro";
 import Layout from "@src/layouts/Layout.astro";
 import Comments from "@organisms/Comments/Comments.astro";
 import { replaceIframes } from "@src/utils/index"
 import { getPostsBySlug } from "@src/services/getPostsBySlug";
 
 
-export const prerender = false;
+export const prerender = true;
 const { slug } = Astro.params;
 
 const post = await getPostsBySlug(slug);
@@ -14,6 +15,14 @@ if (!post) {
     return Astro.redirect("/404");
 }
 const postImage = post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPostsBySlug();
+  return posts.posts.edges.map((post) => ({
+    params: { slug: post.node.slug },
+    props: { post: post.node },
+  }));
+}
 ---
 
 <Layout  image={postImage} title={post.title} description={post.excerpt}>
