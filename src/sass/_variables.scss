@@ -1,6 +1,6 @@
 /* // VARIABLES DE SCSS */
-$mainColor: rgb(12 12 12);
-$seccondaryColor: #f1f1f1;
+$mainColor: var(--mainColor);
+$seccondaryColor: var(--bg-color);
 $french-violet: #6600cc;
 $cetacean-purple: #140030;
 $ufo-green: #33ff76;

@@ -1,6 +1,9 @@
 
+@use "@sass/variables" as v;
 @use "@sass/mixins" as mixins;
+
 .logo{
+  color: white;
   @include mixins.centerFlex(space-between);
   gap:1rem;
   &:hover span{

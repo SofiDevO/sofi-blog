@@ -26,6 +26,7 @@ const theme = (() => {
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
     // Custom event
+
     const event = new CustomEvent('themeChange', { detail: { isDark } });
     window.dispatchEvent(event);
   };

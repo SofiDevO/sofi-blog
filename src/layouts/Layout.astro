@@ -3,6 +3,7 @@ import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
+import CookiesBanner from "@src/components/atoms/CookiesBanner/CookiesBanner";
 
 const { title, description, image } = Astro.props;
 export const prerender = true
@@ -25,6 +26,7 @@ export const prerender = true
     <main>
       <slot />
     </main>
+    <CookiesBanner client:load />
     <script
       is:raw
       src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"

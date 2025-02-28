@@ -71,7 +71,7 @@
   &__author-name {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #333;
+    color: v.$mainColor;
   }
 
   &__date {
@@ -158,23 +158,13 @@
 .dark .post-card {
   background-color: #1c1f26;
   border: 1px solid #1a2a2e;
-  &__title {
-    transition: 0.5s ease-in-out;
-    color: v.$seccondaryColor;
-    &:hover {
-      @include mixins.text-gradient();
-    }
-
-    iconify-icon {
-      color: v.$ufo-green;
-    }
+  & iconify-icon {
+    color: v.$ufo-green;
   }
   &__excerpt {
     color: #cdcdcd;
   }
-  &__author-name {
-    color: v.$seccondaryColor;
-  }
+
 
   &__read-more {
     color: v.$ufo-green;
