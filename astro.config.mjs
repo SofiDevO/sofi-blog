@@ -6,7 +6,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blog.itssofi.dev',
+  site: 'https://sofidev.blog/',
   integrations: [react(), tailwind()],
   output: 'server',
   adapter: vercel(),
