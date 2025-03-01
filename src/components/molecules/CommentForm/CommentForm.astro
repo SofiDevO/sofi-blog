@@ -48,6 +48,7 @@ const hidden = isLogged ? true : false ;
   </div>
   <button
     type="submit"
+    id="add-comment"
     class="bg-blue-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-700"
   >
     Publicar Comentario
@@ -57,14 +58,12 @@ const hidden = isLogged ? true : false ;
 </form>
 
 <script is:inline>
+
   const comments = document.getElementById("comments");
 
   comments.addEventListener("click", (event) => {
     if (event.target.classList.contains("reply")) {
-      console.log(event.target)
       let commentId = event.target.getAttribute("data-commentId");
-      commentId = commentId ? atob(commentId).split(':')[1] : null;
-      console.log(commentId)
       const form = document.getElementById("comment-form");
       form.querySelector("input[name='parentId']").value = commentId;
     }
@@ -72,9 +71,9 @@ const hidden = isLogged ? true : false ;
   const form = document.getElementById("comment-form");
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");
-  const button = form.querySelector("button");
+  const addCommentBtn = form.querySelector("#add-comment");
 
-  button.addEventListener("click", async (event) => {
+  addCommentBtn.addEventListener("click", async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
     try {
