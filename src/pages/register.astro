@@ -1,7 +1,7 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
 import { isLoggedIn } from "@src/services/auth";
-export const prerender = true
+export const prerender = false;
 const { cookies } = Astro;
 const data = isLoggedIn(cookies);
 if (data) {
