@@ -1,6 +1,5 @@
 import type { APIRoute } from "astro";
 import { registerUser } from "@src/services/auth";
-export const prerender = true;
 
 export const POST: APIRoute = async ({ request, redirect }) => {
 
