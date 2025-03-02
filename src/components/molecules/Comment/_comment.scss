@@ -1,2 +1,39 @@
-@use '@sass/variables' as v;
+@use "@sass/variables" as v;
 @use "@sass/mixins" as mixins;
+
+.comment {
+  display: flex;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  width: 100%;
+  text-align: left;
+  font-size: 1.7rem;
+  gap: 1.5rem;
+
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    width:fit-content;
+    flex-basis: 10%;
+  }
+  &__date {
+    visibility: hidden;
+  }
+  &__author--container {
+    display: flex;
+    gap: 1rem;
+  }
+  &__avatar {
+    width: 100%;
+    border-radius: 50%;
+    max-width: 70px;
+  }
+  &__author{
+    font-size: 1.2rem;
+    text-align: left;
+  }
+}
+[hidden] {
+  display: none;
+}
