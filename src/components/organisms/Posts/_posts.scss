@@ -50,6 +50,7 @@
   width: 100%;
   @include mixins.respond-to("medium") {
     justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(33rem, 21.7%));
   }
 }
 

@@ -13,11 +13,10 @@ import { fade } from "astro:transitions";
 
 {
   getStickyPost ? (
-    <article class="sticky-post" >
+    <article class="sticky-post">
       <a
         class="sticky-post__link sticky-post__link--container "
         href={`/blog/${getStickyPost.slug}`}
-
       >
         <img
           class="sticky-post__image"
@@ -33,7 +32,12 @@ import { fade } from "astro:transitions";
           class="sticky-post__excerpt"
           set:html={getStickyPost.excerpt}
         />
-        <a class="sticky-post__button" href={`/blog/${getStickyPost.slug}`} transition:name={`styckyPost-${getStickyPost.title}`} transition:animate={fade({ duration: ".4s" })}>
+        <a
+          class="sticky-post__button"
+          href={`/blog/${getStickyPost.slug}`}
+          transition:name={`styckyPost-${getStickyPost.title}`}
+          transition:animate={fade({ duration: ".4s" })}
+        >
           Leer más...
         </a>
       </div>
@@ -49,10 +53,13 @@ import { fade } from "astro:transitions";
   .sticky-post {
     @include mixins.centerFlex(center, center);
     align-content: center;
-    flex-wrap: wrap-reverse;
     width: 100%;
-    gap: 2.5rem;
-
+    gap: 5rem;
+    flex-wrap: wrap;
+    @include mixins.respond-to("medium") {
+        justify-content: center;
+        text-align: center;
+      }
     &__link--container {
       width: 100%;
       height: 100%;
@@ -65,23 +72,29 @@ import { fade } from "astro:transitions";
       width: 100%;
       height: 100%;
       object-fit: cover;
+
     }
 
     &__content {
       flex: 1;
-      min-width: 30rem;
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 3rem;
     }
 
     &__title {
-      font-size: 2.25rem;
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 800;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: start;
       color: var(--ufoGreen);
+      @include mixins.respond-to("medium") {
+        justify-content: center;
+        text-align: center;
+      }
     }
 
     &__excerpt {
@@ -89,7 +102,7 @@ import { fade } from "astro:transitions";
     }
     &__button {
       color: v.$ufo-green;
-      background-color: v.$french-violet;;
+      background-color: v.$french-violet;
       font-weight: 600;
       max-width: 200px;
       padding: 1rem;
@@ -99,7 +112,10 @@ import { fade } from "astro:transitions";
       cursor: pointer;
       transition: color 0.3s ease-in-out;
       &:hover {
-        background:  rgba(108, 0, 250, 0.751);
+        background: rgba(108, 0, 250, 0.751);
+      }
+      @include mixins.respond-to("medium") {
+       max-width: 100%;
       }
     }
   }
