@@ -2,6 +2,7 @@
 @use "@sass/mixins" as mixins;
 
 .comment {
+
   display: flex;
   padding: 1rem 2rem;
   border-radius: 12px;
@@ -9,13 +10,23 @@
   text-align: left;
   font-size: 1.7rem;
   gap: 1.5rem;
-
-
+  box-shadow: 0px 1px 3px .42px rgba(73, 18, 155, 0.342);
+  min-height: 15dvh;
+  flex-direction: column;
+  @include mixins.respond-to("medium") {
+      max-width:77vw;
+      margin: 0 auto;
+  }
   &__header {
     display: flex;
     flex-direction: column;
-    width:fit-content;
+    width: fit-content;
     flex-basis: 10%;
+    @include mixins.respond-to("medium") {
+        flex-direction: row;
+         align-items: flex-end;
+         gap: 1rem;
+    }
   }
   &__date {
     visibility: hidden;
@@ -23,15 +34,90 @@
   &__author--container {
     display: flex;
     gap: 1rem;
+
   }
   &__avatar {
     width: 100%;
     border-radius: 50%;
     max-width: 70px;
+    max-height: 70px;
+    min-width: 70px;
+    min-height: 70px;
+    @include mixins.respond-to("medium") {
+      min-width: 45px;
+      min-height: 45px;
+      max-width: 45px;
+      max-height: 45px;
+    }
   }
-  &__author{
-    font-size: 1.2rem;
+  &__author {
+    font-size: .5rem;
     text-align: left;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-basis: 90%;
+  }
+  &__button--container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  &__button {
+    position: relative;
+    padding: 0.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background: rgba(102, 51, 153, 0.397);
+      transition: background 0.3s ease-in-out;
+    }
+  }
+  &__button--read:hover &__tooltip--read {
+    display: block;
+    opacity: 1;
+  }
+  &__button--reply:hover &__tooltip--reply {
+    opacity: 1;
+    display: block;
+  }
+  &__tooltip {
+    font-size: 1.2rem;
+    text-wrap: nowrap;
+    position: absolute;
+    background: v.$cetacean-purple;
+    color: white;
+    border-radius: 8px;
+    padding: 0.5rem;
+    opacity: 0;
+    display: none;
+    transition: all 0.8s ease-in-out;
+    &::after {
+      content: "";
+      position: absolute;
+      top: -43%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: -5px;
+      border-width: 8px;
+      border-style: solid;
+      border-color: transparent transparent v.$cetacean-purple transparent;
+    }
+  }
+  &__tooltip--reply {
+    top: 120%;
+    left: -50%;
+  }
+  &__tooltip--read {
+    top: 120%;
+    left: -120%;
   }
 }
 [hidden] {

@@ -23,39 +23,41 @@ console.log(comment.date);
       <h3 class="comment__author">{comment?.author?.node?.name || ""}</h3>
       <!-- date -->
     </div>
-    <div class="comment__date">
+    <!-- <div class="comment__date">
       <iconify-icon icon="bx:calendar" width="18" height="18"></iconify-icon>
       <date-time
         class="comment__date"
         datetime={comment?.date ? commentDate : ""}>{commentDate}</date-time
       >
-    </div>
+    </div> -->
   </header>
-  {/* comment content */}
-  <fragment set:html={comment?.content || ""} class="comment__content" />
-  {/* button read more */}
-  <div class="">
-    <button
-      data-commentId={commentId || ""}
-      data-parentId={dataParentId}
-      class=""
-    >
-      <iconify-icon icon="game-icons:read" width="20" height="20"
-      ></iconify-icon>
-      Leer respuestas
-    </button>
-    <button
-      data-commentId={commentId || ""}
-      data-parentId={dataParentId}
-      class="reply"
-    >
-      <iconify-icon icon="game-icons:reply" width="20" height="20"
-      ></iconify-icon>
-      Responder
-    </button>
-  </div>
-  {/* replies the comment */}
-  <div class="">
-    <slot />
+  <div class="comment__container">
+    {/* comment content */}
+    <fragment set:html={comment?.content || ""} class="comment__content" />
+    {/* button read more */}
+    <div class="comment__button--container">
+      <button
+        data-commentId={commentId || ""}
+        data-parentId={dataParentId}
+        class="comment__button comment__button--read"
+      >
+        <iconify-icon icon="game-icons:read" width="20" height="20"
+        ></iconify-icon>
+        <span class="comment__tooltip comment__tooltip--read"> Leer respuestas </span>
+      </button>
+      <button
+        data-commentId={commentId || ""}
+        data-parentId={dataParentId}
+        class="comment__button comment__button--reply"
+      >
+        <iconify-icon icon="mingcute:comment-fill" width="24" height="24"
+        ></iconify-icon>
+        <span class="comment__tooltip comment__tooltip--reply "> Responder </span>
+      </button>
+    </div>
+    {/* replies the comment */}
+    <div class="">
+      <slot />
+    </div>
   </div>
 </article>
