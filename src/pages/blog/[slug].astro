@@ -101,7 +101,15 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
       <div
         class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
       >
-        <Fragment set:html={replaceIframes(post.content) || ""} />
+      {
+        post.content ? (
+          <Fragment set:html={replaceIframes(post.content) || ""} />
+        )
+        :
+        (
+          <Loader />
+        )
+      }
 
         <Comments slug={slug} postID={id} server:defer>
           <div slot="fallback">

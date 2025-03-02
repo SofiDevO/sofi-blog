@@ -17,5 +17,4 @@ export function dateFormated(date:string){
     });
 
   return formatt
-
 }

@@ -1,60 +1,61 @@
 ---
 import { dateFormated } from "@src/utils";
-const comment  = Astro.props;
-const {isReply = false}  = Astro.props
-const hidden = comment?.author ? false : true
-
-const dataParentId = comment?.parentId   || null
-const commentId = comment?.id ? atob(comment?.id).split(":")[1] : null
+const comment = Astro.props;
+const { isReply = false } = Astro.props;
+const hidden = comment?.author ? false : true;
+const commentDate = dateFormated(comment?.date);
+const dataParentId = comment?.parentId || null;
+const commentId = comment?.id ? atob(comment?.id).split(":")[1] : null;
+console.log(comment.date);
 ---
 
 <article class="comment" {hidden}>
-    <header class="coment__header">
-        {/* image */}
-        <img
-          class="coment__avatar"
-          src={comment.author?.node?.avatar?.url || "/img/default-avatar.jpg"}
-          alt={comment.author?.node?.name || "Anónimo"}
-          loading="lazy"
-        />
-        <div class="cament__container">
-          <!-- author -->
-          <h3 class="comment__author">{comment?.author?.node?.name || ""}</h3>
-          <!-- date -->
-          <div class="">
-            <iconify-icon icon="bx:calendar" width="18" height="18" />
-            <date-time class="comment__date" datetime={ comment?.date ? dateFormated(comment?.date) : ""} />
-          </div>
-        </div>
-    </header>
-      {/* comment content */}
-      <div
-        set:html={comment?.content || ""}
-        class="comment__content"
-      />
-      {/* button read more */}
-      <div
-        class=""
+  <header class="comment__header">
+    {/* image */}
+    <img
+      class="comment__avatar"
+      src={comment.author?.node?.avatar?.url || "/img/default-avatar.jpg"}
+      alt={comment.author?.node?.name || "Anónimo"}
+      loading="lazy"
+    />
+    <div class="comment__author--container">
+      <!-- author -->
+      <h3 class="comment__author">{comment?.author?.node?.name || ""}</h3>
+      <!-- date -->
+    </div>
+    <div class="comment__date">
+      <iconify-icon icon="bx:calendar" width="18" height="18"></iconify-icon>
+      <date-time
+        class="comment__date"
+        datetime={comment?.date ? commentDate : ""}>{commentDate}</date-time
       >
-        <button
-          data-commentId={commentId || ""}
-          data-parentId={dataParentId}
-          class=""
-        >
-          <iconify-icon icon="game-icons:read" width="20" height="20" />
-          Leer respuestas
-        </button>
-        <button
-          data-commentId={commentId || ""}
-          data-parentId={dataParentId}
-          class="reply"
-        >
-          <iconify-icon icon="game-icons:reply" width="20" height="20" />
-          Responder
-        </button>
-      </div>
-      {/* replies the comment */}
-      <div class="">
-        <slot />
-      </div>
+    </div>
+  </header>
+  {/* comment content */}
+  <fragment set:html={comment?.content || ""} class="comment__content" />
+  {/* button read more */}
+  <div class="">
+    <button
+      data-commentId={commentId || ""}
+      data-parentId={dataParentId}
+      class=""
+    >
+      <iconify-icon icon="game-icons:read" width="20" height="20"
+      ></iconify-icon>
+      Leer respuestas
+    </button>
+    <button
+      data-commentId={commentId || ""}
+      data-parentId={dataParentId}
+      class="reply"
+    >
+      <iconify-icon icon="game-icons:reply" width="20" height="20"
+      ></iconify-icon>
+      Responder
+    </button>
+  </div>
+  {/* replies the comment */}
+  <div class="">
+    <slot />
+  </div>
 </article>
