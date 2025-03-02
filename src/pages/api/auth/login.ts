@@ -1,7 +1,6 @@
 import type { APIRoute } from "astro";
 import Jwt from 'jsonwebtoken';
 import { isValidUser } from "@src/services/auth";
-export const prerender = true;
 
 const { SECRET_KEY } = import.meta.env;
 

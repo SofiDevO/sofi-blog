@@ -2,10 +2,8 @@ import type { APIRoute } from "astro";
 import { getRepliesByCommentId } from "@src/services/comments";
 import postComment from "@src/services/postComment";
 import { isLoggedIn } from "@src/services/auth";
-export const prerender = true;
 
-
-export const GET: APIRoute = async ({ params, url }) => {
+export const GET: APIRoute = async ({ url }) => {
     const id = url.searchParams.get("commentId") || undefined;
 
     if (!id) return new Response(JSON.stringify({message: "No id provided"}), { status: 400 });
@@ -15,7 +13,7 @@ export const GET: APIRoute = async ({ params, url }) => {
     return new Response(JSON.stringify({replies: replies}), { status: 200 });
 }
 
-export const POST: APIRoute = async ({ params, request, cookies }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
     const cookiesExist = cookies.get("accessToken");
     const formData = await request.formData();
 
