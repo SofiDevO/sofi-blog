@@ -4,11 +4,6 @@ import Layout from "@layouts/Layout.astro";
 import Comments from "@organisms/Comments/Comments.astro";
 import { replaceIframes } from "@src/utils/index";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
-import { isLoggedIn } from "@src/services/auth";
-import CommentForm from "@src/components/molecules/CommentForm/CommentForm.astro";
-const { cookies } = Astro;
-const isLogged = isLoggedIn(cookies);
-import { wpquery } from "@src/data/wordpress";
 const { slug } = Astro.params;
 
 /* import { getPostsBySlug } from "@src/services/getPostsBySlug";
@@ -31,7 +26,7 @@ if (!post) {
 
 
 const { post } = Astro.props as any; ;
-
+const { id } = post;
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
@@ -48,7 +43,6 @@ const newDateFormat = `${day} / ${month} / ${year}`;
 const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
 
-const postID = atob(post.id).split(":")[1];
 ---
 
 <Layout image={postImage} title={post.title} description={post.seo.metaDesc}>
@@ -109,11 +103,10 @@ const postID = atob(post.id).split(":")[1];
       >
         <Fragment set:html={replaceIframes(post.content) || ""} />
 
-        <Comments slug={slug} server:defer>
+        <Comments slug={slug} postID={id} server:defer>
           <div slot="fallback">
             <Loader />
           </div>
-          <CommentForm postId={postID} {isLogged} server:defer />
         </Comments>
       </div>
     </article>
