@@ -18,6 +18,10 @@
       color: v.$french-violet;
       font-weight: 600;
     }
+    .shiki {
+      overflow-x: scroll;
+      max-height: 600px;
+    }
 
     .wp-block-kevinbatdorf-code-block-pro.cbp-has-line-numbers,
     .wp-block-kevinbatdorf-code-block-pro {
@@ -34,9 +38,9 @@
         text-wrap: wrap;
         width: 100%;
         height: auto;
-        min-height: 100%;
+        max-height: 600px;
         line-height: 1.5;
-        padding: 1rem;
+        padding: 1.4rem;
         border-radius: 0 0 0.5rem 0.5rem;
       }
     }
