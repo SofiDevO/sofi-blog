@@ -1,0 +1,7 @@
+---
+
+
+const {type, placeHolder, id, name, value, class: className, ...rest   } = Astro.props;
+---
+
+<input type={type} placeholder={placeHolder} id={id} name={name} value={value} class={className} {...rest}>

@@ -9,6 +9,7 @@
 @use "@molecules/Header/header" as header;
 @use "@organisms/Posts/posts" as posts;
 @use "@molecules/Comment/comment" as comment;
+@use "@molecules/SearchForm/search-form" as searchForm;
 @use "@organisms/Comments/comments" as comments;
 @use "@pages/blog/blog" as blog;
 :root {
