@@ -1,12 +1,14 @@
 ---
 import BackgroundGradient from "@atoms/BackgroundGradient/BackgroundGradient.astro";
 import StickyPost from "../StickyPost/StickyPost.astro";
+import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
 export const prerender = true;
 
 ---
 
 <BackgroundGradient>
     <section class="hero">
+        <SearchForm />
         <StickyPost  />
     </section>
 </BackgroundGradient>
