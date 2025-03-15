@@ -30,7 +30,7 @@ import { fade } from "astro:transitions";
         <h2 class="sticky-post__title text-gradient">{getStickyPost.title}</h2>
         <fragment
           class="sticky-post__excerpt"
-          set:html={getStickyPost.excerpt}
+          set:html={getStickyPost.seo.metaDesc}
         />
         <a
           class="sticky-post__button"
@@ -99,6 +99,7 @@ import { fade } from "astro:transitions";
 
     &__excerpt {
       color: white;
+      font-size: 1.6rem;
     }
     &__button {
       color: v.$ufo-green;
