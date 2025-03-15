@@ -19,6 +19,11 @@ export  const cardsData = async () =>{
                 sourceUrl(size: LARGE)
               }
             }
+            seo {
+                cornerstone
+                readingTime
+                metaDesc
+            }
             author {
               node {
                 avatar {
@@ -50,6 +55,7 @@ export  const cardsData = async () =>{
             isSticky
           }
         }
+
         comments {
           edges {
             node {

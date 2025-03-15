@@ -10,7 +10,7 @@ export const prerender = true
 
 ---
 
-<html lang="en">
+<html lang="es">
   <head>
     <BaseHead title={title} description={description} image={image} />
     <!-- Google tag (gtag.js) -->
@@ -28,6 +28,7 @@ export const prerender = true
     </main>
     <CookiesBanner client:load />
     <script
+      defer
       is:raw
       src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"
     ></script>
