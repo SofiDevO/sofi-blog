@@ -32,13 +32,16 @@ export const prerender = true;
 
 ---
 
+
 <!-- Renderizado de los posts -->
 <div class="categories__container">
   {
     Object.keys(postsByCategory).map((category) => (
       <section class="category__section" id={category}>
+
         <div class="category__title">
           <h2>{category}</h2>
+
           <a
             href={`/categories/${category}`}
             class="category__title__link"
@@ -55,7 +58,21 @@ export const prerender = true;
             />
           </a>
         </div>
+        <div class="adsterra__container">
 
+<!-- Adsterra -->
+
+<script is:inline type="text/javascript">
+atOptions = {
+'key' : '329ceeb1be32d96be71c471dcaae42dc',
+'format' : 'iframe',
+'height' : 90,
+'width' : 728,
+'params' : {}
+};
+</script>
+<script is:inline type="text/javascript" src="//www.highperformanceformat.com/329ceeb1be32d96be71c471dcaae42dc/invoke.js"></script>
+</div>
         <ul role="list" class="link-card-grid">
           {postsByCategory[category].slice(0, 4).map((post) => {
             const categories = post.categories.nodes
