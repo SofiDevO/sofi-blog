@@ -2,15 +2,15 @@
 import InputComponent from "@src/components/atoms/InputComponent/InputComponent.astro";
 ---
 
-<form action="/resultados" method="get" id="search-form" class="busqueda">
-  <label for="search" class="busqueda__label">
+<form action="/resultados" method="get" id="search-form" class="search">
+  <label for="search" class="search__label">
     <InputComponent
       type="text"
       placeHolder="Buscar"
       name="search"
       id="search"
-      class="busqueda__input"
+      class="search__input"
     />
   </label>
-  <InputComponent type="submit" value="Buscar" class="busqueda__submit" />
+  <InputComponent type="submit" value="Buscar" class="search__submit" />
 </form>
