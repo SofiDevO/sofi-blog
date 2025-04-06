@@ -14,3 +14,25 @@ import InputComponent from "@src/components/atoms/InputComponent/InputComponent.
   </label>
   <InputComponent type="submit" value="Buscar" class="search__submit" />
 </form>
+
+
+<script>
+
+  const form = document.getElementById('search-form');
+  const input = document.getElementById('search') as HTMLInputElement;
+
+  form.addEventListener('submit', async(event) => {
+    event.preventDefault();
+    try {
+      await fetch(`/resultados?search=${input.value}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  });
+</script>
