@@ -2,22 +2,24 @@
 import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
 import Layout from "@src/layouts/Layout.astro";
-export const prerender = false;
-import { searchPosts, getResults } from "@src/services/getResults";
+import { searchPosts } from "@src/services/getResults";
 
-const search = Astro.url.searchParams.get("search");
-const headers = Astro.request.headers.get("X-Requested-With");
+const { url, request } = Astro;
+const search = url.searchParams.get("search");
+const header = request.headers.get("X-Requested-With");
 
-const posts = await searchPosts(search);
+console.log(header);
+const posts = search && search === ""
+  ? [] : await searchPosts(search);
 ---
 
 {
-  headers !== "XMLHttpRequest" ? (
+  header !== "XMLHttpRequest" ? (
     <Layout title="Resultados">
       <section class="results">
         <Title titleDesc={`Resultados de ${search}`} size="big" />
         <ul role="list" class="link-card-grid">
-          {posts.map((post) => (
+          {posts.length !== 0 && posts.map((post) => (
             <PostCard {...post} />
           ))}
         </ul>
@@ -26,11 +28,10 @@ const posts = await searchPosts(search);
   ) : (
     <div>
       <h2>Resultados de {search}</h2>
-
-      {posts.map((post) => (
-        <PostCard {...post} />
-      ))}
       <a href={`/resultados?search=${search}`}>All results</a>
+      {posts.length !== 0 && posts.map((post) => (
+            <PostCard {...post} />
+      ))}
     </div>
   )
 }
@@ -39,6 +40,6 @@ const posts = await searchPosts(search);
   @use "@sass/variables" as v;
   @use "@sass/mixins" as mixins;
   main {
-    padding-top: 15rem;
+    padding-top: 15rem!import;
   }
 </style>
