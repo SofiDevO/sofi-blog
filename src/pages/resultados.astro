@@ -1,9 +1,51 @@
 ---
+import PostCard from "@src/components/atoms/PostCard/PostCard.astro";
+import Title from "@src/components/atoms/Title/Title.astro";
 import Layout from "@src/layouts/Layout.astro";
+export const prerender = false;
+import { searchPosts, getResults } from "@src/services/getResults";
+import { object } from "astro:schema";
 
-
+const search = Astro.url.searchParams.get("search");
+console.log("SEARCH", search);
+const results = await getResults(search);
+const posts = await searchPosts(search);
+console.log("POSTS", posts);
+console.log("RESULTS 🥝", results);
 ---
 
 <Layout title="Resultados">
-    <h1>Resultados</h1>
+  <section class="results">
+    <Title titleDesc={`Resultados de ${search}`} size="big"/>
+    <ul role="list" class="link-card-grid">
+      {
+        results.posts.nodes.map((item) => (
+          <PostCard
+            date={item.date}
+            slug={item.slug}
+            link={item.slug}
+            title={item.title}
+            excerpt={item.excerpt}
+            image={item.imgURl}
+            author={item.author.node.name}
+            authorImage={item.author.node.avatar.url}
+            authorFirstName={item.author.node.firstName}
+            authorLastName={item.author.node.lastName}
+            categories={item.categories.nodes}
+            srcSet={item.featuredImage?.node?.srcSet}
+            sizes={item.featuredImage?.node?.sizes}
+            altText={item.featuredImage?.node?.imgaltText}
+          />
+        ))
+      }
+    </ul>
+  </section>
 </Layout>
+
+<style lang="scss" is:global>
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as mixins;
+  main {
+    padding-top: 15rem;
+  }
+</style>

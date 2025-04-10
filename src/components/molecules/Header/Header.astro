@@ -2,7 +2,7 @@
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
 import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
-export const prerender = true
+export const prerender = true;
 import { fetchMenuData } from "@src/services/getMenu";
 
 const pagePathname = Astro.url.pathname;
@@ -26,12 +26,12 @@ interface MenuData {
 
 let menuData: MenuData | null = null;
 
+const response = await fetchMenuData;
+menuData = response as MenuData;
 
-  const response = await fetchMenuData;
-  menuData = response as MenuData;
-
-
-const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes) ? [...menuData.menu.menuItems.nodes] : [];
+const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
+  ? [...menuData.menu.menuItems.nodes]
+  : [];
 
 // Function to get the slug from a URL
 function getSlug(url) {
@@ -39,7 +39,6 @@ function getSlug(url) {
   const parts = urlWithoutTrailingSlash.split("/");
   return parts[parts.length - 1];
 }
-
 
 // Function to transform the flat list into a hierarchical structure
 const flatListToHierarchical = (
@@ -71,7 +70,11 @@ const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
 <header class="header">
   <div class="header__container">
     <Logo />
-    <NavMenu  pagePathname={pagePathname} hierarchicalMenu={hierarchicalMenu} staticMenu={staticMenu} />
+    <NavMenu
+      pagePathname={pagePathname}
+      hierarchicalMenu={hierarchicalMenu}
+      staticMenu={staticMenu}
+    />
     <HamburgerButton />
   </div>
 </header>
@@ -101,9 +104,19 @@ const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
       }
 
       &:hover .dropdown {
+        transition: all 0.6s ease;
+        opacity: 1;
         display: block;
+        transform: translateY(30px);
+
+        @starting-style {
+          opacity: 0;
+          display: none;
+          transform: translateY(0px);
+        }
       }
     }
+
     &__link {
       text-decoration: none;
       color: aqua;
@@ -114,10 +127,10 @@ const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
   }
 
   .dropdown {
-    display: none;
     position: absolute;
     top: 100%;
     left: 0;
+    display: none;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     list-style: none;

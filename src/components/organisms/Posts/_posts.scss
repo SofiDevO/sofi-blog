@@ -71,3 +71,10 @@
     }
   }
 }
+
+
+
+.adsterra__container {
+  @include mixins.centerFlex();
+  margin-bottom: 4rem;
+}
