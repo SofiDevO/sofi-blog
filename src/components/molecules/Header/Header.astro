@@ -2,8 +2,65 @@
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/hamburgerBtn.astro";
 import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
+export const prerender = true;
+import { fetchMenuData } from "@src/services/getMenu";
 
+const pagePathname = Astro.url.pathname;
+const staticMenu = { text: "Portfolio", url: "https://itssofi.dev/" };
 
+interface MenuItem {
+  id: number;
+  parentId?: number;
+  url: string;
+  label: string;
+  children?: MenuItem[];
+}
+
+interface MenuData {
+  menu: {
+    menuItems: {
+      nodes: MenuItem[];
+    };
+  };
+}
+
+let menuData: MenuData | null = null;
+
+const response = await fetchMenuData;
+menuData = response as MenuData;
+
+const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
+  ? [...menuData.menu.menuItems.nodes]
+  : [];
+
+// Function to get the slug from a URL
+function getSlug(url) {
+  const urlWithoutTrailingSlash = url.endsWith("/") ? url.slice(0, -1) : url;
+  const parts = urlWithoutTrailingSlash.split("/");
+  return parts[parts.length - 1];
+}
+
+// Function to transform the flat list into a hierarchical structure
+const flatListToHierarchical = (
+  data = [],
+  { idKey = "id", parentKey = "parentId", childrenKey = "children" } = {}
+) => {
+  const tree = [];
+  const childrenOf = {};
+  data.forEach((item) => {
+    const newItem = { ...item, slug: getSlug(item.url) };
+    const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+    childrenOf[id] = childrenOf[id] || [];
+    newItem[childrenKey] = childrenOf[id];
+    parentId
+      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+      : tree.push(newItem);
+  });
+  return tree;
+};
+
+// Transform the data into a hierarchical format
+const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
 ---
 
 <script>
@@ -13,7 +70,11 @@ import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
 <header class="header">
   <div class="header__container">
     <Logo />
-    <NavMenu  />
+    <NavMenu
+      pagePathname={pagePathname}
+      hierarchicalMenu={hierarchicalMenu}
+      staticMenu={staticMenu}
+    />
     <HamburgerButton />
   </div>
 </header>
@@ -43,9 +104,19 @@ import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
       }
 
       &:hover .dropdown {
+        transition: all 0.6s ease;
+        opacity: 1;
         display: block;
+        transform: translateY(30px);
+
+        @starting-style {
+          opacity: 0;
+          display: none;
+          transform: translateY(0px);
+        }
       }
     }
+
     &__link {
       text-decoration: none;
       color: aqua;
@@ -56,10 +127,10 @@ import NavMenu from "@src/components/atoms/NavMenu/NavMenu.astro";
   }
 
   .dropdown {
-    display: none;
     position: absolute;
     top: 100%;
     left: 0;
+    display: none;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     list-style: none;
