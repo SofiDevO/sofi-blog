@@ -1,5 +1,4 @@
 ---
-
 import PostCard from "@atoms/PostCard/PostCard.astro";
 import { cardsData as data } from "@services/getCards.js";
 
@@ -11,92 +10,54 @@ if (!cardsData) {
 if (!cardsData?.posts?.nodes) {
   throw new Error("Los datos de las publicaciones no están disponibles.");
 }
-// Ordenar los posts por fecha
-const sortedPosts = cardsData.posts.nodes.sort(
-  (a, b) => Date.parse(b.date) - Date.parse(a.date)
+
+function filterCategories(post, categoriName) {
+  return post.filter(
+    (category) => category?.categories.nodes[0].name.toLowerCase() === categoriName.toLowerCase()
+  );
+}
+const astroCategory = filterCategories(cardsData?.posts?.nodes, "Astro");
+const learnProgrammingCategory = filterCategories(
+  cardsData?.posts?.nodes,
+  "Aprender a programar"
 );
-// Agrupar los posts por categorías principales
-const postsByCategory = sortedPosts.reduce((acc, post) => {
-  post.categories.nodes.forEach((category) => {
-    if (!category.parent ) {
-      if (!acc[category.name]) {
-        acc[category.name] = [];
-      }
-      acc[category.name].push(post);
-    }
-  });
-  return acc;
-}, {});
-import { fade } from "astro:transitions";
-export const prerender = true;
-
+const wslCategory = filterCategories(
+  cardsData?.posts?.nodes,
+  "wsl"
+);
+console.log("wslCategory", wslCategory);
 ---
-
 
 <!-- Renderizado de los posts -->
 <div class="categories__container">
-  {
-    Object.keys(postsByCategory).map((category) => (
-      <section class="category__section" id={category}>
+<section class="category__section" id="Mis notas">
+      <div class="category__title">
+        <h2>{astroCategory[0]?.categories?.nodes[0]?.name}</h2>
+        <a
+          href={`/categories/${astroCategory[0]?.categories?.nodes[0]?.slug}`}
+          class="category__title__link"
+        >
+          Ver más
+          <iconify-icon
+            class="title__arrow"
+            icon="fe:arrow-right"
+            width="24"
+            height="24"
+            style="color: current"></iconify-icon>
+        </a>
+      </div>
 
-        <div class="category__title">
-          <h2>{category}</h2>
-
-          <a
-            href={`/categories/${category}`}
-            class="category__title__link"
-            transition:name={category}
-            transition:animate={fade({ duration: ".4s" })}
-          >
-            Ver más
-            <iconify-icon
-              class="title__arrow"
-              icon="fe:arrow-right"
-              width="24"
-              height="24"
-              style="color: current"
-            />
-          </a>
-        </div>
-        <div class="adsterra__container">
-
-</div>
-        <ul role="list" class="link-card-grid">
-          {postsByCategory[category].slice(0, 4).map((post) => {
-            const categories = post.categories.nodes
-              .filter((category) => !category.parent )
-              .map((category) => ({
-                name: category.name,
-                slug: category.slug,
-              }));
-            // Fallback para la imagen destacada
-            const featuredImage =
-              post.featuredImage?.node?.mediaItemUrl ||
-              "/img/branding/defaultBanner.png";
-            const altText =
-              post.featuredImage?.node?.altText || "Imagen por defecto";
+      <ul class="link-card-grid">
+        {
+          astroCategory.slice(0, 4).map((post) => {
             return (
-              <PostCard
-                key={post.id}
-                date={post.date}
-                slug={post.slug}
-                link={post.slug}
-                title={post.title}
-                excerpt={post.excerpt}
-                image={featuredImage}
-                author={post.author.node.name}
-                authorImage={post.author.node.avatar.url}
-                authorFirstName={post.author.node.firstName}
-                authorLastName={post.author.node.lastName}
-                categories={categories}
-                srcSet={post.featuredImage?.node?.srcSet}
-                sizes={post.featuredImage?.node?.sizes}
-                currentGroupcategory={category}
-              />
+              <li class="link-card-grid__item">
+                <PostCard {...post} />
+              </li>
             );
-          })}
-        </ul>
-      </section>
-    ))
-  }
+          })
+        }
+      </ul>
+    </div>
+  </section>
 </div>

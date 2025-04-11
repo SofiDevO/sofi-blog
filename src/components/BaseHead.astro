@@ -1,10 +1,5 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
 import "@sass/main.scss";
-import { ClientRouter } from 'astro:transitions';
-/* import { ViewTransitions } from "astro:transitions"; */
-
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 interface Props {
   title?: string;
@@ -63,8 +58,7 @@ const {
 <!-- Iconify CDN -->
 <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"
 ></script>
-<!-- <ViewTransitions /> -->
-<ClientRouter />
+
 
 
 <script is:inline>

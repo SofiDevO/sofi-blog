@@ -6,12 +6,6 @@ import { replaceIframes } from "@src/utils/index";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 const { slug } = Astro.params;
 
-/* import { getPostsBySlug } from "@src/services/getPostsBySlug";
-const post = await getPostsBySlug(slug);
-
-if (!post) {
-  return Astro.redirect("/404");
-  } */
 
  import { PostContentData  } from "@src/services/getPostContent";
  export async function getStaticPaths() {
@@ -62,8 +56,6 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
   >
     <article
       class="flex flex-col w-full max-w-[900px] overflow-x-clip"
-      transition:name=`${post.title}-${post.categories.nodes[0].name}`
-      transition:name=`styckyPost-${post.title}`
     >
       <div class="w-full max-w-[1300px] mx-auto overflow-hidden">
         <img

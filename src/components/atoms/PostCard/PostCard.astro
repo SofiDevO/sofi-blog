@@ -1,63 +1,41 @@
 ---
+import { fade } from "astro:transitions";
+import type { Post } from "@src/types/post.type.ts";
+import { formatedDateShort } from "@utils/formatedDate";
 const {
-  key,
   link,
   slug,
   title,
   excerpt,
-  image,
-  srcSet,
-  sizes,
-  altdesc,
+  featuredImage,
   author,
-  authorImage,
-  authorFirstName,
-  authorLastName,
   categories,
-  currentGroupcategory,
   date,
 } = Astro.props;
 
-import { fade } from "astro:transitions";
 
-const formatDate = new Date(date);
-const day = formatDate.getDate();
-const before_month = formatDate
-  .toLocaleString("default", { month: "long" })
-  .slice(0, 3);
-const month = before_month.charAt(0).toUpperCase() + before_month.slice(1);
-const year = formatDate.getFullYear();
-const newDateFormat = `${day} / ${month} / ${year}`;
+const data: Post = {
+  image: featuredImage?.node?.sourceUrl || "/img/branding/logo.png",
+  altdescription: featuredImage?.node?.altText || 'patata',
+  title: title,
+  slug: slug,
+  categories: categories.nodes,
+  author: author?.node,
+  date: formatedDateShort(date),
+  excerpt: excerpt,
+};
 
-// Usar currentGroupcategory directamente (sin JSON.stringify)
-const currentGroup = currentGroupcategory;
-
-
-// Ordenar las categorías para que la categoría del grupo actual aparezca primero
-const sortedCategories = categories.sort((a, b) => {
-  if (a.name === currentGroup) return -1; // La categoría actual va primero
-  if (b.name === currentGroup) return 1;
-  return 0;
-});
-
-// Obtener la primera categoría para el transition:name
-const getFirstcategory = sortedCategories.map((category) => category.name);
-export const prerender = true;
-
+console.log("authorImage", data.author);
 ---
 
 <article
   class="post-card"
-  transition:name=`${title}-${getFirstcategory[0]}`
-  transition:animate={fade({ duration: ".4s" })}
 >
   <!-- Imagen del post -->
   <div class="post-card__image-container">
     <img
-      srcset={srcSet}
-      sizes={sizes}
-      alt={altdesc}
-      src={image || "/img/branding/logo.png"}
+      alt={data.altdescription}
+      src={data.image }
       class="post-card__image"
     />
     <div class="post-card__image-overlay"></div>
@@ -68,22 +46,22 @@ export const prerender = true;
     <!-- Autor e información adicional -->
     <div class="post-card__author">
       <img
-        src={authorImage}
-        alt={`${authorFirstName} ${authorLastName}`}
+        src={data?.author?.avatar?.url}
+        alt={`${data.author?.firstName} ${data.author?.lastName}`}
         class="post-card__author-image"
       />
       <div class="post-card__author-info">
-        <p class="post-card__author-name">{authorFirstName} {authorLastName}</p>
-        <time datetime={date} class="post-card__date">
+        <p class="post-card__author-name">{data.author?.firstName} {data.author?.lastName}</p>
+        <time datetime={data.date} class="post-card__date">
           <iconify-icon icon="majesticons:clock"></iconify-icon>
-          {newDateFormat}
+          {data.date}
         </time>
       </div>
     </div>
     <!-- Título -->
-    <a href={`/blog/${link}`} >
+    <a href={`/blog/${slug}`}>
       <h3 class="post-card__title group">
-        {title}
+        {data.title}
         <iconify-icon
           icon="ri:links-line"
           class="group-hover:opacity-100 opacity-0 transition-all duration-200 ease-linear"
@@ -92,16 +70,16 @@ export const prerender = true;
     </a>
 
     <!-- Descripción -->
-    <fragment class="post-card__excerpt" set:html={excerpt.replace(/\[.*?\]/g, "...")} />
+    <fragment
+      class="post-card__excerpt"
+      set:html={data.excerpt.replace(/\[.*?\]/g, "...")}
+    />
 
     <!-- Categorías -->
     <div class="post-card__categories">
       {
-        sortedCategories.map((category) => (
-          <a
-            href={`/categories/${category.slug}`}
-            class="post-card__category"
-          >
+        categories?.nodes?.map((category) => (
+          <a href={`/categories/${category.slug}`} class="post-card__category">
             {category.name}
           </a>
         ))
