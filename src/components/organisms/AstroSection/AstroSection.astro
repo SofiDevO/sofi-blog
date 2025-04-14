@@ -1,0 +1,16 @@
+---
+import type { CardPost } from '@src/types/post.type.ts';
+interface Props {
+    posts: CardPost[];
+}
+const { posts } = Astro.props;
+---
+<section class="astro-section">
+    {
+        posts.map((post) => (
+            <div class="astro-card">
+                <h2>{post.title}</h2>
+            </div>
+        ))
+    }
+</section>

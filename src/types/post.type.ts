@@ -45,3 +45,25 @@ export interface Post {
   };
   isSticky?: boolean;
 }
+
+export interface CategoryWithPosts {
+  name: string;
+  slug: string;
+  id: number;
+  posts: CardPost[];
+}
+export interface CardPost {
+  title: string;
+  slug: string;
+  excerpt: string;
+  date: string;
+  image: {
+      altText: string;
+      srcSet: string;
+      title: string;
+  };
+}
+
+export interface Categories {
+  [key: string]:CategoryWithPosts;
+}

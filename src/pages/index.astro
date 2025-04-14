@@ -3,19 +3,19 @@ import Layout from "@layouts/Layout.astro";
 import Posts from "@organisms/Posts/Posts.astro";
 import DividerTop from "@atoms/DividerTop/DividerTop.astro";
 import Hero from "@organisms/Hero/Hero.astro";
+import AstroSection from "@organisms/AstroSection/AstroSection.astro";
+import SecondaryCard from "@src/components/atoms/SecondaryCard/SecondaryCard.astro";
+import { getCategoriesWithPosts } from '@services/categoriesWithPosts';
 export const prerender = true;
 
+
+const categoriesWithPosts = await getCategoriesWithPosts();
+const astroPosts = categoriesWithPosts.find(category => category.name === 'Astro')?.posts || [];
 ---
 <Layout>
-  <Hero slot="hero"  transition:name="home"/>
-
+  <Hero slot="hero"/>
   <DividerTop />
-  <Posts/>
+  <!-- <Posts /> -->
+  <AstroSection posts={astroPosts}/>
+  <SecondaryCard />
 </Layout>
-
-<style is:global lang="scss">
-  @view-transition {
-    navigation: auto;
-  }
-
-</style>

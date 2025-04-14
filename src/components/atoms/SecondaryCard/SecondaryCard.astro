@@ -1,0 +1,87 @@
+---
+const fakeData = {
+  title: "Morí de hambre por aprender php",
+  desc: "Hoy veremos como hacer el mejor espaguetti del mundo con PHP",
+  tags: ["PHP", "aprender a programar", "desarrollo web"],
+  imgSrc:
+    "https://res.cloudinary.com/dvjox4xut/images/w_1024,h_576,c_scale/f_webp/v1743481719/SofiBlog-1_28167de4b6/SofiBlog-1_28167de4b6.png?_i=AA",
+  alt: "post banner image",
+};
+---
+
+<a href="#" class="secondary-card">
+  <div class="secondary-card__container">
+    <img src={fakeData.imgSrc} alt={fakeData.alt} class="container__image" />
+  </div>
+  <div class="secondary-card__content">
+    <h3 class="secondary-card__title">{fakeData.title}</h3>
+    <p class="secondary-card__desc">
+      {fakeData.desc}
+    </p>
+    <div class="secondary-card__tags">
+      {
+        fakeData.tags.map((tag) => (
+          <span class="secondary-card__tag">{tag}</span>
+        ))
+      }
+    </div>
+  </div>
+</a>
+
+<style lang="scss">
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as mixins;
+
+  .secondary-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 1.2rem;
+    color: var(--mainColor);
+    width: 100%;
+    max-width: 573px;
+    gap: 1rem;
+    box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.65);
+    border-radius: 12px;
+    &__container {
+      overflow: hidden;
+      width: 127px;
+      height: 144px;
+      border-radius: 0.5rem;
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &__content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+    }
+    &__title {
+      text-transform: uppercase;
+      font-size: 2.1rem;
+      font-weight: 700;
+    }
+    &__desc {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+    &__tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    &__tag {
+      padding: 0.3rem 0.7rem;
+      background-color: v.$french-violet;
+      color: white;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+  }
+</style>
