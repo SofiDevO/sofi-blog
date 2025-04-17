@@ -1,92 +1,71 @@
 ---
+import { fetchMenuData } from "@src/services/getMenu"; // Import function to get menu data
+// Enable or disablee static site generation
+// export const prerender = true;
+import { flatListToHierarchical } from "@utils/flatListToHierarchical"; // Import function to transform flat list to tree structure
 
-import { fade } from "astro:transitions";
-import { fetchMenuData } from "@src/services/getMenu";
-export const prerender = true
-
+// Get current page URL path
 const pagePathname = Astro.url.pathname;
-const staticMenu = { text: "Portfolio", url: "https://itssofi.dev/" };
 
-interface MenuItem {
-  id: number;
-  parentId?: number;
-  url: string;
-  label: string;
-  children?: MenuItem[];
-}
-interface MenuData {
-  menu: {
-    menuItems: {
-      nodes: MenuItem[];
-    };
-  };
-}
+// Initialize menuData variable
+let menuData = null;
 
-let menuData: MenuData | null = null;
+// Fetch menu data from the API/service
+const response = await fetchMenuData;
+menuData = response;
 
+// Check if menu items exist and convert to array
+// If menuItems doesn't exist, use empty array as fallback
+const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
+  ? [...menuData.menu.menuItems.nodes]
+  : [];
 
-  const response = await fetchMenuData;
-  menuData = response as MenuData;
-
-
-const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes) ? [...menuData.menu.menuItems.nodes] : [];
-
-// Function to get the slug from a URL
-function getSlug(url) {
-  const urlWithoutTrailingSlash = url.endsWith("/") ? url.slice(0, -1) : url;
-  const parts = urlWithoutTrailingSlash.split("/");
-  return parts[parts.length - 1];
-}
-
-// Function to transform the flat list into a hierarchical structure
-const flatListToHierarchical = (
-  data = [],
-  { idKey = "id", parentKey = "parentId", childrenKey = "children" } = {}
-) => {
-  const tree = [];
-  const childrenOf = {};
-  data.forEach((item) => {
-    const newItem = { ...item, slug: getSlug(item.url) };
-    const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
-    childrenOf[id] = childrenOf[id] || [];
-    newItem[childrenKey] = childrenOf[id];
-    parentId
-      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
-      : tree.push(newItem);
-  });
-  return tree;
-};
-
-// Transform the data into a hierarchical format
-const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
+// Convert flat menu list into a hierarchical structure (parent-child relationship)
+const hierarchicalMenu = flatListToHierarchical(menuItems);
 ---
 
+<!-- Navigation menu component -->
 <nav class="header__menu">
   <ul class="header__list">
+    {/* Show Home link only when not on homepage */}
     {
       pagePathname !== "/" && (
         <li class="header__item">
-          <a class="header__link" href="/" data-astro-prefetch   transition:name="home" transition:animate={fade({ duration: ".4s" })}>
+          <a
+            class="header__link"
+            href="/"
+            data-astro-prefetch
+            transition:name="home"
+          >
             Home
           </a>
         </li>
       )
     }
+    {/* Map through menu items and create navigation links */}
     {
       hierarchicalMenu.map((item) => (
         <li class="header__item">
-          <a class="header__link" href={`/categories/${item.slug}`} >
+          {/* Parent menu item */}
+          <a
+            class="header__link"
+            href={`/categories/${item.slug}`}
+            data-astro-prefetch
+          >
             {item.label}
           </a>
+          {/* If item has children, create dropdown menu */}
           {item.children.length > 0 && (
             <>
-              <iconify-icon class="dropdown__icon" icon="gridicons:dropdown"  />
+              <iconify-icon class="dropdown__icon" icon="gridicons:dropdown" />
               <ul class="dropdown">
+                {/* Map through child items */}
                 {item.children.map((child) => (
                   <li class="dropdown__item">
                     <a
                       class="dropdown__link"
                       href={`/categories/${child.slug}`}
+                      data-astro-prefetch
                     >
                       {child.label}
                     </a>
@@ -98,15 +77,5 @@ const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
         </li>
       ))
     }
-    <li class="header__item">
-      <a class="header__link" href={staticMenu.url} target="_blank"  >
-        {staticMenu.text}
-        <iconify-icon
-          icon="iconamoon:link-external"
-          width="19"
-          height="19"
-          style="color: #00c8f0"></iconify-icon>
-      </a>
-    </li>
   </ul>
 </nav>

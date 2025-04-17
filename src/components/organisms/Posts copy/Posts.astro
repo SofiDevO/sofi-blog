@@ -3,7 +3,7 @@ import PostCard from "@atoms/PostCard/PostCard.astro";
 import { findCategory } from "@utils/findCategory";
 import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
 const { categories } = Astro.props;
-const categoriesWithPosts = await getCategoriesWithPosts();
+// const categoriesWithPosts = await getCategoriesWithPosts();
 import {categoryPost} from "@services/getCategoryPost";
 
 const nodeJsId = categories["aprender-a-programar"];
@@ -13,13 +13,12 @@ console.log(postCategory.posts);
 
 console.log("category id", nodeJsId);
 
-const astroPosts = findCategory(nodeJsId, categoriesWithPosts);
 ---
 
 <!-- Renderizado de los posts -->
 <div class="categories__container">
   <section class="category__section">
-    <div class="category__title">
+  <!--   <div class="category__title">
       <h2>{astroPosts[0]?.categories[0]?.name}</h2>
       <a
         href={`/categories/${astroPosts[0]?.categories[0]?.slug}`}
@@ -33,10 +32,10 @@ const astroPosts = findCategory(nodeJsId, categoriesWithPosts);
           height="24"
           style="color: current"></iconify-icon>
       </a>
-    </div>
+    </div> -->
     <ul class="link-card-grid">
       {
-        astroPosts.slice(0, 4).map((post) => {
+        postCategory.posts.nodes.slice(0, 4).map((post) => {
           return (
             <li>
               <PostCard {...post} />

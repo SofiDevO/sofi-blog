@@ -1,0 +1,27 @@
+---
+import type { Post } from "@src/types/post.type.ts";
+
+const {
+  image,
+  slug,
+  title,
+  excerpt,
+  author,
+  categories,
+  date,
+} = Astro.props;
+
+const post: Post = {
+  title,
+  slug,
+  excerpt,
+  date,
+  image,
+  author,
+  categories,
+};
+
+---
+
+
+<slot />

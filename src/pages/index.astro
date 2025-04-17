@@ -5,17 +5,24 @@ import DividerTop from "@atoms/DividerTop/DividerTop.astro";
 import Hero from "@organisms/Hero/Hero.astro";
 import AstroSection from "@organisms/AstroSection/AstroSection.astro";
 import SecondaryCard from "@src/components/atoms/SecondaryCard/SecondaryCard.astro";
+import { generateCategoryMap } from "@utils/categoryMapper";
 import { getCategoriesWithPosts } from '@services/categoriesWithPosts';
+import { categoryData } from "@src/services/getCategories";
+
 export const prerender = true;
 
 
-const categoriesWithPosts = await getCategoriesWithPosts();
-const astroPosts = categoriesWithPosts.find(category => category.name === 'Astro')?.posts || [];
+
+// Obtener todas las categorías y generar el mapa
+const data = await categoryData();
+const categories = generateCategoryMap(data.categories.nodes);
+
+console.log('Mapa de categorías:', categories);
 ---
+
 <Layout>
   <Hero slot="hero"/>
   <DividerTop />
-  <!-- <Posts /> -->
-  <AstroSection posts={astroPosts}/>
+  <Posts categories={categories} />
   <SecondaryCard />
 </Layout>
