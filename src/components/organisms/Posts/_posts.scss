@@ -3,10 +3,7 @@
 .categories__container {
   @include mixins.centerFlex();
   flex-direction: column;
-  gap: 8rem;
-  margin-top: 6rem;
-  padding-block: 75px;
-    writing-mode: horizontal-tb;
+  padding: 20rem 0;
 
   .category__section {
     width: 90vw;
@@ -33,7 +30,8 @@
           transform: translateX(5px);
         }
       }
-      & h2, a{
+      & h2,
+      a {
         margin-bottom: 1.5rem;
       }
     }
@@ -71,8 +69,6 @@
     }
   }
 }
-
-
 
 .adsterra__container {
   @include mixins.centerFlex();

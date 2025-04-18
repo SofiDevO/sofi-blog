@@ -5,7 +5,7 @@ export const getCategorieBySlug = async (slug) => {
     const data = await wpquery({
       query: `
                 query getPostsByCategory {
-                    categories(where: {slug: "${slug}"}) {
+                    categories(where: {slug: "${slug}"}, last:100){
                         edges {
                             node {
                                 id

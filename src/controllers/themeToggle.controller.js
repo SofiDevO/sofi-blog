@@ -1,7 +1,7 @@
 
-export const ThemeColor = document.addEventListener('astro:page-load', () => {
 
-const theme = (() => {
+
+export const theme = (() => {
 
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
       return localStorage.getItem("theme");
@@ -34,4 +34,3 @@ const theme = (() => {
   document
     .getElementById("themeToggle")
     .addEventListener("click", handleToggleClick);
-  } )

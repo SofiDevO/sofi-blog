@@ -5,24 +5,24 @@ import DividerTop from "@atoms/DividerTop/DividerTop.astro";
 import Hero from "@organisms/Hero/Hero.astro";
 import AstroSection from "@organisms/AstroSection/AstroSection.astro";
 import SecondaryCard from "@src/components/atoms/SecondaryCard/SecondaryCard.astro";
-import { generateCategoryMap } from "@utils/categoryMapper";
-import { getCategoriesWithPosts } from '@services/categoriesWithPosts';
-import { categoryData } from "@src/services/getCategories";
-
+import DesarrolloWeb from "@src/components/organisms/DesarrolloWeb/DesarrolloWeb.astro";
+import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
+import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
+const categoriesWithPosts = await getCategoriesWithPosts();
+console.log(categoriesWithPosts);
 export const prerender = true;
 
 
 
-// Obtener todas las categorías y generar el mapa
-const data = await categoryData();
-const categories = generateCategoryMap(data.categories.nodes);
 
-console.log('Mapa de categorías:', categories);
 ---
 
 <Layout>
-  <Hero slot="hero"/>
+  <Hero />
   <DividerTop />
-  <Posts categories={categories} />
-  <SecondaryCard />
+  <Posts {...categoriesWithPosts["tutoriales"][0]} />
+  <DesarrolloWeb  {...categoriesWithPosts["aprender-a-programar"][0]}/>
+  <DividerBottom />
+
+
 </Layout>

@@ -3,6 +3,9 @@
 .title {
   font-size: 45px;
 }
+
+
+
 .title-light {
   @include mixins.text-gradient();
 }

@@ -4,7 +4,7 @@ export const categoryData = async () => {
   try {
     const data = await wpquery({
       query: `
-        query getCategories {
+        query getCategories(last: 100) {
           categories {
             nodes {
               name

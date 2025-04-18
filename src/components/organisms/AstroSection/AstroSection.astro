@@ -11,19 +11,19 @@ const { posts } = Astro.props;
 
 <section class="astro-section">
   {
-    posts.map((post) => (
-      <div class="astro-card">
-        <h2>{post.title}</h2>
-        <fragment set:html={post.excerpt} />
-        {/* Categories are now an array, so we can map through them directly */}
-        {post?.categories?.map((category) => (
-          <a href={`/categories/${category.slug}`} class="category-link">
-            {category.name}
-          </a>
-        ))}
-        <img src={post?.featuredImage?.node?.link} alt={post.title} />
-      </div>
-    ))
+    // posts.map((post) => (
+    //   <div class="astro-card">
+    //     <h2>{post.title}</h2>
+    //     <fragment set:html={post.excerpt} />
+
+    //     {/* {post?.categories?.map((category) => (
+    //       <a href={`/categories/${category.slug}`} class="category-link">
+    //         {category.name}
+    //       </a>
+    //     ))} */}
+    //     <img src={post?.featuredImage?.node?.link} alt={post.title} />
+    //   </div>
+    // ))
   }
 </section>
 

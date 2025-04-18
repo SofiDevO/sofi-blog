@@ -1,5 +1,5 @@
 ---
-import PostCard from "@atoms/PostCard/PostCard.astro";
+import Title from "@src/components/atoms/Title/Title.astro";
 import type { CardPost } from "@src/types/post.type";
 interface Props {
   slug: string;
@@ -13,27 +13,15 @@ const { slug, name, posts } = Astro.props;
 <!-- Renderizado de los posts -->
 <div class="categories__container">
   <section class="category__section">
-    <div class="category__title">
-      <h2>{name}</h2>
-      <a
-        href={`/categories/${slug}`}
-        class="category__title__link"
-      >
-        Ver más
-        <iconify-icon
-          class="title__arrow"
-          icon="fe:arrow-right"
-          width="24"
-          height="24"
-          style="color: current"></iconify-icon>
-      </a>
-    </div>
+    <a href={`/categories/${slug}`} class="category__title__link">
+      <Title titleDesc={name} class="big"  />
+    </a>
     <ul class="link-card-grid">
       {
         posts.slice(0, 4).map((post) => {
           return (
             <li>
-              <PostCard {...post} />
+              <h1>{post.title}</h1>
             </li>
           );
         })

@@ -1,15 +1,12 @@
 import { wpquery } from "@src/data/wordpress";
 import type { CardPost, CategoryWithPosts } from '@src/types/post.type.ts';
 
-export interface Category {
-    [key: string]:CategoryWithPosts;
-}
 export const getCategoriesWithPosts = async () => {
     const categories = await wpquery({
         query : `
             query getCategoriesWithPosts {
 
-                categories {
+                categories(last: 100) {
                     nodes {
                         name
                         id
@@ -78,31 +75,10 @@ export const getCategoriesWithPosts = async () => {
             }),
         };
     });
-    return categoriesWithPosts;
-    // const categorizedByName: Record<string, CategoryWithPosts> = categoriesData.categories.nodes.reduce(
-    //     (acc, { name, slug, id, posts }: any) => {
-    //       const parsedPosts = (posts?.nodes || []).map((post: any) => {
-    //         const { title, slug, excerpt = '', date, featuredImage } = post;
-    //         return {
-    //           title,
-    //           slug,
-    //           excerpt: excerpt.replace(/<[^>]+>/g, ''),
-    //           date,
-    //           image: featuredImage?.node,
-    //         };
-    //       });
-
-    //       acc[name] = {
-    //         name,
-    //         slug,
-    //         id,
-    //         posts: parsedPosts,
-    //       };
-
-    //       return acc;
-    //     },
-    //     {} as Record<string, CategoryWithPosts>
-    // );
-
-
+    const categoriesGroupByID = Object.groupBy(
+        categoriesWithPosts,
+        (category) => category.slug
+    );
+    const categoriesData =  {...categoriesGroupByID};
+    return categoriesData;
 }
