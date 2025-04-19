@@ -1,31 +1,71 @@
 ---
+import SecondaryCard from "@organisms/Posts/SecondaryCard/SecondaryCard.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
 import type { CardPost } from "@src/types/post.type";
+import CategoriesTags from "../Posts/CategoriesTags/CategoriesTags.astro";
 interface Props {
   slug: string;
   name: string;
+
   posts: CardPost[];
 }
-
 const { slug, name, posts } = Astro.props;
+const DEFAULT_POST = posts[0];
 ---
 
-<!-- Renderizado de los posts -->
-<div class="categories__container">
-  <section class="category__section">
+<div class="bg-section">
+  <section class="web-dev">
     <a href={`/categories/${slug}`} class="category__title__link">
-      <Title titleDesc={name} class="big"  />
+      <Title titleDesc={name} class="category__title" />
     </a>
-    <ul class="link-card-grid">
-      {
-        posts.slice(0, 4).map((post) => {
-          return (
-            <li>
-              <h1>{post.title}</h1>
-            </li>
-          );
-        })
-      }
-    </ul>
+    <div class="web-dev__container">
+      <ul class="web-dev__list">
+        {
+          posts.slice(0, 3).map((post) => {
+            return (
+              <li>
+                <SecondaryCard />
+              </li>
+            );
+          })
+        }
+      </ul>
+      <!-- CARD GRANDE -->
+
+      <a href={`blog/${DEFAULT_POST.slug}`}>
+        <article class="card-big">
+          <div class="big-card__img__container">
+            <img
+              alt={DEFAULT_POST.title}
+              src={DEFAULT_POST.image?.mediaItemUrl}
+              srcset={DEFAULT_POST.image?.srcSet}
+              sizes={DEFAULT_POST.image?.sizes}
+              class="big-card__img"
+            />
+          </div>
+          <div class="card__author">
+            <img
+              src={DEFAULT_POST.author?.avatar?.url}
+              alt={DEFAULT_POST.author?.name}
+              class="card__avatar"
+            /><span class="card__author__name"
+              >{DEFAULT_POST.author?.firstName}
+              {DEFAULT_POST.author?.lastName}</span
+            >
+          </div>
+          <div class="card-big__content">
+            <h2 class="card-big__title">{DEFAULT_POST.title}</h2>
+            <Fragment set:html={DEFAULT_POST.excerpt} />
+            <div class="post-card__categories">
+              {
+                DEFAULT_POST.categories.map((category) => (
+                  <CategoriesTags {...category} />
+                ))
+              }
+            </div>
+          </div>
+        </article>
+      </a>
+    </div>
   </section>
 </div>

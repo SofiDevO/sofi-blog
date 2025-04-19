@@ -62,41 +62,31 @@ export interface CardPost {
   slug: string;
   excerpt: string;
   date: string;
-  featuredImage?: {
-    node?: {
+  image?: {
       altText: string
       mediaItemUrl: string
       srcSet: string
       sizes: string
       link: string;
       sourceUrl: string
-    };
-      categories: {
-        nodes: Array<{
-          name: string;
-          slug: string;
-      }>;
-      }
-
   };
-  categories: {
-      nodes: {
-          name: string;
-          slug: string;
-      }[]
-  };
+  categories: CategoriesResponse[];
   author: {
-      node: {
-          avatar: {
-              url: string;
-          };
-          name: string;
-          slug: string;
-          firstName: string;
-          lastName: string;
+      avatar: {
+          url: string;
       };
+      name: string;
+      slug: string;
+      firstName: string;
+      lastName: string;
   };
 }
+
+type CategoriesResponse = {
+  name: string;
+  slug: string;
+}
+
 
 export interface Categories {
   [key: string]:CategoryWithPosts;

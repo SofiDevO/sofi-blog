@@ -1,6 +1,7 @@
 ---
 import type { Post } from "@src/types/post.type.ts";
 import { formatedDateShort } from "@utils/formatedDate";
+import CategoriesTags from "../CategoriesTags/CategoriesTags.astro";
 const {
   image,
   slug,
@@ -75,9 +76,7 @@ const post: Post = {
     <div class="post-card__categories">
       {
         post?.categories?.map((category) => (
-          <a href={`/categories/${category.slug}`} class="post-card__category">
-            {category.name}
-          </a>
+        <CategoriesTags  slug={category.slug} name={category.name} />
         ))
       }
     </div>

@@ -68,8 +68,8 @@ export const getCategoriesWithPosts = async () => {
                     slug: post.slug,
                     excerpt: post.excerpt.replace(/\[.*?\]/g, "..."),
                     date: post.date,
-                    image: post?.featuredImage?.node ,
-                    author: post.author.node,
+                    image: post?.featuredImage?.node,
+                    author: post.author?.node,
                     categories: post?.categories?.nodes
                 };
             }),
@@ -77,7 +77,7 @@ export const getCategoriesWithPosts = async () => {
     });
     const categoriesGroupByID = Object.groupBy(
         categoriesWithPosts,
-        (category) => category.slug
+        ({ slug }) => slug
     );
     const categoriesData =  {...categoriesGroupByID};
     return categoriesData;

@@ -1,0 +1,13 @@
+---
+
+const { slug, name } = Astro.props
+---
+
+
+<!-- Categorías -->
+<div class="post-card__categories">
+
+        <a href={`/categories/${slug}`} class="post-card__category">
+          {name}
+        </a>
+  </div>

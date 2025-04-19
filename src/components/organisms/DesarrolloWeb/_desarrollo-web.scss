@@ -1,2 +1,31 @@
-@use '@sass/variables' as v;
+@use "@sass/variables" as v;
 @use "@sass/mixins" as mixins;
+
+.bg-section {
+  background: v.$dark-violet;
+  padding: 10rem 0;
+}
+
+.web-dev {
+  @include mixins.centerFlex();
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  gap: 4rem;
+  &__container {
+    @include mixins.centerFlex(space-between, center);
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  &__list {
+    @include mixins.centerFlex();
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

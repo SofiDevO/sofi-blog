@@ -24,9 +24,14 @@
   }
 }
 
+@function pxToRem($size) {
+
+}
+
+
 @mixin titleType($type) {
   @if $type == "big" {
-    font-size: 5.5rem;
+    font-size: 5rem;
     font-weight: 800;
   }
   @else if $type == "middle" {

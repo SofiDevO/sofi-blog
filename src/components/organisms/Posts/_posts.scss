@@ -3,14 +3,14 @@
 .categories__container {
   @include mixins.centerFlex();
   flex-direction: column;
-  padding: 20rem 0;
+  padding: 21rem 0 10rem;
 
   .category__section {
     width: 90vw;
     max-width: 1180px;
     .category__title {
       @include mixins.centerFlex(space-between, flex-end);
-      border-bottom: 0.2px solid v.$mainColor;
+      // border-bottom: 0.2px solid v.$mainColor;
       margin-bottom: 4rem;
       width: 100%;
 
