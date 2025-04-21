@@ -10,7 +10,7 @@ if (!category) {
   return Astro.redirect("/404");
 }
 
-const sortedPosts = category.posts.nodes.sort(
+const sortedPosts = category.posts.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
 
@@ -43,27 +43,9 @@ export const prerender = false
         paginatedPosts.length > 0 ? (
           <ul role="list" class="link-card-grid">
             {paginatedPosts.map((post) => {
-              const featuredImage =
-                post.featuredImage?.node?.mediaItemUrl ||
-                "/img/branding/logo.png";
-              const altText =
-                post.featuredImage?.node?.altText || "Imagen no disponible";
-
               return (
                 <li>
-                  <PostCard
-                    key={post.id}
-                    date={post.date}
-                    link={post.slug}
-                    title={post.title}
-                    excerpt={post.excerpt}
-                    image={featuredImage}
-                    author={post.author.node.name}
-                    authorImage={post.author.node.avatar.url}
-                    authorFirstName={post.author.node.firstName}
-                    authorLastName={post.author.node.lastName}
-                    categories={post.categories.nodes}
-                  />
+                  <PostCard {...post} />
                 </li>
               );
             })}

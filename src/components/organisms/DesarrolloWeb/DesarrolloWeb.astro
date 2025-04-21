@@ -1,13 +1,12 @@
 ---
 import SecondaryCard from "@organisms/Posts/SecondaryCard/SecondaryCard.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
-import type { CardPost } from "@src/types/post.type";
+import type { Post } from "@src/types/post.type";
 import CategoriesTags from "../Posts/CategoriesTags/CategoriesTags.astro";
 interface Props {
   slug: string;
   name: string;
-
-  posts: CardPost[];
+  posts: Post[];
 }
 const { slug, name, posts } = Astro.props;
 const DEFAULT_POST = posts[0];
