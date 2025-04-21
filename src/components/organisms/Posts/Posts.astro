@@ -1,10 +1,10 @@
 ---
 import PostCard from "@organisms/Posts/PostCard/PostCard.astro";
-import type { CardPost } from "@src/types/post.type";
+import type { Post } from "@src/types/post.type";
 interface Props {
   slug: string;
   name: string;
-  posts: CardPost[];
+  posts: Post[];
 }
 
 const { slug, name, posts } = Astro.props;

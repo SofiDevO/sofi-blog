@@ -92,15 +92,9 @@ export const searchPosts = async (search) =>{
         const results = data?.posts?.nodes ? data.posts.nodes.map((post) => {
             const { featuredImage, categories, author, ...rest } = post;
             return {
-                image: featuredImage?.node?.mediaItemUrl || "",
-                srcSet: featuredImage?.node?.srcSet || "",
-                sizes: featuredImage?.node?.sizes || "",
-                altdesc: featuredImage?.node?.altText || "",
+                image: featuredImage?.node || "",
                 categories: categories?.nodes || [],
-                author: author?.node?.name || "",
-                authorImage: author?.node?.avatar?.url || "",
-                authorFirstName: author?.node?.firstName || "",
-                authorLastName: author?.node?.lastName || "",
+                author: author?.node,
                 ...rest,
             };
         }) : [];

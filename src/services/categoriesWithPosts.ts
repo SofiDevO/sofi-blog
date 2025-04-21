@@ -1,5 +1,6 @@
 import { wpquery } from "@src/data/wordpress";
-import type { CardPost, CategoryWithPosts } from '@src/types/post.type.ts';
+import type { CategoryWithPosts } from "@src/types/category.type";
+import type { Post } from "@src/types/post.type";
 
 export const getCategoriesWithPosts = async () => {
     const categories = await wpquery({
@@ -56,29 +57,26 @@ export const getCategoriesWithPosts = async () => {
 
         `,
     })
-    const categoriesWithPosts: CategoryWithPosts[] = categories.categories.nodes.map((category: any) => {
-        return {
-            name: category.name,
-            slug: category.slug,
-            id: category.id,
-            databaseId: category.databaseId,
-            posts: category.posts?.nodes?.map((post: any) => {
-                return {
-                    title: post.title,
-                    slug: post.slug,
-                    excerpt: post.excerpt.replace(/\[.*?\]/g, "..."),
-                    date: post.date,
-                    image: post?.featuredImage?.node,
-                    author: post.author?.node,
-                    categories: post?.categories?.nodes
-                };
-            }),
-        };
+    const categoriesWithPosts: CategoryWithPosts[] = categories.
+        categories?.nodes?.map((category: any):CategoryWithPosts => {
+            return {
+                name: category.name,
+                slug: category.slug,
+                id: category.id,
+                databaseId: category.databaseId,
+                posts: category.posts?.nodes?.map((post: any):Post => {
+                    return {
+                        title: post.title,
+                        slug: post.slug,
+                        excerpt: post.excerpt.replace(/\[.*?\]/g, "..."),
+                        date: post.date,
+                        image: post?.featuredImage?.node,
+                        author: post.author?.node,
+                        categories: post?.categories?.nodes,
+                    };
+                }) || [],
+            };
     });
-    const categoriesGroupByID = Object.groupBy(
-        categoriesWithPosts,
-        ({ slug }) => slug
-    );
-    const categoriesData =  {...categoriesGroupByID};
-    return categoriesData;
+    const categoriesGroupByID = Object.groupBy(categoriesWithPosts,({ slug }) => slug);
+    return categoriesGroupByID;
 }

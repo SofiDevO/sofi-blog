@@ -2,6 +2,11 @@
 import type { Post } from "@src/types/post.type.ts";
 import { formatedDateShort } from "@utils/formatedDate";
 import CategoriesTags from "../CategoriesTags/CategoriesTags.astro";
+
+interface Props extends Post {
+  key?: string;
+}
+
 const {
   image,
   slug,
@@ -11,16 +16,6 @@ const {
   categories,
   date,
 } = Astro.props;
-
-const post: Post = {
-  title,
-  slug,
-  excerpt,
-  date,
-  image,
-  author,
-  categories,
-};
 ---
 
 <article
@@ -29,10 +24,10 @@ const post: Post = {
   <!-- Imagen del post -->
   <div class="post-card__image-container">
     <img
-      alt={post.title}
-      src={post.image?.mediaItemUrl}
-      srcset={post.image?.srcSet }
-      sizes={post.image?.sizes}
+      alt={title}
+      src={image?.mediaItemUrl}
+      srcset={image?.srcSet }
+      sizes={image?.sizes}
       class="post-card__image"
     />
     <div class="post-card__image-overlay"></div>
@@ -43,22 +38,22 @@ const post: Post = {
     <!-- Autor e información adicional -->
     <div class="post-card__author">
       <img
-        src={post?.author?.avatar?.url}
-        alt={`${post.author?.firstName} ${post.author?.lastName}`}
+        src={author?.avatar?.url}
+        alt={`${author?.firstName} ${author?.lastName}`}
         class="post-card__author-image"
       />
       <div class="post-card__author-info">
-        <p class="post-card__author-name">{post.author?.firstName} {post.author?.lastName}</p>
-        <time datetime={post.date} class="post-card__date">
+        <p class="post-card__author-name">{author?.firstName} {author?.lastName}</p>
+        <time datetime={date} class="post-card__date">
           <iconify-icon icon="majesticons:clock"></iconify-icon>
-          {formatedDateShort(post.date)}
+          {formatedDateShort(date)}
         </time>
       </div>
     </div>
     <!-- Título -->
     <a href={`/blog/${slug}`}>
       <h3 class="post-card__title group">
-        {post.title}
+        {title}
         <iconify-icon
           icon="ri:links-line"
           class="group-hover:opacity-100 opacity-0 transition-all duration-200 ease-linear"
@@ -69,13 +64,13 @@ const post: Post = {
     <!-- Descripción -->
     <fragment
       class="post-card__excerpt"
-      set:html={post.excerpt.replace(/\[.*?\]/g, "...")}
+      set:html={excerpt.replace(/\[.*?\]/g, "...")}
     />
 
     <!-- Categorías -->
     <div class="post-card__categories">
       {
-        post?.categories?.map((category) => (
+        categories && categories?.map((category) => (
         <CategoriesTags  slug={category.slug} name={category.name} />
         ))
       }
