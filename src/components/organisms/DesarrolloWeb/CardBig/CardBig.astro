@@ -1,0 +1,37 @@
+---
+import Categories from "../Categories/Categories.astro";
+import type { Post } from "@src/types/post.type";
+interface Props extends Post {}
+
+const { title, slug, excerpt, image, categories, date, author } = Astro.props;
+---
+
+  <article class="card-big">
+
+    <div class="card-big__image__container">
+      <img
+        alt={title}
+        src={image?.mediaItemUrl}
+        srcset={image?.srcSet}
+        sizes={image?.sizes}
+        class="card-big__img"
+      />
+    </div>
+    <a href={`/blog/${slug}`} class="card__author">
+      <img
+        src={author?.avatar?.url}
+        alt={author?.name}
+        class="card__avatar"
+      />
+      <span class="card__author__name">
+        {author?.firstName}
+        {author?.lastName}
+      </span>
+    </a>
+    <div class="card-big__content">
+
+      <h2 class="card-big__title">{title}</h2>
+      <Fragment set:html={excerpt} />
+      <Categories categories={categories} />
+    </div>
+  </article>

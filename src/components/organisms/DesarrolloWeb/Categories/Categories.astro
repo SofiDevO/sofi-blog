@@ -1,13 +1,22 @@
 ---
-const { slug, name } = Astro.props;
+import type { Category } from "@src/types/category.type";
+interface Props {
+  categories: Category[];
+}
+const { categories } = Astro.props;
 ---
 
-<!-- Categorías -->
-
-  <a href={`/categories/${slug}`} class="post-tag__category">
-    {name}
-  </a>
-
+<div class="post-tag__categories">
+  {
+    categories.map((tag) => {
+      return (
+        <a class="post-tag__category" class="" href={`/categories/${tag.slug}`}>
+          {tag.name}
+        </a>
+      );
+    })
+  }
+</div>
 
 <style lang="scss">
   @use "@sass/variables" as v;

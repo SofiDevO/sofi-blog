@@ -4,6 +4,7 @@
 .bg-section {
   background: v.$dark-violet;
   padding: 10rem 0;
+  @include mixins.centerFlex(center, center);
 }
 
 .web-dev {

@@ -13,6 +13,7 @@
 @use "@organisms/Comments/comments" as comments;
 @use "@pages/blog/blog" as blog;
 @use "@organisms/DesarrolloWeb/desarrollo-web" as web;
+@use "@organisms/DesarrolloWeb/CardBig/card-big" as cardBig;
 :root {
   --mainColor: rgb(12, 12, 12);
   --bg-color: #f1f1f1;

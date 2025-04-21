@@ -114,27 +114,6 @@
     overflow: hidden;
   }
 
-  &__categories {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-  }
-
-  &__category {
-    padding: 0.42rem 0.83rem;
-    border-radius: 16px;
-    font-size: 1.1rem;
-    color: white;
-    background: v.$french-violet;
-    transition:
-      background 0.3s ease-in-out,
-      color 0.3s ease-in-out;
-    &:hover {
-      background: black;
-      color: #fff;
-    }
-  }
 
   &__read-more {
     margin-top: 1rem;

@@ -1,35 +1,24 @@
 ---
+import type { Post } from "@src/types/post.type";
+import CategoriesTags from "../CategoriesTags/CategoriesTags.astro";
+import Categories from "../../DesarrolloWeb/Categories/Categories.astro";
+interface Props extends Post {}
 
-
-const fakeData = {
-  title: "Morí de hambre por aprender php",
-  desc: "Hoy veremos como hacer el mejor espaguetti del mundo con PHP",
-  tags: ["PHP", "aprender a programar", "desarrollo web"],
-  imgSrc:
-    "https://res.cloudinary.com/dvjox4xut/images/w_1024,h_576,c_scale/f_webp/v1743481719/SofiBlog-1_28167de4b6/SofiBlog-1_28167de4b6.png?_i=AA",
-  alt: "post banner image",
-};
+const { title, slug, excerpt, image, categories, date, author } = Astro.props;
 ---
 
-<a href="#" class="secondary-card">
+<article class="secondary-card">
   <div class="secondary-card__container">
-    <img src={fakeData.imgSrc} alt={fakeData.alt} class="container__image" />
+    <img src={image.mediaItemUrl} alt={title} class="container__image" />
   </div>
   <div class="secondary-card__content">
-    <h3 class="secondary-card__title">{fakeData.title}</h3>
-    <p class="secondary-card__desc">
-      {fakeData.desc}
-    </p>
-
-    <div class="secondary-card__tags">
-      {
-        fakeData.tags.map((tag) => (
-          <span class="secondary-card__tag">{tag}</span>
-        ))
-      }
-    </div>
+    <a href={`/blog/${slug}`} class="secondary-card__title">
+      {title}
+     </a>
+    <fragment set:html={excerpt} class="secondary-card__desc"/>
+    <Categories {categories} />
   </div>
-</a>
+</article>
 
 <style lang="scss">
   @use "@sass/variables" as v;
@@ -67,6 +56,7 @@ const fakeData = {
       gap: 1rem;
     }
     &__title {
+      color: var(--mainColor);
       text-transform: uppercase;
       font-size: 2.1rem;
       font-weight: 700;
