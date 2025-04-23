@@ -1,8 +1,6 @@
 ---
-import { fetchMenuData } from "@src/services/getMenu"; // Import function to get menu data
-// Enable or disablee static site generation
-// export const prerender = true;
-import { flatListToHierarchical } from "@utils/flatListToHierarchical"; // Import function to transform flat list to tree structure
+import { fetchMenuData } from "@src/services/getMenu.js";
+import { flatListToHierarchical } from "@utils/flatListToHierarchical"; //
 
 // Get current page URL path
 const pagePathname = Astro.url.pathname;
@@ -11,7 +9,7 @@ const pagePathname = Astro.url.pathname;
 let menuData = null;
 
 // Fetch menu data from the API/service
-const response = await fetchMenuData;
+const response = await fetchMenuData("menu");
 menuData = response;
 
 // Check if menu items exist and convert to array
@@ -22,6 +20,7 @@ const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
 
 // Convert flat menu list into a hierarchical structure (parent-child relationship)
 const hierarchicalMenu = flatListToHierarchical(menuItems);
+
 ---
 
 <!-- Navigation menu component -->
@@ -79,3 +78,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
     }
   </ul>
 </nav>
+
+<style lang="scss">
+
+</style>

@@ -9,7 +9,6 @@
   position: fixed;
   z-index: 1000;
   padding: 1rem 1rem;
-
   &__container {
     backdrop-filter: blur(17px);
     @include mixins.centerFlex(space-between);
@@ -21,16 +20,6 @@
     border-radius: 16px;
     padding: 1rem 2rem;
     z-index: 50;
-  }
-
-  &__list > *:not(a) {
-    margin-right: 1.5rem;
-    @include mixins.respond-to("medium") {
-      margin-bottom: 2rem;
-      .header__link {
-        font-size: 2rem;
-      }
-    }
   }
   &__menu {
     @include mixins.centerFlex(flex-start);
@@ -45,6 +34,18 @@
       }
     }
   }
+  &__list > *:not(a) {
+    display: flex;
+    margin-right: 1.5rem;
+    list-style: none;
+    @include mixins.respond-to("medium") {
+      margin-bottom: 2rem;
+      .header__link {
+        font-size: 2rem;
+      }
+    }
+  }
+
   &__link {
     font-weight: bold;
     color: white;
