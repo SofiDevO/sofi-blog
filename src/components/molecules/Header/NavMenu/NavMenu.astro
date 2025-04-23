@@ -1,16 +1,15 @@
 ---
 import { fetchMenuData } from "@src/services/getMenu.js";
-import { flatListToHierarchical } from "@utils/flatListToHierarchical"; //
+import { flatListToHierarchical } from "@utils/flatListToHierarchical";
+
+
 
 // Get current page URL path
 const pagePathname = Astro.url.pathname;
 
-// Initialize menuData variable
-let menuData = null;
-
 // Fetch menu data from the API/service
-const response = await fetchMenuData("menu");
-menuData = response;
+const menuData = await fetchMenuData("menu");
+
 
 // Check if menu items exist and convert to array
 // If menuItems doesn't exist, use empty array as fallback

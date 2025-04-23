@@ -6,15 +6,15 @@
 /**
  * Extracts the last part of a URL to use as a slug
  * Example: "https://example.com/blog/post-1" -> "post-1"
- * @param {string} url - The full URL to process
+ * @param {string} path - The full URL to process
  * @returns {string} The extracted slug
  */
-function getSlug(url) {
+function getSlug(path) {
   // Remove trailing slash if present
-  const urlWithoutTrailingSlash = url.endsWith("/") ? url.slice(0, -1) : url;
+  const urlWithoutTrailingSlash = path.endsWith("/") ? path.slice(0, -1) : path;
   // Split URL into parts and get the last segment
   const parts = urlWithoutTrailingSlash.split("/");
-  return parts[parts.length - 1];
+  return parts[parts.length -  1];
 }
 
 /**
@@ -38,7 +38,7 @@ const flatListToHierarchical = (
   // Process each item in the input data
   data.forEach((item) => {
     // Create new item with slug from URL
-    const newItem = { ...item, slug: getSlug(item.url) };
+    const newItem = { ...item, slug: getSlug(item.path) };
 
     // Extract ID and parentId (default to 0 if no parent)
     const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;

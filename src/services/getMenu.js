@@ -14,10 +14,10 @@ export const fetchMenuData = async (menuID) => {
                 menu(id:"${menuID}", idType: NAME) {
                     menuItems {
                     nodes {
-                        url
-                        label
-                        parentId
-                        id
+                      id
+                      parentId
+                      path
+                      label
                     }
                     }
                 }
