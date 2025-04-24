@@ -8,7 +8,7 @@ const { title, slug, excerpt, image, categories, date, author } = Astro.props;
 
 <article class="secondary-card">
   <div class="secondary-card__container">
-    <img src={image.mediaItemUrl} alt={title} class="container__image" />
+    <img src={image?.mediaItemUrl || "/img/defaultBanner.png"} alt={title} class="container__image" />
   </div>
   <div class="secondary-card__content">
     <a href={`/blog/${slug}`}
