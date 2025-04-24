@@ -1,8 +1,8 @@
 ---
-import SecondaryCard from "@organisms/Posts/SecondaryCard/SecondaryCard.astro";
-import Title from "@src/components/atoms/Title/Title.astro";
+import SecondaryCard from "@organisms/Posts/DesarrolloWeb/SecondaryCard/SecondaryCard.astro";
+import Title from "@atoms/Title/Title.astro";
 import type { Post } from "@src/types/post.type";
-import CategoriesTags from "../Posts/CategoriesTags/CategoriesTags.astro";
+
 import CardBig from "./CardBig/CardBig.astro";
 interface Props {
   slug: string;
@@ -21,7 +21,7 @@ const DEFAULT_POST = posts[0];
     <div class="web-dev__container">
       <ul class="web-dev__list">
         {
-          posts.slice(0, 3).map((post) => {
+          posts.slice(1, 4).map((post) => {
             return (
               <li>
                 <SecondaryCard {...post} />

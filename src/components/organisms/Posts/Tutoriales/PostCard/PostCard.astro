@@ -1,7 +1,8 @@
 ---
 import type { Post } from "@src/types/post.type.ts";
 import { formatedDateShort } from "@utils/formatedDate";
-import CategoriesTags from "../CategoriesTags/CategoriesTags.astro";
+import DateTag from "@atoms/DateTag/DateTag.astro";
+import Categories from "@organisms/Posts/components/Categories.astro";
 
 interface Props extends Post {
   key?: string;
@@ -44,10 +45,7 @@ const {
       />
       <div class="post-card__author-info">
         <p class="post-card__author-name">{author?.firstName} {author?.lastName}</p>
-        <time datetime={date} class="post-card__date">
-          <iconify-icon icon="majesticons:clock"></iconify-icon>
-          {formatedDateShort(date)}
-        </time>
+        <DateTag date={date} />
       </div>
     </div>
     <!-- Título -->
@@ -70,9 +68,8 @@ const {
     <!-- Categorías -->
     <div class="post-card__categories">
       {
-        categories && categories?.map((category) => (
-        <CategoriesTags  slug={category.slug} name={category.name} />
-        ))
+       categories&&
+        <Categories categories={categories}   />
       }
     </div>
   </div>

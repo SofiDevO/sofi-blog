@@ -2,15 +2,21 @@
 import type { Category } from "@src/types/category.type";
 interface Props {
   categories: Category[];
+  class?: string;
 }
-const { categories } = Astro.props;
+const { categories, class: className, ...rest } = Astro.props;
 ---
 
 <div class="post-tag__categories">
   {
     categories.map((tag) => {
       return (
-        <a class="post-tag__category" class="" href={`/categories/${tag.slug}`}>
+        <a
+          class="post-tag__category"
+          {...rest}
+          href={`/categories/${tag.slug}`}
+          aria-label={`Read more about ${tag.name}`}
+        >
           {tag.name}
         </a>
       );
@@ -20,7 +26,7 @@ const { categories } = Astro.props;
 
 <style lang="scss">
   @use "@sass/variables" as v;
-    .post-tag__categories {
+  .post-tag__categories {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;

@@ -1,0 +1,10 @@
+---
+import { formatedDateShort, formatedDate } from "@src/utils/formatedDate";
+
+const { date, isShort=true, class:className, ...rest } = Astro.props;
+---
+
+<time datetime={date} class="post-card__date" {...rest}>
+  <iconify-icon icon="majesticons:clock"></iconify-icon>
+  {isShort ? formatedDateShort(date) : formatedDate(date)}
+</time>

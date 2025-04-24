@@ -8,76 +8,10 @@ export const prerender = false;
 <script>
   import "@controllers/hamburger.controller";
 </script>
-<header class="header ">
+<header class="header">
   <div class="header__container">
     <Logo />
-    <NavMenu
-    />
+    <NavMenu />
     <HamburgerButton />
   </div>
 </header>
-
-<style lang="scss" is:global>
-  .header {
-    &__item {
-      position: relative;
-      margin-right: 1rem;
-      display: flex;
-      align-items: center;
-      iconify-icon {
-        color: aqua;
-      }
-
-      &:hover .dropdown {
-        transition: all 0.6s ease;
-        opacity: 1;
-        display: block;
-        transform: translateY(30px);
-
-        @starting-style {
-          opacity: 0;
-          display: none;
-          transform: translateY(0px);
-        }
-      }
-    }
-
-    &__link {
-      text-decoration: none;
-      color: aqua;
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-  }
-
-  .dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    min-width: 150px;
-    z-index: 10;
-    margin-top: 0.3rem;
-    &__item {
-      padding: 0.5rem 1rem;
-      white-space: nowrap;
-    }
-  }
-
-  .dropdown__link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    width: 100%;
-  }
-
-  .header__item:hover .dropdown {
-    display: block;
-  }
-</style>

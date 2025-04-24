@@ -8,7 +8,6 @@ const getStickyPost = cardsData.posts.nodes.find(
 const MostrecentPost = cardsData.posts.nodes.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
-import { fade } from "astro:transitions";
 ---
 
 {
@@ -36,7 +35,6 @@ import { fade } from "astro:transitions";
           class="sticky-post__button"
           href={`/blog/${getStickyPost.slug}`}
           transition:name={`styckyPost-${getStickyPost.title}`}
-          transition:animate={fade({ duration: ".4s" })}
         >
           Leer más...
         </a>
@@ -84,7 +82,7 @@ import { fade } from "astro:transitions";
     }
 
     &__title {
-      font-size: clamp(3rem, 5vw, 5rem);
+      font-size: clamp(3rem, 8vw, 3.6rem);
       font-weight: 800;
       height: 100%;
       display: flex;

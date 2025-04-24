@@ -3,23 +3,24 @@
 @use "@sass/animations" as animations;
 @use "@atoms/Title/title" as title;
 @use "@atoms/Button/button" as button;
-@use "@organisms/Posts/PostCard/post-card" as postCard;
+@use "@organisms/Posts/Tutoriales/PostCard/post-card" as postCard;
 @use "@atoms/Subtitle/subtitle" as subtitle;
 @use "@atoms/SocialIcons/social-icons" as socialIcons;
 @use "@molecules/Header/header" as header;
-@use "@organisms/Posts/posts" as posts;
+@use "@organisms/Posts/Tutoriales/tutoriales" as tutoriales;
 @use "@molecules/Comment/comment" as comment;
 @use "@molecules/SearchForm/search-form" as searchForm;
 @use "@organisms/Comments/comments" as comments;
 @use "@pages/blog/blog" as blog;
-@use "@organisms/DesarrolloWeb/desarrollo-web" as web;
-@use "@organisms/DesarrolloWeb/CardBig/card-big" as cardBig;
+@use "@organisms/Posts/DesarrolloWeb/desarrollo-web" as web;
+@use "@organisms/Posts/DesarrolloWeb/CardBig/card-big" as cardBig;
 :root {
   --mainColor: rgb(12, 12, 12);
   --bg-color: #f1f1f1;
-  --card-bg: #fff;
+  --bg-card: #fff;
   --frenchViolet: #6600cc;
   --cetaceanPurple: #140030;
+  --dark-violet: #120628;
   --ufoGreen: #33ff76;
   --aqua: #58ecff;
   --bgDark: rgb(14, 18, 23);
@@ -31,7 +32,8 @@
 /* Tema oscuro */
 .dark {
   --card-border: 1px solid #1a2a2e;
-  --bg-card: #06080c;
+  --bg-card: #181b22;
+  --dark-violet: #0e0a13;
   --mainColor: #f1f1f1;
   --bg-color: rgb(12, 1, 31);
   --frenchViolet: #9933ff;
