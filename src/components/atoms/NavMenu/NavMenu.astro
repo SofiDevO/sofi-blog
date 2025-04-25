@@ -1,0 +1,113 @@
+---
+
+import { fade } from "astro:transitions";
+import { fetchMenuData } from "@src/services/getMenu";
+export const prerender = true
+
+const pagePathname = Astro.url.pathname;
+const staticMenu = { text: "Portfolio", url: "https://itssofi.dev/" };
+
+interface MenuItem {
+  id: number;
+  parentId?: number;
+  url: string;
+  label: string;
+  children?: MenuItem[];
+}
+interface MenuData {
+  menu: {
+    menuItems: {
+      nodes: MenuItem[];
+    };
+  };
+}
+
+let menuData: MenuData | null = null;
+
+
+  const response = await fetchMenuData;
+  menuData = response as MenuData;
+
+
+const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes) ? [...menuData.menu.menuItems.nodes] : [];
+
+// Function to get the slug from a URL
+function getSlug(url) {
+  const urlWithoutTrailingSlash = url.endsWith("/") ? url.slice(0, -1) : url;
+  const parts = urlWithoutTrailingSlash.split("/");
+  return parts[parts.length - 1];
+}
+
+// Function to transform the flat list into a hierarchical structure
+const flatListToHierarchical = (
+  data = [],
+  { idKey = "id", parentKey = "parentId", childrenKey = "children" } = {}
+) => {
+  const tree = [];
+  const childrenOf = {};
+  data.forEach((item) => {
+    const newItem = { ...item, slug: getSlug(item.url) };
+    const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+    childrenOf[id] = childrenOf[id] || [];
+    newItem[childrenKey] = childrenOf[id];
+    parentId
+      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+      : tree.push(newItem);
+  });
+  return tree;
+};
+
+// Transform the data into a hierarchical format
+const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
+---
+
+<nav class="header__menu">
+  <ul class="header__list">
+    {
+      pagePathname !== "/" && (
+        <li class="header__item">
+          <a class="header__link" href="/" data-astro-prefetch   transition:name="home" transition:animate={fade({ duration: ".4s" })}>
+            Home
+          </a>
+        </li>
+      )
+    }
+    {
+      hierarchicalMenu.map((item) => (
+        <li class="header__item">
+          <a class="header__link" href={`/categories/${item.slug}`} >
+            {item.label}
+          </a>
+          {item.children.length > 0 && (
+            <>
+              <iconify-icon class="dropdown__icon" icon="gridicons:dropdown"  />
+              <ul class="dropdown">
+                {item.children.map((child) => (
+                  <li class="dropdown__item">
+                    <a
+                      class="dropdown__link"
+                      href={`/categories/${child.slug}`}
+
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </li>
+      ))
+    }
+    <li class="header__item">
+      <a class="header__link" href={staticMenu.url} target="_blank"  >
+        {staticMenu.text}
+        <iconify-icon
+          icon="iconamoon:link-external"
+          width="19"
+          height="19"
+          style="color: #00c8f0"></iconify-icon>
+      </a>
+    </li>
+  </ul>
+</nav>

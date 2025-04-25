@@ -6,10 +6,13 @@ import { replaceIframes } from "@src/utils/index";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 const { slug } = Astro.params;
 
-
- import { PostContentData  } from "@src/services/getPostContent";
- export async function getStaticPaths() {
+import { PostContentData } from "@src/services/getPostContent";
+import DateTag from "@src/components/atoms/DateTag/DateTag.astro";
+export async function getStaticPaths() {
   const data = PostContentData;
+
+
+
   return data?.posts?.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
@@ -18,22 +21,18 @@ const { slug } = Astro.params;
   });
 }
 
+const { post } = Astro.props as any;
 
-const { post } = Astro.props as any; ;
+if (!post) {
+  throw new Error(`Post not found for slug: ${slug}`);
+}
+
 const { id } = post;
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
 const { date } = Astro.props;
-const formatDate = new Date(date);
-const day = formatDate.getDate();
-const before_month = formatDate
-  .toLocaleString("default", { month: "long" })
-  .slice(0, 3);
-const month = before_month.charAt(0).toUpperCase() + before_month.slice(1);
-const year = formatDate.getFullYear();
 
-const newDateFormat = `${day} / ${month} / ${year}`;
 const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
 
@@ -57,11 +56,11 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
     <article
       class="flex flex-col w-full max-w-[900px] overflow-x-clip"
     >
-      <div class="w-full max-w-[1300px] mx-auto overflow-hidden">
+      <div class="group w-full max-w-[1300px] mx-auto overflow-hidden rounded-[1.2rem]">
         <img
           srcset={post.featuredImage?.node?.srcSet}
           sizes={post.featuredImage?.node?.sizes}
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover group-hover:scale-110 transition-all duration-500 ease-in-out"
           src={post?.featuredImage?.node?.mediaItemUrl ||
             "/img/branding/logo.png"}
           alt={post?.featuredImage?.node?.altText || post.title}
@@ -75,6 +74,7 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
       <!-- Author Info -->
       <div class="flex gap-3 items-center my-5 px-3 group">
         <img
+        id="author-image"
           class="w-24 h-24 group-hover:scale-110 rounded-full"
           src={author.avatar?.url}
           alt={author.name}
@@ -87,6 +87,10 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
           <p class="font-bold text-2xl">
             Tiempo de lectura
             <span class="text-violet-700"> {post.seo.readingTime} minutes</span>
+          </p>
+          <p class="font-bold text-2xl">
+            Fecha de publicación
+            <DateTag isShort={false} date={post.date} />
           </p>
         </div>
       </div>

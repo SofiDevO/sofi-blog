@@ -2,10 +2,10 @@
 import { cardsData as data } from "@services/getCards.js";
 
 const cardsData = await data();
-const getStickyPost = cardsData.posts.nodes.find(
-  (post) => post.isSticky === true
+const getStickyPost = cardsData?.posts?.nodes.find(
+  (post: any) => post?.isSticky === true
 );
-const MostrecentPost = cardsData.posts.nodes.sort(
+const MostrecentPost = cardsData?.posts?.nodes?.sort(
   (a, b) => Date.parse(b.date) - Date.parse(a.date)
 );
 ---
@@ -41,7 +41,34 @@ const MostrecentPost = cardsData.posts.nodes.sort(
       </div>
     </article>
   ) : (
-    <h1 class="most-recent-post__title">{MostrecentPost[0].title}</h1>
+    <article class="sticky-post">
+      <a
+        class="sticky-post__link sticky-post__link--container "
+        href={`/blog/${MostrecentPost[0].slug}`}
+      >
+        <img
+          class="sticky-post__image"
+          srcset={MostrecentPost[0].featuredImage?.node?.srcSet}
+          sizes={MostrecentPost[0].featuredImage?.node?.sizes}
+          src={MostrecentPost[0].featuredImage?.node?.sourceUrl}
+          alt={MostrecentPost[0].featuredImage?.node?.altText}
+        />
+      </a>
+      <div class="sticky-post__content">
+        <h2 class="sticky-post__title text-gradient">{MostrecentPost[0].title}</h2>
+        <fragment
+          class="sticky-post__excerpt"
+          set:html={MostrecentPost[0].seo.metaDesc}
+        />
+        <a
+          class="sticky-post__button"
+          href={`/blog/${MostrecentPost[0].slug}`}
+          transition:name={`styckyPost-${MostrecentPost[0].title}`}
+        >
+          Leer más...
+        </a>
+      </div>
+    </article>
   )
 }
 
