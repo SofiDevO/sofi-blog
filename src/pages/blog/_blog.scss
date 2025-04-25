@@ -97,4 +97,16 @@
       background: black;
       height: 5px;
     }
+    .button-copy {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      gap: 0.5rem;
+      color: v.$light-violet;
+      transition: all 0.3s ease;
+      &:hover {
+        color: v.$ufo-green;
+      }
+    }
   }

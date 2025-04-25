@@ -26,7 +26,7 @@ const {
   <div class="post-card__image-container">
     <img
       alt={title}
-      src={image?.mediaItemUrl}
+      src={image?.mediaItemUrl || "/img/defaultBanner.png"}
       srcset={image?.srcSet }
       sizes={image?.sizes}
       class="post-card__image"

@@ -1,14 +1,16 @@
 ---
+
 ---
 
-
-<div class="to__top ">
-    <iconify-icon icon="codicon:triangle-up" width="30" height="30" style="color: #63f6f4e9"></iconify-icon>
+<div class="to__top">
+  <iconify-icon
+    icon="codicon:triangle-up"
+    width="30"
+    height="30"
+    style="color: #63f6f4e9"></iconify-icon>
 </div>
 
 <script is:inline>
-  const ThemeColor = document.addEventListener('astro:page-load', () => {
-
   const cajaToTop = document.querySelector(".to__top");
 
   cajaToTop.addEventListener("click", () => {
@@ -22,7 +24,6 @@
       cajaToTop.classList.remove("show");
     }
   });
-});
 </script>
 
 <style>

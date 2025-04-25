@@ -6,7 +6,7 @@ const getStickyPost = cardsData?.posts?.nodes.find(
   (post: any) => post?.isSticky === true
 );
 const MostrecentPost = cardsData?.posts?.nodes?.sort(
-  (a: any, b:any) => Date.parse(b?.date) - Date.parse(a?.date)
+  (a: any, b: any) => Date.parse(b?.date) - Date.parse(a?.date)
 );
 ---
 
@@ -43,24 +43,30 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
   ) : (
     <article class="sticky-post">
       <a
-        class="sticky-post__link sticky-post__link--container "
+        class="sticky-post__link  "
         href={`/blog/${MostrecentPost[0].slug}`}
+        aria-label={`Leer mas sobre ${MostrecentPost[0].title}`}
       >
-        <img
-          class="sticky-post__image"
-          srcset={MostrecentPost[0].featuredImage?.node?.srcSet}
-          sizes={MostrecentPost[0].featuredImage?.node?.sizes}
-          src={MostrecentPost[0].featuredImage?.node?.sourceUrl}
-          alt={MostrecentPost[0].featuredImage?.node?.altText}
-        />
+
+          <img
+            class="sticky-post__link__image"
+            srcset={MostrecentPost[0].featuredImage?.node?.srcSet}
+            sizes={MostrecentPost[0].featuredImage?.node?.sizes}
+            src={MostrecentPost[0].featuredImage?.node?.sourceUrl}
+            alt={MostrecentPost[0].featuredImage?.node?.altText}
+          />
+
       </a>
       <div class="sticky-post__content">
-        <h2 class="sticky-post__title text-gradient">{MostrecentPost[0].title}</h2>
+        <h2 class="sticky-post__title text-gradient">
+          {MostrecentPost[0].title}
+        </h2>
         <fragment
           class="sticky-post__excerpt"
           set:html={MostrecentPost[0].seo.metaDesc}
         />
         <a
+          aria-label={`Leer mas sobre ${MostrecentPost[0].title}`}
           class="sticky-post__button"
           href={`/blog/${MostrecentPost[0].slug}`}
           transition:name={`styckyPost-${MostrecentPost[0].title}`}
@@ -82,22 +88,25 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
     gap: 5rem;
     flex-wrap: wrap;
     @include mixins.respond-to("medium") {
-        justify-content: center;
-        text-align: center;
-      }
-    &__link--container {
+      justify-content: center;
+      text-align: center;
+    }
+    &__link {
       width: 100%;
       height: 100%;
       max-width: 599px;
       max-height: 336px;
       border-radius: 12px;
       overflow: hidden;
-    }
-    &__image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-
+      &__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease-in-out;
+      }
+      &:hover &__image {
+        transform: scale(1.1);
+      }
     }
 
     &__content {
@@ -106,6 +115,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
       display: flex;
       flex-direction: column;
       gap: 3rem;
+      align-self: flex-start;
     }
 
     &__title {
@@ -141,7 +151,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
         background: rgba(108, 0, 250, 0.751);
       }
       @include mixins.respond-to("medium") {
-       max-width: 100%;
+        max-width: 100%;
       }
     }
   }
