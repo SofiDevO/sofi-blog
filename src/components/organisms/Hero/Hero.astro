@@ -10,9 +10,9 @@ export const prerender = true;
 <BackgroundGradient>
   <section class="hero">
     <div class="hero__container">
-      <Title titleDesc="Bienvenidos a mi blog" class="category__title" />
+      <Title titleDesc="Bienvenidos al SofiBlog" class="hero__title" />
       <p class="hero__desc">
-        Programación clara y recursos útiles en un solo lugar
+        Programación  y recursos útiles en un solo lugar
       </p>
     </div>
     <SearchForm />
@@ -26,25 +26,30 @@ export const prerender = true;
   @use "@sass/mixins" as mixins;
 
   .hero {
-    display: flex;
+    @include mixins.centerFlex();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     width: 100%;
-    min-height: 95dvh;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    padding-block: 75px;
+    padding-block: 10rem;
     writing-mode: horizontal-tb;
+    min-height: 100dvh;
     &__container {
       max-width: 750px;
       text-align: center;
+
+    }
+    &__title {
+      @include mixins.titleType("bigger");
+      @include mixins.respond-to("medium") {
+        @include mixins.titleType("medium");
+      };
     }
     &__desc {
       text-wrap: balance;
       color:white;
-      font-size: 1.8rem;
+      font-size: 2rem;
       margin-bottom: 5rem;
       font-weight: 400;
     }

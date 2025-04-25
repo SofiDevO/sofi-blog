@@ -15,7 +15,7 @@ export function InsertButtonCopy() {
       navigator.clipboard.writeText(textCopy);
       setTimeout(() => {
         text.innerText = "Copy";
-        UpdateIcon("ci:copy");
+        UpdateIcon("solar:copy-bold-duotone");
       }, 2000);
     }
 
@@ -26,10 +26,10 @@ export function InsertButtonCopy() {
 
     ButtonCopy.setAttribute(
       "class",
-      "flex justify-center items-center cursor-pointer gap-2 text-gray-600 transition-all hover:text-gray-200"
+      "button-copy"
     );
 
-    icon.setAttribute("icon", "ci:copy");
+    icon.setAttribute("icon", "solar:copy-bold-duotone");
     icon.setAttribute("class", "flex justify-center items-center text-[22px]");
 
     text.innerText = "Copy";

@@ -5,72 +5,40 @@
   flex-direction: column;
   padding: 21rem 0 10rem;
 
-  .category__section {
+  .category {
     width: 90vw;
     max-width: 1180px;
-    .category__title {
-      @include mixins.centerFlex(space-between, flex-end);
-      // border-bottom: 0.2px solid v.$mainColor;
-      margin-bottom: 4rem;
-      width: 100%;
+    @include mixins.centerFlex(center, flex-start);
+    flex-direction: column;
+    gap: 3rem;
+    &__link {
+      align-self: flex-start;
+      text-align: left;
+      &__title {
+        @include mixins.titleType("big");
+        text-align: left;
+        margin-bottom: 4rem;
+        width: 100%;
 
-      & h2 {
-        font-size: 1.8rem;
-        font-weight: 500;
-        padding: 0px 10px;
-      }
-      & a {
-        color: v.$mainColor;
-        @include mixins.centerFlex();
-        .title__arrow {
-          transform: translateX(0);
-          transition: transform 0.3s ease-in-out;
+        @include mixins.respond-to("medium") {
+          @include mixins.titleType("small");
         }
-        &:hover .title__arrow {
-          transform: translateX(5px);
-        }
-      }
-      & h2,
-      a {
-        margin-bottom: 1.5rem;
       }
     }
   }
+
 }
 
 .link-card-grid {
   display: grid;
   place-content: start;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 21.7%));
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 19%));
   grid-template-rows: auto;
-  gap: 4.3rem;
-  justify-content: flex-start;
+  gap: 2rem;
+  justify-content: center;
   width: 100%;
   @include mixins.respond-to("medium") {
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(33rem, 21.7%));
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 21.7%));
   }
-}
-
-.dark {
-  .category__section {
-    .category__title {
-      border-bottom: 0.2px solid v.$ufo-green;
-      & a {
-        color: v.$seccondaryColor;
-        .title__arrow {
-          transform: translateX(0);
-          transition: transform 0.3s ease-in-out;
-        }
-        &:hover .title__arrow {
-          transform: translateX(5px);
-        }
-      }
-    }
-  }
-}
-
-.adsterra__container {
-  @include mixins.centerFlex();
-  margin-bottom: 4rem;
 }

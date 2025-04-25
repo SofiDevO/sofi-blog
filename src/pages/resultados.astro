@@ -17,7 +17,7 @@ const posts = search && search === ""
   header !== "XMLHttpRequest" ? (
     <Layout title="Resultados">
       <section class="results">
-        <Title titleDesc={`Resultados de ${search}`} size="big" />
+        <Title titleDesc={`Resultados de ${search}`} class="results__title" />
         <ul role="list" class="link-card-grid">
           {posts.length !== 0 && posts.map((post) => (
             <PostCard {...post} />
@@ -41,5 +41,29 @@ const posts = search && search === ""
   @use "@sass/mixins" as mixins;
   main {
     padding-top: 15rem!important;
+  }
+  .results{
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+
+    &__title {
+      @include mixins.titleType("small");
+      text-align: center;
+      color: v.$french-violet;
+      margin-bottom: 5rem;
+      transition: color 0.3s ease-in-out;
+    }
+    &__cards {
+      width: 100%;
+      @include mixins.centerFlex(center);
+      flex-direction: column;
+      min-height: 380px;
+      margin-bottom: 3rem;
+    }
   }
 </style>

@@ -30,17 +30,23 @@
 
 
 @mixin titleType($type) {
-  @if $type == "big" {
+  @if $type == "bigger" {
     font-size: 5rem;
     font-weight: 800;
   }
-  @else if $type == "middle" {
+  @else if $type == "big" {
+    font-size: 4rem;
+    font-weight: 800;
+  }
+  @else if $type == "medium" {
     font-size: 3.5rem;
     font-weight: 700;
   }
   @else if $type == "small" {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
+    font-weight: 700;
   }
+
 }
 
 // Responsive breakpoints
@@ -55,6 +61,11 @@
     }
   } @else if $breakpoint == "large" {
     @media (max-width: 1024px) {
+      @content;
+    }
+  }
+  @else if $breakpoint == "ipadPro" {
+    @media (max-width: 1024px) and (max-height: 1366px) {
       @content;
     }
   }

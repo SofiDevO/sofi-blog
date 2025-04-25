@@ -3,26 +3,43 @@
 
 .bg-section {
   background: v.$dark-violet;
-  padding: 10rem 0;
-  @include mixins.centerFlex(center, center);
+  padding: 17rem 2rem;
+  @include mixins.centerFlex();
+  flex-direction: column;
 }
 
 .web-dev {
-  @include mixins.centerFlex();
+  @include mixins.centerFlex(center, flex-start);
   width: 100%;
   max-width: 1200px;
   min-height: 100dvh;
   flex-direction: column;
   margin: 0 auto;
   gap: 4rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
+  &__link {
+    text-align: left;
+  }
+  &__title {
+    text-align: left;
+    margin-bottom: 4rem;
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: 500;
+    padding: 0px 10px;
+    @include mixins.titleType("big");
+
+    @include mixins.respond-to("medium") {
+      @include mixins.titleType("small");
+    }
+  }
   &__container {
-    padding-block-start: 5rem;
+    padding-block-start: 1rem;
     padding-block-end: 8rem;
     writing-mode: horizontal-tb;
-    min-height: 100dvh;
+
     flex-wrap: wrap;
-    @include mixins.centerFlex(center, flex-start);
+    @include mixins.centerFlex(center, center);
     width: 100%;
     margin: 0 auto;
     gap: 2rem;

@@ -6,6 +6,7 @@ import Hero from "@organisms/Hero/Hero.astro";
 import DesarrolloWeb from "@organisms/Posts/DesarrolloWeb/DesarrolloWeb.astro";
 import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
 import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
+import Tutoriales from "@organisms/Posts/Tutoriales/Tutoriales.astro";
 const categoriesWithPosts = await getCategoriesWithPosts();
 export const prerender = true;
 
@@ -16,8 +17,8 @@ export const prerender = true;
 
 <Layout>
   <Hero />
-  <DividerTop />
-  <Posts {...categoriesWithPosts["tutoriales"][0]} />
+  <DividerTop  fill="shape-fill-darkPurple"/>
+  <Tutoriales {...categoriesWithPosts["tutoriales"][0]} />
   <DividerTop  fill="shape-fill-white"/>
   <DesarrolloWeb  {...categoriesWithPosts["aprender-a-programar"][0]}/>
   <DividerBottom />
