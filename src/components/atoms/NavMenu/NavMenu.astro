@@ -25,7 +25,7 @@ interface MenuData {
 let menuData: MenuData | null = null;
 
 
-  const response = await fetchMenuData;
+  const response = await fetchMenuData("menu");
   menuData = response as MenuData;
 
 

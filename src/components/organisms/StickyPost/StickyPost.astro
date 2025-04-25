@@ -6,12 +6,12 @@ const getStickyPost = cardsData?.posts?.nodes.find(
   (post: any) => post?.isSticky === true
 );
 const MostrecentPost = cardsData?.posts?.nodes?.sort(
-  (a, b) => Date.parse(b.date) - Date.parse(a.date)
+  (a: any, b:any) => Date.parse(b?.date) - Date.parse(a?.date)
 );
 ---
 
 {
-  getStickyPost ? (
+  !getStickyPost ? (
     <article class="sticky-post">
       <a
         class="sticky-post__link sticky-post__link--container "

@@ -10,19 +10,16 @@ if (!category) {
   return Astro.redirect("/404");
 }
 
-const sortedPosts = category.posts.sort(
-  (a, b) => Date.parse(b.date) - Date.parse(a.date)
-);
 
 // Configuración de paginación
 const postsPerPage = 4;
 const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
-const totalPages = Math.ceil(sortedPosts.length / postsPerPage);
+const totalPages = Math.ceil(category.posts.length / postsPerPage);
 
 // Obtener los posts para la página actual
 const startIndex = (currentPage - 1) * postsPerPage;
 const endIndex = startIndex + postsPerPage;
-const paginatedPosts = sortedPosts.slice(startIndex, endIndex);
+const paginatedPosts = category.posts.slice(startIndex, endIndex);
 
 import { fade } from "astro:transitions";
 export const prerender = false
