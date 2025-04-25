@@ -1,7 +1,10 @@
 @use "@sass/variables" as v;
 @use "@sass/mixins" as mixins;
 
+
+
 #post {
+
     h1 {
       @include mixins.text-gradient("dark");
     }
@@ -22,18 +25,20 @@
       overflow-x: scroll;
       max-height: 600px;
     }
-
-    .wp-block-kevinbatdorf-code-block-pro.cbp-has-line-numbers,
-    .wp-block-kevinbatdorf-code-block-pro {
+    div[data-code-block-pro-font-family="Code-Pro-JetBrains-Mono"]{
       width: 100%;
+      margin: 0 auto;
       height: auto;
       min-height: 100%;
       display: flex;
       flex-direction: column;
       flex-wrap: wrap;
+      overflow: hidden;
+      border-radius: 1.2rem;
       kbd,
       samp,
       pre {
+        border-radius: 1.2rem;
         overflow-x: scroll;
         text-wrap: wrap;
         width: 100%;
@@ -54,12 +59,15 @@
         font-weight: 500;
       }
     }
-    .wp-block-image img {
+    .wp-block-image  {
       margin: 0 auto;
+      max-width: 100%;
     }
     figure {
       margin: 0 auto;
       width: 100%;
+      border-radius: 1.2rem;
+
     }
     code span {
       width: 100%;

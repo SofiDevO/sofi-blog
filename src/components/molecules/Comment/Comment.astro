@@ -1,9 +1,9 @@
 ---
-import { dateFormated } from "@src/utils";
+
 const comment = Astro.props;
 const { isReply = false } = Astro.props;
 const hidden = comment?.author ? false : true;
-const commentDate = dateFormated(comment?.date);
+
 const dataParentId = comment?.parentId || null;
 const commentId = comment?.id ? atob(comment?.id).split(":")[1] : null;
 console.log(comment.date);
