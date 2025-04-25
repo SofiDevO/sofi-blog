@@ -13,7 +13,7 @@ export async function getUserByName( id: string ) {
         }
   `;
     const headers = {
-        'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
+        'Authorization': 'Basic ' + Buffer.from(SECRET_USER + ':' + SECRET_PASSWORD)
     }
     const variables = { id };
     const data = await wpquery({ query, headers });

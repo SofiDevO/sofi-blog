@@ -12,6 +12,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://sofidev.blog/',
   prefetch: {
+    prefetchAll: true,
     defaultStrategy: 'viewport'
   },
   integrations: [
@@ -29,7 +30,7 @@ export default defineConfig({
     }),
 
     sitemap({
-      filter: (page) => !page.includes('/private') && !page.includes('/login') && !page.includes('/dashboard') && !page.includes('/register'),
+      filter: (page) => !page.includes('/private')  && !page.includes('/dashboard') && !page.includes('/register'),
       serialize: (page) => {
         return {
           url: page,

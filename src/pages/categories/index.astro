@@ -1,0 +1,54 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Title from "@src/components/atoms/Title/Title.astro";
+import { getCategoriesWithPosts } from "@src/services/categoriesWithPosts";
+const categoriesWithPosts = await getCategoriesWithPosts();
+
+const categories = Object.keys(categoriesWithPosts);
+console.log(categoriesWithPosts);
+export const prerender = true;
+---
+
+<Layout>
+  <Title titleDesc="Categorias" size="big" />
+
+  <ul class="category__grid">
+    {
+      Object.keys(categoriesWithPosts).map((category) => (
+        <li>
+          <article class="category__card">
+            <a href={`/categories/${category}`}>{category}</a>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
+
+<style  lang="scss">
+    @use "@sass/variables" as v;
+    @use "@sass/mixins" as mixins;
+  main {
+    padding-top: 10rem!important;
+  }
+
+  .category__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .category__card {
+    background-color: v.$french-violet;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: white;
+    transition: all .3s ease-in-out;
+    &:hover {
+      background-color: v.$ufo-green;
+    }
+  }
+</style>

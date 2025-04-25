@@ -3,6 +3,7 @@ import Jwt from 'jsonwebtoken';
 import { isValidUser } from "@src/services/auth";
 
 const { SECRET_KEY } = import.meta.env;
+console.log(SECRET_KEY);
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     const formData = await request.formData();
