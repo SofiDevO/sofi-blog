@@ -13,7 +13,6 @@ export default defineConfig({
   site: 'https://sofidev.blog/',
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'viewport'
   },
   integrations: [
     react(),
