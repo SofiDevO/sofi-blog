@@ -1,0 +1,101 @@
+---
+import type { Post } from "@src/types/post.type";
+import Categories from "@organisms/Posts/components/Categories.astro";
+interface Props extends Post {}
+
+const { title, slug, excerpt, image, categories, date, author } = Astro.props;
+---
+
+<article class="secondary-card">
+  <div class="secondary-card__container">
+    <img src={image?.mediaItemUrl || "/img/defaultBanner.png"} alt={title} class="container__image" />
+  </div>
+  <div class="secondary-card__content">
+    <a href={`/blog/${slug}`}
+    aria-label={`Read more about ${title}`}
+    class="secondary-card__title">
+      {title}
+     </a>
+    <Fragment set:html={excerpt} class="secondary-card__desc"/>
+    <Categories {categories}  />
+  </div>
+</article>
+
+<style lang="scss">
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as mixins;
+
+  .secondary-card {
+    border: var(--card-border);
+    background-color: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: .8rem;
+    color: var(--mainColor);
+    max-width: 58rem;
+    min-width: 58rem;
+    height: 100%;
+    min-height: 14.8rem;
+    gap: 1rem;
+    box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.65);
+    border-radius: 12px;
+    @include mixins.respond-to("medium") {
+      flex-direction: column;
+      max-width: 100%;
+      min-width: 100%;
+    }
+    &__container {
+      overflow: hidden;
+      width: 137px;
+      height: 104px;
+      border-radius: 1.2rem;
+      @include mixins.respond-to("medium") {
+        width: 100%;
+        height: 100%;
+      }
+      & img {
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      &:hover img {
+        transform: scale(1.1);
+      }
+    }
+    &__content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: .5rem;
+    }
+    &__title {
+      color: var(--mainColor);
+      text-transform: uppercase;
+      font-size: 1.8rem;
+      font-weight: 700;
+      &:hover{
+            color: v.$french-violet;
+        }
+    }
+    &__desc {
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+    &__tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    &__tag {
+      padding: 0.3rem 0.7rem;
+      background-color: v.$french-violet;
+      color: white;
+      border-radius: 1rem;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+  }
+</style>

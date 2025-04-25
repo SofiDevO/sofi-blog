@@ -1,8 +1,13 @@
 @use "@sass/mixins" as mixins;
 
 .title {
-  font-size: 45px;
+  &.category__title{
+    @include mixins.titleType("big");
+  }
 }
+
+
+
 .title-light {
   @include mixins.text-gradient();
 }

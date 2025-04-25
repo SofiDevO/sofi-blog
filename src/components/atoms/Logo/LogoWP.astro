@@ -1,0 +1,17 @@
+---
+
+import { logoItems} from "@src/services/getLogo";
+const {siteLogo, siteTitle, siteSlogan} = logoItems
+
+---
+<a href="/" class="logo">
+  <img
+    class="logo__img"
+    src={siteLogo}
+    alt={`logo de ${siteTitle}`}
+  />
+  <div class="logo__container">
+    <h5 class="logo__title">{siteTitle}</h5>
+    <p class="logo__slogan">{siteSlogan}</p>
+  </div>
+</a>

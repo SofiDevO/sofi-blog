@@ -3,17 +3,14 @@
 .categories__container {
   @include mixins.centerFlex();
   flex-direction: column;
-  gap: 8rem;
-  margin-top: 6rem;
-  padding-block: 75px;
-    writing-mode: horizontal-tb;
+  padding: 21rem 0 10rem;
 
   .category__section {
     width: 90vw;
     max-width: 1180px;
     .category__title {
       @include mixins.centerFlex(space-between, flex-end);
-      border-bottom: 0.2px solid v.$mainColor;
+      // border-bottom: 0.2px solid v.$mainColor;
       margin-bottom: 4rem;
       width: 100%;
 
@@ -33,7 +30,8 @@
           transform: translateX(5px);
         }
       }
-      & h2, a{
+      & h2,
+      a {
         margin-bottom: 1.5rem;
       }
     }
@@ -71,8 +69,6 @@
     }
   }
 }
-
-
 
 .adsterra__container {
   @include mixins.centerFlex();

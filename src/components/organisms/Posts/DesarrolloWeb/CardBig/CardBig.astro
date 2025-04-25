@@ -1,0 +1,39 @@
+---
+import DateTag from "@atoms/DateTag/DateTag.astro";
+import Categories from "@organisms/Posts/components/Categories.astro";
+import type { Post } from "@src/types/post.type";
+interface Props extends Post {}
+
+const { title, slug, excerpt, image, categories, date, author } = Astro.props;
+---
+
+<article class="card-big">
+  <div class="card-big__container">
+  <a href={`/blog/${slug}`} class="card-big__image__container">
+    <img
+      alt={title}
+      src={image?.mediaItemUrl}
+      srcset={image?.srcSet}
+      sizes={image?.sizes}
+      class="card-big__img"
+    />
+  </a>
+  <a href={`/authors/${author?.slug}`} class="card__author">
+    <img src={author?.avatar?.url} alt={author?.name} class="card__author__avatar" />
+    <div class="card__author__content">
+      <span class="card__author__name">
+        {author?.firstName}
+        {author?.lastName}
+      </span>
+      <DateTag class="card__author__date" date={date} isShort={false} />
+    </div>
+  </a>
+</div>
+  <div class="card-big__content">
+    <a href={`/blog/${slug}`} class="card-big__content__link">
+      <h2 class="card-big__title">{title}</h2>
+    </a>
+    <Fragment set:html={excerpt} />
+    <Categories categories={categories} />
+  </div>
+</article>

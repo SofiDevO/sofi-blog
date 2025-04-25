@@ -2,28 +2,51 @@
 import BackgroundGradient from "@atoms/BackgroundGradient/BackgroundGradient.astro";
 import StickyPost from "../StickyPost/StickyPost.astro";
 import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
+import Title from "@src/components/atoms/Title/Title.astro";
+import DividerTop from "@src/components/atoms/DividerTop/DividerTop.astro";
 export const prerender = true;
 ---
 
 <BackgroundGradient>
   <section class="hero">
+    <div class="hero__container">
+      <Title titleDesc="Bienvenidos a mi blog" class="category__title" />
+      <p class="hero__desc">
+        Programación clara y recursos útiles en un solo lugar
+      </p>
+    </div>
     <SearchForm />
     <StickyPost />
+
   </section>
 </BackgroundGradient>
 
 <style lang="scss" is:global>
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as mixins;
+
   .hero {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-height: 100dvh;
+    min-height: 95dvh;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     padding-block: 75px;
     writing-mode: horizontal-tb;
+    &__container {
+      max-width: 750px;
+      text-align: center;
+    }
+    &__desc {
+      text-wrap: balance;
+      color:white;
+      font-size: 1.8rem;
+      margin-bottom: 5rem;
+      font-weight: 400;
+    }
   }
 </style>

@@ -1,0 +1,38 @@
+---
+import SecondaryCard from "@organisms/Posts/DesarrolloWeb/SecondaryCard/SecondaryCard.astro";
+import Title from "@atoms/Title/Title.astro";
+import type { Post } from "@src/types/post.type";
+
+import CardBig from "./CardBig/CardBig.astro";
+interface Props {
+  slug: string;
+  name: string;
+  posts: Post[];
+}
+const { slug, name, posts } = Astro.props;
+const DEFAULT_POST = posts[0];
+---
+
+<div class="bg-section">
+  <section class="web-dev">
+    <a href={`/categories/${slug}`} class="category__title__link">
+      <Title titleDesc={name} class="category__title" />
+    </a>
+    <div class="web-dev__container">
+      <ul class="web-dev__list">
+        {
+          posts.slice(1, 4).map((post) => {
+            return (
+              <li>
+                <SecondaryCard {...post} />
+              </li>
+            );
+          })
+        }
+      </ul>
+
+      <!-- CARD GRANDE -->
+      <CardBig {...DEFAULT_POST} />
+    </div>
+  </section>
+</div>

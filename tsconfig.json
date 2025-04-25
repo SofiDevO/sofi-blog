@@ -13,6 +13,7 @@
       "@molecules/*": ["src/components/molecules/*"],
       "@organisms/*": ["src/components/organisms/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@utils/*": ["src/utils/*"],
       "@content/*": ["src/content/*"],
       "@pages/*": ["src/pages/*"],
       "@controllers/*": ["src/controllers/*"],

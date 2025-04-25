@@ -1,6 +1,6 @@
 ---
-const {titleDesc, clase} = Astro.props;
+const {titleDesc,  class:className, ...rest } = Astro.props;
 
 ---
 
-<h2 class={`title text-gradient ${clase} `}>{titleDesc}</h2>
+<h2 class={`title text-gradient ${className}`} {...rest}>{titleDesc}</h2>

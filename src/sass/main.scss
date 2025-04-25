@@ -3,29 +3,37 @@
 @use "@sass/animations" as animations;
 @use "@atoms/Title/title" as title;
 @use "@atoms/Button/button" as button;
-@use "@atoms/PostCard/post-card" as postCard;
+@use "@organisms/Posts/Tutoriales/PostCard/post-card" as postCard;
 @use "@atoms/Subtitle/subtitle" as subtitle;
 @use "@atoms/SocialIcons/social-icons" as socialIcons;
 @use "@molecules/Header/header" as header;
-@use "@organisms/Posts/posts" as posts;
+@use "@organisms/Posts/Tutoriales/tutoriales" as tutoriales;
 @use "@molecules/Comment/comment" as comment;
 @use "@molecules/SearchForm/search-form" as searchForm;
 @use "@organisms/Comments/comments" as comments;
 @use "@pages/blog/blog" as blog;
+@use "@organisms/Posts/DesarrolloWeb/desarrollo-web" as web;
+@use "@organisms/Posts/DesarrolloWeb/CardBig/card-big" as cardBig;
 :root {
   --mainColor: rgb(12, 12, 12);
   --bg-color: #f1f1f1;
+  --bg-card: #fff;
   --frenchViolet: #6600cc;
   --cetaceanPurple: #140030;
+  --dark-violet: #120628;
   --ufoGreen: #33ff76;
   --aqua: #58ecff;
   --bgDark: rgb(14, 18, 23);
   --textColor: #555;
   --text-gradient: radial-gradient(circle, #6600cc 0%, #009990 100%);
   --border-color: var(--frenchViolet);
+  --card-border: 1px solid #c8c5c5d3;
 }
 /* Tema oscuro */
 .dark {
+  --card-border: 1px solid #1a2a2e;
+  --bg-card: #181b22;
+  --dark-violet: #0e0a13;
   --mainColor: #f1f1f1;
   --bg-color: rgb(12, 1, 31);
   --frenchViolet: #9933ff;
@@ -33,6 +41,8 @@
   --text-gradient: radial-gradient(circle, #33ff76 0%, #58ecff 100%);
   --border-color: rgba(199, 158, 252, 0.808);
 }
+
+
 * {
   box-sizing: border-box;
   margin: 0;

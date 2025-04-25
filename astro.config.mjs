@@ -11,6 +11,10 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://sofidev.blog/',
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport'
+  },
   integrations: [
     react(),
     tailwind(),
@@ -24,8 +28,9 @@ export default defineConfig({
       ],
       sitemap: 'https://sofidev.blog/sitemap-index.xml',
     }),
+
     sitemap({
-      filter: (page) => !page.includes('/private') && !page.includes('/login') && !page.includes('/dashboard') && !page.includes('/register'),
+      filter: (page) => !page.includes('/private')  && !page.includes('/dashboard') && !page.includes('/register'),
       serialize: (page) => {
         return {
           url: page,
@@ -34,6 +39,7 @@ export default defineConfig({
         };
       },
     }),
+
   ],
   output: 'server',
   adapter: vercel(),

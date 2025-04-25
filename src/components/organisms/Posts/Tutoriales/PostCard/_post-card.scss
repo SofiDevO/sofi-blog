@@ -2,9 +2,9 @@
 @use "@sass/mixins" as mixins;
 
 .post-card {
-  border: 1px solid #c8c5c5d3;
+  border:  var(--card-border);
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--bg-card);
   overflow: hidden;
   transition:
     transform 0.3s ease-in-out,
@@ -108,32 +108,12 @@
     margin-bottom: 1rem;
     line-height: 1.5;
     display: -webkit-box;
+    line-clamp: 2;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  &__categories {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-  }
-
-  &__category {
-    padding: 0.42rem 0.83rem;
-    border-radius: 16px;
-    font-size: 1.1rem;
-    color: white;
-    background: v.$french-violet;
-    transition:
-      background 0.3s ease-in-out,
-      color 0.3s ease-in-out;
-    &:hover {
-      background: black;
-      color: #fff;
-    }
-  }
 
   &__read-more {
     margin-top: 1rem;
@@ -156,8 +136,6 @@
 }
 
 .dark .post-card {
-  background-color: #1c1f26;
-  border: 1px solid #1a2a2e;
   & iconify-icon {
     color: v.$ufo-green;
   }

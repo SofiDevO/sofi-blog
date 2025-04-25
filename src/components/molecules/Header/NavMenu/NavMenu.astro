@@ -1,0 +1,79 @@
+---
+import { fetchMenuData } from "@src/services/getMenu.js";
+import { flatListToHierarchical } from "@utils/flatListToHierarchical";
+
+
+
+// Get current page URL path
+const pagePathname = Astro.url.pathname;
+
+// Fetch menu data from the API/service
+const menuData = await fetchMenuData("menu");
+
+
+// Check if menu items exist and convert to array
+// If menuItems doesn't exist, use empty array as fallback
+const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
+  ? [...menuData.menu.menuItems.nodes]
+  : [];
+
+// Convert flat menu list into a hierarchical structure (parent-child relationship)
+const hierarchicalMenu = flatListToHierarchical(menuItems);
+
+---
+
+<!-- Navigation menu component -->
+<nav class="header__menu">
+  <ul class="header__list">
+    {/* Show Home link only when not on homepage */}
+    {
+      pagePathname !== "/" && (
+        <li class="header__item">
+          <a
+            class="header__link"
+            href="/"
+            data-astro-prefetch
+            transition:name="home"
+          >
+            Home
+          </a>
+        </li>
+      )
+    }
+    {/* Map through menu items and create navigation links */}
+    {
+      hierarchicalMenu.map((item) => (
+        <li class="header__item">
+          {/* Parent menu item */}
+          <a
+            class="header__link"
+            href={`/categories/${item.slug}`}
+            data-astro-prefetch
+          >
+            {item.label}
+          </a>
+          {/* If item has children, create dropdown menu */}
+          {item.children.length > 0 && (
+            <>
+              <iconify-icon class="dropdown__icon" icon="gridicons:dropdown" />
+              <ul class="dropdown">
+                {/* Map through child items */}
+                {item.children.map((child) => (
+                  <li class="dropdown__item">
+                    <a
+                      class="dropdown__link"
+                      href={`/categories/${child.slug}`}
+                      data-astro-prefetch
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -14,3 +14,65 @@ import InputComponent from "@src/components/atoms/InputComponent/InputComponent.
   </label>
   <InputComponent type="submit" value="Buscar" class="search__submit" />
 </form>
+
+<div id="search__results"> </div>
+<script>
+  const CACHE_NAME = 'search-results';
+
+  const form = document.getElementById('search-form');
+  const input = document.getElementById('search') as HTMLInputElement;
+  const results = document.getElementById('search__results');
+
+  form.addEventListener('submit', handleSearch);
+
+  async function handleSearch(event) {
+    event.preventDefault();
+    const query = input.value.trim();
+
+    if (query.length < 3) return;
+
+    const cachedResultsArray = await getCachedResults();
+    const cachedResult = cachedResultsArray.find(item => item.query === query);
+    if (cachedResult) {
+      results.innerHTML = cachedResult.data;
+      return;
+    }
+
+    const url = `/resultados?search=${query}`;
+  try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      });
+    if (!response.ok) {
+      console.error('Error fetching search results');
+      return;
+    }
+    let data = await response.text();
+    data.replace('!DOCTYPE html>', '');
+
+    results.innerHTML = data;
+
+    const newResult = { query, data };
+    cachedResultsArray.push(newResult);
+    await setCachedResults(cachedResultsArray);
+
+  } catch (error) {
+      console.error('Error fetching search results:', error);
+  }
+}
+
+
+async function getCachedResults() {
+  const cachedResults = localStorage.getItem(CACHE_NAME);
+  return cachedResults ? JSON.parse(cachedResults) : [];
+}
+
+async function setCachedResults(results) {
+  localStorage.setItem(CACHE_NAME, JSON.stringify(results));
+
+}
+
+</script>

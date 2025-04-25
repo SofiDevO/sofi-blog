@@ -1,21 +1,26 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Posts from "@organisms/Posts/Posts.astro";
+import Posts from "@organisms/Posts/Tutoriales/Tutoriales.astro";
 import DividerTop from "@atoms/DividerTop/DividerTop.astro";
 import Hero from "@organisms/Hero/Hero.astro";
+import DesarrolloWeb from "@organisms/Posts/DesarrolloWeb/DesarrolloWeb.astro";
+import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
+import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
+const categoriesWithPosts = await getCategoriesWithPosts();
 export const prerender = true;
 
+
+
+
 ---
+
 <Layout>
-  <Hero slot="hero"  transition:name="home"/>
-
+  <Hero />
   <DividerTop />
-  <Posts/>
+  <Posts {...categoriesWithPosts["tutoriales"][0]} />
+  <DividerTop  fill="shape-fill-white"/>
+  <DesarrolloWeb  {...categoriesWithPosts["aprender-a-programar"][0]}/>
+  <DividerBottom />
+
+
 </Layout>
-
-<style is:global lang="scss">
-  @view-transition {
-    navigation: auto;
-  }
-
-</style>

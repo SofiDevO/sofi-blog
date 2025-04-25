@@ -24,6 +24,25 @@
   }
 }
 
+@function pxToRem($size) {
+
+}
+
+
+@mixin titleType($type) {
+  @if $type == "big" {
+    font-size: 5rem;
+    font-weight: 800;
+  }
+  @else if $type == "middle" {
+    font-size: 3.5rem;
+    font-weight: 700;
+  }
+  @else if $type == "small" {
+    font-size: 2.5rem;
+  }
+}
+
 // Responsive breakpoints
 @mixin respond-to($breakpoint) {
   @if $breakpoint == "small" {

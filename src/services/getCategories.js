@@ -1,20 +1,23 @@
 import { wpquery } from "@src/data/wordpress";
+
 export const categoryData = async () => {
-  try{
- const data = await wpquery({
-    query: `
-    query getCategories {
-      categories {
-        nodes {
-          slug
-          name
+  try {
+    const data = await wpquery({
+      query: `
+        query getCategories(last: 100) {
+          categories {
+            nodes {
+              name
+              slug
+              databaseId
+              count
+            }
           }
-          }
-          }
-          `,
-  });
-  }
-  catch (error) {
+        }
+      `,
+    });
+    return data;
+  } catch (error) {
     console.log(error);
   }
 };
