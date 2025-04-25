@@ -32,7 +32,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
           <a
             class="header__link"
             href="/"
-            data-astro-prefetch
+            data-astro-prefetch="hover"
             transition:name="home"
           >
             Home
@@ -48,7 +48,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
           <a
             class="header__link"
             href={`/categories/${item.slug}`}
-            data-astro-prefetch
+            data-astro-prefetch="hover"
           >
             {item.label}
           </a>
@@ -63,7 +63,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
                     <a
                       class="dropdown__link"
                       href={`/categories/${child.slug}`}
-                      data-astro-prefetch
+                      data-astro-prefetch="hover"
                     >
                       {child.label}
                     </a>

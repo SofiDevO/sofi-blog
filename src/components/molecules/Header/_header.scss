@@ -110,7 +110,7 @@
     }
 
     &__menu {
-      transition: all 0.6s ease;
+      transition: transform 0.6s ease;
       position: absolute;
       transform: translateX(100%);
       right: -14px;
