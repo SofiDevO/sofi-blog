@@ -1,0 +1,58 @@
+---
+import Title from "@src/components/atoms/Title/Title.astro";
+import SecondaryCard from "../DesarrolloWeb/SecondaryCard/SecondaryCard.astro";
+import Button from "@src/components/atoms/Button/Button.astro";
+const { search, posts } = Astro.props;
+---
+
+<h2 class="resultados-popup__title">Resultados para: {search}</h2>
+<article class="resultados-popup">
+  {
+    posts.length !== 0 &&
+      posts.map((post) => <SecondaryCard {...post} showMeta={false} />)
+  }
+</article>
+<Button class="resultados-popup__button" href={`/resultados?search=${search}`}>
+  Ver todos
+</Button>
+
+<style is:inline>
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as mixins;
+  .resultados-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    max-height: 39rem;
+    gap: 1rem;
+    background: rgb(24, 1, 50);
+    padding: 0 1rem;
+  }
+  .resultados-popup::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  .resultados-popup::-webkit-scrollbar-track {
+    background: #260163;
+  }
+
+  /* Handle */
+  .resultados-popup::-webkit-scrollbar-thumb {
+    background: #0ae666;
+    border-radius: 1rem;
+  }
+
+  /* Handle on hover */
+  .resultados-popup::-webkit-scrollbar-thumb:hover {
+    background: #02d9ff;
+  }
+  .resultados-popup__title {
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    transition: color 0.3s ease-in-out;
+  }
+</style>

@@ -1,10 +1,15 @@
 ---
-
-const {id, text} = Astro.props;
+const { id, href, class: className, ...rest } = Astro.props;
 ---
 
-<button class="button" type="button" id={id}>
-    <span class="button__content">
-        {text}
-    </span>
-</button>
+{
+  href ? (
+    <a href={href} class={`${className} button button--link`} id={id} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button class={`${className} button`} {...rest} type="button" id={id}>
+      <slot />
+    </button>
+  )
+}

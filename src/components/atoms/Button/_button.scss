@@ -1,24 +1,16 @@
-@use '@sass/variables' as v;
+@use "@sass/variables" as v;
 @use "@sass/mixins" as mixins;
 
-
-.button{
-    background: v.$french-violet;
-    padding: 1rem 2rem;
-    border-radius: 12px;
-    width: 100%;
-    text-align: center;
-    font-size: 1.7rem;
-    cursor: pointer;
-    &:hover{
-        background: rgba(108, 0, 250, 0.751);
-        transform: scale(.98)
-    }
-    &__content{
-        @include mixins.text-gradient();
-        &:hover{
-            color: black;
-        }
-    }
-
+.button {
+  background: v.$french-violet;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.7rem;
+  cursor: pointer;
+  &:hover {
+    background: rgba(108, 0, 250, 0.751);
+    transform: scale(0.98);
+  }
 }

@@ -13,9 +13,9 @@ import InputComponent from "@src/components/atoms/InputComponent/InputComponent.
     />
   </label>
   <InputComponent type="submit" value="Buscar" class="search__submit" />
+  <div id="search__results"> </div>
 </form>
 
-<div id="search__results"> </div>
 <script>
   const CACHE_NAME = 'search-results';
 
@@ -31,38 +31,38 @@ import InputComponent from "@src/components/atoms/InputComponent/InputComponent.
 
     if (query.length < 3) return;
 
-    const cachedResultsArray = await getCachedResults();
-    const cachedResult = cachedResultsArray.find(item => item.query === query);
-    if (cachedResult) {
-      results.innerHTML = cachedResult.data;
-      return;
-    }
+    // const cachedResultsArray = await getCachedResults();
+    // const cachedResult = cachedResultsArray.find(item => item.query === query);
+    // if (cachedResult) {
+    //   results.innerHTML = cachedResult.data;
+    //   return;
+    // }
 
     const url = `/resultados?search=${query}`;
-  try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-      });
-    if (!response.ok) {
-      console.error('Error fetching search results');
-      return;
+    try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+        });
+      if (!response.ok) {
+        console.error('Error fetching search results');
+        return;
+      }
+      let data = await response.text();
+      data.replace('!DOCTYPE html>', '');
+
+      results.innerHTML = data;
+
+      const newResult = { query, data };
+      // cachedResultsArray.push(newResult);
+      // await setCachedResults(cachedResultsArray);
+
+    } catch (error) {
+        console.error('Error fetching search results:', error);
     }
-    let data = await response.text();
-    data.replace('!DOCTYPE html>', '');
-
-    results.innerHTML = data;
-
-    const newResult = { query, data };
-    cachedResultsArray.push(newResult);
-    await setCachedResults(cachedResultsArray);
-
-  } catch (error) {
-      console.error('Error fetching search results:', error);
   }
-}
 
 
 async function getCachedResults() {

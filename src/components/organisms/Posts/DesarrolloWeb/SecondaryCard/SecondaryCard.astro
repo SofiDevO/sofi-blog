@@ -1,9 +1,11 @@
 ---
 import type { Post } from "@src/types/post.type";
 import Categories from "@organisms/Posts/components/Categories.astro";
-interface Props extends Post {}
+interface Props extends Post {
+  showMeta?: boolean;
+}
 
-const { title, slug, excerpt, image, categories, date, author } = Astro.props;
+const { title, slug, excerpt, image, categories, showMeta=true } = Astro.props;
 ---
 
 <article class="secondary-card">
@@ -16,8 +18,10 @@ const { title, slug, excerpt, image, categories, date, author } = Astro.props;
     class="secondary-card__title">
       {title}
      </a>
-    <Fragment set:html={excerpt} class="secondary-card__desc"/>
+     <Fragment set:html={excerpt} class="secondary-card__desc"/>
+    {showMeta &&
     <Categories {categories}  />
+    }
   </div>
 </article>
 
@@ -35,8 +39,7 @@ const { title, slug, excerpt, image, categories, date, author } = Astro.props;
     color: var(--mainColor);
     max-width: 58rem;
     min-width: 58rem;
-    height: 100%;
-    min-height: 14.8rem;
+    max-height: 14.8rem;
     gap: 1rem;
     box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.65);
     border-radius: 12px;
@@ -44,6 +47,7 @@ const { title, slug, excerpt, image, categories, date, author } = Astro.props;
       flex-direction: column;
       max-width: 100%;
       min-width: 100%;
+      max-height: 100%;
     }
     &__container {
       overflow: hidden;

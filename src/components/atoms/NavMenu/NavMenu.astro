@@ -2,6 +2,7 @@
 
 import { fade } from "astro:transitions";
 import { fetchMenuData } from "@src/services/getMenu";
+export const prerender = true
 
 const pagePathname = Astro.url.pathname;
 const staticMenu = { text: "Portfolio", url: "https://itssofi.dev/" };

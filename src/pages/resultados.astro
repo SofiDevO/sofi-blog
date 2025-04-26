@@ -1,17 +1,34 @@
 ---
 import PostCard from "@organisms/Posts/Tutoriales/PostCard/PostCard.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
+import ResultadosPopUp from "@src/components/organisms/Posts/Resultados/ResultadosPopUp.astro";
 import Layout from "@src/layouts/Layout.astro";
 import { searchPosts } from "@src/services/getResults";
+import Pagination from "@atoms/Pagination/Pagination.astro";
 
 const { url, request } = Astro;
 const search = url.searchParams.get("search");
 const header = request.headers.get("X-Requested-With");
 
-console.log(header);
-const posts = search && search === ""
-  ? [] : await searchPosts(search);
+// console.log(header);
+const posts = search && search === "" ? [] : await searchPosts(search);
+
+// console.log(posts);
+
+// Configuración de paginación
+const postsPerPage = 4;
+const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
+const totalPages = Math.ceil(posts.length / postsPerPage);
+
+// Obtener los posts para la página actual
+const startIndex = (currentPage - 1) * postsPerPage;
+const endIndex = startIndex + postsPerPage;
+const paginatedPosts = posts.slice(startIndex, endIndex);
+console.log(url.search)
 ---
+
+
+
 
 {
   header !== "XMLHttpRequest" ? (
@@ -19,20 +36,20 @@ const posts = search && search === ""
       <section class="results">
         <Title titleDesc={`Resultados de ${search}`} class="results__title" />
         <ul role="list" class="link-card-grid">
-          {posts.length !== 0 && posts.map((post) => (
-            <PostCard {...post} />
-          ))}
+          {paginatedPosts.length !== 0 && paginatedPosts.map((post) => <PostCard {...post} />)}
         </ul>
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl={url.pathname}
+            query={url.searchParams}
+          />
+        )}
       </section>
     </Layout>
   ) : (
-    <div>
-      <h2>Resultados de {search}</h2>
-      <a href={`/resultados?search=${search}`}>All results</a>
-      {posts.length !== 0 && posts.map((post) => (
-            <PostCard {...post} />
-      ))}
-    </div>
+    <ResultadosPopUp {search} posts={posts.slice(0, 4)} />
   )
 }
 
@@ -40,16 +57,16 @@ const posts = search && search === ""
   @use "@sass/variables" as v;
   @use "@sass/mixins" as mixins;
   main {
-    padding-top: 15rem!important;
+    padding-top: 15rem !important;
   }
-  .results{
+  .results {
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:2rem;
+    gap: 2rem;
 
     &__title {
       @include mixins.titleType("small");

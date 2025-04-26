@@ -21,8 +21,8 @@ const startIndex = (currentPage - 1) * postsPerPage;
 const endIndex = startIndex + postsPerPage;
 const paginatedPosts = category.posts.slice(startIndex, endIndex);
 
-import { fade } from "astro:transitions";
-export const prerender = false
+
+
 
 ---
 
@@ -31,8 +31,6 @@ export const prerender = false
     <div class="categories__cards">
       <h2
         class="categories__title"
-        transition:name={category.name}
-        transition:animate={fade({ duration: ".4s" })}
       >
         Posts de la categoría: {category?.name}
       </h2>

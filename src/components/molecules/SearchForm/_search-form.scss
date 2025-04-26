@@ -6,6 +6,7 @@
     background-color: white;
     padding: .5rem;
     border-radius: 4px;
+    position: relative;
     margin-bottom: 5rem;
     &__label{
         position: relative;
@@ -37,5 +38,23 @@
         &:hover{
             background-color: black;
         }
+    }
+
+}
+#search__results{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    top: 110%;
+    border-radius: .8rem;
+    z-index: 10;
+    overflow: hidden;
+    background: v.$dark-violet;
+    min-width: 610px;
+    @include mixins.respond-to("medium") {
+        min-width: 32rem;
+
     }
 }
