@@ -14,7 +14,7 @@ export const prerender = true
   <head>
     <BaseHead title={title} description={description} image={image} />
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4HD0MHWJHW"
+    <script defer async src="https://www.googletagmanager.com/gtag/js?id=G-4HD0MHWJHW"
     ></script>
     <slot name="head" />
   </head>
@@ -26,15 +26,15 @@ export const prerender = true
     <main>
     <slot />
     </main>
-    <CookiesBanner client:load />
     <script
-      defer
-      is:raw
-      src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"
+    defer
+    is:raw
+    src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"
     ></script>
     <script >
       import {kofiWidget} from "@src/utils/kofiWidget";
-    </script>
+      </script>
+      <CookiesBanner client:load />
   </body>
 </html>
 

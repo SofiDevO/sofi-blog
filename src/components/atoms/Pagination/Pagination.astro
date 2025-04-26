@@ -1,7 +1,7 @@
 ---
 const { currentPage, totalPages, baseUrl, query = null } = Astro.props;
 const currentPageUrl = new URLSearchParams(query || "");
-currentPageUrl.set("page", (currentPage - 1 ).toString());
+currentPageUrl.set("page", (currentPage - 1).toString());
 const nextPageUrl = new URLSearchParams(query || "");
 nextPageUrl.set("page", (currentPage + 1).toString());
 ---
@@ -9,10 +9,12 @@ nextPageUrl.set("page", (currentPage + 1).toString());
 <section class="pagination">
   <div class="pagination__container">
     <a
+      aria-label="Ir a la página anterior"
+      data-astro-prefetch="hover"
       href={`${baseUrl}?${currentPageUrl}`}
       class:list={[
         "pagination__link pagination__link--disabled",
-        currentPage >1 && "pagination__link--active",
+        currentPage > 1 && "pagination__link--active",
       ]}>Anterior</a
     >
     {
@@ -20,26 +22,35 @@ nextPageUrl.set("page", (currentPage + 1).toString());
         const queryString = new URLSearchParams(query || "");
         queryString.set("page", page.toString());
         return (
-        <a
-          href={`${baseUrl}?${queryString}`}
-          class:list={["pagination__link", page === currentPage ? "pagination__link--current" : ""]}
-        >
-          {page}
-        </a>
-      )})
+          <a
+          aria-label={`Ir a la página ${page}`}
+            data-astro-prefetch="hover"
+            href={`${baseUrl}?${queryString}`}
+            class:list={[
+              "pagination__link",
+              page === currentPage ? "pagination__link--current" : "",
+            ]}
+          >
+            {page}
+          </a>
+        );
+      })
     }
-    <a href={`${baseUrl}?${nextPageUrl}`} class:list={[
+    <a
+    aria-label="Ir a la página siguiente"
+      data-astro-prefetch="hover"
+      href={`${baseUrl}?${nextPageUrl}`}
+      class:list={[
         "pagination__link pagination__link--disabled",
         currentPage < totalPages && "pagination__link--active",
-      ]}
-      >Siguiente</a
+      ]}>Siguiente</a
     >
   </div>
 </section>
 
 <style lang="scss" define:vars={{ baseUrl }}>
-    @use "@sass/variables" as v;
-    @use "@sass/mixins" as mixins;
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as mixins;
   .pagination {
     @include mixins.centerFlex(center);
     margin-top: auto;

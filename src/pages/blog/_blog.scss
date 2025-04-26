@@ -38,16 +38,21 @@
       kbd,
       samp,
       pre {
-        border-radius: 1.2rem;
-        overflow-x: scroll;
+        overflow-x: auto;
         text-wrap: wrap;
         width: 100%;
         height: auto;
         max-height: 600px;
         line-height: 1.5;
         padding: 1.4rem;
-        border-radius: 0 0 0.5rem 0.5rem;
       }
+    }
+    p:has( > code ) code {
+      font-size: 1.5rem;
+      background-color: #1f1f1f;
+      padding: 0.1rem 0.3rem;
+      color: v.$ufo-green;
+      border-radius: 0.3rem;
     }
     .wp-block-list {
       display: flex;
@@ -72,29 +77,28 @@
       }
 
     }
-    code span {
-      width: 100%;
-      overflow-x: auto;
-    }
+
     /* width */
     ::-webkit-scrollbar {
-      width: 2px;
+      width: 2.4px;
       height: 4px;
     }
 
     /* Track */
     ::-webkit-scrollbar-track {
-      background: #1f1f1f;
+      background: rgb(89, 88, 88);
+      width: 4px;
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
       background: v.$ufo-green;
+      width: 5px;
     }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-      background: black;
+      background: aqua;
       height: 5px;
     }
     .button-copy {

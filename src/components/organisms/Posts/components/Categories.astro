@@ -12,7 +12,7 @@ const { categories, class: className, ...rest } = Astro.props;
     categories.map((tag) => {
       return (
         <a
-          class="post-tag__category"
+          class={`post-tag__category ${className}`}
           {...rest}
           href={`/categories/${tag.slug}`}
           aria-label={`Read more about ${tag.name}`}
@@ -29,7 +29,6 @@ const { categories, class: className, ...rest } = Astro.props;
   .post-tag__categories {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 1rem;
     flex-wrap: wrap;
   }
 

@@ -1,8 +1,5 @@
-import { useState, useEffect } from 'react';
-import './_cookies-banner.scss';
-
-
-
+import { useState, useEffect } from "react";
+import "./_cookies-banner.scss";
 
 const CookiesBanner = () => {
   const [visible, setVisible] = useState(false);
@@ -64,22 +61,31 @@ const CookiesBanner = () => {
   if (!visible) return null;
 
   return (
-    <div className={`cookie-banner ${visible ? 'visible' : ''}`}>
+    <div className={`cookie-banner ${visible ? "visible" : ""}`}>
       <div className="cookie-content">
-        Usamos cookies para mejorar tu experiencia. Puedes
-        <a href="/privacy-policy" className="privacy-link">
-          leer nuestra política de privacidad
-        </a>
+        Usamos cookies para mejorar tu experiencia. Puedes leer nuestra
+        <span>
+          <a
+            data-astro-prefetch="hover"
+            aria-label="Ir a la página de privacidad"
+            href="/privacy-policy"
+            className="privacy-link"
+          >
+            política de privacidad
+          </a>
+        </span>
         para más información.
       </div>
       <div className="cookie-buttons">
         <button
+          aria-label="Aceptar cookies"
           className="cookie-button accept"
           onClick={() => setConsent("accepted")}
         >
           Aceptar
         </button>
         <button
+          aria-label="Rechazar cookies"
           className="cookie-button reject"
           onClick={() => setConsent("rejected")}
         >

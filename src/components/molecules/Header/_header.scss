@@ -4,6 +4,7 @@
 @use "@atoms/hamburgerBtn/hamburger";
 
 .header {
+
   @include mixins.centerFlex(center);
   width: 100%;
   position: fixed;

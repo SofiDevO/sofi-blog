@@ -8,6 +8,7 @@
   gap:1rem;
   &:hover span{
     color:aqua;
+    filter: drop-shadow(0 0 12px aqua);
   }
   &__container{
     display: flex;
@@ -18,7 +19,7 @@
 
   }
   &__slogan{
-    @include mixins.text-gradient();
+    color: aqua;
   }
   &__img {
     max-width: 4.5rem;
@@ -27,4 +28,5 @@
 }
 .dark .logo span{
   color: aqua;
+  filter: drop-shadow(0 0 12px aqua);
 }

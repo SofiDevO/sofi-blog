@@ -10,22 +10,25 @@ const { title, slug, excerpt, image, categories, showMeta=true } = Astro.props;
 
 <article class="secondary-card">
   <div class="secondary-card__container">
-    <img src={image?.mediaItemUrl || "/img/defaultBanner.png"} alt={title} class="container__image" />
+    <img src={image?.mediaItemUrl || "/img/defaultBanner.png"} alt={title} class="container__image"
+    width="297"
+    height="148.5"
+    />
   </div>
-  <div class="secondary-card__content">
+  <div class={`secondary-card__content ${showMeta ? "" : "secondary-card__content--hide-excerpt"}`}>
     <a href={`/blog/${slug}`}
     aria-label={`Read more about ${title}`}
     class="secondary-card__title">
       {title}
      </a>
-     <Fragment set:html={excerpt} class="secondary-card__desc"/>
+     <Fragment set:html={excerpt} />
     {showMeta &&
-    <Categories {categories}  />
+    <Categories {categories}  class="secondary-card__tags"/>
     }
   </div>
 </article>
 
-<style lang="scss">
+<style is:global lang="scss">
   @use "@sass/variables" as v;
   @use "@sass/mixins" as mixins;
 
@@ -37,16 +40,13 @@ const { title, slug, excerpt, image, categories, showMeta=true } = Astro.props;
     justify-content: space-around;
     padding: .8rem;
     color: var(--mainColor);
-    max-width: 58rem;
-    min-width: 58rem;
-    max-height: 14.8rem;
+    width: 58rem;
     gap: 1rem;
     box-shadow: 0 0 7px 0px rgba(0, 0, 0, 0.65);
     border-radius: 12px;
     @include mixins.respond-to("medium") {
-      flex-direction: column;
-      max-width: 100%;
-      min-width: 100%;
+      width: 100%;
+
       max-height: 100%;
     }
     &__container {
@@ -55,8 +55,8 @@ const { title, slug, excerpt, image, categories, showMeta=true } = Astro.props;
       height: 104px;
       border-radius: 1.2rem;
       @include mixins.respond-to("medium") {
-        width: 100%;
-        height: 100%;
+        width: 100px;
+        height: 97px;
       }
       & img {
         transition: transform 0.3s ease-in-out;
@@ -74,24 +74,42 @@ const { title, slug, excerpt, image, categories, showMeta=true } = Astro.props;
       flex-direction: column;
       justify-content: center;
       gap: .5rem;
+      & > p {
+        text-wrap:pretty;
+        font-size:1.20rem ;
+        @include mixins.respond-to("medium") {
+          text-wrap:stable;
+        }
+      }
     }
+    &__content--hide-excerpt {
+      & > p {
+        @include mixins.respond-to("medium") {
+        display: none;
+      }
+      }
+    }
+
     &__title {
       color: var(--mainColor);
       text-transform: uppercase;
       font-size: 1.8rem;
       font-weight: 700;
       &:hover{
-            color: v.$french-violet;
-        }
+        color: v.$french-violet;
+      }
+      @include mixins.respond-to("medium") {
+        font-size: 1.3rem;
+      }
     }
-    &__desc {
-      font-size: 1.2rem;
-      font-weight: 400;
-    }
+
     &__tags {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
+      @include mixins.respond-to("medium") {
+        display: none;
+      }
     }
     &__tag {
       padding: 0.3rem 0.7rem;

@@ -11,7 +11,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
 ---
 
 {
-  !getStickyPost ? (
+  getStickyPost ? (
     <article class="sticky-post">
       <a
         class="sticky-post__link sticky-post__link--container "
@@ -49,6 +49,8 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
       >
 
           <img
+            width="599"
+            height="336"
             class="sticky-post__link__image"
             srcset={MostrecentPost[0].featuredImage?.node?.srcSet}
             sizes={MostrecentPost[0].featuredImage?.node?.sizes}
