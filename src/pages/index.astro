@@ -1,12 +1,12 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import Posts from "@organisms/Posts/Tutoriales/Tutoriales.astro";
 import DividerTop from "@atoms/DividerTop/DividerTop.astro";
 import Hero from "@organisms/Hero/Hero.astro";
-import DesarrolloWeb from "@organisms/Posts/DesarrolloWeb/DesarrolloWeb.astro";
+import SecondCategory from "@organisms/Posts/SecondCategory/SecondCategory.astro";
 import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
 import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
-import Tutoriales from "@organisms/Posts/Tutoriales/Tutoriales.astro";
+import FirstCategory from "@organisms/Posts/FirstCategory/FirstCategory.astro";
+import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
 const categoriesWithPosts = await getCategoriesWithPosts();
 export const prerender = true;
 
@@ -18,10 +18,11 @@ export const prerender = true;
 <Layout>
   <Hero />
   <DividerTop  fill="shape-fill-darkPurple"/>
-  <Tutoriales {...categoriesWithPosts["tutoriales"][0]} />
+  <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />
   <DividerTop  fill="shape-fill-white"/>
-  <DesarrolloWeb  {...categoriesWithPosts["aprender-a-programar"][0]}/>
+  <SecondCategory  {...categoriesWithPosts["aprender-a-programar"][0]}/>
   <DividerBottom />
+  <ThirdCategory {...categoriesWithPosts["aprender-a-programar"][0]} />
 
 
 </Layout>

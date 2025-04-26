@@ -3,17 +3,17 @@
 @use "@sass/animations" as animations;
 @use "@atoms/Title/title" as title;
 @use "@atoms/Button/button" as button;
-@use "@organisms/Posts/Tutoriales/PostCard/post-card" as postCard;
+@use "@organisms/Posts/components/PostCard/post-card" as postCard;
 @use "@atoms/Subtitle/subtitle" as subtitle;
 @use "@atoms/SocialIcons/social-icons" as socialIcons;
 @use "@molecules/Header/header" as header;
-@use "@organisms/Posts/Tutoriales/tutoriales" as tutoriales;
+@use "@organisms/Posts/FirstCategory/tutoriales" as tutoriales;
 @use "@molecules/Comment/comment" as comment;
 @use "@molecules/SearchForm/search-form" as searchForm;
 @use "@organisms/Comments/comments" as comments;
 @use "@pages/blog/blog" as blog;
-@use "@organisms/Posts/DesarrolloWeb/desarrollo-web" as web;
-@use "@organisms/Posts/DesarrolloWeb/CardBig/card-big" as cardBig;
+@use "@organisms/Posts/SecondCategory/desarrollo-web" as web;
+@use "@organisms/Posts/components/CardBig/card-big" as cardBig;
 :root {
   --mainColor: rgb(12, 12, 12);
   --bg-color: #f1f1f1;
@@ -26,6 +26,7 @@
   --bgDark: rgb(14, 18, 23);
   --textColor: #555;
   --text-gradient: linear-gradient(  to right,#6600cc 0%,  #009990 100%);
+  --text-gradient-ufo:linear-gradient(to right, #33ff76 0%, #58ecff 100%);
   --border-color: var(--frenchViolet);
   --card-border: 1px solid #c8c5c5d3;
 }
