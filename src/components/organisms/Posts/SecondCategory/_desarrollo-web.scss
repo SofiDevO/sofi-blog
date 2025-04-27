@@ -1,0 +1,114 @@
+@use "@sass/variables" as v;
+@use "@sass/mixins" as mixins;
+
+.bg-section {
+  background: v.$dark-violet;
+  padding: 17rem 2rem;
+  @include mixins.centerFlex();
+  flex-direction: column;
+}
+
+.web-dev {
+  @include mixins.centerFlex(center, flex-start);
+  width: 100%;
+  max-width: 1200px;
+  min-height: 100dvh;
+  flex-direction: column;
+  margin: 0 auto;
+  gap: 4rem;
+  padding: 0 1rem;
+  &__link {
+    text-align: left;
+  }
+  &__title {
+    text-align: left;
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: 500;
+    padding: 0px 10px;
+    @include mixins.titleType("big");
+
+    @include mixins.respond-to("medium") {
+      @include mixins.titleType("small");
+    }
+  }
+  &__container {
+    display: flex;
+
+    justify-content: center;
+    padding-block-start: 1rem;
+    padding-block-end: 8rem;
+    writing-mode: horizontal-tb;
+    width: 100%;
+    margin: 0 auto;
+    gap: 2rem;
+    height: -moz-fit-content;
+    height: fit-content;
+    @include mixins.respond-to("medium") {
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+    & li {
+      list-style: none;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  &__container--reverse {
+    flex-direction: row-reverse;
+    flex-wrap: nowrap;
+  }
+  &__grid-container {
+    display: grid;
+    grid-template-areas:
+      " img1 img1 img1 img2 img2 img2 img2"
+      " img1 img1 img1 img2 img2 img2 img2"
+      " img1 img1 img1 img2 img2 img2 img2"
+      " img3 img3 img3 img3 img3 img3 img3"
+      " img3 img3 img3 img3 img3 img3 img3"
+      " img3 img3 img3 img3 img3 img3 img3"
+      " img3 img3 img3 img3 img3 img3 img3"
+      " img3 img3 img3 img3 img3 img3 img3"
+      " img4 img4 img5 img5 img5 img5 img5"
+      " img4 img4 img5 img5 img5 img5 img5"
+      " img4 img4 img5 img5 img5 img5 img5";
+    width: 100%;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(11, minmax(39px, 45px));
+    gap: 0.3rem;
+  }
+
+  &__grid-item {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 1.2rem;
+    background-color: rgb(54, 42, 138);
+  }
+  &__grid-item--1 {
+    grid-area: img1;
+  }
+  &__grid-item--2 {
+    grid-area: img2;
+  }
+  &__grid-item--3 {
+    grid-area: img3;
+  }
+  &__grid-item--4 {
+    grid-area: img4;
+  }
+  &__grid-item--5 {
+    grid-area: img5;
+  }
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    height: auto;
+    @include mixins.respond-to("medium") {
+      gap: 2rem;
+    }
+  }
+}

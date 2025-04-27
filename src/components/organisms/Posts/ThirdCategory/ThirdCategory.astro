@@ -1,38 +1,40 @@
 ---
-import SecondaryCard from "@organisms/Posts/DesarrolloWeb/SecondaryCard/SecondaryCard.astro";
+import SecondaryCard from "../components/SecondaryCard/SecondaryCard.astro";
+import CardBig from "../components/CardBig/CardBig.astro";
 import Title from "@atoms/Title/Title.astro";
 import type { Post } from "@src/types/post.type";
+import Categories from "../components/Categories.astro";
+import CardBento from "../components/CardBento/CardBento.astro";
 
-import CardBig from "./CardBig/CardBig.astro";
 interface Props {
   slug: string;
   name: string;
   posts: Post[];
+
 }
 const { slug, name, posts } = Astro.props;
 const DEFAULT_POST = posts[0];
 ---
 
-<div class="bg-section">
+
   <section class="web-dev">
     <a href={`/categories/${slug}`} class="web-dev__link">
       <Title titleDesc={name} class="web-dev__title" />
     </a>
-    <div class="web-dev__container">
-      <ul class="web-dev__list">
+    <div class="web-dev__container web-dev__container--reverse">
+      <ul class=" web-dev__grid-container">
         {
-          posts.slice(1, 4).map((post) => {
+          posts.slice(1, 6).map((post, index) => {
             return (
-              <li>
-                <SecondaryCard {...post} />
+              <li class={`web-dev__grid-item web-dev__grid-item--${index + 1}`}>
+                <CardBento {...post} index={index}  />
               </li>
             );
           })
         }
       </ul>
-
       <!-- CARD GRANDE -->
       <CardBig {...DEFAULT_POST} />
-    </div>
+
   </section>
 </div>
