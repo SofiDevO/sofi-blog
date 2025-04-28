@@ -11,8 +11,6 @@ const categoriesWithPosts = await getCategoriesWithPosts();
 export const prerender = true;
 
 
-
-
 ---
 
 <Layout>
@@ -21,8 +19,11 @@ export const prerender = true;
   <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />
   <DividerTop  fill="shape-fill-white"/>
   <SecondCategory  {...categoriesWithPosts["aprender-a-programar"][0]}/>
-  <DividerBottom />
+  <DividerBottom  fill="shape-fill-3"/>
   <ThirdCategory {...categoriesWithPosts["aprender-a-programar"][0]} />
+  <DividerTop  fill="shape-fill-white"/>
+  <SecondCategory reverse={true} {...categoriesWithPosts["astro"][0]}/>
+  <DividerBottom />
 
 
 </Layout>

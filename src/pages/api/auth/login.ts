@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     if (!data) return redirect("/login?error=true&message=Invalid Credentials.");
 
     const token = Jwt.sign(data, SECRET_KEY, { expiresIn: "1h" });
-    cookies.set("accessToken", token, { path: "/" });
+    cookies.set("accessToken", token, { path: "/", httpOnly: true });
 
     return redirect("/dashboard");
 }

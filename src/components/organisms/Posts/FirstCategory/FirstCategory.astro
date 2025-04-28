@@ -1,12 +1,9 @@
 ---
 import PostCard from "../components/PostCard/PostCard.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
+import type { CategoryWithPosts } from "@src/types/category.type";
 import type { Post } from "@src/types/post.type";
-interface Props {
-  slug: string;
-  name: string;
-  posts: Post[];
-}
+interface Props extends CategoryWithPosts {}
 
 const { slug, name, posts } = Astro.props;
 ---

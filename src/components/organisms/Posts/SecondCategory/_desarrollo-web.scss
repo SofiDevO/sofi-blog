@@ -17,6 +17,7 @@
   margin: 0 auto;
   gap: 4rem;
   padding: 0 1rem;
+
   &__link {
     text-align: left;
   }
@@ -34,7 +35,6 @@
   }
   &__container {
     display: flex;
-
     justify-content: center;
     padding-block-start: 1rem;
     padding-block-end: 8rem;
@@ -47,6 +47,9 @@
     @include mixins.respond-to("medium") {
       flex-wrap: wrap;
       flex-direction: column;
+    }
+    &__container--reverse {
+      flex-direction: row-reverse;
     }
     & li {
       list-style: none;
@@ -69,12 +72,12 @@
       " img3 img3 img3 img3 img3 img3 img3"
       " img3 img3 img3 img3 img3 img3 img3"
       " img3 img3 img3 img3 img3 img3 img3"
-      " img4 img4 img5 img5 img5 img5 img5"
-      " img4 img4 img5 img5 img5 img5 img5"
-      " img4 img4 img5 img5 img5 img5 img5";
+      " img4 img4 img4 img5 img5 img5 img5"
+      " img4 img4 img4 img5 img5 img5 img5"
+      " img4 img4 img4 img5 img5 img5 img5";
     width: 100%;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(11, minmax(39px, 45px));
+    grid-template-rows: repeat(11, minmax(39px, 40px));
     gap: 0.3rem;
   }
 
