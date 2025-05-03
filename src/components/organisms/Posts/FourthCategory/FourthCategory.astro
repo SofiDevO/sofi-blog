@@ -1,0 +1,40 @@
+---
+import Title from "@src/components/atoms/Title/Title.astro";
+import CardBento from "../components/CardBento/CardBento.astro";
+import Categories from "../components/Categories.astro";
+import type { CategoryWithPosts } from "@src/types/category.type";
+import PostCard from "../components/PostCard/PostCard.astro";
+interface Props extends CategoryWithPosts {}
+const { slug, name, posts } = Astro.props;
+console.log(posts.length)
+---
+
+<script
+    defer
+  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"
+></script>
+
+<section class="fourth-category">
+  <div class="swiper">
+    <swiper-container
+      slides-per-view="3"
+      speed="500"
+      loop="true"
+      css-mode="true"
+      navigation="true"
+      mousewheel="true"
+      keyboard="true"
+      grab-cursor="true"
+    >
+      {
+        posts.map((post) => {
+          return (
+            <swiper-slide>
+              <PostCard {...post} class="slider__card"/>
+            </swiper-slide>
+          );
+        })
+      }
+    </swiper-container>
+  </div>
+</section>

@@ -6,6 +6,7 @@ import Categories from "@organisms/Posts/components/Categories.astro";
 
 interface Props extends Post {
   key?: string;
+  class?: string;
 }
 
 const {
@@ -16,11 +17,14 @@ const {
   author,
   categories,
   date,
+  class: className,
+  ...rest
 } = Astro.props;
 ---
 
 <article
-  class="post-card"
+  class={`post-card className ${className}`}
+  {...rest}
 >
   <!-- Imagen del post -->
   <div class="post-card__image-container">

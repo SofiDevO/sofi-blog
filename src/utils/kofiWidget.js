@@ -1,4 +1,3 @@
-
   kofiWidgetOverlay.draw("sofidev", {
     type: "floating-chat",
     "floating-chat.donateButton.text": "Support me",

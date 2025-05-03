@@ -1,0 +1,92 @@
+@use "@sass/variables" as v;
+@use "@sass/mixins" as mixins;
+
+.fourth-category {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  @include mixins.centerFlex();
+  flex-direction: column;
+  gap: 5rem;
+  padding: 20rem 0;
+}
+.slider__card {
+  max-width: 40rem;
+}
+
+swiper-container {
+  --swiper-navigation-color: rgb(63, 11, 151);
+  &::part(button-next),
+  &::part(button-prev) {
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: rgba(156, 156, 156, 0.528);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    width: 4rem;
+    height: 4rem;
+  }
+}
+.dark {
+  swiper-container {
+    --swiper-navigation-color: lime;
+    &::part(button-next),
+    &::part(button-prev) {
+      background-color: rgba(2, 2, 2, 0.403);
+    }
+  }
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  @include mixins.centerFlex();
+  text-align: center;
+  font-size: 18px;
+  background: v.$mainColor;
+}
+.swiper-slide-next {
+  width: 45% !important;
+  mask-image: none;
+  & #card-container {
+    height: 100%;
+  }
+}
+.swiper-slide-prev {
+  mask-image: linear-gradient(to right, transparent 5%, black 100%);
+}
+.swiper-slide-active {
+  mask-image: linear-gradient(to left, transparent 5%, black 100%);
+}
+swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  mask-image: linear-gradient(to right, transparent 5%, black 100%);
+}
+#card-container {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  /* background: #1a1c32; */
+  overflow: hidden;
+  padding: 10px;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -13,6 +13,7 @@
 @use "@organisms/Comments/comments" as comments;
 @use "@pages/blog/blog" as blog;
 @use "@organisms/Posts/SecondCategory/desarrollo-web" as web;
+@use "@organisms/Posts/FourthCategory/fourth-category" as fourthCategory;
 @use "@organisms/Posts/components/CardBig/card-big" as cardBig;
 :root {
   --mainColor: rgb(12, 12, 12);
@@ -32,11 +33,11 @@
 }
 /* Tema oscuro */
 .dark {
+  --mainColor: #f1f1f1;
+  --bg-color: #110824;
   --card-border: 1px solid #1a2a2e;
   --bg-card: #1a1e27;
   --dark-violet: #0e0e0e;
-  --mainColor: #f1f1f1;
-  --bg-color: #110824;
   --frenchViolet: #9933ff;
   --textColor: #ddd;
   --text-gradient: linear-gradient(to right, #33ff76 0%, #58ecff 100%);
