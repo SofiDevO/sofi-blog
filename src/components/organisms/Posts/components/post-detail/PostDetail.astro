@@ -1,0 +1,51 @@
+---
+import DateTag from '@src/components/atoms/DateTag/DateTag.astro';
+import Loader from "@src/components/atoms/Loader/Loader.astro";
+import { replaceIframes } from "@src/utils/index";
+const { post, author } = Astro.props;
+
+---
+
+<article
+class="flex flex-col w-full max-w-[900px] overflow-x-clip"
+>
+
+<!-- Author Info -->
+<div class="flex gap-3 items-center my-5 px-3 group">
+  <img
+  id="author-image"
+    class="w-24 h-24 group-hover:scale-110 rounded-full"
+    src={author.avatar?.url}
+    alt={author.name}
+  />
+  <div class="flex flex-col items-center gap-5">
+    <p class="text-2xl font-bold">
+      {author.firstName}
+      {author.lastName}
+    </p>
+    <p class="font-bold text-2xl">
+      Tiempo de lectura
+      <span class="text-violet-700"> {post.seo.readingTime} minutes</span>
+    </p>
+    <p class="font-bold text-2xl">
+      Fecha de publicación
+      <DateTag isShort={false} date={post.date} />
+    </p>
+  </div>
+</div>
+<div
+  class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
+>
+{
+  post.content ? (
+    <Fragment set:html={replaceIframes(post.content) || ""} />
+  )
+  :
+  (
+    <Loader />
+  )
+}
+
+  <slot />
+</div>
+</article>

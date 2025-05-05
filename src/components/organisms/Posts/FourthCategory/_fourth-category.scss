@@ -9,11 +9,16 @@
   flex-direction: column;
   gap: 5rem;
   padding: 20rem 0;
+  height: fit-content;
 }
 .slider__card {
   max-width: 40rem;
+  max-height: 30rem;
 }
 
+:host {
+  --swiper-navigation-size: 217px;
+}
 swiper-container {
   --swiper-navigation-color: rgb(63, 11, 151);
   &::part(button-next),
