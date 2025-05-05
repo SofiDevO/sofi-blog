@@ -60,7 +60,7 @@
       @content;
     }
   } @else if $breakpoint == "large" {
-    @media (max-width: 1024px) {
+    @media screen and  (min-width: 768px) {
       @content;
     }
   }

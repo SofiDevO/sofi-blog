@@ -54,8 +54,10 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
           </a>
           {/* If item has children, create dropdown menu */}
           {item.children.length > 0 && (
-            <>
-              <iconify-icon class="dropdown__icon" icon="gridicons:dropdown" />
+            <label for={item.slug} class="dropdown__label" aria-label="dropdown">
+            <input type="checkbox" class="dropdown__checkbox" id={item.slug} />
+            <iconify-icon class="dropdown__icon" icon="gridicons:dropdown" />
+            </label>
               <ul class="dropdown">
                 {/* Map through child items */}
                 {item.children.map((child) => (
@@ -70,7 +72,6 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
                   </li>
                 ))}
               </ul>
-            </>
           )}
         </li>
       ))
