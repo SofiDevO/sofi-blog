@@ -8,7 +8,7 @@ export function commentsController() {
             const host = window.location.host.includes('localhost') ? '' : `https://${window.location.host}`
             const replies = await fetch(`${host}/api/comments/replies?commentId=${commentId}`)
             const data = await replies.json()
-            console.log(data)
+            // console.log(data)
 
     })
 }

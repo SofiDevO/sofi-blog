@@ -79,7 +79,6 @@ const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
             {item.label}
           </a>
           {item.children.length > 0 && (
-            <>
               <iconify-icon class="dropdown__icon" icon="gridicons:dropdown"  />
               <ul class="dropdown">
                 {item.children.map((child) => (
@@ -94,7 +93,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems as never[]);
                   </li>
                 ))}
               </ul>
-            </>
+
           )}
         </li>
       ))
