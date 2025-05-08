@@ -2,7 +2,7 @@
 @use "@sass/mixins" as mixins;
 
 .search{
-    @include mixins.centerFlex();
+    @include mixins.centerFlex(space-between);
     background-color: white;
     padding: .5rem;
     border-radius: 4px;

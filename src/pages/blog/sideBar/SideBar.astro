@@ -1,0 +1,23 @@
+---
+import Button from "@src/components/atoms/Button/Button.astro";
+import Title from "@src/components/atoms/Title/Title.astro";
+import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
+import sideBar from "./side-bar.module.scss";
+
+---
+
+
+<aside class={sideBar.sidebar}>
+    <SearchForm />
+    <Title titleDesc="Mis rerdes sociales" class={sideBar.title}/>
+
+
+      <Button
+        href="#"
+        class={sideBar.button}
+        text="Suscribirse"
+      >
+      <iconify-icon icon="uim:youtube" width="30" height="30"  style="color: #f9f9f9"></iconify-icon>
+      Suscríbete en Youtube
+    </Button>
+  </aside>

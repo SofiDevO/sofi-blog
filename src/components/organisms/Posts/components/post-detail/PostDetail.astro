@@ -7,7 +7,7 @@ const { post, author } = Astro.props;
 ---
 
 <article
-class="flex flex-col w-full max-w-[900px] overflow-x-clip"
+class="flex flex-col w-[800px]   overflow-x-clip text-balance"
 >
 
 <!-- Author Info -->
@@ -34,7 +34,7 @@ class="flex flex-col w-full max-w-[900px] overflow-x-clip"
   </div>
 </div>
 <div
-  class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
+  class="w-full flex flex-col items-start gap-10 justify-center self-center text-left"
 >
 {
   post.content ? (
@@ -45,7 +45,6 @@ class="flex flex-col w-full max-w-[900px] overflow-x-clip"
     <Loader />
   )
 }
-
   <slot />
 </div>
 </article>
