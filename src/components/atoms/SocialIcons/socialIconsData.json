@@ -1,0 +1,32 @@
+[
+  {
+    "icon": "fe:delete-link",
+    "name": "Portafolio",
+    "link": "https://github.com/SofiDevO"
+  },
+  {
+    "icon": "fe:github-alt",
+    "name": "GitHub",
+    "link": "https://github.com/SofiDevO"
+  },
+  {
+    "icon": "mdi:linkedin",
+    "name": "LinkedIn",
+    "link": "https://www.linkedin.com/in/sofidev/"
+  },
+  {
+    "icon": "cbi:youtube",
+    "name": "YouTube",
+    "link": "https://www.youtube.com/@SofiDev"
+  },
+  {
+    "icon": "simple-icons:kofi",
+    "name": "Ko-fi",
+    "link": "https://www.youtube.com/@SofiDev"
+  },
+  {
+    "icon": "fe:twitter",
+    "name": "Twitter",
+    "link": "https://www.youtube.com/@SofiDev"
+  }
+]

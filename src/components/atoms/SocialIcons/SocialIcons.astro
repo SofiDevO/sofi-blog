@@ -1,16 +1,16 @@
 ---
-import { socialIconsData } from "@src/data/socialIconsData"
+import iconData from "./socialIconsData.json"
 ---
 
 <div class="social__container">
   {
-    socialIconsData.map((data, index) => (
+    iconData.map((data, index) => (
       <a href={data.link} class={`social__link social__link-${index+1}`} target="_blank">
         <iconify-icon
           class={`social__icon `}
           icon={data.icon}
           width="25"
-          height="25"
+          height="28"
         />
         <span class="social__tooltip">{data.name}</span>
       </a>
