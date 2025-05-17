@@ -1,18 +1,16 @@
 ---
 export const prerender = true;
 import Layout from "@layouts/Layout.astro";
-import Comments from "@organisms/Comments/Comments.astro";
-import { replaceIframes } from "@src/utils/index";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
+import Title from "@src/components/atoms/Title/Title.astro";
+import Comments from "@src/components/organisms/Comments/Comments.astro";
+import PostDetail from "@src/components/organisms/Posts/components/post-detail/PostDetail.astro";
+import { PostContentData } from "@src/services/getPostContent";
+import SideBar from "./sideBar/SideBar.astro";
 const { slug } = Astro.params;
 
-import { PostContentData } from "@src/services/getPostContent";
-import DateTag from "@src/components/atoms/DateTag/DateTag.astro";
 export async function getStaticPaths() {
   const data = PostContentData;
-
-
-
   return data?.posts?.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
@@ -23,6 +21,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props as any;
 
+console.log(post.categories.nodes);
 if (!post) {
   throw new Error(`Post not found for slug: ${slug}`);
 }
@@ -32,10 +31,9 @@ const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
 const { date } = Astro.props;
-
+const category = post.categories.nodes[0];
 const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
-
 ---
 
 <Layout image={postImage} title={post.title} description={post.seo.metaDesc}>
@@ -50,87 +48,55 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
   <!-- end of HEAD tags -->
 
   <section
-    id="post"
-    class="flex items-center justify-center w-full pt-36 pb-20 px-10"
+
+    class="flex flex-col justify-center w-full pt-36 pb-20 px-10"
   >
-    <article
-      class="flex flex-col w-full max-w-[900px] overflow-x-clip"
+    <div
+      class="group w-full max-w-[1200px] mx-auto overflow-hidden rounded-[1.2rem] h-[506.25px] bg-cover bg-center bg-no-repeat relative flex flex-col items-start justify-end px-5 py-10 mb-20"
+      style={`background-image: url(${
+        post?.featuredImage?.node?.mediaItemUrl || "/img/defaultBanner.png"
+      })`}
     >
-      <div class="group w-full  overflow-hidden rounded-[1.2rem] h-[506.25px]">
-        <img
-          srcset={post.featuredImage?.node?.srcSet}
-          sizes={post.featuredImage?.node?.sizes}
-          class="w-full h-full object-cover object-center group-hover:scale-110 transition-all duration-500 ease-in-out"
-          src={post?.featuredImage?.node?.mediaItemUrl ||
-            "/img/defaultBanner.png"}
-          alt={post?.featuredImage?.node?.altText || post.title}
-        />
+      <div
+        class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#0d0d0d] to-transparent"
+      >
       </div>
-      <h1
-        class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty"
+      <Title
+        titleDesc={post.title}
+        class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty z-10"
       >
         {post.title}
-      </h1>
-      <!-- Author Info -->
-      <div class="flex gap-3 items-center my-5 px-3 group">
-        <img
-        id="author-image"
-          class="w-24 h-24 group-hover:scale-110 rounded-full"
-          src={author.avatar?.url}
-          alt={author.name}
-        />
-        <div class="flex flex-col items-center gap-5">
-          <p class="text-2xl font-bold">
-            {author.firstName}
-            {author.lastName}
-          </p>
-          <p class="font-bold text-2xl">
-            Tiempo de lectura
-            <span class="text-violet-700"> {post.seo.readingTime} minutes</span>
-          </p>
-          <p class="font-bold text-2xl">
-            Fecha de publicación
-            <DateTag isShort={false} date={post.date} />
-          </p>
-        </div>
-      </div>
-      <div
-        class="w-full md:max-w-[800px] flex flex-col items-start gap-10 justify-center self-center text-left"
-      >
-      {
-        post.content ? (
-          <Fragment set:html={replaceIframes(post.content) || ""} />
-        )
-        :
-        (
-          <Loader />
-        )
-      }
+      </Title>
+    </div>
 
-        <Comments slug={slug} postID={id} server:defer>
-          <div slot="fallback">
-            <Loader />
-          </div>
-        </Comments>
+    <div class="flex items-start justify-center gap-[8rem]">
+      <!-- Post Detail -->
+      <div id="post" class="min-h-screen flex flex-col">
+        <PostDetail {post} {author}>
+          <Comments slug={slug} postID={id} server:defer>
+            <div slot="fallback">
+              <Loader />
+            </div>
+          </Comments>
+        </PostDetail>
       </div>
-    </article>
+      <!-- Aside -->
+      <SideBar  {category}/>
+    </div>
   </section>
+
   <div class="progress"></div>
 </Layout>
-<script >
+<script>
   import { fastYoutube } from "@src/utils/fast-youtube";
   import { InsertButtonCopy } from "@pages/blog/button-copy";
 
-    InsertButtonCopy();
-
+  InsertButtonCopy();
 </script>
 
 <style lang="scss" is:global>
   @use "@sass/variables" as v;
 
-  main {
-    margin-top: 0!important;
-  }
   .progress {
     height: 0.2rem;
     width: 100%;

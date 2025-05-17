@@ -14,17 +14,12 @@ console.log(posts.length)
   src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"
 ></script>
 
+
+
 <section class="fourth-category">
   <div class="swiper">
     <swiper-container
-      slides-per-view="3"
-      speed="500"
-      loop="true"
-      css-mode="true"
-      navigation="true"
-      mousewheel="true"
-      keyboard="true"
-      grab-cursor="true"
+
     >
       {
         posts.map((post) => {
@@ -38,3 +33,45 @@ console.log(posts.length)
     </swiper-container>
   </div>
 </section>
+
+
+
+
+<script>
+  const swiperEl = document.querySelector('swiper-container') as HTMLElement & { initialize: () => void };
+  Object.assign(swiperEl, {
+    slidesPerView: 3,
+    spaceBetween: 1,
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 40,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 50,
+      },
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    loop: true
+  });
+  swiperEl.initialize();
+</script>
+<!--
+
+slides-per-view="3"
+      speed="500"
+      loop="true"
+      css-mode="true"
+      navigation="true"
+      mousewheel="true"
+      keyboard="true"
+      grab-cursor="true"
+-->

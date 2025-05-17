@@ -1,8 +1,15 @@
 ---
 import InputComponent from "@src/components/atoms/InputComponent/InputComponent.astro";
+const { class: className, ...rest } = Astro.props;
 ---
 
-<form action="/resultados" method="get" id="search-form" class="search">
+<form
+  action="/resultados"
+  method="get"
+  id="search-form"
+  class={`search ${className}`}
+  {...rest}
+>
   <label for="search" class="search__label">
     <InputComponent
       type="text"
@@ -14,19 +21,22 @@ import InputComponent from "@src/components/atoms/InputComponent/InputComponent.
     />
   </label>
   <InputComponent type="submit" value="Buscar" class="search__submit" />
-  <div id="search__results"> </div>
+  <div id="search__results"></div>
 </form>
 
 <script>
-  const CACHE_NAME = 'search-results';
+  const CACHE_NAME = "search-results";
 
-  const form = document.getElementById('search-form');
-  const input = document.getElementById('search') as HTMLInputElement;
-  const results = document.getElementById('search__results');
+  const form = document.getElementById("search-form");
+  const input = document.getElementById("search") as HTMLInputElement;
+  const results = document.getElementById("search__results");
 
-  form.addEventListener('submit', handleSearch);
+  form.addEventListener("submit", handleSearch);
 
   async function handleSearch(event) {
+    if (window.location.pathname.includes("/blog")) {
+      return;
+    }
     event.preventDefault();
     const query = input.value.trim();
 
@@ -41,39 +51,35 @@ import InputComponent from "@src/components/atoms/InputComponent/InputComponent.
 
     const url = `/resultados?search=${query}`;
     try {
-        const response = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-        });
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      });
       if (!response.ok) {
-        console.error('Error fetching search results');
+        console.error("Error fetching search results");
         return;
       }
       let data = await response.text();
-      data.replace('!DOCTYPE html>', '');
+      data.replace("!DOCTYPE html>", "");
 
       results.innerHTML = data;
 
       const newResult = { query, data };
       // cachedResultsArray.push(newResult);
       // await setCachedResults(cachedResultsArray);
-
     } catch (error) {
-        console.error('Error fetching search results:', error);
+      console.error("Error fetching search results:", error);
     }
   }
 
+  async function getCachedResults() {
+    const cachedResults = localStorage.getItem(CACHE_NAME);
+    return cachedResults ? JSON.parse(cachedResults) : [];
+  }
 
-async function getCachedResults() {
-  const cachedResults = localStorage.getItem(CACHE_NAME);
-  return cachedResults ? JSON.parse(cachedResults) : [];
-}
-
-async function setCachedResults(results) {
-  localStorage.setItem(CACHE_NAME, JSON.stringify(results));
-
-}
-
+  async function setCachedResults(results) {
+    localStorage.setItem(CACHE_NAME, JSON.stringify(results));
+  }
 </script>

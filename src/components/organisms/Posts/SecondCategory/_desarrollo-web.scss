@@ -50,6 +50,9 @@
     }
     &__container--reverse {
       flex-direction: row-reverse;
+      @include mixins.respond-to("medium") {
+        flex-direction: column;
+      }
     }
     & li {
       list-style: none;
@@ -59,7 +62,10 @@
   }
   &__container--reverse {
     flex-direction: row-reverse;
-    flex-wrap: nowrap;
+    @include mixins.respond-to("small") {
+      flex-direction: column;
+    }
+
   }
   &__grid-container {
     display: grid;

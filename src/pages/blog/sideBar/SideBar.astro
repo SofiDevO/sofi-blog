@@ -1,0 +1,38 @@
+---
+import Button from "@src/components/atoms/Button/Button.astro";
+import Title from "@src/components/atoms/Title/Title.astro";
+import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
+import sideBar from "./side-bar.module.scss";
+import SocialIcons from "@src/components/atoms/SocialIcons/SocialIcons.astro";
+import CardSidebar from "./cards-sidebar/CardSidebar.astro";
+import { getCategoriesWithPosts } from "@src/services/categoriesWithPosts";
+
+const {category} = Astro.props;
+
+const sidecardData = await getCategoriesWithPosts();
+const categoryName = category.name.toLowerCase().replaceAll(" ", "-");
+
+const posts   = sidecardData[categoryName][0].posts.slice(0, 3);
+---
+
+<aside class={sideBar.sidebar}>
+  <SearchForm class={sideBar.search} />
+  <Title titleDesc="Mis rerdes sociales" class={sideBar.title} />
+
+  <Button href="#" class={sideBar.button} text="Suscribirse">
+    <iconify-icon
+      icon="uim:youtube"
+      width="30"
+      height="30"
+      style="color: #f9f9f9"></iconify-icon>
+    Suscríbete en Youtube
+  </Button>
+  <SocialIcons />
+  <div class={sideBar.cardWrapper}>
+    {
+      posts.map((post) => (
+        <CardSidebar {...post} />
+      ))
+      }
+  </div>
+</aside>
