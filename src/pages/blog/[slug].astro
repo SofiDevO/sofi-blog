@@ -3,7 +3,6 @@ export const prerender = true;
 import Layout from "@layouts/Layout.astro";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
-import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
 import Comments from "@src/components/organisms/Comments/Comments.astro";
 import PostDetail from "@src/components/organisms/Posts/components/post-detail/PostDetail.astro";
 import { PostContentData } from "@src/services/getPostContent";
@@ -12,7 +11,6 @@ const { slug } = Astro.params;
 
 export async function getStaticPaths() {
   const data = PostContentData;
-
   return data?.posts?.nodes.map((post: any) => {
     return {
       params: { slug: post.slug },
@@ -23,6 +21,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props as any;
 
+console.log(post.categories.nodes);
 if (!post) {
   throw new Error(`Post not found for slug: ${slug}`);
 }
@@ -32,7 +31,7 @@ const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
 const { date } = Astro.props;
-
+const category = post.categories.nodes[0];
 const author = post.author?.node;
 const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
 ---
@@ -82,7 +81,7 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
         </PostDetail>
       </div>
       <!-- Aside -->
-      <SideBar />
+      <SideBar  {category}/>
     </div>
   </section>
 
