@@ -21,7 +21,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props as any;
 
-console.log(post.categories.nodes);
+
 if (!post) {
   throw new Error(`Post not found for slug: ${slug}`);
 }

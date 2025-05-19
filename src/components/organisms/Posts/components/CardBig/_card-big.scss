@@ -24,7 +24,10 @@
         height: 100%;
         max-width: 512px;
         height: 272px;
-    }
+        @include mixins.respond-to("medium") {
+          height: 169px;
+        }
+      }
   &:hover &__img {
     transform: scale(1.1);
   }
@@ -44,13 +47,16 @@
     z-index: 10;
     border-radius: 0 12px 0 0;
     padding: 0.4rem 1rem;
+    @include mixins.respond-to("medium") {
+      top:60%;
+    }
     &::before {
         position: absolute;
         background: transparent;
         z-index: 10;
         content: "";
         top: -2rem;
-        right: 23.4rem;
+        right: 22.4rem;
         width: 2rem;
         height: 2rem;
         border-bottom-left-radius: 1.25rem;
