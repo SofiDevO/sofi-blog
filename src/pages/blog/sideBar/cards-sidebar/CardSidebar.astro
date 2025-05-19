@@ -3,11 +3,11 @@ import styles from "./card-sidebar.module.scss";
 
 
 
-const { image, title, excerpt } = Astro.props;
+const { image, title, excerpt, slug } = Astro.props;
 ---
 
 
-  <a href="#" class={styles.sideCard} data-astro-prefetch="hover">
+  <a href={`/blog/${slug}`} class={styles.sideCard} data-astro-prefetch="hover">
     <div class={styles.cardContainer}>
       <img
         src={image.mediaItemUrl || "/img/defaultBanner.png"}
@@ -18,5 +18,10 @@ const { image, title, excerpt } = Astro.props;
       />
     </div>
     <h3 class={styles.cardTitle}>{title}</h3>
-    <p class={styles.cardExcerpt}>{excerpt}</p>
+
+    <fragment
+      class={styles.cardExcerpt}
+      set:html={excerpt.replace(/\[.*?\]/g, "...")}
+    />
+
   </a>

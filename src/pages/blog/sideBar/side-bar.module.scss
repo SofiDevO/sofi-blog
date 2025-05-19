@@ -3,6 +3,8 @@
 
 
 .sidebar {
+    position: sticky;
+    top: 7.5rem;
     display: flex;
     flex-direction: column;
     max-width:310px ;
