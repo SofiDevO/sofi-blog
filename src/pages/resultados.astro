@@ -55,7 +55,7 @@ console.log(url.search)
 
 <style lang="scss" is:global>
   @use "@sass/variables" as v;
-  @use "@sass/mixins" as mixins;
+  @use "@sass/mixins" as  *;
   main {
     padding-top: 15rem !important;
   }
@@ -69,7 +69,7 @@ console.log(url.search)
     gap: 2rem;
 
     &__title {
-      @include mixins.titleType("small");
+      @include titleType("small");
       text-align: center;
       color: v.$french-violet;
       margin-bottom: 5rem;
@@ -77,7 +77,7 @@ console.log(url.search)
     }
     &__cards {
       width: 100%;
-      @include mixins.centerFlex(center);
+      @include centerFlex(center);
       flex-direction: column;
       min-height: 380px;
       margin-bottom: 3rem;

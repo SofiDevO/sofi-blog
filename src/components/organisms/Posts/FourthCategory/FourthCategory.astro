@@ -6,11 +6,10 @@ import type { CategoryWithPosts } from "@src/types/category.type";
 import PostCard from "../components/PostCard/PostCard.astro";
 interface Props extends CategoryWithPosts {}
 const { slug, name, posts } = Astro.props;
-console.log(posts.length)
 ---
 
 <script
-    defer
+
   src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"
 ></script>
 
@@ -42,6 +41,10 @@ console.log(posts.length)
   Object.assign(swiperEl, {
     slidesPerView: 3,
     spaceBetween: 1,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: true,
+    }  ,
     breakpoints: {
       640: {
         slidesPerView: 1,
@@ -56,10 +59,9 @@ console.log(posts.length)
         spaceBetween: 50,
       },
     },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
+
+    navigation: true,
+    pagination: true,
     loop: true
   });
   swiperEl.initialize();
@@ -69,7 +71,6 @@ console.log(posts.length)
 slides-per-view="3"
       speed="500"
       loop="true"
-      css-mode="true"
       navigation="true"
       mousewheel="true"
       keyboard="true"

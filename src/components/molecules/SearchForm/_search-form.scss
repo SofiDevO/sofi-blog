@@ -1,8 +1,8 @@
 @use "@sass/variables" as v;
-@use "@sass/mixins" as mixins;
+@use "@sass/mixins" as  *;
 
 .search {
-    @include mixins.centerFlex(space-between);
+    @include centerFlex(space-between);
     background-color: white;
     padding: .5rem;
     border-radius: 4px;
@@ -61,7 +61,7 @@
     min-width: 610px;
     left: -12rem;
 
-    @include mixins.respond-to("medium") {
+    @include respond-to("medium") {
         min-width: 32rem;
 
     }

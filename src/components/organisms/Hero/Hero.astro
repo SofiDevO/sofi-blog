@@ -3,7 +3,7 @@ import BackgroundGradient from "@atoms/BackgroundGradient/BackgroundGradient.ast
 import StickyPost from "../StickyPost/StickyPost.astro";
 import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
-import DividerTop from "@src/components/atoms/DividerTop/DividerTop.astro";
+
 export const prerender = true;
 ---
 
@@ -23,14 +23,13 @@ export const prerender = true;
 
 <style lang="scss" is:global>
   @use "@sass/variables" as v;
-  @use "@sass/mixins" as mixins;
+  @use "@sass/mixins" as *;
 
   .hero {
-    @include mixins.centerFlex();
+    @include  centerFlex();
     flex-direction: column;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    @extend %max-width;
     padding: 0 2rem;
     padding-block: 10rem;
     writing-mode: horizontal-tb;
@@ -41,9 +40,9 @@ export const prerender = true;
 
     }
     &__title {
-      @include mixins.titleType("bigger");
-      @include mixins.respond-to("medium") {
-        @include mixins.titleType("medium");
+      @include  titleType("bigger");
+      @include  respond-to("medium") {
+        @include  titleType("medium");
       };
     }
     &__desc {

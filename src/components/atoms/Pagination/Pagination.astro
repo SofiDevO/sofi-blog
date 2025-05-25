@@ -50,9 +50,9 @@ nextPageUrl.set("page", (currentPage + 1).toString());
 
 <style lang="scss" define:vars={{ baseUrl }}>
   @use "@sass/variables" as v;
-  @use "@sass/mixins" as mixins;
+  @use "@sass/mixins" as  *;
   .pagination {
-    @include mixins.centerFlex(center);
+    @include centerFlex(center);
     margin-top: auto;
     &__container {
       display: flex;

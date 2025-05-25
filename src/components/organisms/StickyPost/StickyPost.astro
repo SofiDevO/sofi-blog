@@ -82,14 +82,14 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
 
 <style lang="scss" is:global>
   @use "@sass/variables" as v;
-  @use "@sass/mixins" as mixins;
+  @use "@sass/mixins" as  *;
   .sticky-post {
-    @include mixins.centerFlex(center, center);
+    @include centerFlex(center, center);
     align-content: center;
     width: 100%;
     gap: 5rem;
     flex-wrap: wrap;
-    @include mixins.respond-to("medium") {
+    @include respond-to("medium") {
       justify-content: center;
       text-align: center;
     }
@@ -128,7 +128,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
       align-items: center;
       justify-content: start;
       color: var(--ufoGreen);
-      @include mixins.respond-to("medium") {
+      @include respond-to("medium") {
         justify-content: center;
         text-align: center;
       }
@@ -152,7 +152,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
       &:hover {
         background: rgba(108, 0, 250, 0.751);
       }
-      @include mixins.respond-to("medium") {
+      @include respond-to("medium") {
         max-width: 100%;
       }
     }
