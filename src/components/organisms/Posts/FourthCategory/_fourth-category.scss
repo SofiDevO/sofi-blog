@@ -1,11 +1,11 @@
 @use "@sass/variables" as v;
-@use "@sass/mixins" as mixins;
+@use "@sass/mixins" as  *;
 
 .fourth-category {
   width: 100%;
-  max-width: 1200px;
+  @extend %max-width;;
   margin: 0 auto;
-  @include mixins.centerFlex();
+  @include centerFlex();
   flex-direction: column;
   gap: 5rem;
   padding: 20rem 0;
@@ -13,7 +13,8 @@
 }
 .slider__card {
   max-width: 40rem;
-  max-height: 30rem;
+  min-width: 40rem;
+  max-height: 20rem;
 }
 
 :host {
@@ -54,7 +55,7 @@ swiper-container {
 }
 
 .swiper-slide {
-  @include mixins.centerFlex();
+  @include centerFlex();
   text-align: center;
   font-size: 18px;
   background: v.$mainColor;
@@ -69,14 +70,12 @@ swiper-container {
 .swiper-slide-prev {
   mask-image: linear-gradient(to right, transparent 5%, black 100%);
 }
-.swiper-slide-active {
-  mask-image: linear-gradient(to left, transparent 5%, black 100%);
-}
+
 swiper-slide {
   display: flex;
   justify-content: center;
   align-items: center;
-  mask-image: linear-gradient(to right, transparent 5%, black 100%);
+
 }
 #card-container {
   width: 100%;
@@ -86,7 +85,6 @@ swiper-slide {
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  /* background: #1a1c32; */
   overflow: hidden;
   padding: 10px;
 }

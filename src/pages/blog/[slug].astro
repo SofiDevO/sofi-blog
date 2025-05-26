@@ -52,13 +52,13 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
     class="flex flex-col justify-center w-full pt-36 pb-20 px-10"
   >
     <div
-      class="group w-full max-w-[1200px] mx-auto overflow-hidden rounded-[1.2rem] h-[506.25px] bg-cover bg-center bg-no-repeat relative flex flex-col items-start justify-end px-5 py-10 mb-20"
+      class="group w-full max-w-[1100px] mx-auto overflow-hidden rounded-[1.2rem] md:h-[506.25px] bg-cover bg-center bg-no-repeat relative flex flex-col items-start justify-end px-5 py-10 mb-20"
       style={`background-image: url(${
         post?.featuredImage?.node?.mediaItemUrl || "/img/defaultBanner.png"
       })`}
     >
       <div
-        class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[#0d0d0d] to-transparent"
+        class="absolute top-0 left-0 w-full  h-full bg-gradient-to-b backdrop-blur-sm md:backdrop-blur-0  from-transparent to-[#050505]"
       >
       </div>
       <Title
@@ -69,9 +69,9 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
       </Title>
     </div>
 
-    <div class="flex items-start justify-center gap-[8rem]">
+    <div class="flex w-full max-w-[1200px] flex-wrap mx-auto flex-col md:flex-row items-start justify-around  ">
       <!-- Post Detail -->
-      <div id="post" class="min-h-screen flex flex-col">
+      <div id="post" class="w-full basis-[65%] min-h-screen flex flex-col">
         <PostDetail {post} {author}>
           <Comments slug={slug} postID={id} server:defer>
             <div slot="fallback">

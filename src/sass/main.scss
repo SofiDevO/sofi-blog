@@ -1,5 +1,5 @@
 @use "@sass/variables" as v;
-@use "@sass/mixins" as mixins;
+@use "@sass/mixins" as  *;
 @use "@sass/animations" as animations;
 @use "@atoms/Title/title" as title;
 @use "@atoms/Button/button" as button;
@@ -61,7 +61,7 @@ html {
 
 body {
   overflow-x: hidden;
-  @include mixins.font-family("montserrat");
+  @include font-family("montserrat");
   background: var(--bg-color);
   color: var(--textColor);
 }
@@ -136,10 +136,10 @@ table td {
 
 
 .text-gradient {
-  @include mixins.text-gradient();
+  @include text-gradient();
 }
 #post {
   h1 {
-    @include mixins.text-gradient();
+    @include text-gradient();
   }
 }

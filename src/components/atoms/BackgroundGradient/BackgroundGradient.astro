@@ -9,7 +9,7 @@
 
 <style lang="scss" is:global>
 @use "@sass/variables" as v;
-@use "@sass/mixins" as mixins;
+@use "@sass/mixins" as *;
 
 .backgroud{
 	height: 100%;
@@ -37,12 +37,12 @@
 
 }
 .backgroud:before{
-	@include mixins.theme-gradient("ligth");
+	@include theme-gradient("ligth");
 
 }
 .dark{
 	.backgroud:before  {
-	  @include mixins.theme-gradient("ligth");
+	  @include theme-gradient("ligth");
   }
   .background:after {
     content: "";

@@ -27,13 +27,13 @@ export const prerender = true;
 
 <style is:global  lang="scss">
     @use "@sass/variables" as v;
-    @use "@sass/mixins" as mixins;
+    @use "@sass/mixins" as  *;
   main {
     padding-top: 10rem!important;
   }
 
   .category__grid {
-    max-width: 1200px;
+    @extend %max-width;;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

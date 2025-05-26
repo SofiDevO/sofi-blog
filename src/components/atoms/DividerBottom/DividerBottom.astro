@@ -20,7 +20,7 @@ const { fill } = Astro.props;
 
 <style lang="scss" is:global>
   @use "../../../sass/variables" as v;
-  @use "../../../sass/mixins" as mixins;
+  @use "../../../sass/mixins" as *;
 
   .wrapper {
     position: relative;
@@ -40,7 +40,7 @@ const { fill } = Astro.props;
     display: block;
     width: calc(100% + 547.3px);
     height: 179px;
-    @include mixins.respond-to("medium") {
+    @include respond-to("medium") {
       height: 168px;
       width: calc(100% + 247.3px);
     }
