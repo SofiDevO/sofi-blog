@@ -1,0 +1,220 @@
+---
+// Array of dropdown options
+const dropdownOptions = [
+  {
+    label: "Portafolio",
+    href: "https://itssofi.dev/",
+    icon: "zondicons:portfolio",
+    target: "_blank",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/SofiDevO",
+    icon: "fa-brands:github-alt",
+    target: "_blank",
+  },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/sofidev/", icon: "pajamas:linkedin", target: "_blank" },
+  {
+    label: "Apoya este sitio",
+    href: "/support",
+    icon: "fluent-emoji:pink-heart",
+    target: "_self",
+  },
+];
+---
+
+<script>
+  let isOpen = false;
+
+  function toggleDropdown() {
+    isOpen = !isOpen;
+    const dropdown = document.getElementById("dropdown-menu");
+    const button = document.getElementById("menu-button");
+
+    if (dropdown) {
+      if (isOpen) {
+        dropdown.classList.remove(
+          "dropdown-menu--hidden",
+          "dropdown-menu--closed"
+        );
+        dropdown.classList.add("dropdown-menu--open");
+        button.setAttribute("aria-expanded", "true");
+      } else {
+        dropdown.classList.add(
+          "dropdown-menu--hidden",
+          "dropdown-menu--closed"
+        );
+        dropdown.classList.remove("dropdown-menu--open");
+        button.setAttribute("aria-expanded", "false");
+      }
+    }
+  }
+
+  function closeDropdown() {
+    isOpen = false;
+    const dropdown = document.getElementById("dropdown-menu");
+    const button = document.getElementById("menu-button");
+
+    if (dropdown) {
+      dropdown.classList.add("dropdown-menu--hidden", "dropdown-menu--closed");
+      dropdown.classList.remove("dropdown-menu--open");
+      button.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.getElementById("menu-button");
+    const dropdownLinks = document.querySelectorAll(".dropdown-menu__item");
+
+    if (button) {
+      button.addEventListener("click", toggleDropdown);
+    }
+
+    dropdownLinks.forEach((link) => {
+      link.addEventListener("click", closeDropdown);
+    });
+  });
+</script>
+
+<div class="dropdown">
+  <div class="dropdown__trigger">
+    <button
+      type="button"
+      class="dropdown__button"
+      id="menu-button"
+      aria-expanded="false"
+      aria-haspopup="true"
+    >
+      Mucho más
+      <!-- <iconify-icon class="dropdown__icon" width="30" height="30" icon="gridicons:dropdown"
+      ></iconify-icon> -->
+    </button>
+  </div>
+
+  <div
+    id="dropdown-menu"
+    class="dropdown-menu dropdown-menu--hidden dropdown-menu--closed"
+    role="menu"
+    aria-orientation="vertical"
+    aria-labelledby="menu-button"
+    tabindex="-1"
+  >
+    <div class="dropdown-menu__items" role="none">
+      {
+        dropdownOptions.map((option) => (
+          <a
+            href={option.href}
+            class="dropdown-menu__item"
+            target={option.target}
+            rel={option.target == "_blank" ? "noopener noreferrer" : ""}
+            tabindex="-1"
+          >
+            <iconify-icon
+              class="dropdown-menu__icon"
+              icon={option.icon}
+              wifth="25"
+              height="25"
+            />
+            {option.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    text-align: left;
+    background: transparent;
+
+    &__trigger {
+      display: flex;
+    }
+
+    &__button {
+      margin-left: 1rem;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      gap: 0.375rem;
+      border-radius: 0.375rem;
+      background-color: transparent;
+      padding: 0.8rem 0.8rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: aqua;
+      box-shadow: 0 1px 1px rgba(43, 234, 202, 0.109);
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #1b2732;
+      }
+    }
+    &__icon {
+      margin-right: -0.25rem;
+      width: 1.25rem;
+      height: 1.25rem;
+      color: aqua;
+      font-size: 3rem;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    right: -2rem;
+    display: flex;
+    z-index: 10;
+    margin-top: 2rem;
+    width: 29rem;
+    border-radius: 1.3rem;
+    background-color: #0c0c0c;
+    box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+    transform-origin: top right;
+    transition:
+      opacity 0.1s ease-out,
+      transform 0.1s ease-out;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #07ffd633;
+
+    &--hidden {
+      display: none;
+    }
+
+    &--closed {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    &--open {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    &__items {
+      padding: 1rem;
+      width: 100%;
+    }
+    &__item {
+      text-align: center;
+      gap: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0.5rem 1rem;
+      font-size: 1.7rem;
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #1e2636;
+      }
+    }
+  }
+</style>

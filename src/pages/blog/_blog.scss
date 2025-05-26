@@ -1,10 +1,10 @@
 @use "@sass/variables" as v;
-@use "@sass/mixins" as mixins;
+@use "@sass/mixins" as  *;
 
 #post {
 
     h1 {
-      @include mixins.text-gradient("dark");
+      @include text-gradient("dark");
     }
 
     h2 {

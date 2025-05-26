@@ -1,6 +1,7 @@
 ---
 import { fetchMenuData } from "@src/services/getMenu.js";
 import { flatListToHierarchical } from "@utils/flatListToHierarchical";
+import ButtonDropdown from "./button-dropdown/ButtonDropdown.astro";
 
 
 
@@ -77,4 +78,5 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
       ))
     }
   </ul>
+  <ButtonDropdown />
 </nav>

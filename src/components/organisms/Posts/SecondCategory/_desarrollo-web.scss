@@ -1,17 +1,17 @@
 @use "@sass/variables" as v;
-@use "@sass/mixins" as mixins;
+@use "@sass/mixins" as  *;
 
 .bg-section {
   background: v.$dark-violet;
   padding: 17rem 2rem;
-  @include mixins.centerFlex();
+  @include centerFlex();
   flex-direction: column;
 }
 
 .web-dev {
-  @include mixins.centerFlex(center, flex-start);
+  @include centerFlex(center, flex-start);
   width: 100%;
-  max-width: 1200px;
+  @extend %max-width;;
   min-height: 100dvh;
   flex-direction: column;
   margin: 0 auto;
@@ -27,10 +27,10 @@
     font-size: 1.8rem;
     font-weight: 500;
     padding: 0px 10px;
-    @include mixins.titleType("big");
+    @include titleType("big");
 
-    @include mixins.respond-to("medium") {
-      @include mixins.titleType("small");
+    @include respond-to("medium") {
+      @include titleType("small");
     }
   }
   &__container {
@@ -44,13 +44,13 @@
     gap: 2rem;
     height: -moz-fit-content;
     height: fit-content;
-    @include mixins.respond-to("medium") {
+    @include respond-to("medium") {
       flex-wrap: wrap;
       flex-direction: column;
     }
     &__container--reverse {
       flex-direction: row-reverse;
-      @include mixins.respond-to("medium") {
+      @include respond-to("medium") {
         flex-direction: column;
       }
     }
@@ -62,7 +62,7 @@
   }
   &__container--reverse {
     flex-direction: row-reverse;
-    @include mixins.respond-to("small") {
+    @include respond-to("small") {
       flex-direction: column;
     }
 
@@ -116,7 +116,7 @@
     gap: 1rem;
     width: 100%;
     height: auto;
-    @include mixins.respond-to("medium") {
+    @include respond-to("medium") {
       gap: 2rem;
     }
   }
