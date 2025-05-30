@@ -28,12 +28,14 @@
     @include centerFlex(flex-start);
 
   }
+
   &__list {
     display: flex;
     align-items: center;
 
 
   }
+
   &__icons {
     display: none;
 
@@ -161,6 +163,7 @@
       background: black;
       gap: 2rem;
     }
+
     &__list {
       width: 100%;
       min-height: 60dvh;
@@ -169,6 +172,7 @@
       align-items: flex-start;
       padding-top: 5rem;
       gap: 2rem;
+
       @include respond-to("medium") {
         align-items: flex-start;
       }
@@ -179,7 +183,7 @@
   .header__menu.is-active {
     transform: translateX(0%);
     border-radius: 14px 0 0 14px;
-    gap:2rem;
+    gap: 2rem;
   }
 }
 
@@ -204,21 +208,6 @@
     }
   }
 
-}
-
-.dark {
-  .header__link {
-    color: aqua;
-  }
-
-  .header__menu .header__list .dropdown a {
-    color: aqua;
-
-    @include respond-to("medium") {
-      text-align: left;
-      width: 100%;
-    }
-  }
 }
 
 /*
@@ -253,9 +242,10 @@
     }
 
   }
+
   &.dropdown--open .dropdown__item {
     @include respond-to("medium") {
-      pointer-events:all;
+      pointer-events: all;
     }
   }
 
@@ -274,14 +264,12 @@
       align-items: center;
     }
   }
-
-
   &__link {
-    width: fit-content;
     text-transform: capitalize;
     text-align: center;
     padding: 5px 0px;
     width: 100%;
+    display: block  ;
     transition: background-color 0.3s ease-in-out;
     color: white;
     border-radius: 4px;
@@ -330,38 +318,33 @@
       border-radius: 6px;
     }
   }
-
-  @include respond-to("medium") {
-    min-width: 30rem;
-  }
 }
 
-.dropdown__link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-  width: 100%;
-}
+
+
+
 
 @include respond-to("medium") {
   .header__menu .header__list .dropdown__checkbox:checked~.dropdown__icon {
     transform: rotate(180deg);
   }
-
-  // .header__menu .header__list:has(.dropdown__checkbox:checked) .dropdown {
-  //   display: block;
-  //   opacity: 1;
-  //   transform: translateY(25px);
-  //   transition: all 0.6s ease;
-
-  //   @starting-style {
-  //     opacity: 0;
-  //     display: none;
-  //     transform: translateY(0px);
-  //   }
-  // }
 }
 
 .header__item:hover .dropdown {
   display: block;
+}
+
+.dark {
+  .header__link {
+    color: aqua;
+  }
+
+  .header__menu .header__list .dropdown a {
+    color: aqua;
+
+    @include respond-to("medium") {
+      text-align: left;
+      width: 100%;
+    }
+  }
 }
