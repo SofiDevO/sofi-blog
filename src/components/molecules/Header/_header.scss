@@ -86,24 +86,29 @@
   &__link:hover::after {
     transform: scale(1);
   }
-  &__item--open{
+
+  &__item--open {
     @include respond-to("medium") {
       display: flex;
       flex-direction: column;
     }
   }
+
   &__item {
     position: relative;
     margin-right: 1rem;
     display: flex;
     align-items: center;
+
     &-container {
       width: 100%;
       display: flex;
       align-items: center;
 
       @include respond-to("medium") {
-        gap: 4rem;
+        gap: 2rem;
+        min-width: 30rem;
+        justify-content: space-between;
 
       }
     }
@@ -155,7 +160,7 @@
       top: -10px;
       width: 101vw;
       height: 100dvh;
-      padding: 0 3rem ;
+      padding: 0 3rem;
       background: black;
     }
 
@@ -205,6 +210,7 @@
 
   .header__menu .header__list .dropdown a {
     color: aqua;
+
     @include respond-to("medium") {
       text-align: left;
       width: 100%;
@@ -234,7 +240,8 @@
 
   &--open {
     display: block;
-    opacity: 1 ;
+    opacity: 1;
+
     @include respond-to("medium") {
       display: flex;
       flex-direction: column;
@@ -264,6 +271,7 @@
     transition: background-color 0.3s ease-in-out;
     color: white;
     border-radius: 4px;
+
     &:hover {
       background-color: #383838;
     }
