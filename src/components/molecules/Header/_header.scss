@@ -43,6 +43,7 @@
   }
 
   &__list>*:not(a) {
+    height: 100%;
     display: flex;
     margin-right: 1.5rem;
     list-style: none;
@@ -158,6 +159,7 @@
       height: 100dvh;
       padding: 0 3rem;
       background: black;
+      gap: 2rem;
     }
     &__list {
       width: 100%;
