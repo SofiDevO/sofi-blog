@@ -71,7 +71,9 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
             // Mobile behavior - click on toggle only
             toggleButton.addEventListener('click', (event) => {
               event.preventDefault();
-              event.stopPropagation();
+              if (event.target instanceof HTMLElement) {
+                event.target.stopPropagation();
+              }
 
               const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
               const allDropdownPanels = document.querySelectorAll('.dropdown');
@@ -88,17 +90,19 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
               });
 
               // Toggle current dropdown
-              toggleButton.setAttribute('aria-expanded', !isExpanded);
+              toggleButton.setAttribute('aria-expanded', (!isExpanded).toString());
               dropdownPanel.classList.toggle('dropdown--open');
               parentHeaderItem.classList.toggle('header__item--open', !isExpanded);
             });
 
-            // Prevent dropdown from closing when clicking inside
+
             dropdownPanel.addEventListener('click', (event) => {
-              event.stopPropagation();
+              if (event.target instanceof HTMLElement) {
+                event.target.stopPropagation(); // Verifica que event.target sea un HTMLElement
+              }
             });
           } else {
-            // Desktop behavior - hover
+
             parentHeaderItem.addEventListener('mouseenter', () => {
               toggleButton.setAttribute('aria-expanded', 'true');
               dropdownPanel.classList.add('dropdown--open');
@@ -114,7 +118,6 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
         });
       }
 
-      // Initial setup
       setupDropdownBehavior(mediaQuery.matches);
 
       // Update on screen size change
@@ -122,7 +125,7 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
         setupDropdownBehavior(event.matches);
       });
 
-      // Close dropdowns when clicking outside (mobile only)
+      // Close dropdowns when clicking outside (mobile only 🦝)
       document.addEventListener('click', (event) => {
         if (mediaQuery.matches && !event.target.closest('[data-dropdown-toggle]')) {
           const openDropdownPanels = document.querySelectorAll('.dropdown--open');

@@ -76,7 +76,8 @@ const panelOptions = [
       if (
         isOpen &&
         panel &&
-        !panel.contains(event.target) &&
+        event.target && 
+        !panel.contains(event.target instanceof Node ? event.target : null) &&
         button !== event.target
       ) {
         closePanel();
