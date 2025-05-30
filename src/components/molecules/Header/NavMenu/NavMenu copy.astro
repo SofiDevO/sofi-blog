@@ -1,0 +1,139 @@
+---
+import { fetchMenuData } from "@src/services/getMenu.js";
+import { flatListToHierarchical } from "@utils/flatListToHierarchical";
+import ButtonDropdown from "./button-dropdown/ButtonDropdown.astro";
+
+const pagePathname = Astro.url.pathname;
+const menuData = await fetchMenuData("menu");
+const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
+  ? [...menuData.menu.menuItems.nodes]
+  : [];
+const hierarchicalMenu = flatListToHierarchical(menuItems);
+---
+
+<nav class="header__menu">
+  <ul class="header__list">
+    {pagePathname !== "/" && (
+      <li class="header__item">
+        <a class="header__link" href="/" data-astro-prefetch="hover" transition:name="home">
+          Home
+        </a>
+      </li>
+    )}
+    {hierarchicalMenu.map((item) => (
+      <li class="header__item" data-has-children={item.children.length > 0}>
+        <div class="header__item-container">
+          <a class="header__link" href={`/categories/${item.slug}`} data-astro-prefetch="hover">
+            {item.label}
+          </a>
+          {item.children.length > 0 && (
+            <button class="dropdown__toggle" aria-label="Toggle dropdown" aria-expanded="false" data-dropdown-toggle>
+              <iconify-icon class="dropdown__icon" icon="gridicons:dropdown" />
+            </button>
+          )}
+        </div>
+        {item.children.length > 0 && (
+          <ul class="dropdown">
+            {item.children.map((child) => (
+              <li class="dropdown__item">
+                <a class="dropdown__link" href={`/categories/${child.slug}`} data-astro-prefetch="hover">
+                  {child.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
+  <ButtonDropdown />
+</nav>
+
+<script is:inline>
+   document.addEventListener('DOMContentLoaded', () => {
+      const mediaQuery = window.matchMedia('(max-width: 768px)');
+      const dropdownToggles = document.querySelectorAll('[data-dropdown-toggle]');
+
+      function setupDropdownBehavior(isMobileView) {
+        dropdownToggles.forEach(toggleButton => {
+          const parentHeaderItem = toggleButton.closest('.header__item');
+          if (!parentHeaderItem || !parentHeaderItem.hasAttribute('data-has-children')) return;
+
+          const dropdownPanel = parentHeaderItem.querySelector('.dropdown');
+          if (!dropdownPanel) return;
+
+          // Reset previous behaviors
+          parentHeaderItem.onmouseenter = null;
+          parentHeaderItem.onmouseleave = null;
+          toggleButton.onclick = null;
+
+          if (isMobileView) {
+            // Mobile behavior - click on toggle only
+            toggleButton.addEventListener('click', (event) => {
+              event.preventDefault();
+              event.stopPropagation();
+
+              const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+              const allDropdownPanels = document.querySelectorAll('.dropdown');
+
+              // Close all other dropdowns
+              allDropdownPanels.forEach(panel => {
+                if (panel !== dropdownPanel) {
+                  panel.classList.remove('dropdown--open');
+                  const parentItem = panel.closest('.header__item');
+                  parentItem?.classList.remove('header__item--open');
+                  const toggle = parentItem?.querySelector('[data-dropdown-toggle]');
+                  toggle?.setAttribute('aria-expanded', 'false');
+                }
+              });
+
+              // Toggle current dropdown
+              toggleButton.setAttribute('aria-expanded', !isExpanded);
+              dropdownPanel.classList.toggle('dropdown--open');
+              parentHeaderItem.classList.toggle('header__item--open', !isExpanded);
+            });
+
+            // Prevent dropdown from closing when clicking inside
+            dropdownPanel.addEventListener('click', (event) => {
+              event.stopPropagation();
+            });
+          } else {
+            // Desktop behavior - hover
+            parentHeaderItem.addEventListener('mouseenter', () => {
+              toggleButton.setAttribute('aria-expanded', 'true');
+              dropdownPanel.classList.add('dropdown--open');
+              parentHeaderItem.classList.add('header__item--open');
+            });
+
+            parentHeaderItem.addEventListener('mouseleave', () => {
+              toggleButton.setAttribute('aria-expanded', 'false');
+              dropdownPanel.classList.remove('dropdown--open');
+              parentHeaderItem.classList.remove('header__item--open');
+            });
+          }
+        });
+      }
+
+      // Initial setup
+      setupDropdownBehavior(mediaQuery.matches);
+
+      // Update on screen size change
+      mediaQuery.addEventListener('change', (event) => {
+        setupDropdownBehavior(event.matches);
+      });
+
+      // Close dropdowns when clicking outside (mobile only)
+      document.addEventListener('click', (event) => {
+        if (mediaQuery.matches && !event.target.closest('[data-dropdown-toggle]')) {
+          const openDropdownPanels = document.querySelectorAll('.dropdown--open');
+          openDropdownPanels.forEach(dropdownPanel => {
+            dropdownPanel.classList.remove('dropdown--open');
+            const parentHeaderItem = dropdownPanel.closest('.header__item');
+            parentHeaderItem?.classList.remove('header__item--open');
+            const toggleButton = parentHeaderItem?.querySelector('[data-dropdown-toggle]');
+            toggleButton?.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    });
+</script>
