@@ -93,6 +93,10 @@
     }
   }
   &__item {
+    position: relative;
+    margin-right: 1rem;
+    display: flex;
+    align-items: center;
     &-container {
       width: 100%;
       display: flex;
@@ -103,11 +107,6 @@
 
       }
     }
-
-    position: relative;
-    margin-right: 1rem;
-    display: flex;
-    align-items: center;
 
     iconify-icon {
       color: aqua;
@@ -250,7 +249,7 @@
     padding: 0.5rem 1rem;
     white-space: nowrap;
 
-    &-container {
+    &--container {
       display: flex;
       align-items: center;
     }
