@@ -15,14 +15,14 @@ const hierarchicalMenu = flatListToHierarchical(menuItems);
   <ul class="header__list">
     {pagePathname !== "/" && (
       <li class="header__item">
-        <a class="header__link" href="/" data-astro-prefetch="hover" transition:name="home">
+        <a class="header__link" href="/" data-astro-prefetch="hover" >
           Home
         </a>
       </li>
     )}
     {hierarchicalMenu.map((item) => (
       <li class="header__item" data-has-children={item.children.length > 0}>
-        <div class="header__item-container">
+        <div class="header__item--container">
           <a class="header__link" href={`/categories/${item.slug}`} data-astro-prefetch="hover">
             {item.label}
           </a>

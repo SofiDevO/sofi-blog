@@ -15,6 +15,7 @@
     @include centerFlex(space-between);
     width: 100%;
     min-height: 8dvh;
+    max-height: 8dvh;
     max-width: 1100px;
     background: black;
     background: rgba(0, 0, 0, 0.767);
@@ -99,7 +100,7 @@
     display: flex;
     align-items: center;
 
-    &-container {
+    &--container {
       width: 100%;
       display: flex;
       align-items: center;
