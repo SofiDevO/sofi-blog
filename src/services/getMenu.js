@@ -12,7 +12,7 @@ export const fetchMenuData = async (menuID) => {
     query: `
             query GET_MENU_BY_NAME {
                 menu(id:"${menuID}", idType: NAME) {
-                    menuItems {
+                    menuItems(first: 50) {
                     nodes {
                       id
                       parentId

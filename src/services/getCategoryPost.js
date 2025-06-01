@@ -6,7 +6,7 @@ export const categoryPost = async (databaseId) => {
       query: `
         query categoryPost {
             posts(where: {categoryIn: ${databaseId}}) {
-                nodes {
+                nodes(first: 500) {
                 excerpt(format: RENDERED)
                 featuredImage {
                     node {

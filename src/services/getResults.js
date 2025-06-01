@@ -3,7 +3,7 @@ export const getResults = async (search) =>{
  try{
   const data = await wpquery({
     query: `
-       query getResults {
+       query getResults(first: 500) {
         posts(where: {search: "${search}"}) {
             nodes {
             excerpt

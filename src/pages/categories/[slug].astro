@@ -10,7 +10,6 @@ if (!category) {
   return Astro.redirect("/404");
 }
 
-
 // Configuración de paginación
 const postsPerPage = 4;
 const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
@@ -20,18 +19,12 @@ const totalPages = Math.ceil(category.posts.length / postsPerPage);
 const startIndex = (currentPage - 1) * postsPerPage;
 const endIndex = startIndex + postsPerPage;
 const paginatedPosts = category.posts.slice(startIndex, endIndex);
-
-
-
-
 ---
 
 <Layout>
   <section class="categories">
     <div class="categories__cards">
-      <h2
-        class="categories__title"
-      >
+      <h2 class="categories__title">
         Posts de la categoría: {category?.name}
       </h2>
       {
@@ -47,31 +40,31 @@ const paginatedPosts = category.posts.slice(startIndex, endIndex);
           </ul>
         ) : (
           <div class="categories__cards">
-
-              <p>No se encontraron posts en esta categoría. 🦝</p>
-
+            <p>No se encontraron posts en esta categoría. 🦝</p>
           </div>
         )
       }
+      {
+        totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            baseUrl={Astro.url.pathname}
+          />
+        )
+      }
     </div>
-    {
-      totalPages > 1 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          baseUrl={Astro.url.pathname}
-        />
-      )
-    }
   </section>
 </Layout>
 
 <style lang="scss" is:global>
   @use "@sass/variables" as v;
-  @use "@sass/mixins" as  *;
+  @use "@sass/mixins" as *;
   main {
-    margin:0 auto!important;
-    padding-top: 15rem!important;
+    margin: 0 auto !important;
+    padding-top: 11rem !important;
+    min-height: 100dvh;
+    height: 100%;
   }
   .categories {
     max-width: 1300px;
@@ -85,11 +78,14 @@ const paginatedPosts = category.posts.slice(startIndex, endIndex);
       transition: color 0.3s ease-in-out;
     }
     &__cards {
+      @include centerFlex(space-evenly);
       width: 100%;
-      @include centerFlex(center);
+      display: flex;
+      align-items: center;
       flex-direction: column;
-      min-height: 380px;
-      margin-bottom: 3rem;
+      gap: 3rem;
+      padding: 2rem 1rem;
+      height: fit-content;
     }
   }
 </style>
