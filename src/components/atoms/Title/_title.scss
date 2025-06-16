@@ -8,16 +8,14 @@
 
 
 
-.title-light {
-  @include text-gradient();
-}
-.dark .title-light {
-  @include text-gradient("dark");
-}
-.title-dark {
-  @include text-gradient("dark");
+.title.title-light {
+  @include text-gradient('light');
 }
 
-.dark .title-dark {
-  @include text-gradient();
+.dark .title {
+  @include text-gradient("ligth");
+}
+
+.title {
+  @include text-gradient("dark");
 }
