@@ -34,3 +34,40 @@ import SofiIcon from "./svgs/SofiIcon.astro";
       <SofiIcon />
     </div>
 </section>
+
+
+
+
+<script>
+  const container = document.querySelector(".github");
+  const line1 = container.querySelector("#line-1");
+  const line2 = container.querySelector("#line-2");
+  const line3 = container.querySelector("#line-3");
+  const bubles = container.querySelectorAll(".buble");
+
+
+
+  const interceptBranch = (entries)=>{
+    entries.forEach((entry)=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("active");
+        return
+      }
+      entry.target.classList.remove("active");
+    })
+
+  }
+
+
+  const observer = new IntersectionObserver(interceptBranch);
+  observer.observe(line1);
+  observer.observe(line2);
+  observer.observe(line3);
+
+    bubles.forEach((buble)=>{
+      observer.observe(buble);
+  })
+
+
+
+</script>
