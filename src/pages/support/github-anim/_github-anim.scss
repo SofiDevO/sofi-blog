@@ -7,23 +7,23 @@
     max-width: 1100px;
     margin: 0 auto;
     min-height: 40dvh;
-
     &__anim {
-
         @include centerFlex();
     }
-
+    .main-branch{
+        filter: drop-shadow(0 0 22px aqua);
+    }
     .branch-container {
         position: relative;
         @include centerFlex();
     }
-
     .merge-branch {
+        filter: drop-shadow(0 0 22px aqua);
         position: absolute;
         top: -5rem;
     }
-
     .diverge-branch {
+        filter: drop-shadow(0 0 22px aqua);
         position: absolute;
         bottom: -5rem;
     }
@@ -38,26 +38,39 @@
         z-index: 10;
     }
 
+    // #line-1,
+    // #line-2 {
+
+    // }
 
     #line-1 {
         stroke-dasharray: 480;
         stroke-dashoffset: 480;
-        animation: drawPath 4.4s ease-out forwards;
+        --delay: 0s;
+        --duration: 4s;
     }
 
     #line-2 {
-        stroke-dasharray: 480;
-        stroke-dashoffset: 480;
-        animation: drawPath 4.1s ease-out forwards;
-        animation-delay: .8s;
+        stroke-dasharray: 267;
+        stroke-dashoffset: 267;
+        --delay: 8s;
+        --duration: 5s;
+
     }
 
     #line-3 {
+        --delay: .8s;
+        --duration: 2s;
         stroke-dasharray: 168;
         stroke-dashoffset: 168;
-        animation: drawPath 2s ease-out forwards;
-        animation-delay: .8s;
+
     }
+
+    .active {
+        animation-delay: var(--delay);
+        animation: drawPath var(--duration) ease-out forwards;
+    }
+
 
 
     .buble {
@@ -65,24 +78,27 @@
         width: 20px;
         height: 20px;
         border-radius: 50%;
+
     }
 
     .buble-main {
         background: #23ecfa;
         box-shadow: 0 0 13px 2px #00eeff;
-
         top: -1;
-
         &-1 {
             left: -5%;
+            --delay: 0s;
+            --duration: 1s;
         }
-
         &-2 {
             left: 10%;
+            --delay: .1s;
+            --duration: 1s;
         }
-
         &-3 {
             left: 30%;
+               --delay: .6s;
+            --duration: 1s;
         }
 
         &-4 {
@@ -100,26 +116,38 @@
         &-7 {
             left: 100%;
         }
+        &.active {
+
+            animation: popup var(--duration)  both;
+            animation-delay: var(--delay);
+        }
     }
+
 
     .buble-merge {
         background: #9747FF;
         box-shadow: 0 0 13px 2px #6f00ff;
         top: -5.6rem;
+
         &-1 {
             left: 35%;
         }
+
         &-2 {
             left: 63%;
         }
     }
+
+
     .buble-diverge {
         background: #FDAD01;
         box-shadow: 0 0 13px 2px #ff3c00;
         bottom: -5.6rem;
+
         &-1 {
             left: 44%;
         }
+
         &-2 {
             left: 63%;
         }
@@ -133,5 +161,65 @@
 @keyframes drawPath {
     to {
         stroke-dashoffset: 0;
+    }
+}
+
+@keyframes popup {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+
+    38% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+
+    55% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    72% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    81% {
+        -webkit-transform: scale(0.84);
+        transform: scale(0.84);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    89% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    95% {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
     }
 }
