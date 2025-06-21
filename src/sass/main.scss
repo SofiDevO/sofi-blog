@@ -1,5 +1,5 @@
 @use "@sass/variables" as v;
-@use "@sass/mixins" as  *;
+@use "@sass/mixins" as *;
 @use "@sass/animations" as animations;
 @use "@atoms/Title/title" as title;
 @use "@atoms/Button/button" as button;
@@ -28,8 +28,8 @@
   --aqua: #58ecff;
   --bgDark: rgb(14, 18, 23);
   --textColor: #555;
-  --text-gradient: linear-gradient(  to right,#6600cc 0%,  #009990 100%);
-  --text-gradient-ufo:linear-gradient(to right, #33ff76 0%, #58ecff 100%);
+  --text-gradient: linear-gradient(to right, #6600cc 0%, #009990 100%);
+  --text-gradient-ufo: linear-gradient(to right, #33ff76 0%, #58ecff 100%);
   --border-color: var(--frenchViolet);
   --card-border: 1px solid #c8c5c5d3;
 }
@@ -45,7 +45,6 @@
   --text-gradient: linear-gradient(to right, #33ff76 0%, #58ecff 100%);
   --border-color: rgba(199, 158, 252, 0.808);
 }
-
 
 * {
   box-sizing: border-box;
@@ -102,10 +101,8 @@ figure {
   overflow-x: auto;
 }
 
-
-
 code {
- text-wrap: balance;
+  text-wrap: balance;
   line-break: auto;
 }
 
@@ -135,7 +132,6 @@ table td {
   padding: 1rem;
   border: 1px solid lightgrey;
 }
-
 
 .text-gradient {
   @include text-gradient();
