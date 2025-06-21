@@ -53,10 +53,27 @@
 
     details {
       width: 100%;
+      interpolate-size: allow-keywords;
+
+      &::details-content {
+        transition:
+          height 0.5s ease,
+          opacity 0.5s ease;
+        opacity: 0;
+        height: 0;
+      }
 
       &:open {
         iconify-icon {
           transform: rotate(180deg);
+        }
+
+        &::details-content {
+          transition:
+            height 0.5s ease,
+            opacity 0.5s ease;
+          height: auto;
+          opacity: 1;
         }
       }
     }
