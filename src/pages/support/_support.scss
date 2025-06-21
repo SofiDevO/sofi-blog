@@ -26,6 +26,9 @@
         -webkit-text-fill-color: transparent;
         -webkit-background-clip: text;
         font-family: "Montserrat Variable", sans-serif;
+        &--secondary {
+            font-size: 3.4rem;
+        }
     }
     &__desc{
         color: white;
