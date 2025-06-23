@@ -136,3 +136,5 @@ dist
 
 # prettier ignore
 .prettierignore
+
+*.lock

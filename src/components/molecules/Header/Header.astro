@@ -2,18 +2,17 @@
 import Logo from "@atoms/Logo/Logo.astro";
 import HamburgerButton from "@atoms/hamburgerBtn/HamburgerBtn.astro";
 import NavMenu from "@molecules/Header/NavMenu/NavMenu.astro";
-import NavMenuCopy from "./NavMenu/NavMenucopy.astro";
 export const prerender = false;
 ---
 
 <script>
   import "@controllers/hamburger.controller";
 </script>
+
 <header class="header">
   <div class="header__container">
     <Logo />
-    <!-- <NavMenu /> -->
-     <NavMenuCopy />
+    <NavMenu />
     <HamburgerButton />
   </div>
 </header>

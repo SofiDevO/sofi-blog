@@ -1,18 +1,17 @@
 const d = document;
-export default function HamburgerButton(hamburgerBtn, panel,menuLink){
-  d.addEventListener("click", (e)=>{
-    if(e.target.matches(hamburgerBtn) || e.target.matches(`${hamburgerBtn} *`)){
-    d.querySelector(hamburgerBtn).classList.toggle("is-active");
-    d.querySelector(panel).classList.toggle("is-active");
+export default function HamburgerButton(hamburgerBtn, panel) {
+  d.addEventListener("click", (e) => {
+    if (
+      e.target.matches(hamburgerBtn) ||
+      e.target.matches(`${hamburgerBtn} *`)
+    ) {
+      d.querySelector("body").classList.toggle("no-scroll");
+      d.querySelector(hamburgerBtn).classList.toggle("is-active");
+      d.querySelector(panel).classList.toggle("activate-menu");
     }
-    if(e.target.matches(menuLink)){
-    d.querySelector(hamburgerBtn).classList.remove("is-active");
-    d.querySelector(panel).classList.remove("is-active");
-    }
-  })
+  });
 }
 
-
 d.addEventListener("DOMContentLoaded", (e) => {
-    HamburgerButton(".hamburger", ".header__menu", ".header__link" );
-})
+  HamburgerButton(".hamburger", ".menu");
+});

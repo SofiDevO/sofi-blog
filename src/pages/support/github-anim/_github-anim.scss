@@ -7,10 +7,13 @@
     max-width: 1100px;
     margin: 0 auto;
     min-height: 40dvh;
-
+    gap: 5rem;
     &__anim {
-
         @include centerFlex();
+    }
+
+    .main-branch {
+        filter: drop-shadow(0 0 22px aqua);
     }
 
     .branch-container {
@@ -19,13 +22,16 @@
     }
 
     .merge-branch {
+        filter: drop-shadow(0 0 22px aqua);
         position: absolute;
         top: -5rem;
     }
 
     .diverge-branch {
+        filter: drop-shadow(0 0 22px aqua);
         position: absolute;
-        bottom: -5rem;
+        bottom: -4.9rem;
+        left: 15rem;
     }
 
     .icon {
@@ -38,27 +44,38 @@
         z-index: 10;
     }
 
+    // #line-1,
+    // #line-2 {
+
+    // }
 
     #line-1 {
         stroke-dasharray: 480;
         stroke-dashoffset: 480;
-        animation: drawPath 4.4s ease-out forwards;
+        --delay: 0s;
+        --duration: 2.8s;
     }
 
     #line-2 {
-        stroke-dasharray: 480;
-        stroke-dashoffset: 480;
-        animation: drawPath 4.1s ease-out forwards;
-        animation-delay: .8s;
+        stroke-dasharray: 267;
+        stroke-dashoffset: 267;
+        --delay: 8s;
+        --duration: 2.5s;
+
     }
 
     #line-3 {
+        --delay: 1.5s;
+        --duration: 3s;
         stroke-dasharray: 168;
         stroke-dashoffset: 168;
-        animation: drawPath 2s ease-out forwards;
-        animation-delay: .8s;
+
     }
 
+    .active {
+        animation-delay: var(--delay);
+        animation: drawPath var(--duration) ease-out forwards;
+    }
 
     .buble {
         position: absolute;
@@ -68,70 +85,180 @@
     }
 
     .buble-main {
+        --duration: 1s;
         background: #23ecfa;
         box-shadow: 0 0 13px 2px #00eeff;
-
         top: -1;
 
         &-1 {
             left: -5%;
+            --delay: 0s;
         }
 
         &-2 {
             left: 10%;
+            --delay: .1s;
+            --duration: 1s;
         }
 
         &-3 {
-            left: 30%;
+            left: 28%;
+            --delay: .6s;
+
         }
 
         &-4 {
             left: 50%;
+            --delay: .9s;
+
         }
 
         &-5 {
             left: 73%;
+            --delay: 1.8s;
+
         }
 
         &-6 {
             left: 87%;
+            --delay: 2.4s;
         }
 
         &-7 {
             left: 100%;
+            --delay: 3s;
+        }
+
+        &.active {
+            animation: popup var(--duration) both;
+            animation-delay: var(--delay);
         }
     }
 
+
     .buble-merge {
+        --duration: 1s;
         background: #9747FF;
         box-shadow: 0 0 13px 2px #6f00ff;
         top: -5.6rem;
+
         &-1 {
             left: 35%;
+            --delay: .4s;
         }
+
         &-2 {
             left: 63%;
+            --delay: 1s;
+        }
+
+        &.active {
+            animation: popup var(--duration) both;
+            animation-delay: var(--delay);
         }
     }
+
+
     .buble-diverge {
+        --duration: 1s;
         background: #FDAD01;
         box-shadow: 0 0 13px 2px #ff3c00;
         bottom: -5.6rem;
+
         &-1 {
-            left: 44%;
+            --delay: .4s;
+            left: 37%;
         }
+
         &-2 {
-            left: 63%;
+            left: 59%;
+            --delay: 2s;
+        }
+        &.active {
+            animation: popup var(--duration) both;
+            animation-delay: var(--delay);
         }
     }
 
 }
 
-
-
-
 @keyframes drawPath {
+    from {
+        opacity: 0;
+    }
+
     to {
         stroke-dashoffset: 0;
+        opacity: 1;
     }
+}
+
+@keyframes popup {
+    0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+
+    38% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+
+    55% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    72% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    81% {
+        -webkit-transform: scale(0.84);
+        transform: scale(0.84);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    89% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    95% {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+
+
+/* Content */
+.github__content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:3rem;
+    padding: 0 0 2rem 0
 }

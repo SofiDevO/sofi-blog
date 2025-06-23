@@ -4,32 +4,34 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
 import CookiesBanner from "@src/components/atoms/CookiesBanner/CookiesBanner";
+import Menu from "@src/components/molecules/Menu/Menu.astro";
 
 const { title, description, image } = Astro.props;
-export const prerender = true
-
+export const prerender = true;
 ---
 
 <html lang="es">
   <head>
     <BaseHead title={title} description={description} image={image} />
     <!-- Google tag (gtag.js) -->
-    <script defer async src="https://www.googletagmanager.com/gtag/js?id=G-4HD0MHWJHW"
-    ></script>
+    <script
+      defer
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-4HD0MHWJHW"></script>
     <slot name="head" />
   </head>
   <body>
     <ThemeIcon />
     <ButtonToTop />
     <Header />
+    <Menu />
     <slot name="hero" />
     <main>
-    <slot />
+      <slot />
     </main>
 
-    <script >
-      </script>
-      <CookiesBanner client:load />
+    <script></script>
+    <CookiesBanner client:load />
   </body>
 </html>
 
