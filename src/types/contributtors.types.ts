@@ -2,21 +2,29 @@ export interface Contributtor {
   banner: {
     altText: string;
     mediaItemUrl: string;
-    sizes: any;
-    srcSet: any;
+    sizes: string;
+    srcSet: string;
   };
   customcolor: string;
   cv: string;
   description: string;
   email: string;
-  rol: string;
   embedVideo: string;
   name: string;
+  rol: string;
   profilepic: {
-    sizes: any;
-    srcSet: any;
     altText: string;
     mediaItemUrl: string;
+    sizes: string;
+    srcSet: string;
+  };
+  socialLinks: {
+    github: string;
+    instagram: string;
+    kofi: string;
+    linkedin: string;
+    twitch: string;
+    youtube: string;
   };
   slug: string;
 }

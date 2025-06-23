@@ -1,11 +1,95 @@
 ---
-import type {Contributtor} from "@src/types/contributtors.types.ts";
-import {getContributtors} from "@src/services/getContributtors.js";
+import type { Contributtor } from "@src/types/contributtors.types.ts";
+import { getContributtors } from "@src/services/getContributtors.js";
 
-const contributors:Contributtor[] = await getContributtors();
+const contributors: Contributtor[] = await getContributtors();
 
+console.log(contributors);
 
+const icons = {
+  linkedin: "fa-brands:linkedin",
+  github: "fa-brands:github-alt",
+  youtube: "ion:logo-youtube",
+  koFi: "simple-icons:kofi",
+  twitch: "basil:twitch-solid",
+  instagram: "icon-park-twotone:instagram",
+};
+
+const getIcon = (icon: string) => {
+  return icons[icon];
+};
 ---
 
-
-<h1>Patata</h1>
+<section class="contributtors">
+  <ul class="contributtors__list">
+    {
+      contributors.map((contributor: Contributtor) => (
+        <li
+          class="contributtors__card"
+          style={`background:${contributor.customcolor}`}
+        >
+          <div class="card__container">
+            <div class="card__container-banner">
+              <img
+                src={contributor.banner.mediaItemUrl}
+                srcset={contributor.banner.srcSet}
+                sizes={contributor.banner.mediaItemUrl}
+                class="card__img"
+                alt={contributor.banner.altText}
+              />
+            </div>
+            <img
+              src={contributor.profilepic.mediaItemUrl}
+              alt={contributor.name}
+              srcset={contributor.profilepic.srcSet}
+              sizes={contributor.profilepic.sizes}
+              width="100"
+              height="100"
+              class="card__avatar"
+            />
+          </div>
+          <article class="card__content">
+            <h2 style={`color:${contributor.customcolor}; filter: invert(1);`}>
+              {contributor.name}{" "}
+            </h2>
+            <ul>
+              <li
+              class="card__rol"
+              }
+                style={`color:${contributor.customcolor}; filter: invert(1);`}
+              >
+                {contributor.rol}
+              </li>
+            </ul>
+            <ul class="card__social">
+              {Object.keys(contributor.socialLinks)
+                .filter(
+                  (socialLink) => contributor.socialLinks[socialLink] !== null
+                )
+                .slice(0, 3)
+                .map((socialLink) => (
+                  <li>
+                    <a
+                      href={contributor.socialLinks[socialLink]}
+                      target="_blank"
+                    >
+                      <iconify-icon
+                        style={`color:${contributor.customcolor}; filter: invert(1);`}
+                        icon={getIcon(socialLink)}
+                        width="25"
+                        height="25"
+                      />
+                    </a>
+                  </li>
+                ))}
+            </ul>
+            <a
+            class="card__button"
+            style={`background:${contributor.customcolor}; filter: invert(1);`}
+            href={contributor.slug}> Ver más</a>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+</section>
