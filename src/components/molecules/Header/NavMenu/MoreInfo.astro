@@ -1,0 +1,58 @@
+---
+// Array of panel options
+const panelOptions = [
+  {
+    label: "Portafolio",
+    href: "https://itssofi.dev/",
+    icon: "zondicons:portfolio",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/SofiDevO",
+    icon: "fa-brands:github-alt",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/sofidev/",
+    icon: "pajamas:linkedin",
+  },
+];
+---
+
+<li class="header__list">
+  <span class="header__link">
+    Mucho más
+    <iconify-icon
+      class="header__icon__dropdown dropdown__icon"
+      icon="gridicons:dropdown"></iconify-icon>
+  </span>
+  <ol class="header__dropdown">
+    {
+      panelOptions.map((option) => (
+        <li class="dropdown__list">
+          <a
+            href={option.href}
+            target="_blank"
+            aria-label={`go to ${option.label.toLowerCase()}`}
+            rel="noopener noreferrer"
+            class="anchor__dropdown"
+          >
+            <iconify-icon icon={option.icon} />
+            {option.label}
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</li>
+
+<style>
+  .anchor__dropdown {
+    justify-content: left !important;
+    gap: 1.1rem !important;
+
+    & iconify-icon {
+      font-size: 2rem;
+    }
+  }
+</style>

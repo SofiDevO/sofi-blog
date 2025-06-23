@@ -1,0 +1,85 @@
+---
+import { fetchMenuData } from "@src/services/getMenu.js";
+import { flatListToHierarchical } from "@utils/flatListToHierarchical";
+import "./_menu.scss";
+
+const pagePathname = Astro.url.pathname;
+const menuData = await fetchMenuData("menu");
+const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
+  ? [...menuData.menu.menuItems.nodes]
+  : [];
+
+type PropsCategoryList = {
+  id: string;
+  parentId: string | null;
+  path: string;
+  label: string;
+  slug: string;
+  children: PropsCategoryList[];
+};
+
+const CategoryList: PropsCategoryList[] = flatListToHierarchical(menuItems);
+---
+
+<menu class="menu">
+  <ol class="menu__list">
+    {
+      pagePathname !== "/" && (
+        <li>
+          <a href="/">Inicio</a>
+        </li>
+      )
+    }
+    {
+      CategoryList.map((element) => (
+        <>
+          {element.children.length > 0 ? (
+            <details>
+              <summary>
+                {element.label}
+                <span class="details__icon">
+                  <iconify-icon icon="gridicons:dropdown" />
+                </span>
+              </summary>
+              <ol class="children__list">
+                {element.children.map((children) => (
+                  <li>
+                    <a
+                      href={`/categories/${children.slug}`}
+                      aria-label={`go to ${children.label.toLowerCase()}`}
+                    >
+                      {children.label}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </details>
+          ) : (
+            <li>
+              <a
+                href={`/categories/${element.slug}`}
+                aria-label={`go to ${element.label.toLowerCase()}`}
+              >
+                {element.label}
+              </a>
+            </li>
+          )}
+        </>
+      ))
+    }
+  </ol>
+</menu>
+
+<script>
+  document.querySelectorAll("details").forEach((details) => {
+    details.addEventListener("toggle", (event: any) => {
+      if (event.target.open) {
+        document.querySelectorAll("details").forEach((otherDetails) => {
+          if (otherDetails !== details) {
+            otherDetails.removeAttribute("open");
+          }
+        });
+      }
+    });
+  });
+</script>

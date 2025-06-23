@@ -1,82 +1,84 @@
 ---
 import { fetchMenuData } from "@src/services/getMenu.js";
 import { flatListToHierarchical } from "@utils/flatListToHierarchical";
-import ButtonDropdown from "./button-dropdown/ButtonDropdown.astro";
+import MoreInfo from "./MoreInfo.astro";
 
-
-
-// Get current page URL path
 const pagePathname = Astro.url.pathname;
-
-// Fetch menu data from the API/service
 const menuData = await fetchMenuData("menu");
-
-
-// Check if menu items exist and convert to array
-// If menuItems doesn't exist, use empty array as fallback
 const menuItems = Array.isArray(menuData?.menu?.menuItems?.nodes)
   ? [...menuData.menu.menuItems.nodes]
   : [];
 
-// Convert flat menu list into a hierarchical structure (parent-child relationship)
-const hierarchicalMenu = flatListToHierarchical(menuItems);
+type PropsCategoryList = {
+  id: string;
+  parentId: string | null;
+  path: string;
+  label: string;
+  slug: string;
+  children: PropsCategoryList[];
+};
 
+const CategoryList: PropsCategoryList[] = flatListToHierarchical(menuItems);
 ---
 
-<!-- Navigation menu component -->
-<nav class="header__menu">
-  <ul class="header__list">
-    {/* Show Home link only when not on homepage */}
+<nav class="header__nav">
+  <ul>
     {
       pagePathname !== "/" && (
         <li class="header__item">
-          <a
-            class="header__link"
-            href="/"
-            data-astro-prefetch="hover"
-            transition:name="home"
-          >
-            Home
+          <a class="header__link" href="/" data-astro-prefetch="hover">
+            Inicio
           </a>
         </li>
       )
     }
-    {/* Map through menu items and create navigation links */}
-    {
-      hierarchicalMenu.map((item) => (
-        <li class="header__item">
-          {/* Parent menu item */}
-          <a
-            class="header__link"
-            href={`/categories/${item.slug}`}
-            data-astro-prefetch="hover"
-          >
-            {item.label}
-          </a>
-          {/* If item has children, create dropdown menu */}
-          {item.children.length > 0 && (
-            <label for={item.slug} class="dropdown__label" aria-label="dropdown">
-            <input type="checkbox" class="dropdown__checkbox" id={item.slug} />
-            <iconify-icon class="dropdown__icon" icon="gridicons:dropdown" />
-            </label>
-              <ul class="dropdown">
-                {/* Map through child items */}
-                {item.children.map((child) => (
-                  <li class="dropdown__item">
-                    <a
-                      class="dropdown__link"
-                      href={`/categories/${child.slug}`}
-                      data-astro-prefetch="hover"
-                    >
-                      {child.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-          )}
-        </li>
-      ))
-    }
+    <li class="header__list">
+      <span class="header__link">
+        Categorías
+        <iconify-icon
+          class="header__icon__dropdown dropdown__icon"
+          icon="gridicons:dropdown"></iconify-icon>
+      </span>
+      <ol class="header__dropdown">
+        {
+          CategoryList.map((element) => (
+            <li class="dropdown__list">
+              {element.children.length > 0 ? (
+                <>
+                  <span>
+                    {element.label}
+                    <iconify-icon
+                      class="dropdown__icon dropdown__list__icon"
+                      icon="gridicons:dropdown"
+                    />
+                  </span>
+                  <ol>
+                    {element.children.map((children) => (
+                      <li class="dropdown__item__list">
+                        <a
+                          href={`/categories/${children.slug}`}
+                          aria-label={`go to ${children.label.toLowerCase()}`}
+                        >
+                          {children.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </>
+              ) : (
+                <a
+                  href={`/categories/${element.slug}`}
+                  aria-label={`go to ${element.label.toLowerCase()}`}
+                >
+                  {element.label}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </li>
+    <MoreInfo />
   </ul>
-  <ButtonDropdown />
+  <a href="/support" class="header__support"> Apoyar este sitio 💚 </a>
 </nav>
