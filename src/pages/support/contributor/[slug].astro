@@ -1,0 +1,49 @@
+---
+import Layout from "@src/layouts/Layout.astro";
+import { getContributor } from "@src/services/getContributor";
+
+const { slug } = Astro.params;
+
+const contributor = await getContributor(slug);
+---
+
+<Layout>
+  <section class="contributor">
+    <div class="contributor__content">
+      <h1 class="contributor__title">{contributor.name}</h1>
+      <article
+        class="contributor__description"
+        set:html={contributor.description}
+      >
+      </article>
+    </div>
+  </section>
+  <style lang="scss" is:inline>
+    .contributor {
+      color: white;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+      &__title {
+        font-size: 2rem;
+      }
+      &__description {
+        font-size: 1.2rem;
+      }
+      & p:has(> img) {
+        width: 100px;
+      }
+    }
+  </style>
+</Layout>
