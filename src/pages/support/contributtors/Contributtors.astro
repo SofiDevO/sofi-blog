@@ -1,10 +1,10 @@
 ---
-import type { Contributtor } from "@src/types/contributtors.types.ts";
+import type { CardContributtor } from "@src/types/contributtors.types.ts";
 import { getContributtors } from "@src/services/getContributtors.js";
 
-const contributors: Contributtor[] = await getContributtors();
+const contributors: CardContributtor[] = await getContributtors();
 
-console.log(contributors);
+
 
 const icons = {
   linkedin: "fa-brands:linkedin",
@@ -23,7 +23,7 @@ const getIcon = (icon: string) => {
 <section class="contributtors">
   <ul class="contributtors__list">
     {
-      contributors.map((contributor: Contributtor) => (
+      contributors.map((contributor: CardContributtor) => (
         <li
           class="contributtors__card"
           style={`background:${contributor.customcolor}`}
@@ -55,7 +55,6 @@ const getIcon = (icon: string) => {
             <ul>
               <li
               class="card__rol"
-              }
                 style={`color:${contributor.customcolor}; filter: invert(1);`}
               >
                 {contributor.rol}
@@ -86,7 +85,7 @@ const getIcon = (icon: string) => {
             <a
             class="card__button"
             style={`color:${contributor.customcolor}; background: color-mix(in srgb, ${contributor.customcolor} 40%, #ffff 60%);`}
-            href={contributor.slug}> Ver más</a>
+            href={`support/contributor/${contributor.slug}`}> Ver más</a>
           </article>
         </li>
       ))

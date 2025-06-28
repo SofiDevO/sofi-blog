@@ -28,3 +28,6 @@ export interface Contributtor {
   };
   slug: string;
 }
+
+
+export type CardContributtor = Omit<Contributtor, "cv" | "embedVideo" |  "description" >
