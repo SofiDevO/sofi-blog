@@ -9,8 +9,14 @@ const contributor = await getContributor(slug);
 
 <Layout>
   <section class="contributor">
-    <div class="contributor__content">
+    <div class="contributor__banner " style=`--bg: url(${contributor.banner.mediaItemUrl})`>
+      <div class="contributor__image">
+        <img src={contributor.profilepic.mediaItemUrl} alt={contributor.profilepic.altText} />
+        <div class="contributor__overlay"></div>
+      </div>
       <h1 class="contributor__title">{contributor.name}</h1>
+    </div>
+    <div class="contributor__content">
       <article
         class="contributor__description"
         set:html={contributor.description}
@@ -18,32 +24,4 @@ const contributor = await getContributor(slug);
       </article>
     </div>
   </section>
-  <style lang="scss" is:inline>
-    .contributor {
-      color: white;
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      min-height: 100dvh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      &__content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-      }
-      &__title {
-        font-size: 2rem;
-      }
-      &__description {
-        font-size: 1.2rem;
-      }
-      & p:has(> img) {
-        width: 100px;
-      }
-    }
-  </style>
 </Layout>

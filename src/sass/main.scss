@@ -65,6 +65,9 @@ body {
   @include font-family("montserrat");
   background: var(--bg-color);
   color: var(--textColor);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 a {

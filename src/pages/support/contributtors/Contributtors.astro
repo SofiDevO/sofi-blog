@@ -85,7 +85,7 @@ const getIcon = (icon: string) => {
             <a
             class="card__button"
             style={`color:${contributor.customcolor}; background: color-mix(in srgb, ${contributor.customcolor} 40%, #ffff 60%);`}
-            href={`support/contributor/${contributor.slug}`}> Ver más</a>
+            href={`support/contributor/${contributor.slug}`} data-astro-prefetch> Ver más</a>
           </article>
         </li>
       ))
