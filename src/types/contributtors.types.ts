@@ -11,7 +11,7 @@ export interface Contributtor {
   email: string;
   embedVideo: string;
   name: string;
-  rol: string;
+  rol: string[];
   profilepic: {
     altText: string;
     mediaItemUrl: string;

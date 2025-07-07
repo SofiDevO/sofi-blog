@@ -8,6 +8,7 @@
     margin: 0 auto;
     min-height: 40dvh;
     gap: 5rem;
+
     &__anim {
         @include centerFlex();
     }
@@ -174,6 +175,7 @@
             left: 59%;
             --delay: 2s;
         }
+
         &.active {
             animation: popup var(--duration) both;
             animation-delay: var(--delay);
@@ -255,10 +257,14 @@
 
 
 /* Content */
-.github__content{
+.github__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap:3rem;
+    gap: 3rem;
     padding: 0 0 2rem 0
+}
+
+.github__description {
+    color: white;
 }

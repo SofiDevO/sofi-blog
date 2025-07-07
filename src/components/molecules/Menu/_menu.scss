@@ -7,7 +7,7 @@
 
   display: none;
   position: fixed;
-  z-index: 100;
+  z-index: 1100;
   height: 100%;
   width: 100%;
   padding: 3rem;
@@ -58,9 +58,11 @@
       &::details-content {
         transition:
           height 0.5s ease,
-          opacity 0.5s ease;
+          opacity 0.5s ease,
+          content-visibility 0.5s allow-discrete;
         opacity: 0;
         height: 0;
+        overflow: clip;
       }
 
       &:open {
@@ -69,9 +71,6 @@
         }
 
         &::details-content {
-          transition:
-            height 0.5s ease,
-            opacity 0.5s ease;
           height: auto;
           opacity: 1;
         }

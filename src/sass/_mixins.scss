@@ -18,6 +18,8 @@
   justify-content: $justify;
 }
 
+
+
 // Font family mixin
 @mixin font-family($type) {
   @if $type == "montserrat" {
@@ -28,11 +30,6 @@
     font-family: "Questrial", sans-serif;
   }
 }
-
-@function pxToRem($size) {
-
-}
-
 
 @mixin titleType($type) {
   @if $type == "bigger" {
@@ -51,7 +48,6 @@
     font-size: 2.6rem;
     font-weight: 700;
   }
-
 }
 
 // Responsive breakpoints

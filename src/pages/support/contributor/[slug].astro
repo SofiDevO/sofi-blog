@@ -5,23 +5,40 @@ import { getContributor } from "@src/services/getContributor";
 const { slug } = Astro.params;
 
 const contributor = await getContributor(slug);
+console.log(contributor);
 ---
 
 <Layout>
   <section class="contributor">
-    <div class="contributor__banner " style=`--bg: url(${contributor.banner.mediaItemUrl})`>
+    <div
+      class="contributor__banner"
+      style=`--bg: url(${contributor.banner.mediaItemUrl})`
+    >
+      <div class="contributor__overlay"></div>
+    </div>
+    <div class="contributor__container">
       <div class="contributor__image">
-        <img src={contributor.profilepic.mediaItemUrl} alt={contributor.profilepic.altText} />
-        <div class="contributor__overlay"></div>
+        <img
+          src={contributor.profilepic.mediaItemUrl}
+          alt={contributor.profilepic.altText}
+        />
       </div>
-      <h1 class="contributor__title">{contributor.name}</h1>
+      <article class="contributor__info">
+        <h1 class="contributor__title">{contributor.name}</h1>
+        <ul class="contributor__rol">
+          {
+            contributor.rol.map((rol) => (
+              <li class="contributor__rol-item">{rol}</li>
+            ))
+          }
+          </ul>
+      </article>
     </div>
     <div class="contributor__content">
       <article
         class="contributor__description"
         set:html={contributor.description}
-      >
-      </article>
+      />
     </div>
   </section>
 </Layout>
