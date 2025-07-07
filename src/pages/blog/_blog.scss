@@ -6,7 +6,6 @@
     h1 {
       @include text-gradient("dark");
     }
-
     h2 {
       font-size: 2.5rem;
       font-weight: 700;
@@ -24,11 +23,11 @@
       max-height: 600px;
     }
     div[data-code-block-pro-font-family="Code-Pro-JetBrains-Mono"]{
+      display: flex;
       width: 100%;
       margin: 0 auto;
       height: auto;
       min-height: 100%;
-      display: flex;
       flex-direction: column;
       flex-wrap: wrap;
       overflow: hidden;
@@ -101,9 +100,7 @@
       height: 5px;
     }
     .button-copy {
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      @include centerFlex();
       cursor: pointer;
       gap: 0.5rem;
       color: v.$light-violet;
