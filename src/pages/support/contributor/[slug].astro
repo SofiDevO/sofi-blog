@@ -1,43 +1,34 @@
 ---
+import Button from "@src/components/atoms/Button/Button.astro";
 import Layout from "@src/layouts/Layout.astro";
+import SideBar from "@src/pages/blog/sideBar/SideBar.astro";
 import { getContributor } from "@src/services/getContributor";
 
 const { slug } = Astro.params;
 
 const contributor = await getContributor(slug);
 
-const list = [
-  {
-    name: "Frontend Developer",
-    icon: "azure-pipelines",
-    color: "100, 181, 246",
-  },
-  {
-    name: "Backend Developer",
-    icon: "3d",
-    color: "41, 182, 246",
-  },
-  { name: "Diseñador", icon: "figma", color: "124, 77, 255" },
-  { name: "Escritor", icon: "dhall", color: "120, 144, 156" },
-  {
-    name: "Divulgador de programación",
-    icon: "brainfuck",
-    color: "255, 64, 129",
-  },
-  { name: "Javascript Developer", icon: "javascript", color: "255, 202, 40" },
-  { name: "Mobile Developer", icon: "architecture", color: "102, 187, 106" },
-  { name: "Editor de Video", icon: "video", color: "255, 152, 0" },
-  { name: "Maquetador", icon: "palette", color: "79, 195, 247" },
-  { name: "Fullstack Developer", icon: "astyle", color: "239, 83, 80" },
-  { name: "UX/UI", icon: "bazel", color: "129, 199, 132" },
-];
+import { rollList } from "./rollList";
 
 let tags: { name: string; color: string; icon: string }[] = [];
 
 contributor.rol.forEach((rol) => {
-  const tag = list.find((item) => item.name === rol);
+  const tag = rollList.find((item) => item.name === rol);
   if (tag) tags.push(tag);
 });
+/*
+   "socialLinks": {
+
+      },
+*/
+const icons = {
+  github: "akar-icons:github-fill",
+  instagram: "akar-icons:instagram-fill",
+  koFi: "simple-icons:kofi",
+  linkedin: "akar-icons:linkedin-fill",
+  twitch: "akar-icons:twitch-fill",
+  youtube: "akar-icons:youtube-fill",
+};
 ---
 
 <Layout>
@@ -75,11 +66,40 @@ contributor.rol.forEach((rol) => {
         </ul>
       </article>
     </div>
+
     <div class="contributor__content">
       <article
         class="contributor__description"
         set:html={contributor.description}
       />
+      <SideBar>
+        <ul class="contributor__social-list">
+          {
+            Object.keys(contributor.socialLinks)
+              .filter((link) => contributor.socialLinks[link] !== null)
+              .map((link) => (
+                <li class="contributor__social-item">
+                  <Button
+                    href={contributor.socialLinks[link]}
+                    class="contributor__button"
+                    target="_blank"
+                  >
+                    <iconify-icon
+                      class="contributor__icon"
+                      icon={icons[link]}
+                      width="24"
+                      height="24"
+                      style="color: #2dcece"
+                    />
+                    <span class="contributor__link">
+                    {link}
+                    </span>
+                  </Button>
+                </li>
+              ))
+          }
+        </ul>
+      </SideBar>
     </div>
   </section>
 </Layout>

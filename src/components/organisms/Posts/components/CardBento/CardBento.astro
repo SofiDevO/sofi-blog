@@ -47,7 +47,7 @@ const { title, slug, excerpt, image, categories, index } = Astro.props;
   @use "@sass/variables" as v;
   @use "@sass/mixins" as  *;
   .card__bento {
-    @include centerFlex();
+    @include flexConfig();
     flex-direction: column;
     gap: 1rem;
     width: 100%;

@@ -2,7 +2,7 @@
 @use "@sass/mixins" as *;
 
 .contributor {
-  @include centerFlex(center, flex-start);
+  @include flexConfig(center, flex-start);
   gap: 2rem;
   flex-direction: column;
   color: $mainColor;
@@ -18,12 +18,12 @@
     border: 0.25px solid rgba(255, 255, 255, 0.335);
     border-radius: 12px;
     padding: 2.7rem 5.5rem;
-    @include centerFlex(flex-end);
+    @include flexConfig(flex-end);
     gap: 5rem;
   }
 
   &__image {
-    @include centerFlex();
+    @include flexConfig();
     width: 150px;
     height: 150px;
     min-width: 150px;
@@ -42,21 +42,21 @@
 
   &__container {
     width: 100%;
-    @include centerFlex(start);
+    @include flexConfig(start);
     flex-wrap: wrap;
     gap: 2rem;
     padding: 0 2rem;
   }
 
   &__info {
-    @include centerFlex(center, flex-start);
+    @include flexConfig(center, flex-start);
     flex-direction: column;
     gap: 1rem;
     flex: 1;
   }
 
   &__rol {
-    @include centerFlex(left, center);
+    @include flexConfig(left, center);
     flex-wrap: wrap;
     font-size: 1.2rem;
     color: $mainColor;
@@ -68,7 +68,7 @@
     font-weight: 600;
 
     li {
-      @include centerFlex();
+      @include flexConfig();
       letter-spacing: 1.3px;
       background: linear-gradient(
         rgb(var(--color-render), 0.1),
@@ -88,8 +88,7 @@
   }
 
   &__content {
-    @include centerFlex();
-    flex-direction: column;
+    @include flexConfig(center, start);
     gap: 1rem;
     color: white;
     padding: 0 2rem;
@@ -107,4 +106,20 @@
   & p:has(> img) {
     width: 100px;
   }
+  &__social-list{
+    @include flexConfig();
+    flex-direction: column;
+    gap: 1rem;
+  }
+  &__social-item{
+    @include flexConfig();
+    width: 100%;
+  }
+  &__button {
+    @include flexConfig(start, center);
+    gap: 2rem;
+    padding: 1rem 2rem;
+    text-transform: capitalize;
+  }
+
 }

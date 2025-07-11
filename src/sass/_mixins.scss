@@ -12,7 +12,7 @@
 
 
 // Center flexbox
-@mixin centerFlex($justify: center, $align: center) {
+@mixin flexConfig($justify: center, $align: center) {
   display: flex;
   align-items: $align;
   justify-content: $justify;

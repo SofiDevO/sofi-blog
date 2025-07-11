@@ -37,7 +37,7 @@
 
 .cardWrapper{
     margin-top:5rem;
-    @include centerFlex();
+    @include flexConfig();
     flex-direction: column;
     gap: 1rem;
     width: 100%

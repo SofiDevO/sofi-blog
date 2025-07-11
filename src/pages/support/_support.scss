@@ -5,7 +5,7 @@
 @use "@sass/mixins" as *;
 
 .support {
-    @include centerFlex();
+    @include flexConfig();
     gap: 10rem;
     width: 100%;
     max-width: 1100px;
@@ -38,7 +38,7 @@
     }
 
     &__container {
-        @include centerFlex();
+        @include flexConfig();
         background: $light-violet;
         padding: 1rem;
         overflow: hidden;

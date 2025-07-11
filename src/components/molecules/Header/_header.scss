@@ -9,7 +9,7 @@
   --background-color: #6600cc;
   --color: #43d47d;
 
-  @include centerFlex(center);
+  @include flexConfig(center);
   width: 100%;
   position: fixed;
   z-index: 1200;
@@ -22,7 +22,7 @@
 
   &__container {
     backdrop-filter: blur(15px);
-    @include centerFlex(space-between);
+    @include flexConfig(space-between);
     width: 100%;
     min-height: 7.5rem;
     height: 7.5rem;
