@@ -1,14 +1,14 @@
 @use "@sass/variables" as v;
 @use "@sass/mixins" as  *;
 .categories__container {
-  @include centerFlex();
+  @include flexConfig();
   flex-direction: column;
   padding: 21rem 0 10rem;
 
   .category {
     width: 90vw;
     max-width: 1180px;
-    @include centerFlex(center, flex-start);
+    @include flexConfig(center, flex-start);
     flex-direction: column;
     gap: 3rem;
     &__link {

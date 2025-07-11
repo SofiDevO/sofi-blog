@@ -2,7 +2,7 @@
 @use "@sass/mixins" as *;
 
 .github {
-    @include centerFlex();
+    @include flexConfig();
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
@@ -10,7 +10,7 @@
     gap: 5rem;
 
     &__anim {
-        @include centerFlex();
+        @include flexConfig();
     }
 
     .main-branch {
@@ -19,7 +19,7 @@
 
     .branch-container {
         position: relative;
-        @include centerFlex();
+        @include flexConfig();
     }
 
     .merge-branch {

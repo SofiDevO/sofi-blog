@@ -7,7 +7,7 @@
 
 .sideCard{
     padding: 1rem;
-    @include centerFlex(center, flex-start);
+    @include flexConfig(center, flex-start);
     flex-direction: column;
     width: 100%;
     height: fit-content;

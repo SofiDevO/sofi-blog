@@ -5,7 +5,7 @@
   width: 100%;
   @extend %max-width;;
   margin: 0 auto;
-  @include centerFlex();
+  @include flexConfig();
   flex-direction: column;
   gap: 5rem;
   padding: 20rem 0;
@@ -55,7 +55,7 @@ swiper-container {
 }
 
 .swiper-slide {
-  @include centerFlex();
+  @include flexConfig();
   text-align: center;
   font-size: 18px;
   background: v.$mainColor;

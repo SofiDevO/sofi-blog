@@ -4,12 +4,12 @@
 .bg-section {
   background: v.$dark-violet;
   padding: 17rem 2rem;
-  @include centerFlex();
+  @include flexConfig();
   flex-direction: column;
 }
 
 .web-dev {
-  @include centerFlex(center, flex-start);
+  @include flexConfig(center, flex-start);
   width: 100%;
   @extend %max-width;;
   min-height: 100dvh;

@@ -7,6 +7,7 @@ import Comments from "@src/components/organisms/Comments/Comments.astro";
 import PostDetail from "@src/components/organisms/Posts/components/post-detail/PostDetail.astro";
 import { PostContentData } from "@src/services/getPostContent";
 import SideBar from "./sideBar/SideBar.astro";
+import SideBarContent from "./sideBar/SideBarContent.astro";
 const { slug } = Astro.params;
 
 export async function getStaticPaths() {
@@ -81,7 +82,9 @@ const keyWords = post.tags.nodes.map((keyword) => keyword.name).join(", ");
         </PostDetail>
       </div>
       <!-- Aside -->
-      <SideBar  {category}/>
+      <SideBar  >
+        <SideBarContent category={category} />
+      </SideBar>
     </div>
   </section>
 

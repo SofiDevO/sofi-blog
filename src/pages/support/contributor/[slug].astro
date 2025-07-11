@@ -1,11 +1,34 @@
 ---
+import Button from "@src/components/atoms/Button/Button.astro";
 import Layout from "@src/layouts/Layout.astro";
+import SideBar from "@src/pages/blog/sideBar/SideBar.astro";
 import { getContributor } from "@src/services/getContributor";
 
 const { slug } = Astro.params;
 
 const contributor = await getContributor(slug);
-console.log(contributor);
+
+import { rollList } from "./rollList";
+
+let tags: { name: string; color: string; icon: string }[] = [];
+
+contributor.rol.forEach((rol) => {
+  const tag = rollList.find((item) => item.name === rol);
+  if (tag) tags.push(tag);
+});
+/*
+   "socialLinks": {
+
+      },
+*/
+const icons = {
+  github: "akar-icons:github-fill",
+  instagram: "akar-icons:instagram-fill",
+  koFi: "simple-icons:kofi",
+  linkedin: "akar-icons:linkedin-fill",
+  twitch: "akar-icons:twitch-fill",
+  youtube: "akar-icons:youtube-fill",
+};
 ---
 
 <Layout>
@@ -27,18 +50,56 @@ console.log(contributor);
         <h1 class="contributor__title">{contributor.name}</h1>
         <ul class="contributor__rol">
           {
-            contributor.rol.map((rol) => (
-              <li class="contributor__rol-item">{rol}</li>
+            tags.map((rol) => (
+              <li
+                class="contributor__rol-item"
+                style={`--color-render: ${rol.color}`}
+              >
+                <iconify-icon
+                  icon={`material-icon-theme:${rol.icon}`}
+                  class="icon"
+                />
+                {rol.name}
+              </li>
             ))
           }
-          </ul>
+        </ul>
       </article>
     </div>
+
     <div class="contributor__content">
       <article
         class="contributor__description"
         set:html={contributor.description}
       />
+      <SideBar>
+        <ul class="contributor__social-list">
+          {
+            Object.keys(contributor.socialLinks)
+              .filter((link) => contributor.socialLinks[link] !== null)
+              .map((link) => (
+                <li class="contributor__social-item">
+                  <Button
+                    href={contributor.socialLinks[link]}
+                    class="contributor__button"
+                    target="_blank"
+                  >
+                    <iconify-icon
+                      class="contributor__icon"
+                      icon={icons[link]}
+                      width="24"
+                      height="24"
+                      style="color: #2dcece"
+                    />
+                    <span class="contributor__link">
+                    {link}
+                    </span>
+                  </Button>
+                </li>
+              ))
+          }
+        </ul>
+      </SideBar>
     </div>
   </section>
 </Layout>

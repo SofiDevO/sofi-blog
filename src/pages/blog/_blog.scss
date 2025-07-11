@@ -100,7 +100,7 @@
       height: 5px;
     }
     .button-copy {
-      @include centerFlex();
+      @include flexConfig();
       cursor: pointer;
       gap: 0.5rem;
       color: v.$light-violet;
