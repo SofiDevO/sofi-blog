@@ -4,6 +4,8 @@
 .menu {
   --background-color-theme: #010002;
   --background-color-theme-hover: #383838;
+  --background-color: #6600cc;
+  --color: #43d47d;
 
   display: none;
   position: fixed;
@@ -15,6 +17,22 @@
   transition: left 0.4s ease;
   justify-content: center;
   background-color: var(--background-color-theme);
+
+  &__support {
+    display: flex;
+    align-items: center;
+    height: 2.4rem;
+    padding: 0 1.2rem 0 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    color: var(--color);
+    background-color: var(--background-color);
+    transition: all 0.3s ease-in;
+
+    &:hover {
+      background-color: #43d47d2d;
+    }
+  }
 
   &__list {
     display: flex;
@@ -31,7 +49,7 @@
     }
 
     .details__icon {
-      background-color: #6600cc;
+      background-color: var(--background-color);
       color: #33ff76;
       width: 2.4rem;
       height: 2.4rem;
