@@ -1,0 +1,91 @@
+---
+const icons = {
+  linkedin: "fa-brands:linkedin",
+  github: "fa-brands:github-alt",
+  youtube: "ion:logo-youtube",
+  koFi: "simple-icons:kofi",
+  twitch: "basil:twitch-solid",
+  instagram: "icon-park-twotone:instagram",
+};
+
+const getIcon = (icon: string) => {
+  return icons[icon];
+};
+
+const { contributor } = Astro.props;
+
+const listaES = new Intl.ListFormat("es", {
+  style: "long",
+  type: "conjunction",
+});
+const rols = listaES.format(contributor.rol);
+---
+
+<li class="contributtors__card" style={`--color:${contributor.customcolor}; --bg-img:url(${contributor.banner.mediaItemUrl});`}>
+  <div class="card__container">
+    <div class="card__container-banner">
+      <img
+        src={contributor.banner.mediaItemUrl}
+        srcset={contributor.banner.srcSet}
+        sizes={contributor.banner.mediaItemUrl}
+        class="card__img"
+        alt={contributor.banner.altText}
+      />
+    </div>
+    <div class="card__profile">
+      <div class="card__container-avatar">
+        <img
+          src={contributor.profilepic.mediaItemUrl}
+          alt={contributor.name}
+          srcset={contributor.profilepic.srcSet}
+          sizes={contributor.profilepic.sizes}
+          width="100"
+          height="100"
+          class="card__avatar"
+        />
+      </div>
+      <ul class="card__social">
+        {
+          Object.keys(contributor.socialLinks)
+            .filter(
+              (socialLink) => contributor.socialLinks[socialLink] !== null
+            )
+            .slice(0, 3)
+            .map((socialLink) => (
+              <li>
+                <a href={contributor.socialLinks[socialLink]} target="_blank">
+                  <iconify-icon
+                    class="card__social-icon"
+                    icon={getIcon(socialLink)}
+                    width="25"
+                    height="25"
+                  />
+                </a>
+              </li>
+            ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <article class="card__content">
+    <h2 >
+      {contributor.name}{" "}
+    </h2>
+
+    <p
+      class="card__rol"
+
+    >
+      {rols}
+    </p>
+    <a
+      class="card__button"
+      style={`--custom-color:${contributor.customcolor}; `}
+      href={`support/contributor/${contributor.slug}` }
+      data-astro-prefetch
+    >
+      Ver más</a
+    >
+  </article>
+</li>

@@ -29,7 +29,6 @@ export const queryContributor = (slug)=> `
             }
             description
             email
-            embedVideo
             name
             profilepic {
                 node {

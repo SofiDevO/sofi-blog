@@ -19,7 +19,6 @@ export const querycontributors = `
                 }
                 description
                 email
-                embedVideo
                 name
                 rol
                 profilepic {
