@@ -1,50 +1,121 @@
 ---
-import DateTag from '@src/components/atoms/DateTag/DateTag.astro';
+import DateTag from "@src/components/atoms/DateTag/DateTag.astro";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import { replaceIframes } from "@src/utils/index";
 const { post, author } = Astro.props;
-
 ---
 
-<article
-class="flex flex-col w-full overflow-x-clip text-balance"
->
-
-<!-- Author Info -->
-<div class="flex gap-3 items-center my-5 px-3 group">
-  <img
-  id="author-image"
-    class="w-24 h-24 group-hover:scale-110 rounded-full"
-    src={author.avatar?.url}
-    alt={author.name}
-  />
-  <div class="flex flex-col items-center gap-5">
-    <p class="text-2xl font-bold">
-      {author.firstName}
-      {author.lastName}
-    </p>
-    <p class="font-bold text-2xl">
-      Tiempo de lectura
-      <span class="text-violet-700"> {post.seo.readingTime} minutes</span>
-    </p>
-    <p class="font-bold text-2xl">
-      Fecha de publicación
-      <DateTag isShort={false} date={post.date} />
-    </p>
+<article class="flex flex-col w-full overflow-x-clip text-balance">
+  <!-- Author Info -->
+  <div class="flex gap-3 items-center my-5 px-3 group">
+    <img
+      id="author-image"
+      class="w-24 h-24 group-hover:scale-110 rounded-full"
+      src={author.avatar?.url}
+      alt={author.name}
+    />
+    <div class="flex flex-col items-center gap-5">
+      <p class="text-2xl font-bold">
+        {author.firstName}
+        {author.lastName}
+      </p>
+      <p class="font-bold text-2xl">
+        Tiempo de lectura
+        <span class="text-violet-700"> {post.seo.readingTime} minutes</span>
+      </p>
+      <p class="font-bold text-2xl">
+        Fecha de publicación
+        <DateTag isShort={false} date={post.date} />
+      </p>
+    </div>
   </div>
-</div>
-<div
-  class="w-full flex flex-col items-start gap-10 justify-center self-center text-left"
->
-{
-  post.content ? (
-    <Fragment set:html={replaceIframes(post.content) || ""} />
-  )
-  :
-  (
-    <Loader />
-  )
-}
-  <slot />
-</div>
+  <div
+    class="w-full flex flex-col items-start gap-10 justify-center self-center text-left"
+    id="container-post"
+  >
+    <dialog
+      class="w-full open:flex justify-center items-center h-full fixed bg-black/95 left-0 top-0 p-5"
+    >
+    </dialog>
+    {
+      post.content ? (
+        <Fragment set:html={replaceIframes(post.content) || ""} />
+      ) : (
+        <Loader />
+      )
+    }
+    <slot />
+  </div>
 </article>
+
+<style>
+  #container-post {
+    img {
+      cursor: pointer;
+    }
+  }
+
+  dialog {
+    z-index: 1500;
+    opacity: 0;
+    transition:
+      opacity 0.3s ease,
+      display 0.3s ease allow-discrete;
+
+    img {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      border: solid 1px rgb(255, 255, 255, 0.1);
+      cursor: default !important;
+      border-radius: 8px;
+    }
+
+    &:open {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      img {
+        scale: 1;
+        transition: scale 0.4s ease;
+      }
+
+      @starting-style {
+        scale: 0;
+        opacity: 0;
+
+        img {
+          scale: 0.75;
+        }
+      }
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("container-post") as HTMLElement;
+    const allImages = container.querySelectorAll<HTMLImageElement>("img");
+    const dialog = container.querySelector("dialog") as HTMLDialogElement;
+    const body = document.querySelector("body") as HTMLBodyElement;
+
+    allImages.forEach((image) => {
+      image.addEventListener("click", () => {
+        dialog.open = true;
+        body.classList.add("overflow-hidden");
+        const imageSrc = image.getAttribute("src");
+        const imageAlt = image.getAttribute("alt") || "Image";
+        const imageRender = document.createElement("img");
+        imageRender.src = imageSrc || "";
+        imageRender.alt = imageAlt;
+        dialog.appendChild(imageRender);
+      });
+    });
+
+    dialog.addEventListener("click", () => {
+      dialog.close();
+      body.classList.remove("overflow-hidden");
+      dialog.innerHTML = "";
+    });
+  });
+</script>
