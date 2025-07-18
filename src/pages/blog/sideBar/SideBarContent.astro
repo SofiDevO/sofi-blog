@@ -9,7 +9,7 @@ import Button from "@src/components/atoms/Button/Button.astro";
 const sidecardData = await getCategoriesWithPosts();
 const categoryName = category.name.toLowerCase().replaceAll(" ", "-");
 
-const posts = sidecardData[categoryName][0].posts.slice(0, 3);
+const posts = sidecardData?.[categoryName]?.[0]?.posts?.slice?.(0, 3);
 ---
 
 <Button href="#" class={sideBar.button} text="Suscribirse">
@@ -19,5 +19,5 @@ const posts = sidecardData[categoryName][0].posts.slice(0, 3);
 </Button>
 <SocialIcons />
 <div class={sideBar.cardWrapper}>
-  {posts.map((post) => <CardSidebar {...post} />)}
+  {posts?.map((post) => <CardSidebar {...post} />)}
 </div>
