@@ -12,14 +12,29 @@
   margin-top: 10rem;
 
   &__banner {
+    background: var(--bg) center center / cover no-repeat;
     width: 100%;
     min-height: 25dvh;
-    background: var(--bg) center center / cover no-repeat;
     border: 0.25px solid rgba(255, 255, 255, 0.335);
     border-radius: 12px;
     padding: 2.7rem 5.5rem;
-    @include flexConfig(flex-end);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
     gap: 5rem;
+  }
+
+  &__back {
+    @include flexConfig();
+    background: #0101014a;
+    color: var(--bg);
+    padding: 1rem;
+    border-radius: 50%;
+    backdrop-filter: blur(20px);
+
+    &:hover {
+      color: $french-violet;
+    }
   }
 
   &__image {
@@ -70,10 +85,8 @@
     li {
       @include flexConfig();
       letter-spacing: 1.3px;
-      background: linear-gradient(
-        rgb(var(--color-render), 0.1),
-        rgb(var(--color-render), 0.3)
-      );
+      background: linear-gradient(rgb(var(--color-render), 0.1),
+          rgb(var(--color-render), 0.3));
       border: solid 1px rgb(var(--color-render), 0.1);
       padding: 0 1rem;
       min-height: 3rem;
@@ -92,6 +105,7 @@
     gap: 1rem;
     color: white;
     padding: 0 2rem;
+    width: 100%;
   }
 
   &__title {
@@ -99,22 +113,60 @@
   }
 
   &__description {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
     color: $mainColor;
+    width: 100%;
+  }
+
+  & p {
+    margin-bottom: 1rem;
   }
 
   & p:has(> img) {
-    width: 100px;
+    width: 100%;
+    border-radius: 9px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
   }
-  &__social-list{
+
+  & pre {
+    background-color: rgb(27, 46, 82);
+    color: $ufo-green;
+    padding: 3rem 1.5rem;
+    border-radius: 9px;
+    overflow-x: auto;
+  }
+
+  &__social-list {
     @include flexConfig();
     flex-direction: column;
     gap: 1rem;
   }
-  &__social-item{
+
+  & ul {
+    & li {
+      list-style: disc;
+    }
+
+  }
+
+  & ol {
+    & li {
+      list-style: decimal;
+    }
+  }
+
+  &__social-item {
     @include flexConfig();
     width: 100%;
   }
+
   &__button {
     @include flexConfig(start, center);
     gap: 2rem;

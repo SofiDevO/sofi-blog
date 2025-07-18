@@ -37,8 +37,16 @@ const icons = {
       class="contributor__banner"
       style=`--bg: url(${contributor.banner.mediaItemUrl})`
     >
+      <a href="/support" class="contributor__back">
+        <iconify-icon
+          icon="ic:outline-arrow-back"
+          width="30"
+          height="30"
+          style={`color: ${contributor.customcolor} `}></iconify-icon>
+      </a>
       <div class="contributor__overlay"></div>
     </div>
+
     <div class="contributor__container">
       <div class="contributor__image">
         <img
@@ -91,9 +99,7 @@ const icons = {
                       height="24"
                       style="color: #2dcece"
                     />
-                    <span class="contributor__link">
-                    {link}
-                    </span>
+                    <span class="contributor__link">{link}</span>
                   </Button>
                 </li>
               ))
