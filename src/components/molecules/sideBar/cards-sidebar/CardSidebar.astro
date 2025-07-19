@@ -1,0 +1,25 @@
+---
+import type { Post } from "@src/types/post.type";
+interface Props extends Post{}
+
+// estas segura que tu post devuelve un title?
+const { image, title="patata", excerpt, slug } = Astro.props;
+---
+
+
+  <a href={`/blog/${slug}`} class="sidebar-card" data-astro-prefetch="hover">
+    <div class="card-container">
+      <img
+        src={image.mediaItemUrl || "/img/defaultBanner.png"}
+
+        alt={image.altText || "Portada del post XD"}
+        class="card-image"
+      />
+    </div>
+    <h3 class="card-title">{title}</h3>
+    <fragment
+      class="card-excerpt"
+      set:html={excerpt.replace(/\[.*?\]/g, "...")}
+    />
+
+  </a>

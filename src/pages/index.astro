@@ -1,31 +1,27 @@
 ---
-import Layout from "@layouts/Layout.astro";
 import DividerTop from "@atoms/DividerTop/DividerTop.astro";
+import Layout from "@layouts/Layout.astro";
 import Hero from "@organisms/Hero/Hero.astro";
+import FirstCategory from "@organisms/Posts/FirstCategory/FirstCategory.astro";
 import SecondCategory from "@organisms/Posts/SecondCategory/SecondCategory.astro";
 import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
 import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
-import FirstCategory from "@organisms/Posts/FirstCategory/FirstCategory.astro";
-import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
 import FourthCategory from "@src/components/organisms/Posts/FourthCategory/FourthCategory.astro";
+import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
 const categoriesWithPosts = await getCategoriesWithPosts();
 export const prerender = true;
-
-
 ---
 
 <Layout>
   <Hero />
-  <DividerTop  fill="shape-fill-darkPurple"/>
+  <DividerTop fill="shape-fill-darkPurple" />
   <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />
-  <DividerTop  fill="shape-fill-white"/>
-  <SecondCategory  {...categoriesWithPosts["aprender-a-programar"][0]}/>
-  <DividerBottom  fill="shape-fill-white"/>
+  <DividerTop fill="shape-fill-white" />
+  <SecondCategory {...categoriesWithPosts["aprender-a-programar"][0]} />
+  <DividerBottom fill="shape-fill-white" />
   <ThirdCategory {...categoriesWithPosts["astro"][0]} />
-  <DividerTop  fill="shape-fill-white"/>
-  <SecondCategory reverse={true} {...categoriesWithPosts["javascript"][0]}/>
-  <DividerBottom fill="shape-fill-white"/>
-  <FourthCategory {...categoriesWithPosts["escritura"][0]}/>
-
-
+  <DividerTop fill="shape-fill-white" />
+  <SecondCategory reverse={true} {...categoriesWithPosts["javascript"][0]} />
+  <DividerBottom fill="shape-fill-white" />
+  <FourthCategory {...categoriesWithPosts["escritura"][0]} />
 </Layout>

@@ -1,15 +1,59 @@
 ---
-const { id, href, class: className, ...rest } = Astro.props;
+const {
+  id,
+  href,
+  background = "french-violet",
+  class: className,
+  ...rest
+} = Astro.props;
+
+
+
 ---
 
 {
   href ? (
-    <a href={href} class={`${className} button button--link`} id={id} {...rest}>
+    <a
+      href={href}
+      class={`${className}   button--link `}
+      id={id}
+      {...rest}
+    >
       <slot />
     </a>
   ) : (
-    <button class={`${className} button`} {...rest} type="button" id={id}>
+    <button
+      class={`${className} `}
+      {...rest}
+      type="button"
+      id={id}
+    >
       <slot />
     </button>
   )
 }
+
+<style lang="scss" define:vars={{ background }}>
+  @use "@sass/variables" as *;
+  @use "@sass/mixins" as *;
+
+  a, button {
+    @include flexConfig(start,center );
+    gap: 1rem;
+    background:$french-violet;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: white;
+    font-weight: 600;
+    transition: background 0.3s ease-in-out;
+    &:hover {
+      background: $french-violet;
+      opacity: 0.8;
+      transform: scale(0.98);
+    }
+  }
+</style>

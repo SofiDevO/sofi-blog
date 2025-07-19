@@ -1,0 +1,8 @@
+{
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-astro",
+    "prettier-plugin-astro-organize-imports"
+
+  ]
+}
