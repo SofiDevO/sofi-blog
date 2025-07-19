@@ -30,7 +30,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
   const parentId = commentId ? parseInt(commentId as string) : null;
 
   const rawContent = formData.get("content") || null;
-  const content = rawContent ? sanitizeHtml(rawContent as string) : null;
+  const content = sanitizeHtml(rawContent as string);
 
   const author = formData.get("author") || null;
   const email = formData.get("authorEmail") || null;

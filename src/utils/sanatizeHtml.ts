@@ -1,2 +1,8 @@
-export const sanitizeHtml = (input: string) =>
-  input.replace(/<script.*?>.*?<\/script>/gi, "").replace(/on\w+=".*?"/gi, "");
+import sanitizeHtmlLib from "sanitize-html";
+
+export const sanitizeHtml = (input: string | null): string | null => {
+  if (input === null) {
+    return null;
+  }
+  return sanitizeHtmlLib(input);
+};
