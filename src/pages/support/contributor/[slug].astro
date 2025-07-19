@@ -1,24 +1,16 @@
 ---
 import Button from "@src/components/atoms/Button/Button.astro";
 import Layout from "@src/layouts/Layout.astro";
-import SideBar from "@src/pages/blog/sideBar/SideBar.astro";
+import SideBar from "@molecules/sideBar/SideBar.astro";
 import { getContributor } from "@src/services/getContributor";
 
 const { slug } = Astro.params;
-
-const contributor = await getContributor(slug);
-console.log(contributor);
-
-// Extraer posts del usuario si existen
-const relatedPosts =
-  contributor.tuUsuario?.posts?.map((post) => ({
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt,
-    featuredImage: post.featuredImage?.node?.mediaItemUrl || "",
-  })) || [];
-
+const contributor = await getContributor(slug) as Contributtor;
 import { rollList } from "./rollList";
+import type { Post } from "@src/types/post.type";
+import type { Contributtor } from "@src/types/contributtors.types";
+import Title from "@src/components/atoms/Title/Title.astro";
+import CardSidebar from "@molecules/sideBar/cards-sidebar/CardSidebar.astro";
 
 let tags: { name: string; color: string; icon: string }[] = [];
 
@@ -26,6 +18,7 @@ contributor.rol.forEach((rol) => {
   const tag = rollList.find((item) => item.name === rol);
   if (tag) tags.push(tag);
 });
+console.log("contributor", contributor.tuUsuario.posts);
 
 const icons = {
   github: "akar-icons:github-fill",
@@ -80,44 +73,11 @@ const icons = {
         </ul>
       </article>
     </div>
-    <div class="contributor__main flex ">
-      <div class="contributor__content flex flex-col">
+    <div class="contributor__content ">
         <article
           class="contributor__description"
           set:html={contributor.description}
         ></article>
-         {
-          contributor.tuUsuario && relatedPosts.length > 0 && (
-
-              <h2 class="contributor__posts-title">
-                Posts de {contributor.tuUsuario.username}
-              </h2>
-              <div class="contributor__posts-grid">
-                {relatedPosts.map((post) => (
-                  <article class="contributor__post-card">
-                    {post.featuredImage && (
-                      <img
-                        src={post.featuredImage}
-                        alt={post.title}
-                        class="contributor__post-image"
-                      />
-                    )}
-                    <div class="contributor__post-content">
-                      <h3 class="contributor__post-title">
-                        <a href={`/blog/${post.slug}`}>{post.title}</a>
-                      </h3>
-                      <p
-                        class="contributor__post-excerpt"
-                        set:html={post.excerpt}
-                      />
-                    </div>
-                  </article>
-                ))}
-              </div>
-
-          )
-        }
-      </div>
       <SideBar>
         <ul class="contributor__social-list">
           {
@@ -127,7 +87,6 @@ const icons = {
                 <li class="contributor__social-item">
                   <Button
                     href={contributor.socialLinks[link]}
-                    class="contributor__button"
                     target="_blank"
                   >
                     <iconify-icon
@@ -143,6 +102,23 @@ const icons = {
               ))
           }
         </ul>
+         {
+          contributor.tuUsuario && contributor.tuUsuario.posts.length > 0 && (
+
+              <Title class="contributor__posts-title">
+                Posts de {contributor.tuUsuario.firstName} {contributor.tuUsuario.lastName}
+              </Title>
+              <div class="contributor__posts">
+                {contributor.tuUsuario.posts.slice(0, 3).map((post)  => (
+
+                  <CardSidebar
+                   {...post }
+                  />
+                ))}
+              </div>
+
+          )
+        }
       </SideBar>
   </section>
 </Layout>

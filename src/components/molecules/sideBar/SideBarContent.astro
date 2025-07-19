@@ -1,7 +1,7 @@
 ---
 import { getCategoriesWithPosts } from "@src/services/categoriesWithPosts";
 const { category } = Astro.props;
-import sideBar from "./side-bar.module.scss";
+
 
 import SocialIcons from "@src/components/atoms/SocialIcons/SocialIcons.astro";
 import CardSidebar from "./cards-sidebar/CardSidebar.astro";
@@ -12,12 +12,11 @@ const categoryName = category.name.toLowerCase().replaceAll(" ", "-");
 const posts = sidecardData?.[categoryName]?.[0]?.posts?.slice?.(0, 3);
 ---
 
-<Button href="#" class={sideBar.button} text="Suscribirse">
-  <iconify-icon icon="uim:youtube" width="30" height="30" style="color: #f9f9f9"
-  ></iconify-icon>
+<Button href="#" class="button-youtube"  text="Suscribirse">
+  <iconify-icon icon="uim:youtube" width="30" height="30" style="color: #f9f9f9"></iconify-icon>
   Suscríbete en Youtube
 </Button>
 <SocialIcons />
-<div class={sideBar.cardWrapper}>
+<div class="cardWrapper">
   {posts?.map((post) => <CardSidebar {...post} />)}
 </div>

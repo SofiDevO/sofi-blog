@@ -6,8 +6,8 @@ import Title from "@src/components/atoms/Title/Title.astro";
 import Comments from "@src/components/organisms/Comments/Comments.astro";
 import PostDetail from "@src/components/organisms/Posts/components/post-detail/PostDetail.astro";
 import { PostContentData } from "@src/services/getPostContent";
-import SideBar from "./sideBar/SideBar.astro";
-import SideBarContent from "./sideBar/SideBarContent.astro";
+import SideBar from "@molecules/sideBar/SideBar.astro";
+import SideBarContent from "@molecules/sideBar/SideBarContent.astro";
 const { slug } = Astro.params;
 
 export async function getStaticPaths() {
@@ -21,7 +21,6 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props as any;
-
 
 if (!post) {
   throw new Error(`Post not found for slug: ${slug}`);
@@ -48,10 +47,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
   <meta slot="head" name="keywords" content={keyWords} />
   <!-- end of HEAD tags -->
 
-  <section
-
-    class="flex flex-col justify-center w-full pt-36 pb-20 px-10"
-  >
+  <section class="flex flex-col justify-center w-full pt-36 pb-20 px-10">
     <div
       class="group w-full max-w-[1100px] mx-auto overflow-hidden rounded-[1.2rem] md:h-[506.25px] bg-cover bg-center bg-no-repeat relative flex flex-col items-start justify-end px-5 py-10 mb-20"
       style={`background-image: url(${
@@ -59,7 +55,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
       })`}
     >
       <div
-        class="absolute top-0 left-0 w-full  h-full bg-gradient-to-b backdrop-blur-sm md:backdrop-blur-0  from-transparent to-[#050505]"
+        class="absolute top-0 left-0 w-full h-full bg-gradient-to-b backdrop-blur-sm md:backdrop-blur-0 from-transparent to-[#050505]"
       >
       </div>
       <Title
@@ -70,7 +66,9 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
       </Title>
     </div>
 
-    <div class="flex w-full max-w-[1200px] flex-wrap mx-auto flex-col md:flex-row items-start justify-around  ">
+    <div
+      class="flex w-full max-w-[1200px] flex-wrap mx-auto flex-col md:flex-row items-start justify-around"
+    >
       <!-- Post Detail -->
       <div id="post" class="w-full basis-[65%] min-h-screen flex flex-col">
         <PostDetail {post} {author}>
@@ -82,7 +80,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
         </PostDetail>
       </div>
       <!-- Aside -->
-      <SideBar  >
+      <SideBar>
         <SideBarContent category={category} />
       </SideBar>
     </div>

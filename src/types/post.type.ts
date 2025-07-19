@@ -5,7 +5,7 @@ export interface Post {
   title: string;
   slug: string;
   excerpt: string;
-  date: string;
+  date?: string;
   image?:FeaturedImage;
   categories?: Category[];
   author?: Author;
@@ -28,4 +28,3 @@ type Seo = {
   readingTime?: number;
   metaDesc?: string;
 }
-

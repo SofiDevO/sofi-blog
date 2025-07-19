@@ -167,11 +167,10 @@
     width: 100%;
   }
 
-  &__button {
-    @include flexConfig(start, center);
-    gap: 2rem;
-    padding: 1rem 2rem;
-    text-transform: capitalize;
+  &__posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
 }
