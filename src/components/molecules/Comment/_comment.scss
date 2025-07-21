@@ -51,7 +51,7 @@
     padding-left: 3.5rem;
     width: 100%;
 
-    & fragment {
+    & .comment__content {
       border: solid 1px var(--border-render-comment);
       background-color: var(--bg-render-comment);
       padding: 2rem;
@@ -89,6 +89,10 @@
       }
     }
   }
+}
+
+span {
+  pointer-events: none;
 }
 
 .dark {

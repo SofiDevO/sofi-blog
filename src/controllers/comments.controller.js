@@ -1,14 +1,16 @@
 export function commentsController() {
-    const comments = document.querySelector('section#comments')
-    document.addEventListener('click', async (e) => {
+    const comments = document.getElementById("post");
 
-        if (e.target.tagName !== 'BUTTON') return
-            const commentId = e.target.getAttribute('data-commentid' || '')
-
-            const host = window.location.host.includes('localhost') ? '' : `https://${window.location.host}`
-            const replies = await fetch(`${host}/api/comments/replies?commentId=${commentId}`)
-            const data = await replies.json()
-            // console.log(data)
-
-    })
+  comments.addEventListener("click", (event) => {
+    let target = event.target;
+    if (target.tagName === "BUTTON" && target.dataset.commentid) {
+      console.log("Reply button clicked");
+      let commentId = target.dataset.commentid;
+      const form = document.getElementById("comment-form");
+      (form.querySelector("input[name='parentId']") ).value = commentId;
+      let textarea = form.querySelector("textarea[name='content']");
+      textarea.value = `@${target.dataset.commentAuthor} `;
+      textarea.focus();
+    }
+  })
 }
