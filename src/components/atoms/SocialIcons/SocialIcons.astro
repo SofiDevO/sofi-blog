@@ -1,13 +1,18 @@
 ---
-import iconData from "./socialIconsData.json"
+import iconData from "./socialIconsData.json";
+const { class: className, ...rest } = Astro.props;
 ---
 
 <div class="social__container">
   {
     iconData.map((data, index) => (
-      <a href={data.link} class={`social__link social__link-${index+1}`} target="_blank">
+      <a
+        href={data.link}
+        class={`social__link social__link-${index + 1}`}
+        target="_blank"
+      >
         <iconify-icon
-          class={`social__icon `}
+          class={`social__icon ${className}`} {...rest}
           icon={data.icon}
           width="25"
           height="28"

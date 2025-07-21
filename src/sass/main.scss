@@ -16,6 +16,8 @@
 @use "@organisms/Posts/components/CardBig/card-big" as cardBig;
 @use "@pages/support/support" as support;
 @use "@molecules/sideBar/side-bar" as sideBar;
+@use "@molecules/footer/footer" as footer;
+@use "@molecules/CommentForm/comment-form" as commentForm;
 :root {
   --mainColor: rgb(12, 12, 12);
   --bg-color: #f1f1f1;
