@@ -1,0 +1,3 @@
+{
+    "astro.updateImportsOnFileMove.enabled": true
+}

@@ -1,0 +1,81 @@
+@use "@sass/mixins" as *;
+@use "@sass/variables" as *;
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    gap: 2rem;
+    width: 100%;
+    padding: 3rem 10rem;
+    min-height: 15dvh;
+    color: white;
+    background: black;
+
+    &__container {
+        @include flexConfig(space-between, start);
+        flex-wrap: wrap;
+    }
+
+
+
+
+    &__links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &__title {
+            font-size: 2.2rem;
+            color: white;
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__link {
+        color: $ufo-green;
+
+        &:hover {
+            color: white;
+        }
+    }
+    &__credits {
+
+        @include flexConfig(start);
+        gap: 1rem;
+    }
+    &__copy {
+        font-size: 1.28rem;
+    }
+        &__icons{
+        color: $ufo-green;
+    }
+}
+
+@include respond-to("medium") {
+
+    .footer {
+        padding: 3rem 2rem;
+
+        &__credits {
+            @include flexConfig(center, center);
+            text-align: center;
+        }
+
+        &__link {
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        &__container {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+    }
+}
