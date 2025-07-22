@@ -138,3 +138,4 @@ dist
 .prettierignore
 
 *.lock
+.env*.local

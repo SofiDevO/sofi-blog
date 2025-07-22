@@ -8,6 +8,15 @@ export async function getUserByName( id: string ) {
             users(where: {login: "${id}"}) {
                 nodes {
                     email
+                    id
+                    name
+                    firstName
+                    lastName
+                    avatar {
+                        url
+                        size
+                        default
+                    }
                 }
             }
         }
