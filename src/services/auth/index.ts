@@ -12,9 +12,9 @@ const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD   } = import.met
 /**
  * Checks if a user is logged in by verifying the access token stored in cookies.
  *
- * @param {AstroCookies} cookies - The cookies object containing the access token.
- * @returns {LoggedUser | null} - Returns null if the user is not logged in or if the token is
- * invalid. If the token is valid, returns the user data as a LoggedUser object.
+ * @param {AstroCookies} cookies - The cookies object from Astro.
+ * @returns {LoggedUser | null} - Returns the logged user data if the user is logged in,
+ * or null if the user is not logged in or the token is invalid.
  */
 export function isLoggedIn(cookies: AstroCookies): LoggedUser {
     const accessToken = cookies.get("accessToken")?.value;
