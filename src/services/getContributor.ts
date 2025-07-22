@@ -1,11 +1,11 @@
-import wordpresscopy from "@src/data/wordpresscopy";
+import graphqlReq from "@src/data/wordpresscopy";
 import type { Contributtor } from "@src/types/contributtors.types";
 import type { Post } from "@src/types/post.type";
 import { queryContributor } from "./querys/contributors/contributor";
 
 export async function getContributor(slug: string): Promise<Contributtor> {
   try {
-    const data = await wordpresscopy(queryContributor(slug));
+    const data = await graphqlReq(queryContributor(slug));
 
     const contributorData = data.contributtor.contribuidores;
     const userConnection = contributorData.tuUsuario?.nodes?.[0];
