@@ -91,7 +91,8 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
 <script>
   import { fastYoutube } from "@src/utils/fast-youtube";
   import { InsertButtonCopy } from "@pages/blog/button-copy";
-
+  import { commentsController } from "@controllers/comments.controller";
+  commentsController(); 
   InsertButtonCopy();
 </script>
 

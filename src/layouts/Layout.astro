@@ -8,6 +8,7 @@ import Menu from "@src/components/molecules/Menu/Menu.astro";
 
 const { title, description, image } = Astro.props;
 export const prerender = true;
+import Footer from "@src/components/molecules/footer/Footer.astro";
 ---
 
 <html lang="es">
@@ -29,8 +30,8 @@ export const prerender = true;
     <main>
       <slot />
     </main>
+    <Footer />
 
-    <script></script>
     <CookiesBanner client:load />
   </body>
 </html>
@@ -41,6 +42,5 @@ export const prerender = true;
     width: 100%;
     font-size: 20px;
     line-height: 1.6;
-    min-height: 100dvh;
   }
 </style>

@@ -10,13 +10,12 @@ export const prerender = true;
   </section>
 </Layout>
 
-<style is:global  lang="scss">
+<style is:inline  lang="scss">
   @use "@sass/variables" as v;
   @use "@sass/mixins" as  *;
   main {
-    margin-top: 0 !important;
+    margin-top: 0 ;
     max-width: 1100px;
-    min-height: 100dvh;
   }
   .privacy-policy {
     color: v.$mainColor;
