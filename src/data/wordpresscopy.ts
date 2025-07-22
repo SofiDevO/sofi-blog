@@ -1,4 +1,3 @@
-// Types for GraphQL requests and responses
 interface GraphQLResponse<T = any> {
   data?: T;
   errors?: Array<{
