@@ -4,7 +4,7 @@ const hidden = isLogged;
 ---
 
 
-<form method="POST" id="comment-form" class="comment-form">
+<form method="post" id="comment-form" class="comment-form">
   {
     isLogged && (
       <h3 class="comment-form__title">Conectado como <span class="comment-form__title-username">{ isLogged.name }</span>. Deja un comentario</h3>
@@ -59,43 +59,41 @@ const hidden = isLogged;
   <p id="error-message" class="comment-form__message comment-form__message--error comment-form__message--hidden">Hubo un problema al publicar tu comentario.</p>
 </form>
 
-<script is:inline>
-
-  const comments = document.getElementById("comments");
-
-  comments.addEventListener("click", (event) => {
-    if (event.target.classList.contains("reply")) {
-      let commentId = event.target.getAttribute("data-commentId");
-      const form = document.getElementById("comment-form");
-      form.querySelector("input[name='parentId']").value = commentId;
-    }
-  })
-  const form = document.getElementById("comment-form");
+<script>
+  const form = document.getElementById("comment-form") as HTMLFormElement;
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");
-  const addCommentBtn = form.querySelector("#add-comment");
 
-  addCommentBtn.addEventListener("click", async (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
     try {
-      const commentData = await addComment(formData);
+      const commentData = await sendComment(formData);
       insertComment(commentData.data);
 
     } catch (error) {
+      console.error("Error al enviar el comentario:", error);
       successMessage.classList.add("comment-form__message--hidden");
       errorMessage.classList.remove("comment-form__message--hidden");
     }
   });
 
-  function insertComment(comment) {
+  function insertComment(comment: any) {
 
-    const firstComment = document.querySelector(".comment");
-    const comments = document.querySelector("#comments");
-    const clone = document.querySelector(".comment").cloneNode(true);
+    const template = document.querySelector("[data-template-comment]");
+    const comments = comment.parent !== "" 
+      ? document.querySelector(`[data-replies][data-commentid="${comment.parent}"]`)
+      : null;
+    
+    const clone = template.cloneNode(true) as HTMLElement;
+    clone.removeAttribute("hidden");
 
-    clone.querySelector(".comment__author").innerText = comment.author;
-    clone.querySelector(".comment__content").innerHTML = comment.content;
+    const [autor, content, date] = [
+      clone.querySelector("[data-comment-author]") as HTMLElement || undefined,
+      clone.querySelector("[data-comment-content]") as HTMLElement || undefined,
+      clone.querySelector(".comment__date") as HTMLElement || undefined
+    ]
+
     const fecha = new Date();
 
     const formatt = fecha.toLocaleDateString('es-ES', {
@@ -103,15 +101,18 @@ const hidden = isLogged;
         year: 'numeric',
         month: 'long',
         day: 'numeric'
-      });
-    clone.querySelector(".comment__date").innerText = formatt;
+    });
+    
+    date ? (date.innerText = formatt) : null;
+    content ? (content.innerHTML = comment.content) : null;
+    autor ? (autor.innerText = comment.author) : null;
+    
+    comments 
+      ? comments.appendChild(clone) 
+      : template.insertAdjacentElement("afterend", clone);
+  }
 
-    comments.insertBefore(clone, firstComment);
-    console.log("comment added")
-}
-
-
-  async function addComment(formData) {
+  async function sendComment(formData: FormData) {
     try {
         const res = await fetch(`/api/comments/replies`,{
             method: 'POST',
