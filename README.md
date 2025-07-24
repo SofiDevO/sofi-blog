@@ -1,4 +1,4 @@
-# SofiBlog 
+# SofiBlog
 
 A modern, fast, and SEO-optimized blog platform built with Astro and powered by WordPress as a headless CMS. Features a beautiful design, user authentication, commenting system, and focuses on web development content. 🚀💜
 
@@ -6,7 +6,7 @@ A modern, fast, and SEO-optimized blog platform built with Astro and powered by 
 
 - **⚡ Lightning Fast**: Built with Astro for optimal performance and SEO
 - **📱 Responsive Design**: Mobile-first approach with Tailwind CSS
-- **🎨 Modern UI**: Clean, professional design with atomic design principles  
+- **🎨 Modern UI**: Clean, professional design with atomic design principles
 - **🔐 User Authentication**: Login, registration, and user dashboard
 - **💬 Comments System**: Interactive commenting with reply functionality
 - **🔍 Search**: Advanced search functionality across all content
@@ -24,34 +24,38 @@ A modern, fast, and SEO-optimized blog platform built with Astro and powered by 
 - **Authentication**: JWT tokens
 - **Build Tools**: Vite, npm
 
-
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - npm or yarn
 - WordPress site with WP GraphQL plugin
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/SofiDevO/sofi-blog.git
    cd sofi-blog
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Configure environment variables**
    Create a `.env` file based on `dev.env`:
+
    ```bash
    cp dev.env .env
    ```
-   
+
    Update the following variables:
+
    ```env
    SECRET_USER=your_wordpress_username
    SECRET_PASSWORD=your_wordpress_app_password
@@ -60,6 +64,7 @@ A modern, fast, and SEO-optimized blog platform built with Astro and powered by 
    ```
 
 4. **Start development server**
+
    ```bash
    npm run dev
    ```
@@ -78,7 +83,7 @@ Following atomic design principles for scalable component architecture:
  ┣ 📂components
  ┃ ┣ 📂atoms          # Basic building blocks
  ┃ ┃ ┣ 📂HamburgerButton
- ┃ ┃ ┣ 📂NavLinks  
+ ┃ ┃ ┣ 📂NavLinks
  ┃ ┃ ┣ 📂Title
  ┃ ┃ ┗ 📜...
  ┃ ┣ 📂molecules      # Simple component combinations
@@ -112,7 +117,7 @@ Following atomic design principles for scalable component architecture:
 The blog focuses on web development content organized in these main categories:
 
 - **📚 Tutoriales** - Step-by-step tutorials
-- **🎓 Aprender a Programar** - Learning to code content  
+- **🎓 Aprender a Programar** - Learning to code content
 - **🚀 Astro** - Astro framework content
 - **💛 JavaScript** - JavaScript tutorials and tips
 - **✍️ Escritura** - Writing and documentation
@@ -120,7 +125,7 @@ The blog focuses on web development content organized in these main categories:
 ## 🔧 Scripts
 
 - `npm run dev` - Start development server on port 3000
-- `npm run build` - Build for production 
+- `npm run build` - Build for production
 - `npm run preview` - Preview production build locally
 - `npm start` - Alias for dev command
 
@@ -136,7 +141,15 @@ The site is configured to deploy to: `https://sofidev.blog/`
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+¡Las contribuciones son bienvenidas! Por favor lee nuestra **[Guía de Contribución](./CONTRIBUTING.md)** completa para obtener información detallada sobre:
+
+- 🚀 Configuración del entorno de desarrollo
+- 📝 Estilo de código y buenas prácticas
+- 🔄 Flujo de trabajo de Pull Request
+- 🧪 Directrices de testing
+- 🤗 Directrices de la comunidad
+
+Para contribuciones rápidas, siéntete libre de enviar un Pull Request.
 
 ## 📄 License
 
@@ -144,7 +157,7 @@ This project is licensed under the ISC License.
 
 ## 👨‍💻 Author
 
-**SofiDev** - [Website](https://sofidev.blog) 
+**SofiDev** - [Website](https://sofidev.blog)
 
 ---
 
