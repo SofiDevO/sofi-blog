@@ -1,14 +1,14 @@
 import graphqlReq from "@src/data/wordpresscopy";
 import type {
   Contributtor,
-  ContributtorRow,
+  ContributtorRaw,
 } from "@src/types/contributtors.types";
 import type { Post } from "@src/types/post.type";
 import { queryContributor } from "./querys/contributors/contributor";
 
 export async function getContributor(slug: string): Promise<Contributtor> {
   try {
-    const data = await graphqlReq<ContributtorRow["data"]>(
+    const data = await graphqlReq<ContributtorRaw["data"]>(
       queryContributor(slug),
     );
 

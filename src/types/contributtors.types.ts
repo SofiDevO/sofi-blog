@@ -31,8 +31,8 @@ export type CardContributtor = Omit<
   "cv" | "embedVideo" | "description" | "tuUsuario"
 >;
 
-// Row Contributtor
-export interface ContributtorRow {
+// Raw Contributtor
+export interface ContributtorRaw {
   data: Data;
   extensions: Extensions;
 }
