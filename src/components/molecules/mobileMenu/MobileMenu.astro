@@ -17,8 +17,8 @@ type PropsCategoryList = {
   slug: string;
   children: PropsCategoryList[];
 };
-
 const CategoryList: PropsCategoryList[] = flatListToHierarchical(menuItems);
+
 ---
 
 <menu class="menu">

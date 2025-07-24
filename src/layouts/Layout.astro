@@ -4,11 +4,12 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
 import CookiesBanner from "@src/components/atoms/CookiesBanner/CookiesBanner";
-import Menu from "@src/components/molecules/Menu/Menu.astro";
+import Footer from "@src/components/molecules/footer/Footer.astro";
+import MobileMenu from "@src/components/molecules/mobileMenu/MobileMenu.astro";
+
 
 const { title, description, image } = Astro.props;
 export const prerender = true;
-import Footer from "@src/components/molecules/footer/Footer.astro";
 ---
 
 <html lang="es">
@@ -25,7 +26,7 @@ import Footer from "@src/components/molecules/footer/Footer.astro";
     <ThemeIcon />
     <ButtonToTop />
     <Header />
-    <Menu />
+    <MobileMenu />
     <slot name="hero" />
     <main>
       <slot />
