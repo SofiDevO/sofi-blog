@@ -1,5 +1,11 @@
 import { wpquery } from "@src/data/wordpress";
+const { SECRET_USER, SECRET_PASSWORD   } = import.meta.env
+
 export const getCommentsByPostSlug = async (slug) => {
+
+    const headers = {
+        'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
+    }
     try {
         const data = await wpquery({
             query: `
@@ -14,6 +20,13 @@ export const getCommentsByPostSlug = async (slug) => {
                                         avatar {
                                             url
                                         }
+                                        ... on User {
+                                          roles {
+                                            nodes {
+                                                name
+                                            }
+                                          }
+                                        } 
                                     }
                                 }
                                 id
@@ -24,6 +37,7 @@ export const getCommentsByPostSlug = async (slug) => {
                     }
                 }
             `,
+          headers: headers
         });
 
         if (data.postBy === null) {

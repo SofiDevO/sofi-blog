@@ -43,7 +43,4 @@ let comments = post.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
   }
   <CommentForm postId={postID} {isLogged} />
 </section>
-<script>
-  import { commentsController } from "@controllers/comments.controller";
-  // commentsController(); -> Aun no se ha implementado
-</script>
+

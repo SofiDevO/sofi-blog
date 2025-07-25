@@ -1,13 +1,13 @@
 ---
 export const prerender = true;
 import Layout from "@layouts/Layout.astro";
+import SideBar from "@molecules/sideBar/SideBar.astro";
+import SideBarContent from "@molecules/sideBar/SideBarContent.astro";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
 import Comments from "@src/components/organisms/Comments/Comments.astro";
 import PostDetail from "@src/components/organisms/Posts/components/post-detail/PostDetail.astro";
 import { PostContentData } from "@src/services/getPostContent";
-import SideBar from "@molecules/sideBar/SideBar.astro";
-import SideBarContent from "@molecules/sideBar/SideBarContent.astro";
 const { slug } = Astro.params;
 
 export async function getStaticPaths() {
@@ -88,20 +88,40 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
 
   <div class="progress"></div>
 </Layout>
-<script>
-  import { fastYoutube } from "@src/utils/fast-youtube";
-  import { InsertButtonCopy } from "@pages/blog/button-copy";
 
+<script>
+  import { commentsController } from "@controllers/comments.controller";
+  import { InsertButtonCopy } from "@pages/blog/button-copy";
+  commentsController();
   InsertButtonCopy();
+
+  const tocBase = document.querySelector("#toc_container");
+  const tocContainer = document.querySelector("#toc__container") as HTMLElement;
+
+  // tocContainer
+
+  tocContainer.insertAdjacentHTML("afterbegin", tocBase.innerHTML);
+  tocBase.remove();
+
+  let tocTitle = tocContainer.querySelector(".toc_title")
+
+  let icon = document.createElement("div");
+  icon.innerHTML = `<iconify-icon icon="cuida:dropdown-outline" width="24" height="24"  style="color: #2dcece"></iconify-icon>`;
+  tocTitle.appendChild(icon);
+
+
+  tocTitle.addEventListener("click", () => {
+    tocContainer.classList.toggle("active");
+  });
 </script>
 
 <style lang="scss" is:global>
-  @use "@sass/variables" as v;
+  @use "@sass/variables" as *;
 
   .progress {
     height: 0.2rem;
     width: 100%;
-    background: v.$french-violet;
+    background: $french-violet;
     position: fixed;
     top: 0;
     left: 0;
@@ -109,9 +129,65 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
     animation: progressStatus auto linear;
     animation-timeline: scroll(root);
   }
+  #toc__container {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-card);
+    color: $mainColor;
+    overflow: hidden;
+    border-radius: 7px;
+    height: 5rem;
+  }
+  #toc__container.active {
+    height: 34rem;
+  }
+  .toc_title {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    font-weight: 600;
+  }
+
+  .toc_list {
+    height: 30rem;
+    padding: 0 0 1rem 1rem;
+    transition: height 0.3s ease-in-out;
+    scrollbar-color: $ufo-green $french-violet;
+    scrollbar-width: thin;
+    overflow-y: auto;
+    & li > a {
+      font-size: 1.4rem;
+      color: $mainColor;
+    }
+  }
+  .toc_list > *:is(li):not(:last-child) {
+    border-bottom: 1px solid lightgrey;
+    & span {
+    }
+  }
+  .toc_list li > ul {
+    margin-left: 1rem;
+
+
+  }
+
+
+
+  .toc_number:has(> li) {
+    font-weight: 900!important;
+
+  }
+
+.toc_number.toc_depth_1, .toc_number.toc_depth_2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
   .dark {
     .progress {
-      background: v.$ufo-green;
+      background: $ufo-green;
     }
   }
 

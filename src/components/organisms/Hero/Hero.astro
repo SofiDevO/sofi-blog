@@ -1,6 +1,6 @@
 ---
 import BackgroundGradient from "@atoms/BackgroundGradient/BackgroundGradient.astro";
-import StickyPost from "../StickyPost/StickyPost.astro";
+import StickyPost from "./StickyPost/StickyPost.astro";
 import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
 
@@ -21,8 +21,8 @@ export const prerender = true;
   </section>
 </BackgroundGradient>
 
-<style lang="scss" is:global>
-  @use "@sass/variables" as v;
+<style lang="scss" >
+  @use "@sass/variables" as *;
   @use "@sass/mixins" as *;
 
   .hero {
