@@ -5,6 +5,7 @@ import Hero from "@organisms/Hero/Hero.astro";
 import FirstCategory from "@organisms/Posts/FirstCategory/FirstCategory.astro";
 import SecondCategory from "@organisms/Posts/SecondCategory/SecondCategory.astro";
 import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
+import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
 import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
 import FourthCategory from "@src/components/organisms/Posts/FourthCategory/FourthCategory.astro";
 import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
@@ -13,7 +14,9 @@ export const prerender = true;
 ---
 
 <Layout>
-  <Hero />
+  <BackgroundGradient>
+    <Hero title="Bienvenidos al SofiBlog" />
+  </BackgroundGradient>
   <DividerTop fill="shape-fill-darkPurple" />
   <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />
   <DividerTop fill="shape-fill-white" />
