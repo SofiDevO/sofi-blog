@@ -3,7 +3,7 @@ import type { CategoryWithPosts } from "@src/types/category.type";
 import type { Post } from "@src/types/post.type";
 
 export const getCategoriesWithPosts = async () => {
-    const categories = await wpquery({
+    const categories: { categories?: { nodes?: any[] } } = await wpquery({
         query : `
             query getCategoriesWithPosts {
 
