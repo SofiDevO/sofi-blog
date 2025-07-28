@@ -52,7 +52,6 @@ const { post, author } = Astro.props;
 
 
 
-
 <style>
   #container-post {
     img {
@@ -98,6 +97,7 @@ const { post, author } = Astro.props;
 </style>
 
 <script>
+  import { fastYoutube } from "@src/utils/fast-youtube";
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("container-post") as HTMLElement;
     const allImages = container.querySelectorAll<HTMLImageElement>("img");
