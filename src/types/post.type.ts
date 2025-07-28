@@ -14,7 +14,7 @@ export interface Post {
   altdescription?: string;
 }
 
-type FeaturedImage = {
+export type FeaturedImage = {
   mediaItemUrl: string;
   srcSet?: string;
   sizes?: string;

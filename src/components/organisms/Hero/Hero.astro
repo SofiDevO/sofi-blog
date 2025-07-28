@@ -1,32 +1,25 @@
 ---
-import BackgroundGradient from "@atoms/BackgroundGradient/BackgroundGradient.astro";
-import StickyPost from "./StickyPost/StickyPost.astro";
-import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
-
-export const prerender = true;
+import SearchForm from "@src/components/molecules/SearchForm/SearchForm.astro";
+import StickyPost from "./StickyPost/StickyPost.astro";
+const { title } = Astro.props;
 ---
 
-<BackgroundGradient>
-  <section class="hero">
-    <div class="hero__container">
-      <Title titleDesc="Bienvenidos al SofiBlog" class="hero__title" />
-      <p class="hero__desc">
-        Programación  y recursos útiles en un solo lugar
-      </p>
-    </div>
-    <SearchForm />
-    <StickyPost />
+<section class="hero">
+  <div class="hero__container">
+    <Title titleDesc={title} class="hero__title" />
+    <p class="hero__desc">Programación y recursos útiles en un solo lugar</p>
+  </div>
+  <SearchForm />
+  <StickyPost />
+</section>
 
-  </section>
-</BackgroundGradient>
-
-<style lang="scss" >
+<style lang="scss">
   @use "@sass/variables" as *;
   @use "@sass/mixins" as *;
 
   .hero {
-    @include  flexConfig();
+    @include flexConfig();
     flex-direction: column;
     width: 100%;
     @extend %max-width;
@@ -37,17 +30,16 @@ export const prerender = true;
     &__container {
       max-width: 750px;
       text-align: center;
-
     }
     &__title {
-      @include  titleType("bigger");
-      @include  respond-to("medium") {
-        @include  titleType("medium");
-      };
+      @include titleType("bigger");
+      @include respond-to("medium") {
+        @include titleType("medium");
+      }
     }
     &__desc {
       text-wrap: balance;
-      color:white;
+      color: white;
       font-size: 2rem;
       margin-bottom: 5rem;
       font-weight: 400;

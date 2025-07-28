@@ -1,7 +1,7 @@
 import type { Author } from "./author.type";
 import type { Post } from "./post.type";
 export interface Contributtor {
-  banner: {
+  banner?: {
     altText: string;
     mediaItemUrl: string;
     sizes: string;
@@ -14,7 +14,7 @@ export interface Contributtor {
   embedVideo?: string;
   name: string;
   rol: string[];
-  profilepic: {
+  profilepic?: {
     altText: string;
     mediaItemUrl: string;
     sizes: string;
@@ -28,7 +28,7 @@ export interface Contributtor {
 
 export type CardContributtor = Omit<
   Contributtor,
-  "cv" | "embedVideo" | "description" | "tuUsuario"
+  "cv" | "embedVideo" | "description" | "tuUsuario" | "posts" | "author"
 >;
 
 // Raw Contributtor
@@ -49,12 +49,12 @@ export interface Contributtor2 {
 }
 
 export interface SocialLinks {
-  github: string;
-  instagram: any;
-  koFi: string;
-  linkedin: string;
-  twitch: string;
-  youtube: string;
+  github?: string;
+  instagram?: any;
+  koFi?: string;
+  linkedin?: string;
+  twitch?: string;
+  youtube?: string;
 }
 
 export interface Contribuidores {
@@ -119,4 +119,3 @@ export interface Debug {
   type: string;
   message: string;
 }
-
