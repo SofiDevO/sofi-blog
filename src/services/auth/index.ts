@@ -9,6 +9,30 @@ import { getUserByName } from './getUserByName';
 
 const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD   } = import.meta.env
 
+interface UserEmailResponse {
+    users: {
+        nodes: Array<{
+            email: string;
+            id: string;
+            name: string;
+            firstName: string;
+            lastName: string;
+            avatar: {
+                url: string;
+                size: number;
+                default: string;
+            };
+        }>;
+    };
+}
+
+interface CreateUserResponse {
+    createUser: {
+        user: RegisterUserResponse;
+    };
+}
+
+
 /**
  * Checks if a user is logged in by verifying the access token stored in cookies.
  *
@@ -63,7 +87,21 @@ export async function isValidUser(user: string, password: string) {
 
         if (userData.id) {
             const userEmail = await getUserByName(user);
-            userData.email = userEmail.users.nodes[0].email;
+            // Check if userEmail has the expected structure
+            if (
+                userEmail &&
+                typeof userEmail === 'object' &&
+                'users' in userEmail
+            ) {
+                const typedUserEmail = userEmail as UserEmailResponse;
+                if (
+                    typedUserEmail.users &&
+                    Array.isArray(typedUserEmail.users.nodes) &&
+                    typedUserEmail.users.nodes.length > 0
+                ) {
+                    userData.email = typedUserEmail.users.nodes[0].email;
+                }
+            }
         }
 
         /* const userData = await wp.users().me(); */
@@ -122,7 +160,8 @@ export async function registerUser(user: RegisterUser): Promise<RegisterUserResp
         }
 
         const response = await wpquery({query, variables:user, headers});
-        return response.createUser.user as RegisterUserResponse;
+        const typedResponse = response as CreateUserResponse;
+        return typedResponse.createUser.user as RegisterUserResponse;
     } catch (error) {
         return null;
     }
