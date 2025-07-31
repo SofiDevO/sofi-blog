@@ -37,6 +37,7 @@ export default defineConfig({
         return {
           url: page,
           changefreq: "daily",
+
           priority: 0.8,
         };
       },

@@ -38,6 +38,9 @@
     overflow: hidden;
     border-radius: 1.2rem;
     max-width: 40vw;
+    @include respond-to("medium") {
+      max-width: 100%;
+    }
     // flex-wrap: wrap;
 
     kbd,
