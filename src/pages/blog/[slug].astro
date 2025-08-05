@@ -70,7 +70,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
       class="flex w-full max-w-[1200px]  mx-auto flex-col md:flex-row items-start justify-around"
     >
       <!-- Post Detail -->
-      <div id="post" class="w-full basis-[65%] min-h-screen flex flex-col">
+      <div id="post" class="w-full max-w-[700px]  min-h-screen flex flex-col">
         <PostDetail {post} {author}>
           <Comments slug={slug} postID={id} server:defer>
             <div slot="fallback">

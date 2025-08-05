@@ -27,7 +27,25 @@
     max-height: 600px;
 
   }
+   .wp-block-image{
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+  }
+  figure {
+   margin: 0 auto;
+   width: 100%;
+   max-width: 100%;
+   height: 100%;
+   & img {
+     width: 100%;
+     max-width: 100%;
+     margin: 0 auto;
+     border-radius: 1.2rem;
+     height: 100%;
+   }
 
+ }
   div[data-code-block-pro-font-family] {
     display: flex;
     width: 100%;
@@ -77,17 +95,7 @@
     max-width: 100%;
   }
 
-  figure {
-    margin: 0 auto;
-    width: 100%;
 
-    & img {
-      width: 100%;
-      margin: 0 auto;
-      border-radius: 1.2rem;
-    }
-
-  }
 
 
   /* width */
