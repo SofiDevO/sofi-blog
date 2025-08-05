@@ -7,6 +7,8 @@ import CardSidebar from "@molecules/sideBar/cards-sidebar/CardSidebar.astro";
 import { getContributor } from "@src/services/getContributor";
 import { rollList } from "./rollList";
 import type { Contributtor } from "@src/types/contributtors.types";
+import GradientBg from "@src/components/atoms/GradientBg/GradientBg.astro";
+import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
 
 const { slug } = Astro.params;
 const {posts, rol, ...contributor}  = await getContributor(slug) as Contributtor;
@@ -29,17 +31,19 @@ const icons = {
 ---
 
 <Layout>
-  <section class="contributor">
-    <div
+  <BackgroundGradient>
+
+    <section class="contributor">
+      <div
       class="contributor__banner"
       style=`--bg: url(${contributor.banner.mediaItemUrl})`
-    >
+      >
       <a href="/support" class="contributor__back">
         <iconify-icon
-          icon="ic:outline-arrow-back"
-          width="30"
-          height="30"
-          style={`color: ${contributor.customcolor} `}></iconify-icon>
+        icon="ic:outline-arrow-back"
+        width="30"
+        height="30"
+        style={`color: ${contributor.customcolor} `}></iconify-icon>
       </a>
       <div class="contributor__overlay"></div>
     </div>
@@ -47,23 +51,23 @@ const icons = {
     <div class="contributor__container">
       <div class="contributor__image">
         <img
-          src={contributor.profilepic.mediaItemUrl}
-          alt={contributor.profilepic.altText}
+        src={contributor.profilepic.mediaItemUrl}
+        alt={contributor.profilepic.altText}
         />
       </div>
       <article class="contributor__info">
         <h1 class="contributor__title">{contributor.name}</h1>
         <ul class="contributor__rol">
           {
-          tags.map(({color, icon, name }) => (
+            tags.map(({color, icon, name }) => (
               <li
-                class="contributor__rol-item"
-                style={`--color-render: ${color}`}
+              class="contributor__rol-item"
+              style={`--color-render: ${color}`}
               >
                 <iconify-icon
               icon={`material-icon-theme:${icon}`}
-                  class="icon"
-                />
+              class="icon"
+              />
                 {name}
               </li>
             ))
@@ -72,33 +76,33 @@ const icons = {
       </article>
     </div>
     <div class="contributor__content ">
-        <article
+      <article
           class="contributor__description"
           set:html={contributor.description}
-        ></article>
-      <SideBar>
-        <ul class="contributor__social-list">
-          {
-            Object.keys(contributor.socialLinks)
-              .filter((link) => contributor.socialLinks[link] !== null)
-              .map((link) => (
-                <li class="contributor__social-item">
+          ></article>
+          <SideBar>
+            <ul class="contributor__social-list">
+              {
+                Object.keys(contributor.socialLinks)
+                .filter((link) => contributor.socialLinks[link] !== null)
+                .map((link) => (
+                  <li class="contributor__social-item">
                   <Button
                     href={contributor.socialLinks[link]}
                     target="_blank"
-                  >
+                    >
                     <iconify-icon
                       class="contributor__icon"
                       icon={icons[link]}
                       width="24"
                       height="24"
                       style="color: #2dcece"
-                    />
+                      />
                     <span class="contributor__link">{link}</span>
                   </Button>
                 </li>
               ))
-          }
+            }
         </ul>
          {
           posts.length > 0 && (
@@ -107,10 +111,10 @@ const icons = {
                 Posts de {contributor.author.firstName} {contributor.author.lastName}
               </Title>
               <div class="contributor__posts">
-                {posts.map((post)  => (
+                {posts.slice(0, 3).map((post)  => (
 
                   <CardSidebar
-                   {...post }
+                  {...post }
                   />
                 ))}
               </div>
@@ -119,4 +123,5 @@ const icons = {
         }
       </SideBar>
   </section>
+</BackgroundGradient>
 </Layout>

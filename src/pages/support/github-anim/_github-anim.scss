@@ -8,9 +8,18 @@
     margin: 0 auto;
     min-height: 40dvh;
     gap: 5rem;
+    padding: 1.5rem;
+    @include respond-to("medium") {
+        flex-direction: column-reverse;
+        min-height: 60dvh;
+    }
 
     &__anim {
         @include flexConfig();
+        padding: 1rem;
+        @include respond-to("medium") {
+         scale: 0.47;
+        }
     }
 
     .main-branch {

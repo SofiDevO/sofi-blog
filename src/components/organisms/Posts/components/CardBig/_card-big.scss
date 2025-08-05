@@ -2,7 +2,7 @@
 @use "@sass/mixins" as  *;
 
 .card-big {
-    @include flexConfig();
+    @include flexConfig(flex-start, center);
     flex-direction: column;
     gap: 2rem;
     width: 100%;
@@ -56,7 +56,7 @@
         z-index: 10;
         content: "";
         top: -2rem;
-        right: 22.4rem;
+        right: 22.6rem;
         width: 2rem;
         height: 2rem;
         border-bottom-left-radius: 1.25rem;
