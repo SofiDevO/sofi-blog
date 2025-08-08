@@ -54,6 +54,7 @@ import SofiIcon from "./svgs/SofiIcon.astro";
   const line3 = container.querySelector("#line-3");
   const bubles = container.querySelectorAll(".buble");
 
+
   const interceptBranch = (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -63,8 +64,12 @@ import SofiIcon from "./svgs/SofiIcon.astro";
       entry.target.classList.remove("active");
     });
   };
-
-  const observer = new IntersectionObserver(interceptBranch);
+  const options = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.6,
+  };
+  const observer = new IntersectionObserver(interceptBranch, options);
   observer.observe(line1);
   observer.observe(line2);
   observer.observe(line3);
@@ -72,4 +77,6 @@ import SofiIcon from "./svgs/SofiIcon.astro";
   bubles.forEach((buble) => {
     observer.observe(buble);
   });
+
+
 </script>

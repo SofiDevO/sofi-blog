@@ -63,28 +63,32 @@
         stroke-dasharray: 480;
         stroke-dashoffset: 480;
         --delay: 0s;
-        --duration: 2.8s;
+        --duration: 1.7s;
     }
 
     #line-2 {
         stroke-dasharray: 267;
         stroke-dashoffset: 267;
-        --delay: 8s;
-        --duration: 2.5s;
+        --delay: 2s;
+        --duration: 1.4s;
+        opacity: 0;
+        transition: opacity .2s ease;
 
     }
 
     #line-3 {
         --delay: 1.5s;
-        --duration: 3s;
+        --duration: 1s;
         stroke-dasharray: 168;
         stroke-dashoffset: 168;
+        opacity: 0;
+        transition: opacity .2s ease;
 
     }
 
     .active {
         animation-delay: var(--delay);
-        animation: drawPath var(--duration) ease-out forwards;
+        animation: drawPath var(--duration) linear forwards;
     }
 
     .buble {
@@ -108,35 +112,35 @@
         &-2 {
             left: 10%;
             --delay: .1s;
-            --duration: 1s;
+            --duration: .6s;
         }
 
         &-3 {
             left: 28%;
-            --delay: .6s;
+            --delay: .1s;
 
         }
 
         &-4 {
             left: 50%;
-            --delay: .9s;
+            --delay: .6s;
 
         }
 
         &-5 {
-            left: 73%;
-            --delay: 1.8s;
+            left: 70%;
+            --delay: .8s;
 
         }
 
         &-6 {
             left: 87%;
-            --delay: 2.4s;
+            --delay: .9s;
         }
 
         &-7 {
             left: 100%;
-            --delay: 3s;
+            --delay: 1s;
         }
 
         &.active {
@@ -154,12 +158,12 @@
 
         &-1 {
             left: 35%;
-            --delay: .4s;
+            --delay: .1s;
         }
 
         &-2 {
             left: 63%;
-            --delay: 1s;
+            --delay: .9s;
         }
 
         &.active {
@@ -182,7 +186,7 @@
 
         &-2 {
             left: 59%;
-            --delay: 2s;
+            --delay: .9s;
         }
 
         &.active {
@@ -194,13 +198,12 @@
 }
 
 @keyframes drawPath {
-    from {
-        opacity: 0;
-    }
 
     to {
         stroke-dashoffset: 0;
         opacity: 1;
+        width: 100%;
+
     }
 }
 
