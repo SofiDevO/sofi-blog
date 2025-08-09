@@ -5,18 +5,19 @@ import ContributorCard from "./contributor-card/ContributorCard.astro";
 
 const contributors: CardContributtor[] = await getContributtors();
 
-
+import "./_contributtors.scss"
+import "./contributor-card/_contributor-card.scss"
 
 
 ---
 
-<section class="contributtors">
-  <ul class="contributtors__list">
-    {
-      contributors.map((contributor: CardContributtor) => (
-          <ContributorCard contributor={contributor} />
 
-      ))
-    }
+<section class="contributtors">
+      <ul class="contributtors__list">
+        {
+          contributors.map((contributor: CardContributtor) => (
+            <ContributorCard contributor={contributor} />
+          ))
+        }
   </ul>
 </section>

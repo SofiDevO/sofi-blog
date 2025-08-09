@@ -86,7 +86,7 @@
       @include flexConfig();
       letter-spacing: 1.3px;
       background: linear-gradient(rgb(var(--color-render), 0.1),
-          rgb(var(--color-render), 0.3));
+      rgb(var(--color-render), 0.3));
       border: solid 1px rgb(var(--color-render), 0.1);
       padding: 0 1rem;
       min-height: 3rem;
@@ -117,8 +117,7 @@
 
   &__description {
     font-size: 1.6rem;
-    line-height: 1.5;
-    color: $mainColor;
+    line-height: 1.5;;
     width: 100%;
   }
 

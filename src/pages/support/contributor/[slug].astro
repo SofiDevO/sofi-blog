@@ -9,7 +9,7 @@ import { rollList } from "./rollList";
 import type { Contributtor } from "@src/types/contributtors.types";
 import GradientBg from "@src/components/atoms/GradientBg/GradientBg.astro";
 import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
-
+import "./_contributor.scss"
 const { slug } = Astro.params;
 const {posts, rol, ...contributor}  = await getContributor(slug) as Contributtor;
 

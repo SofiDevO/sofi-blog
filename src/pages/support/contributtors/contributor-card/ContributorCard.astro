@@ -1,4 +1,5 @@
 ---
+  import "./_contributor-card.scss"
 const icons = {
   linkedin: "fa-brands:linkedin",
   github: "fa-brands:github-alt",
@@ -7,7 +8,6 @@ const icons = {
   twitch: "basil:twitch-solid",
   instagram: "icon-park-twotone:instagram",
 };
-
 const getIcon = (icon: string) => {
   return icons[icon];
 };
@@ -75,7 +75,6 @@ const rols = listaES.format(contributor.rol);
 
     <p
       class="card__rol"
-
     >
       {rols}
     </p>
@@ -89,3 +88,17 @@ const rols = listaES.format(contributor.rol);
     >
   </article>
 </li>
+
+
+
+<style>
+  .contributtors__card {
+    transition: none;
+    transform-origin: center;
+  }
+
+  /* Opcional: Agregar una transición suave al hover inicial */
+  .contributtors__card:hover {
+    transition: transform 0.1s ease-out;
+  }
+</style>
