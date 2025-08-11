@@ -10,6 +10,8 @@ import MobileMenu from "@src/components/molecules/mobileMenu/MobileMenu.astro";
 
 const { title, description, image, class: ClassList, ...rest } = Astro.props;
 export const prerender = true;
+const path = Astro.url.pathname;
+const slug = Astro.url.pathname.split("/").pop();
 ---
 
 <html lang="es">
@@ -23,7 +25,17 @@ export const prerender = true;
     <slot name="head" />
   </head>
   <body>
-    <ThemeIcon />
+    {
+      path == "/support"
+        ? (
+          null
+        )
+        : path == `/support/contributor/${slug}` ? (
+          null
+        ): (
+          <ThemeIcon />
+        )
+    }
     <ButtonToTop />
     <Header />
     <MobileMenu />

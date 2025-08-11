@@ -1,4 +1,5 @@
 ---
+  import "./_contributor-card.scss"
 const icons = {
   linkedin: "fa-brands:linkedin",
   github: "fa-brands:github-alt",
@@ -6,8 +7,9 @@ const icons = {
   koFi: "simple-icons:kofi",
   twitch: "basil:twitch-solid",
   instagram: "icon-park-twotone:instagram",
-};
+  portafolio: "fa-solid:folder-open",
 
+};
 const getIcon = (icon: string) => {
   return icons[icon];
 };
@@ -52,7 +54,7 @@ const rols = listaES.format(contributor.rol);
             )
             .slice(0, 3)
             .map((socialLink) => (
-              <li>
+              <li class="card__social-item">
                 <a href={contributor.socialLinks[socialLink]} target="_blank">
                   <iconify-icon
                     class="card__social-icon"
@@ -61,6 +63,7 @@ const rols = listaES.format(contributor.rol);
                     height="25"
                   />
                 </a>
+                <span class="card__social-tooltip">{socialLink}</span>
               </li>
             ))
         }
@@ -75,7 +78,6 @@ const rols = listaES.format(contributor.rol);
 
     <p
       class="card__rol"
-
     >
       {rols}
     </p>
@@ -89,3 +91,55 @@ const rols = listaES.format(contributor.rol);
     >
   </article>
 </li>
+
+
+
+<style>
+  .contributtors__card {
+    transition: none;
+    transform-origin: center;
+  }
+  .card__social-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .card__social-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-size: 1.4rem;
+    @media screen and (max-width: 768px) {
+      display: block;
+      text-align: center;
+      position: static;
+      padding: 2px 4px;
+      visibility: visible;
+      opacity: 1;
+      background-color: transparent;
+      transform: none;
+      padding: 0;
+    }
+  }
+  .card__social-item:hover  .card__social-tooltip {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* Opcional: Agregar una transición suave al hover inicial */
+  .contributtors__card:hover {
+    transition: transform 0.1s ease-out;
+  }
+</style>

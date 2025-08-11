@@ -4,6 +4,14 @@ export interface ContributorResponse {
   extensions: Extensions
 }
 
+export interface ContributorResponse {
+  contributtors: Contributtors
+}
+export interface Root {
+  data: ContributorResponse
+  extensions: Extensions
+}
+
 export interface Data {
   contributtors: Contributtors
 }
@@ -13,20 +21,20 @@ export interface Contributtors {
 }
 
 export interface Node {
-  contribuidores: Contribuidores2
-  socialLinks: SocialLinks
+  contribuidores: Contribuidores
   slug: string
 }
 
-export interface Contribuidores2 {
+export interface Contribuidores {
   banner: Banner
   customcolor: string
-  cv?: Cv
+  cv: any
   description: string
   email: string
   name: string
   rol: string[]
   profilepic: Profilepic
+  socialLinks: SocialLinks
 }
 
 export interface Banner {
@@ -40,19 +48,11 @@ export interface Node2 {
   srcSet: string
 }
 
-export interface Cv {
+export interface Profilepic {
   node: Node3
 }
 
 export interface Node3 {
-  mediaItemUrl: string
-}
-
-export interface Profilepic {
-  node: Node4
-}
-
-export interface Node4 {
   altText: string
   mediaItemUrl: string
   sizes: string
@@ -62,11 +62,11 @@ export interface Node4 {
 export interface SocialLinks {
   github: string
   linkedin: string
-  portafolio: any
+  portafolio: string
   youtube: string
   instagram: string
-  kofi?: string
-  twitch?: string
+  kofi: string
+  twitch: string
 }
 
 export interface Extensions {

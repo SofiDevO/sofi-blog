@@ -5,11 +5,12 @@ import GitIcon from "./svgs/GitIcon.astro";
 import MergeBranch from "./svgs/MergeBranch.astro";
 import SofiIcon from "./svgs/SofiIcon.astro";
 ---
+<div class="cuadricula">
 
-<section class="github">
-  <div class="github__anim">
+  <section class="github">
+    <div class="github__anim">
     <div class="icon">
-      <GitIcon />
+      <GitIcon  class="git-icon"/>
     </div>
     <div class="branch-container">
       <MergeBranch />
@@ -29,23 +30,24 @@ import SofiIcon from "./svgs/SofiIcon.astro";
       <div class="buble buble-diverge buble-diverge-2"></div>
     </div>
     <div class="icon">
-      <SofiIcon />
+      <SofiIcon class="sofi-icon"/>
     </div>
   </div>
   <article class="github__content">
     <h2 class="support__title support__title--secondary">
       Dev Contributors
     </h2>
-      <p class="github__description">
-        sdsEx sit incididunt ullamco aliquip consequat. Reprehenderit labore
-        consectetur culpa commodo.
-      </p>
-      <p class="github__description">
-         Lorem exercitation elit deserunt esse do
-        commodo magna. Sunt ea ut esse minim quis culpa.
-      </p>
+    <p class="github__description">
+      sdsEx sit incididunt ullamco aliquip consequat. Reprehenderit labore
+      consectetur culpa commodo.
+    </p>
+    <p class="github__description">
+      Lorem exercitation elit deserunt esse do
+      commodo magna. Sunt ea ut esse minim quis culpa.
+    </p>
   </article>
 </section>
+</div>
 
 <script>
   const container = document.querySelector(".github");
@@ -53,6 +55,7 @@ import SofiIcon from "./svgs/SofiIcon.astro";
   const line2 = container.querySelector("#line-2");
   const line3 = container.querySelector("#line-3");
   const bubles = container.querySelectorAll(".buble");
+
 
   const interceptBranch = (entries) => {
     entries.forEach((entry) => {
@@ -72,4 +75,6 @@ import SofiIcon from "./svgs/SofiIcon.astro";
   bubles.forEach((buble) => {
     observer.observe(buble);
   });
+
+
 </script>

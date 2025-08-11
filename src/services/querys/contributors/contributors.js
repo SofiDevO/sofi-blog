@@ -1,5 +1,5 @@
 export const querycontributors = `
-         uery getContributtors {
+         query getContributtors {
           contributtors {
             nodes {
               contribuidores {

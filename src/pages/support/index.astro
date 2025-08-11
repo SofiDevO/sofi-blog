@@ -4,15 +4,26 @@ import BackgroundGradient from "@src/components/atoms/BackgroundGradient/Backgro
 import Layout from "@src/layouts/Layout.astro";
 import GithubAnim from "./github-anim/GithubAnim.astro";
 import SuportHero from "./SupportHero.astro";
-let patata = "patata";
 
+
+import "./_support.scss";
 import Contributtors from "./contributtors/Contributtors.astro";
+import DividerTop from "@src/components/atoms/DividerTop/DividerTop.astro";
+import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
 ---
 
 <Layout title="Contribuye a este sitio">
   <BackgroundGradient>
     <SuportHero />
-    <GithubAnim />
-    <Contributtors />
   </BackgroundGradient>
+  <DividerTop />
+    <GithubAnim />
+    <DividerBottom fill="shape-fill-black" />
+    <Contributtors />
 </Layout>
+
+<style is:inline>
+  main{
+    background: black;
+  }
+</style>

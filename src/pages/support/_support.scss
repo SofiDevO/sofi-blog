@@ -4,6 +4,7 @@
 @use "@sass/variables" as *;
 @use "@sass/mixins" as *;
 
+
 .support {
     @include flexConfig();
     gap: 10rem;
