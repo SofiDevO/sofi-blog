@@ -98,10 +98,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
   const tocBase = document.querySelector("#toc_container");
   const tocContainer = document.querySelector("#toc__container") as HTMLElement;
 
-  // tocContainer
 
-  tocContainer.insertAdjacentHTML("afterbegin", tocBase.innerHTML);
-  tocBase.remove();
 
   let tocTitle = tocContainer.querySelector(".toc_title")
 
