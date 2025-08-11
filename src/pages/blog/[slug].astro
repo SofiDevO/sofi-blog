@@ -30,7 +30,7 @@ const { id } = post;
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
-const { date } = Astro.props;
+const { date } = Astro?.props;
 const category = post?.categories?.nodes?.[0];
 const author = post.author?.node;
 const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
@@ -42,8 +42,8 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
     name="author"
     content=`${author.firstName} ${author.lastName}, ${post.author.node.name} `
   />
-  <meta slot="head" property="article:published_time" content={post.date} />
-  <meta slot="head" property="article:modified_time" content={post.modified} />
+  <meta slot="head" property="article:published_time" content={post?.date} />
+  <meta slot="head" property="article:modified_time" content={post?.modified} />
   <meta slot="head" name="keywords" content={keyWords} />
   <!-- end of HEAD tags -->
 
@@ -59,10 +59,10 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
       >
       </div>
       <Title
-        titleDesc={post.title}
+        titleDesc={post?.title}
         class="font-bold text-[2.5rem] md:text-[4rem] my-10 text-center text-pretty z-10"
       >
-        {post.title}
+        {post?.title}
       </Title>
     </div>
 
