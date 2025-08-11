@@ -10,10 +10,10 @@ const { url, request } = Astro;
 const search = url.searchParams.get("search");
 const header = request.headers.get("X-Requested-With");
 
-// console.log(header);
+const pathname = url.pathname;
 const posts = search && search === "" ? [] : await searchPosts(search);
 
-// console.log(posts);
+
 
 // Configuración de paginación
 const postsPerPage = 4;
@@ -24,7 +24,12 @@ const totalPages = Math.ceil(posts.length / postsPerPage);
 const startIndex = (currentPage - 1) * postsPerPage;
 const endIndex = startIndex + postsPerPage;
 const paginatedPosts = posts.slice(startIndex, endIndex);
-console.log(url.search)
+
+let padding = "9rem";
+if (pathname === "/") {
+  padding = "0";
+}
+
 ---
 
 
@@ -32,9 +37,10 @@ console.log(url.search)
 
 {
   header !== "XMLHttpRequest" ? (
-    <Layout title="Resultados">
+
+    <Layout title="Resultados" class="main">
       <section class="results">
-        <Title titleDesc={`Resultados de ${search}`} class="results__title" />
+        <Title titleDesc={`Resultados de ${search}`} class="results__title " />
         <ul role="list" class="link-card-grid">
           {paginatedPosts.length !== 0 && paginatedPosts.map((post) => <PostCard {...post} />)}
         </ul>
@@ -53,13 +59,12 @@ console.log(url.search)
   )
 }
 
-<style lang="scss" is:inline>
+<style lang="scss"  define:vars={{padding}}>
   @use "@sass/variables" as v;
   @use "@sass/mixins" as  *;
-  main {
-    padding-top: 15rem ;
-  }
+
   .results {
+    padding: var(--padding) 0;
     max-width: 1300px;
     margin: 0 auto;
     display: flex;
@@ -72,8 +77,9 @@ console.log(url.search)
       @include titleType("small");
       text-align: center;
       color: v.$french-violet;
-      margin-bottom: 5rem;
       transition: color 0.3s ease-in-out;
+      font-size: 4rem;
+      font-weight: 700;
     }
     &__cards {
       width: 100%;

@@ -3,7 +3,8 @@ import type { CardContributtor } from "@src/types/contributtors.types.ts";
 import { getContributtors } from "@src/services/getContributtors.js";
 import ContributorCard from "./contributor-card/ContributorCard.astro";
 
-const contributors: CardContributtor[] = await getContributtors();
+// Ensure we always have an array (service already does this, but double guard)
+const contributors: CardContributtor[] = (await getContributtors()) ?? [];
 
 
 
@@ -11,12 +12,13 @@ const contributors: CardContributtor[] = await getContributtors();
 ---
 
 <section class="contributtors">
-  <ul class="contributtors__list">
-    {
-      contributors.map((contributor: CardContributtor) => (
-          <ContributorCard contributor={contributor} />
-
-      ))
-    }
-  </ul>
+  {contributors.length > 0 ? (
+    <ul class="contributtors__list">
+      {contributors.map((contributor: CardContributtor) => (
+        <ContributorCard contributor={contributor} />
+      ))}
+    </ul>
+  ) : (
+    <p class="contributtors__empty">Los contribuidores se fueron de sabático.</p>
+  )}
 </section>

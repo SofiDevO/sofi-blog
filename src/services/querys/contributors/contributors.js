@@ -1,5 +1,5 @@
 export const querycontributors = `
-        query getContributtors {
+         uery getContributtors {
           contributtors {
             nodes {
               contribuidores {
@@ -7,8 +7,8 @@ export const querycontributors = `
                   node {
                     altText
                     mediaItemUrl
-                    sizes(size: ALX_MEDIUM)
-                    srcSet(size: ALX_MEDIUM)
+                    sizes(size: MEDIUM)
+                    srcSet(size: MEDIUM)
                   }
                 }
                 customcolor
@@ -25,18 +25,19 @@ export const querycontributors = `
                   node {
                     altText
                     mediaItemUrl
-                    sizes(size: ALX_SMALL)
-                    srcSet(size: ALX_SMALL)
+                    sizes(size: MEDIUM)
+                    srcSet(size: MEDIUM)
                   }
                 }
-              }
-              socialLinks {
-                github
-                instagram
-                koFi
-                linkedin
-                twitch
-                youtube
+                socialLinks {
+                  github
+                  linkedin
+                  portafolio
+                  youtube
+                  instagram
+                  kofi
+                  twitch
+                }
               }
               slug
             }

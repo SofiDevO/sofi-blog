@@ -1,4 +1,4 @@
-import graphqlReq from "@src/data/wordpresscopy";
+import { wpquery } from "@src/data/wordpress";
 import type {
   Contributtor,
   ContributtorRaw,
@@ -8,9 +8,7 @@ import { queryContributor } from "./querys/contributors/contributor";
 
 export async function getContributor(slug: string): Promise<Contributtor> {
   try {
-    const data = await graphqlReq<ContributtorRaw["data"]>(
-      queryContributor(slug),
-    );
+      const data = await wpquery<ContributtorRaw["data"]>({ query: queryContributor(slug) });
 
     const contributorData = data.contributtor.contribuidores;
     const userConnection = contributorData.tuUsuario?.nodes?.[0];

@@ -8,7 +8,7 @@ import Footer from "@src/components/molecules/footer/Footer.astro";
 import MobileMenu from "@src/components/molecules/mobileMenu/MobileMenu.astro";
 
 
-const { title, description, image } = Astro.props;
+const { title, description, image, class: ClassList, ...rest } = Astro.props;
 export const prerender = true;
 ---
 
@@ -28,7 +28,7 @@ export const prerender = true;
     <Header />
     <MobileMenu />
     <slot name="hero" />
-    <main>
+    <main class={ClassList} {...rest}>
       <slot />
     </main>
     <Footer />

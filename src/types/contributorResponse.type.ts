@@ -61,11 +61,12 @@ export interface Node4 {
 
 export interface SocialLinks {
   github: string
-  instagram?: string
-  koFi: string
   linkedin: string
+  portafolio: any
+  youtube: string
+  instagram: string
+  kofi?: string
   twitch?: string
-  youtube?: string
 }
 
 export interface Extensions {
