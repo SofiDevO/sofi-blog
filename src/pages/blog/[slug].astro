@@ -96,17 +96,19 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
   InsertButtonCopy();
 
   const tocBase = document.querySelector("#toc_container");
-  const tocContainer = document.querySelector("#toc__container") as HTMLElement;
 
+  const tocContainer = document.querySelector("#toc_container-new") as HTMLElement;
 
+  tocContainer.insertAdjacentHTML("afterbegin", tocBase.innerHTML);
+  tocBase.remove();
 
   let tocTitle = tocContainer.querySelector(".toc_title")
-
   let icon = document.createElement("div");
+
+
+
   icon.innerHTML = `<iconify-icon icon="cuida:dropdown-outline" width="24" height="24"  style="color: #2dcece"></iconify-icon>`;
   tocTitle.appendChild(icon);
-
-
   tocTitle.addEventListener("click", () => {
     tocContainer.classList.toggle("active");
   });
@@ -126,7 +128,8 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
     animation: progressStatus auto linear;
     animation-timeline: scroll(root);
   }
-  #toc__container {
+
+  #toc_container-new {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     background-color: var(--bg-card);
     color: $mainColor;
@@ -134,7 +137,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
     border-radius: 7px;
     height: 5rem;
   }
-  #toc__container.active {
+  #toc_container-new.active {
     height: 34rem;
   }
   .toc_title {
