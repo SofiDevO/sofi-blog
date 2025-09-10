@@ -1,12 +1,11 @@
 ---
-import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
-import BaseHead from "../components/BaseHead.astro";
 import Header from "@molecules/Header/Header.astro";
 import ButtonToTop from "@src/components/atoms/ButtonToTop/ButtonToTop.astro";
 import CookiesBanner from "@src/components/atoms/CookiesBanner/CookiesBanner";
+import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
 import Footer from "@src/components/molecules/footer/Footer.astro";
 import MobileMenu from "@src/components/molecules/mobileMenu/MobileMenu.astro";
-
+import BaseHead from "../components/BaseHead.astro";
 
 const { title, description, image, class: ClassList, ...rest } = Astro.props;
 export const prerender = true;
@@ -23,18 +22,18 @@ const slug = Astro.url.pathname.split("/").pop();
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-4HD0MHWJHW"></script>
     <slot name="head" />
+    <script
+      async
+      is:inline
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+      crossorigin="anonymous"></script>
   </head>
   <body>
     {
-      path == "/support"
-        ? (
-          null
-        )
-        : path == `/support/contributor/${slug}` ? (
-          null
-        ): (
-          <ThemeIcon />
-        )
+      path == "/support" ? null : path ==
+        `/support/contributor/${slug}` ? null : (
+        <ThemeIcon />
+      )
     }
     <ButtonToTop />
     <Header />
