@@ -1,29 +1,39 @@
 ---
 import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
+import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
+import DividerTop from "@src/components/atoms/DividerTop/DividerTop.astro";
+import "./_support.scss";
 
 import Layout from "@src/layouts/Layout.astro";
+import Contributtors from "./contributtors/Contributtors.astro";
 import GithubAnim from "./github-anim/GithubAnim.astro";
 import SuportHero from "./SupportHero.astro";
 
+import { getAboutPage } from "@src/services/getAboutPage";
 
-import "./_support.scss";
-import Contributtors from "./contributtors/Contributtors.astro";
-import DividerTop from "@src/components/atoms/DividerTop/DividerTop.astro";
-import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
+const about = await getAboutPage(337);
+console.log(about);
+
+const pageData = {
+  title: about.title,
+  content: about.blocks,
+};
+
+console.log(pageData.content[2].attributes.content);
 ---
 
 <Layout title="Contribuye a este sitio">
   <BackgroundGradient>
-    <SuportHero />
+    <SuportHero pageData={pageData} />
   </BackgroundGradient>
   <DividerTop />
-    <GithubAnim />
-    <DividerBottom fill="shape-fill-black" />
-    <Contributtors />
+  <GithubAnim pageData={pageData} />
+  <DividerBottom fill="shape-fill-black" />
+  <Contributtors />
 </Layout>
 
 <style is:inline>
-  main{
+  main {
     background: black;
   }
 </style>

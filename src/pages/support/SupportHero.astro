@@ -1,21 +1,18 @@
 ---
-
+const { pageData } = Astro.props;
 ---
 
 <section class="support">
   <div class="support__content">
-    <h1 class="support__title">¿De qué va este Blog?</h1>
+    <h1 class="support__title">{pageData.title}</h1>
     <p class="support__desc">
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam nesciunt
-      doloribus tenetur accusantium aspernatur adipisci repudiandae illo
-      eligendi natus cum sapiente, quas impedit esse, in, temporibus obcaecati
-      nisi ut deserunt?
+      {pageData.content[0].attributes.content}
     </p>
   </div>
   <div class="support__container">
     <img
-      src="/img/avatar-support.webp"
-      alt="Avatar sofidev dibujo patata"
+      src={pageData.content[1].attributes.url || "/img/avatar-support.webp"}
+      alt="Avatar sofidev "
       class="support__image"
     />
   </div>
