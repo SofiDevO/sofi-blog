@@ -37,6 +37,7 @@
   gap: 2rem;
   justify-content: center;
   width: 100%;
+  padding: 2rem;
   @include respond-to("medium") {
     justify-content: center;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 21.7%));

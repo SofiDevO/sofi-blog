@@ -1,7 +1,7 @@
 ---
-import Layout from "@src/layouts/Layout.astro";
-import PostCard from "@organisms/Posts/components/PostCard/PostCard.astro";
 import Pagination from "@atoms/Pagination/Pagination.astro";
+import PostCard from "@organisms/Posts/components/PostCard/PostCard.astro";
+import Layout from "@src/layouts/Layout.astro";
 import { getCategorieBySlug } from "@src/services/categories";
 const { slug } = Astro.params;
 
@@ -19,14 +19,16 @@ const totalPages = Math.ceil(category.posts.length / postsPerPage);
 const startIndex = (currentPage - 1) * postsPerPage;
 const endIndex = startIndex + postsPerPage;
 const paginatedPosts = category.posts.slice(startIndex, endIndex);
+console.log({ category });
+
 ---
 
 <Layout>
+  <h2 class="categories__title">
+    Posts de la categoría: {category?.name}
+  </h2>
   <section class="categories">
     <div class="categories__cards">
-      <h2 class="categories__title">
-        Posts de la categoría: {category?.name}
-      </h2>
       {
         paginatedPosts.length > 0 ? (
           <ul role="list" class="link-card-grid">
@@ -44,47 +46,47 @@ const paginatedPosts = category.posts.slice(startIndex, endIndex);
           </div>
         )
       }
-      {
-        totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            baseUrl={Astro.url.pathname}
-          />
-        )
-      }
     </div>
   </section>
+  {
+    totalPages > 1 && (
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        baseUrl={Astro.url.pathname}
+      />
+    )
+  }
 </Layout>
 
-<style lang="scss" is:global>
+<style lang="scss" is:inline>
   @use "@sass/variables" as v;
   @use "@sass/mixins" as *;
   main {
-    margin: 0 auto;
+    margin: 10rem auto;
     width: 100%;
     height: 100%;
+  }
+  .categories__title {
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: v.$french-violet;
+    transition: color 0.3s ease-in-out;
   }
   .categories {
     max-width: 1300px;
     margin: 0 auto;
-    display: grid;
-
-    &__title {
-      font-size: 2.5rem;
-      font-weight: 600;
-      color: v.$french-violet;
-      transition: color 0.3s ease-in-out;
-    }
-    &__cards {
-      @include flexConfig(space-evenly);
-      width: 100%;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      gap: 3rem;
-      padding: 2rem 1rem;
-      height: fit-content;
-    }
+  }
+  .post-card {
+    @include flexConfig(space-evenly);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 100%;
+    min-height: 12rem;
+    padding: 0;
   }
 </style>
