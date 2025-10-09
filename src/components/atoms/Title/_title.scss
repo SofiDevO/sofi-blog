@@ -1,4 +1,5 @@
 @use "@sass/mixins" as  *;
+@use "@sass/variables" as *;
 
 .title {
   &.category__title{
@@ -8,14 +9,18 @@
 
 
 
-.title.title-light {
-  @include text-gradient('light');
+.title.title-base {
+  @include text-gradient();
+}
+
+.title.title-ufo {
+  @include text-gradient($ufo-green);
 }
 
 .dark .title {
-  @include text-gradient("ligth");
+  @include text-gradient();
 }
 
 .title {
-  @include text-gradient("dark");
+  @include text-gradient();
 }

@@ -5,9 +5,9 @@ import DividerTop from "@src/components/atoms/DividerTop/DividerTop.astro";
 import "./_support.scss";
 
 import Layout from "@src/layouts/Layout.astro";
-import Contributtors from "./contributtors/Contributtors.astro";
-import GithubAnim from "./github-anim/GithubAnim.astro";
-import SuportHero from "./SupportHero.astro";
+import Contributtors from "./components/contributtors/Contributtors.astro";
+import GithubAnim from "./components/github-anim/GithubAnim.astro";
+import SuportHero from "./components/SupportHero.astro";
 
 import { getAboutPage } from "@src/services/getAboutPage";
 
@@ -28,6 +28,7 @@ console.log(pageData.content[2].attributes.content);
   </BackgroundGradient>
   <DividerTop />
   <GithubAnim pageData={pageData} />
+
   <DividerBottom fill="shape-fill-black" />
   <Contributtors />
 </Layout>
@@ -35,5 +36,9 @@ console.log(pageData.content[2].attributes.content);
 <style is:inline>
   main {
     background: black;
+    @media  (width <= 768px) {
+
+      padding-top:4rem;
+    }
   }
 </style>

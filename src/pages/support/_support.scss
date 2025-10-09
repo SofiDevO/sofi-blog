@@ -1,5 +1,5 @@
-@use "./github-anim/github-anim";
-@use "./contributtors/contributtors";
+@use "./components/github-anim/github-anim";
+@use "./components/contributtors/contributtors";
 @use "./contributor/contributor";
 @use "@sass/variables" as *;
 @use "@sass/mixins" as *;

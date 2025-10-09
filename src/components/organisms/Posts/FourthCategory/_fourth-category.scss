@@ -5,7 +5,7 @@
   width: 100%;
   @extend %max-width;;
   margin: 0 auto;
-  @include flexConfig();
+  @include flexConfig(center ,flex-start);
   flex-direction: column;
   gap: 5rem;
   padding: 20rem 0;

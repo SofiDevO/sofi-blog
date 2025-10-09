@@ -22,17 +22,22 @@ rol.forEach((rol) => {
 const icons = {
   github: "akar-icons:github-fill",
   instagram: "akar-icons:instagram-fill",
-  koFi: "simple-icons:kofi",
+  kofi: "simple-icons:kofi",
+  portafolio: "mdi:web",
   linkedin: "akar-icons:linkedin-fill",
   twitch: "akar-icons:twitch-fill",
   youtube: "akar-icons:youtube-fill",
 };
+
+const socialLinks = Object.keys(contributor.socialLinks)
+console.log(socialLinks);
+
 ---
 
 <Layout>
   <BackgroundGradient>
 
-    <section class="contributor">
+    <section class="contributor"   style={`--bg-color: ${contributor.customcolor};  `}>
       <div
       class="contributor__banner"
       style=`--bg: url(${contributor.banner.mediaItemUrl})`
@@ -42,12 +47,12 @@ const icons = {
         icon="ic:outline-arrow-back"
         width="30"
         height="30"
-        style={`color: ${contributor.customcolor} `}></iconify-icon>
+      ></iconify-icon>
       </a>
       <div class="contributor__overlay"></div>
     </div>
 
-    <div class="contributor__container">
+    <div class="contributor__container" >
       <div class="contributor__image">
         <img
         src={contributor.profilepic.mediaItemUrl}
@@ -80,6 +85,7 @@ const icons = {
           set:html={contributor.description}
           ></article>
           <SideBar>
+            <Title titleDesc="Mis redes sociales" class="title title-ufo" />
             <ul class="contributor__social-list">
               {
                 Object.keys(contributor.socialLinks)
@@ -91,13 +97,13 @@ const icons = {
                     target="_blank"
                     >
                     <iconify-icon
-                      class="contributor__icon"
+                      class="contributor__icon "
                       icon={icons[link]}
                       width="24"
                       height="24"
-                      style="color: #2dcece"
+                      style="color: var(--ufoGreen)"
                       />
-                    <span class="contributor__link">{link}</span>
+                    <span class="contributor__link capitalize">{link}</span>
                   </Button>
                 </li>
               ))
@@ -106,9 +112,7 @@ const icons = {
          {
           posts.length > 0 && (
 
-              <Title class="contributor__posts-title">
-                Posts de {contributor.author.firstName} {contributor.author.lastName}
-              </Title>
+              <Title class="title title-ufo" titleDesc={`Posts de ${contributor.name}`} />
               <div class="contributor__posts">
                 {posts.slice(0, 3).map((post)  => (
 

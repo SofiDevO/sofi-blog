@@ -2,7 +2,7 @@
 @use "@sass/mixins" as *;
 
 .contributor {
-  @include flexConfig(center, flex-start);
+  @include flexConfig(flex-start, flex-start);
   gap: 2rem;
   flex-direction: column;
   color: $mainColor;
@@ -10,7 +10,16 @@
   max-width: 1100px;
   margin: 0 auto;
   margin-top: 10rem;
-
+  &__title {
+    text-align:left;
+    font-size: 4rem;
+    font-weight: 800;
+    @include text-gradient(var(--bg-color));
+    width: 100%;
+    @include respond-to(medium) {
+      font-size: 2.5rem;
+    }
+  }
   &__banner {
     background: var(--bg) center center / cover no-repeat;
     width: 100%;
@@ -27,13 +36,14 @@
   &__back {
     @include flexConfig();
     background: #0101014a;
-    color: var(--bg);
     padding: 1rem;
     border-radius: 50%;
     backdrop-filter: blur(20px);
+    color: var(--bg-color);
+    transition: all 0.3s ease-in-out;
 
     &:hover {
-      color: $french-violet;
+      opacity: 0.8;
     }
   }
 
@@ -46,7 +56,7 @@
     overflow: hidden;
     background: rgba(34, 34, 34, 0.25);
     backdrop-filter: blur(15px);
-    border: solid 2px $french-violet;
+    border: solid 2px var(--bg-color);
 
     img {
       width: 100%;
@@ -110,9 +120,16 @@
      flex-direction: column;
     }
   }
-
-  &__title {
+  // contributor__posts-title
+  &__post-title {
+    @include text-gradient('dark');
     font-size: 2rem;
+    font-weight: 800;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: var(--ufoGreen)!important;
   }
 
   &__description {

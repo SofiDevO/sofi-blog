@@ -16,6 +16,9 @@ const { slug, name, posts } = Astro.props;
 
 
 <section class="fourth-category">
+   <a href={`/categories/${slug}`} class="web-dev__link">
+      <Title titleDesc={name} class="web-dev__title text-left" />
+    </a>
   <div class="swiper">
     <swiper-container
 
