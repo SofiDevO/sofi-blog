@@ -2,42 +2,43 @@
 import Pagination from "@atoms/Pagination/Pagination.astro";
 import PostCard from "@organisms/Posts/components/PostCard/PostCard.astro";
 import Layout from "@src/layouts/Layout.astro";
-import { getCategorieBySlug } from "@src/services/categories";
 import { getCategoriesWithPosts } from "@src/services/categoriesWithPosts";
 
 export const prerender = true;
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ paginate }) {
   const categoriesWithPosts = await getCategoriesWithPosts();
+  const allPaths = [];
 
-  return Object.keys(categoriesWithPosts).map((categorySlug) => ({
-    params: { slug: categorySlug },
-  }));
+  Object.entries(categoriesWithPosts).forEach(([categorySlug, categoryArray]) => {
+    const category = categoryArray[0];
+    if (!category) return;
+
+    // Usar la API oficial paginate() de Astro
+    const paginatedPaths = paginate(category.posts, {
+      params: { slug: categorySlug },
+      pageSize: 4,
+      props: {
+        categoryName: category.name,
+        categorySlug: categorySlug
+      }
+    });
+
+    allPaths.push(...paginatedPaths);
+  });
+
+  return allPaths;
 }
 
-const { slug } = Astro.params;
-
-const category = await getCategorieBySlug(slug);
-if (!category) {
-  return Astro.redirect("/404");
-}
-
-// Configuración de paginación
-const postsPerPage = 4;
-const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
-const totalPages = Math.ceil(category.posts.length / postsPerPage);
-
-// Obtener los posts para la página actual
-const startIndex = (currentPage - 1) * postsPerPage;
-const endIndex = startIndex + postsPerPage;
-const paginatedPosts = category.posts.slice(startIndex, endIndex);
-console.log({ category });
+// Obtener datos del objeto page que proporciona paginate()
+const { page, categoryName, categorySlug } = Astro.props;
+const { data: paginatedPosts } = page;
 
 ---
 
 <Layout>
   <h2 class="categories__title">
-    Posts de la categoría: {category?.name}
+    Posts de la categoría: {categoryName}
   </h2>
   <section class="categories">
     <div class="categories__cards">
@@ -61,11 +62,12 @@ console.log({ category });
     </div>
   </section>
   {
-    totalPages > 1 && (
+    page.lastPage > 1 && (
       <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        baseUrl={Astro.url.pathname}
+        currentPage={page.currentPage}
+        totalPages={page.lastPage}
+        baseUrl={`/categories/${categorySlug}`}
+        page={page}
       />
     )
   }

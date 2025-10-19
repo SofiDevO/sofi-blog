@@ -1,88 +1,126 @@
 ---
-const { currentPage, totalPages, baseUrl, query = null } = Astro.props;
-const currentPageUrl = new URLSearchParams(query || "");
-currentPageUrl.set("page", (currentPage - 1).toString());
-const nextPageUrl = new URLSearchParams(query || "");
-nextPageUrl.set("page", (currentPage + 1).toString());
+const { currentPage, totalPages, baseUrl, query, page } = Astro.props;
+
+// Determinar si usar URLs de Astro paginate() o query parameters
+const useAstroPagination = Boolean(page);
+const prevUrl = useAstroPagination ? page.url.prev : `${baseUrl}?page=${currentPage - 1}`;
+const nextUrl = useAstroPagination ? page.url.next : `${baseUrl}?page=${currentPage + 1}`;
+
+// Función para generar URL de página específica
+function getPageUrl(pageNum) {
+  if (useAstroPagination) {
+    // Para paginación estática de Astro
+    return pageNum === 1 ? baseUrl : `${baseUrl}/${pageNum}`;
+  } else {
+    // Para paginación con query parameters
+    const queryString = new URLSearchParams(query || "");
+    queryString.set("page", pageNum.toString());
+    return `${baseUrl}?${queryString}`;
+  }
+}
 ---
 
 <section class="pagination">
   <div class="pagination__container">
-    <a
-      aria-label="Ir a la página anterior"
-      data-astro-prefetch="hover"
-      href={`${baseUrl}?${currentPageUrl}`}
-      class:list={[
-        "pagination__link pagination__link--disabled",
-        currentPage > 1 && "pagination__link--active",
-      ]}>Anterior</a
-    >
-    {
-      Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-        const queryString = new URLSearchParams(query || "");
-        queryString.set("page", page.toString());
-        return (
-          <a
-          aria-label={`Ir a la página ${page}`}
-            data-astro-prefetch="hover"
-            href={`${baseUrl}?${queryString}`}
-            class:list={[
-              "pagination__link",
-              page === currentPage ? "pagination__link--current" : "",
-            ]}
-          >
-            {page}
-          </a>
-        );
-      })
-    }
-    <a
-    aria-label="Ir a la página siguiente"
-      data-astro-prefetch="hover"
-      href={`${baseUrl}?${nextPageUrl}`}
-      class:list={[
-        "pagination__link pagination__link--disabled",
-        currentPage < totalPages && "pagination__link--active",
-      ]}>Siguiente</a
-    >
+    {/* Botón Anterior */}
+    {(useAstroPagination ? prevUrl : currentPage > 1) ? (
+      <a
+        aria-label="Ir a la página anterior"
+        data-astro-prefetch="hover"
+        href={prevUrl}
+        class="pagination__link pagination__link--active"
+      >
+        Anterior
+      </a>
+    ) : (
+      <span class="pagination__link pagination__link--disabled">
+        Anterior
+      </span>
+    )}
+
+    {/* Números de página */}
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+      <a
+        aria-label={`Ir a la página ${pageNum}`}
+        data-astro-prefetch="hover"
+        href={getPageUrl(pageNum)}
+        class:list={[
+          "pagination__link",
+          pageNum === currentPage ? "pagination__link--current" : "",
+        ]}
+      >
+        {pageNum}
+      </a>
+    ))}
+
+    {/* Botón Siguiente */}
+    {(useAstroPagination ? nextUrl : currentPage < totalPages) ? (
+      <a
+        aria-label="Ir a la página siguiente"
+        data-astro-prefetch="hover"
+        href={nextUrl}
+        class="pagination__link pagination__link--active"
+      >
+        Siguiente
+      </a>
+    ) : (
+      <span class="pagination__link pagination__link--disabled">
+        Siguiente
+      </span>
+    )}
   </div>
 </section>
 
-<style lang="scss" define:vars={{ baseUrl }}>
-  @use "@sass/variables" as v;
-  @use "@sass/mixins" as  *;
+<style>
   .pagination {
-    @include flexConfig(center);
-    margin-top: auto;
-    &__container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      align-self: center;
-      margin:  auto;
-      justify-self: center;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .pagination__container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .pagination__link {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  .pagination__link--active:hover {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .pagination__link--current {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .pagination__link--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 768px) {
+    .pagination__container {
+      gap: 0.25rem;
     }
-    &__link {
-      padding: 5px 10px;
-      border: 1px solid var(--border-color);
-      border-radius: 5px;
-      text-decoration: none;
-      color: white;
-      background-color: v.$french-violet;
-      &--disabled {
-        pointer-events: none;
-        background-color: rgba(102, 102, 102, 0.637);
-      }
-      &--active {
-        background-color: v.$french-violet;
-        color: white;
-        pointer-events: initial;
-      }
-      &--current {
-        background-color: #300068;
-        color: v.$ufo-green;
-        pointer-events: initial;
-      }
+
+    .pagination__link {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.875rem;
     }
   }
 </style>

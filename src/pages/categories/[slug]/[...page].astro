@@ -1,0 +1,155 @@
+---
+import { getCategoriesWithPosts } from "../../../services/categoriesWithPosts";
+import Layout from "../../../layouts/Layout.astro";
+import PostCard from "../../../components/organisms/Posts/components/PostCard/PostCard.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths({ paginate }) {
+  const categoriesWithPostsGrouped = await getCategoriesWithPosts();
+
+  return Object.values(categoriesWithPostsGrouped).flatMap((categories) => {
+    const category = categories[0];
+    if (!category) return [];
+
+    const categorySlug = category.slug;
+    const categoryName = category.name;
+
+    return paginate(category.posts, {
+      params: { slug: categorySlug },
+      pageSize: 4,
+      props: {
+        categoryName,
+        categorySlug,
+      },
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { categoryName, categorySlug } = Astro.props;
+const { slug } = Astro.params;
+---
+
+<Layout title={`${categoryName} - Página ${page.currentPage}`}>
+  <main class="main">
+    <section class="container container--md">
+      <div class="category-header">
+        <h1 class="category-title">{categoryName}</h1>
+        <p class="category-description">
+          Página {page.currentPage} de {page.lastPage} - {page.total} artículos
+        </p>
+      </div>
+
+      <div class="posts-grid">
+        {page.data.map((post) => (
+          <PostCard
+            title={post.title}
+            excerpt={post.excerpt}
+            slug={post.slug}
+            date={post.date}
+            image={post.image}
+            author={post.author}
+            categories={post.categories}
+          />
+        ))}
+      </div>
+
+      {page.lastPage > 1 && (
+        <section class="pagination">
+          <div class="pagination__container">
+            {page.url.prev && (
+              <a href={page.url.prev} class="pagination__link">
+                ← Anterior
+              </a>
+            )}
+
+            <span class="pagination__current">
+              Página {page.currentPage} de {page.lastPage}
+            </span>
+
+            {page.url.next && (
+              <a href={page.url.next} class="pagination__link">
+                Siguiente →
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .category-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .category-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .category-description {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+
+  .pagination__container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .pagination__link {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    background: var(--bg-color);
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+
+  .pagination__link:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .pagination__current {
+    padding: 0.75rem 1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .category-title {
+      font-size: 2rem;
+    }
+
+    .posts-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
