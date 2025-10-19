@@ -1,0 +1,108 @@
+---
+import { getCategoriesWithPosts } from "../../../services/categoriesWithPosts";
+import Layout from "../../../layouts/Layout.astro";
+import PostCard from "../../../components/organisms/Posts/components/PostCard/PostCard.astro";
+import Pagination from "../../../components/atoms/Pagination/Pagination.astro";
+
+export const prerender = true;
+
+export async function getStaticPaths({ paginate }) {
+  const categoriesWithPostsGrouped = await getCategoriesWithPosts();
+
+  return Object.values(categoriesWithPostsGrouped).flatMap((categories) => {
+    const category = categories[0];
+    if (!category) return [];
+
+    const categorySlug = category.slug;
+    const categoryName = category.name;
+
+    return paginate(category.posts, {
+      params: { slug: categorySlug },
+      pageSize: 4,
+      props: {
+        categoryName,
+        categorySlug,
+      },
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { categoryName, categorySlug } = Astro.props;
+const { slug } = Astro.params;
+---
+
+<Layout title={`${categoryName} - Página ${page.currentPage}`}>
+  <main class="main">
+    <section class="container container--md">
+      <div class="category-header">
+        <h1 class="category-title">{categoryName}</h1>
+        <p class="category-description">
+          Página {page.currentPage} de {page.lastPage} - {page.total} artículos
+        </p>
+      </div>
+
+      <div class="posts-grid">
+        {page.data.map((post) => (
+          <PostCard
+            title={post.title}
+            excerpt={post.excerpt}
+            slug={post.slug}
+            date={post.date}
+            image={post.image}
+            author={post.author}
+            categories={post.categories}
+          />
+        ))}
+      </div>
+
+      {page.lastPage > 1 && (
+        <Pagination
+          currentPage={page.currentPage}
+          totalPages={page.lastPage}
+          baseUrl={`/categories/${categorySlug}`}
+          page={page}
+        />
+      )}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .category-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .category-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .category-description {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .category-title {
+      font-size: 2rem;
+    }
+
+    .posts-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>

@@ -1,104 +1,18 @@
 ---
-import Pagination from "@atoms/Pagination/Pagination.astro";
-import PostCard from "@organisms/Posts/components/PostCard/PostCard.astro";
-import Layout from "@src/layouts/Layout.astro";
-import { getCategorieBySlug } from "@src/services/categories";
 import { getCategoriesWithPosts } from "@src/services/categoriesWithPosts";
 
 export const prerender = true;
 
 export async function getStaticPaths() {
   const categoriesWithPosts = await getCategoriesWithPosts();
-
+  
   return Object.keys(categoriesWithPosts).map((categorySlug) => ({
-    params: { slug: categorySlug },
+    params: { slug: categorySlug }
   }));
 }
 
 const { slug } = Astro.params;
 
-const category = await getCategorieBySlug(slug);
-if (!category) {
-  return Astro.redirect("/404");
-}
-
-// Configuración de paginación
-const postsPerPage = 4;
-const currentPage = Number(Astro.url.searchParams.get("page")) || 1;
-const totalPages = Math.ceil(category.posts.length / postsPerPage);
-
-// Obtener los posts para la página actual
-const startIndex = (currentPage - 1) * postsPerPage;
-const endIndex = startIndex + postsPerPage;
-const paginatedPosts = category.posts.slice(startIndex, endIndex);
-console.log({ category });
-
+// Redirect to the first page of the paginated route
+return Astro.redirect(`/categories/${slug}/1`);
 ---
-
-<Layout>
-  <h2 class="categories__title">
-    Posts de la categoría: {category?.name}
-  </h2>
-  <section class="categories">
-    <div class="categories__cards">
-      {
-        paginatedPosts.length > 0 ? (
-          <ul role="list" class="link-card-grid">
-            {paginatedPosts.map((post) => {
-              return (
-                <li>
-                  <PostCard {...post} />
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <div class="categories__cards">
-            <p>No se encontraron posts en esta categoría. 🦝</p>
-          </div>
-        )
-      }
-    </div>
-  </section>
-  {
-    totalPages > 1 && (
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        baseUrl={Astro.url.pathname}
-      />
-    )
-  }
-</Layout>
-
-<style lang="scss" is:inline>
-  @use "@sass/variables" as v;
-  @use "@sass/mixins" as *;
-  main {
-    margin: 10rem auto;
-    width: 100%;
-    height: 100%;
-  }
-  .categories__title {
-    font-size: 2.5rem;
-    text-align: center;
-    font-weight: 700;
-    color: v.$french-violet;
-    transition: color 0.3s ease-in-out;
-  }
-  .categories {
-    max-width: 1300px;
-    margin: 0 auto;
-  }
-  .post-card {
-    @include flexConfig(space-evenly);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
-    height: 100%;
-    min-height: 12rem;
-    padding: 0;
-  }
-</style>
