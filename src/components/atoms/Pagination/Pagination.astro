@@ -1,29 +1,21 @@
 ---
-const { currentPage, totalPages, baseUrl, query, page } = Astro.props;
+const { currentPage, totalPages, baseUrl, page } = Astro.props;
 
-// Determinar si usar URLs de Astro paginate() o query parameters
-const useAstroPagination = Boolean(page);
-const prevUrl = useAstroPagination ? page.url.prev : `${baseUrl}?page=${currentPage - 1}`;
-const nextUrl = useAstroPagination ? page.url.next : `${baseUrl}?page=${currentPage + 1}`;
+// Use Astro's native pagination URLs when available
+const prevUrl = page?.url?.prev;
+const nextUrl = page?.url?.next;
 
-// Función para generar URL de página específica
-function getPageUrl(pageNum) {
-  if (useAstroPagination) {
-    // Para paginación estática de Astro
-    return pageNum === 1 ? baseUrl : `${baseUrl}/${pageNum}`;
-  } else {
-    // Para paginación con query parameters
-    const queryString = new URLSearchParams(query || "");
-    queryString.set("page", pageNum.toString());
-    return `${baseUrl}?${queryString}`;
-  }
+// Function to generate URL for specific page number
+// For Astro's paginate(), page 1 is at baseUrl/1, page 2 at baseUrl/2, etc.
+function getPageUrl(pageNum: number): string {
+  return `${baseUrl}/${pageNum}`;
 }
 ---
 
 <section class="pagination">
   <div class="pagination__container">
     {/* Botón Anterior */}
-    {(useAstroPagination ? prevUrl : currentPage > 1) ? (
+    {prevUrl ? (
       <a
         aria-label="Ir a la página anterior"
         data-astro-prefetch="hover"
@@ -54,7 +46,7 @@ function getPageUrl(pageNum) {
     ))}
 
     {/* Botón Siguiente */}
-    {(useAstroPagination ? nextUrl : currentPage < totalPages) ? (
+    {nextUrl ? (
       <a
         aria-label="Ir a la página siguiente"
         data-astro-prefetch="hover"

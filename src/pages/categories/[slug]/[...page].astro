@@ -2,6 +2,7 @@
 import { getCategoriesWithPosts } from "../../../services/categoriesWithPosts";
 import Layout from "../../../layouts/Layout.astro";
 import PostCard from "../../../components/organisms/Posts/components/PostCard/PostCard.astro";
+import Pagination from "../../../components/atoms/Pagination/Pagination.astro";
 
 export const prerender = true;
 
@@ -56,25 +57,12 @@ const { slug } = Astro.params;
       </div>
 
       {page.lastPage > 1 && (
-        <section class="pagination">
-          <div class="pagination__container">
-            {page.url.prev && (
-              <a href={page.url.prev} class="pagination__link">
-                ← Anterior
-              </a>
-            )}
-
-            <span class="pagination__current">
-              Página {page.currentPage} de {page.lastPage}
-            </span>
-
-            {page.url.next && (
-              <a href={page.url.next} class="pagination__link">
-                Siguiente →
-              </a>
-            )}
-          </div>
-        </section>
+        <Pagination
+          currentPage={page.currentPage}
+          totalPages={page.lastPage}
+          baseUrl={`/categories/${categorySlug}`}
+          page={page}
+        />
       )}
     </section>
   </main>
@@ -105,41 +93,6 @@ const { slug } = Astro.params;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
-  }
-
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0;
-  }
-
-  .pagination__container {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .pagination__link {
-    padding: 0.75rem 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: var(--text-color);
-    background: var(--bg-color);
-    transition: all 0.2s ease;
-    font-weight: 500;
-  }
-
-  .pagination__link:hover {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-
-  .pagination__current {
-    padding: 0.75rem 1rem;
-    color: var(--text-muted);
-    font-weight: 500;
   }
 
   @media (max-width: 768px) {
