@@ -32,12 +32,12 @@ export default defineConfig({
       filter: (page) =>
         !page.includes("/private") &&
         !page.includes("/dashboard") &&
-        !page.includes("/register"),
-      serialize: (page) => {
+        !page.includes("/register") &&
+        !page.includes("/login"),
+      serialize: (item) => {
         return {
-          url: page,
+          url: item.url,
           changefreq: "daily",
-
           priority: 0.8,
         };
       },
