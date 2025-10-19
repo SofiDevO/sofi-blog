@@ -3,6 +3,18 @@ import Pagination from "@atoms/Pagination/Pagination.astro";
 import PostCard from "@organisms/Posts/components/PostCard/PostCard.astro";
 import Layout from "@src/layouts/Layout.astro";
 import { getCategorieBySlug } from "@src/services/categories";
+import { getCategoriesWithPosts } from "@src/services/categoriesWithPosts";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const categoriesWithPosts = await getCategoriesWithPosts();
+
+  return Object.keys(categoriesWithPosts).map((categorySlug) => ({
+    params: { slug: categorySlug },
+  }));
+}
+
 const { slug } = Astro.params;
 
 const category = await getCategorieBySlug(slug);
