@@ -6,7 +6,7 @@ import SideBarContent from "@molecules/sideBar/SideBarContent.astro";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
 import Comments from "@src/components/organisms/Comments/Comments.astro";
-import PostDetail from "@src/components/organisms/Posts/components/post-detail/PostDetail.astro";
+import PostDetail from "./_components/post-detail/PostDetail.astro";
 import { PostContentData } from "@src/services/getPostContent";
 const { slug } = Astro.params;
 
@@ -114,7 +114,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
   });
 </script>
 
-<style lang="scss" is:global>
+<style lang="scss" is:inline>
   @use "@sass/variables" as *;
 
   .progress {

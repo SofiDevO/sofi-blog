@@ -47,7 +47,9 @@ export function InsertButtonCopy() {
     function Copy() {
       UpdateIcon("material-symbols:check");
       text.innerText = "Copied";
-      const textCopy = body.innerText;
+      const clone = body.cloneNode(true) as HTMLPreElement;
+      clone.querySelector(".line-numbers")?.remove();
+      const textCopy = clone.innerText;
       navigator.clipboard.writeText(textCopy);
       setTimeout(() => {
         text.innerText = "Copy";
