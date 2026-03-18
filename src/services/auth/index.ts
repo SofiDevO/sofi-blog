@@ -49,7 +49,7 @@ interface CreateUserResponse {
  * @returns {LoggedUser | null} - Returns the logged user data if the user is logged in,
  * or null if the user is not logged in or the token is invalid.
  */
-export function isLoggedIn(cookies: AstroCookies): LoggedUser {
+export function isLoggedIn(cookies: AstroCookies): LoggedUser | null {
     const accessToken = cookies.get("accessToken")?.value;
     if (!accessToken ) return null;
     try {
@@ -73,13 +73,8 @@ export function isLoggedIn(cookies: AstroCookies): LoggedUser {
 
 /**
  * Verifies if a user is valid by checking the credentials against the WordPress REST API.
- *
- * @param {string} user - The username to verify.
- * @param {string} password - The password to verify.
- * @returns {Promise<WP_User | null>} - Returns the user data if the credentials are valid, or
- * null if the credentials are invalid.
  */
-export async function isValidUser(user: string, password: string) {
+export async function isValidUser(user: string, password: string): Promise<any> {
     try {
         const url = new URL(WPGRAPHQL_URL);
         const  endpoint = `${url.protocol}//${url.hostname}/wp-json`;
@@ -88,7 +83,6 @@ export async function isValidUser(user: string, password: string) {
             endpoint: endpoint,
             username: user,
             password: password,
-            auth: true,
         });
 
         let userData = await wp.users().me();
@@ -118,15 +112,16 @@ export async function isValidUser(user: string, password: string) {
         return userData;
 
     } catch (error) {
-        if(error.code ===  "incorrect_password" || error.code === "invalid_username") {
-            console.error("Invalid Credentials:", error.message);
+        const err = error as any;
+        if(err.code ===  "incorrect_password" || err.code === "invalid_username") {
+            console.error("Invalid Credentials:", err.message);
             return null;
         }
-        if (error.code === "rest_not_logged_in") {
-            console.error("Wordpress connection error:", error.message);
+        if (err.code === "rest_not_logged_in") {
+            console.error("Wordpress connection error:", err.message);
             return null;
         }
-        console.error(error.code, error.message);
+        console.error(err.code, err.message);
         return null;
     }
 }
@@ -138,7 +133,7 @@ export async function isValidUser(user: string, password: string) {
  * @returns {Promise<RegisterUserResponse>} - The registered user data if the registration is
  * successful, or null if the registration fails.
  */
-export async function registerUser(user: RegisterUser): Promise<RegisterUserResponse> {
+export async function registerUser(user: RegisterUser): Promise<RegisterUserResponse | null> {
     const query = `
         mutation createUser(
             $username: String = "",
