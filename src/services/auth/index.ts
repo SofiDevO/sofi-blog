@@ -7,6 +7,15 @@ import { wpquery } from '@src/data/wordpress';
 
 import { getUserByName } from './getUserByName';
 
+// Workaround for buffer-equal-constant-time ESM compatibility
+import { createRequire } from 'module';
+try {
+  const require = createRequire(import.meta.url);
+  require('buffer-equal-constant-time');
+} catch (e) {
+  // Silently ignore if not needed
+}
+
 const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD   } = import.meta.env
 
 interface UserEmailResponse {
