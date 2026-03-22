@@ -6,8 +6,8 @@ import SideBarContent from "@molecules/sideBar/SideBarContent.astro";
 import Loader from "@src/components/atoms/Loader/Loader.astro";
 import Title from "@src/components/atoms/Title/Title.astro";
 import Comments from "@src/components/organisms/Comments/Comments.astro";
-import PostDetail from "./_components/post-detail/PostDetail.astro";
 import { PostContentData } from "@src/services/getPostContent";
+import PostDetail from "./_components/post-detail/PostDetail.astro";
 const { slug } = Astro.params;
 
 export async function getStaticPaths() {
@@ -67,10 +67,10 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
     </div>
 
     <div
-      class="flex w-full max-w-[1200px]  mx-auto flex-col md:flex-row items-start justify-around"
+      class="flex w-full max-w-[1200px] mx-auto flex-col md:flex-row items-start justify-around"
     >
       <!-- Post Detail -->
-      <div id="post" class="w-full max-w-[700px]  min-h-screen flex flex-col">
+      <div id="post" class="w-full max-w-[700px] min-h-screen flex flex-col">
         <PostDetail {post} {author}>
           <Comments slug={slug} postID={id} server:defer>
             <div slot="fallback">
@@ -97,15 +97,15 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
 
   const tocBase = document.querySelector("#toc_container");
 
-  const tocContainer = document.querySelector("#toc_container-new") as HTMLElement;
+  const tocContainer = document.querySelector(
+    "#toc_container-new",
+  ) as HTMLElement;
 
   tocContainer.insertAdjacentHTML("afterbegin", tocBase.innerHTML);
   tocBase.remove();
 
-  let tocTitle = tocContainer.querySelector(".toc_title")
+  let tocTitle = tocContainer.querySelector(".toc_title");
   let icon = document.createElement("div");
-
-
 
   icon.innerHTML = `<iconify-icon icon="cuida:dropdown-outline" width="24" height="24"  style="color: #2dcece"></iconify-icon>`;
   tocTitle.appendChild(icon);
@@ -170,21 +170,17 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
   }
   .toc_list li > ul {
     margin-left: 1rem;
-
-
   }
-
-
 
   .toc_number:has(> li) {
-    font-weight: 900!important;
-
+    font-weight: 900 !important;
   }
 
-.toc_number.toc_depth_1, .toc_number.toc_depth_2 {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
+  .toc_number.toc_depth_1,
+  .toc_number.toc_depth_2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
   .dark {
     .progress {
       background: $ufo-green;
