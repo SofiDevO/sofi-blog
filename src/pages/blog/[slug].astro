@@ -33,7 +33,7 @@ const postImage =
 const { date } = Astro?.props;
 const category = post?.categories?.nodes?.[0];
 const author = post.author?.node;
-const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
+const keyWords = post?.tags?.nodes?.map((keyword: any) => keyword?.name).join(", ");
 ---
 
 <Layout image={postImage} title={post.title} description={post.seo.metaDesc}>
@@ -89,7 +89,7 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
   <div class="progress"></div>
 </Layout>
 
-<script>
+<script >
   import { commentsController } from "@controllers/comments.controller";
   import { InsertButtonCopy } from "@pages/blog/button-copy";
   commentsController();
@@ -101,15 +101,15 @@ const keyWords = post?.tags?.nodes?.map((keyword) => keyword?.name).join(", ");
     "#toc_container-new",
   ) as HTMLElement;
 
-  tocContainer.insertAdjacentHTML("afterbegin", tocBase.innerHTML);
-  tocBase.remove();
+  tocContainer.insertAdjacentHTML("afterbegin", tocBase?.innerHTML || "");
+  tocBase?.remove();
 
   let tocTitle = tocContainer.querySelector(".toc_title");
   let icon = document.createElement("div");
 
   icon.innerHTML = `<iconify-icon icon="cuida:dropdown-outline" width="24" height="24"  style="color: #2dcece"></iconify-icon>`;
-  tocTitle.appendChild(icon);
-  tocTitle.addEventListener("click", () => {
+  tocTitle?.appendChild(icon);
+  tocTitle?.addEventListener("click", () => {
     tocContainer.classList.toggle("active");
   });
 </script>

@@ -18,13 +18,13 @@ export const prerender = true;
     <Hero title="Bienvenidos al SofiBlog" />
   </BackgroundGradient>
   <DividerTop fill="shape-fill-darkPurple" />
-  <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />
+  {categoriesWithPosts["tutoriales"]?.[0] && <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />}
   <DividerTop fill="shape-fill-white" />
-  <SecondCategory {...categoriesWithPosts["aprender-a-programar"][0]} />
+  {categoriesWithPosts["aprender-a-programar"]?.[0] && <SecondCategory {...categoriesWithPosts["aprender-a-programar"][0]} />}
   <DividerBottom fill="shape-fill-white" />
-  <ThirdCategory {...categoriesWithPosts["astro"][0]} />
+  {categoriesWithPosts["astro"]?.[0] && <ThirdCategory {...categoriesWithPosts["astro"][0]} />}
   <DividerTop fill="shape-fill-white" />
-  <SecondCategory reverse={true} {...categoriesWithPosts["javascript"][0]} />
+  {categoriesWithPosts["javascript"]?.[0] && <SecondCategory reverse={true} {...categoriesWithPosts["javascript"][0]} />}
   <DividerBottom fill="shape-fill-white" />
-  <FourthCategory {...categoriesWithPosts["escritura"][0]} />
+  {categoriesWithPosts["escritura"]?.[0] && <FourthCategory {...categoriesWithPosts["escritura"][0]} />}
 </Layout>

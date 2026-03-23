@@ -13,7 +13,7 @@ const { cookies } = Astro;
 
 const post = await getPostsBySlug(slug);
 const isLogged = isLoggedIn(cookies);
-let comments = post.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
+let comments = post?.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
 ---
 
 <section class="flex flex-col mt-14 w-full gap-5" id="comments">
@@ -27,7 +27,7 @@ let comments = post.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
   <Comment comment={null} />
   {
     comments.length > 0 &&
-    comments.map(async (comment, index) => {
+    comments.map(async (comment: typeof comments[number], index: number) => {
         const areFirstTwoComments = index < 2;
         const replies = await getRepliesByCommentId(comment.id);
         return (
@@ -43,4 +43,3 @@ let comments = post.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
   }
   <CommentForm postId={postID} {isLogged} />
 </section>
-

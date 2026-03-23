@@ -76,7 +76,7 @@ export const getCategoriesWithPosts = async () => {
                     };
                 }) || [],
             };
-    });
-    const categoriesGroupByID = Object.groupBy(categoriesWithPosts,({ slug }) => slug);
+    }) || [];
+    const categoriesGroupByID = Object.groupBy(categoriesWithPosts, ({ slug }) => slug);
     return categoriesGroupByID;
 }
