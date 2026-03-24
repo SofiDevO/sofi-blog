@@ -33,7 +33,9 @@ const postImage =
 const { date } = Astro?.props;
 const category = post?.categories?.nodes?.[0];
 const author = post.author?.node;
-const keyWords = post?.tags?.nodes?.map((keyword: any) => keyword?.name).join(", ");
+const keyWords = post?.tags?.nodes
+  ?.map((keyword: any) => keyword?.name)
+  .join(", ");
 ---
 
 <Layout image={postImage} title={post.title} description={post.seo.metaDesc}>
@@ -65,13 +67,42 @@ const keyWords = post?.tags?.nodes?.map((keyword: any) => keyword?.name).join(",
         {post?.title}
       </Title>
     </div>
-
     <div
       class="flex w-full max-w-[1200px] mx-auto flex-col md:flex-row items-start justify-around"
     >
       <!-- Post Detail -->
       <div id="post" class="w-full max-w-[700px] min-h-screen flex flex-col">
+        <script
+          is:inline
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+          crossorigin="anonymous"></script>
+        <ins
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-format="fluid"
+          data-ad-layout-key="-fb+5w+4e-db+86"
+          data-ad-client="ca-pub-3828278469742835"
+          data-ad-slot="6132125318"></ins>
+        <script is:inline>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
         <PostDetail {post} {author}>
+          <script
+            is:inline
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+            crossorigin="anonymous"></script>
+          <ins
+            class="adsbygoogle"
+            style="display:block"
+            data-ad-format="fluid"
+            data-ad-layout-key="-fb+5w+4e-db+86"
+            data-ad-client="ca-pub-3828278469742835"
+            data-ad-slot="6132125318"></ins>
+          <script is:inline>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
           <Comments slug={slug} postID={id} server:defer>
             <div slot="fallback">
               <Loader />
@@ -89,7 +120,7 @@ const keyWords = post?.tags?.nodes?.map((keyword: any) => keyword?.name).join(",
   <div class="progress"></div>
 </Layout>
 
-<script >
+<script>
   import { commentsController } from "@controllers/comments.controller";
   import { InsertButtonCopy } from "@pages/blog/button-copy";
   commentsController();

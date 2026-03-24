@@ -1,8 +1,8 @@
 ---
-import { getCategoriesWithPosts } from "../../../services/categoriesWithPosts";
-import Layout from "../../../layouts/Layout.astro";
-import PostCard from "../../../components/organisms/Posts/components/PostCard/PostCard.astro";
 import Pagination from "../../../components/atoms/Pagination/Pagination.astro";
+import PostCard from "../../../components/organisms/Posts/components/PostCard/PostCard.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { getCategoriesWithPosts } from "../../../services/categoriesWithPosts";
 
 export const prerender = true;
 
@@ -35,36 +35,57 @@ const { slug } = Astro.params;
 <Layout title={`${categoryName} - Página ${page.currentPage}`}>
   <main class="main">
     <section class="categories">
-      <div class="category-header">
-        <h1 class="categories__title">{categoryName}</h1>
+      <div class="categories__ads">
+        <script
+          is:inline
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+          crossorigin="anonymous"></script>
+        <ins
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-format="fluid"
+          data-ad-layout-key="-fb+5w+4e-db+86"
+          data-ad-client="ca-pub-3828278469742835"
+          data-ad-slot="6132125318"></ins>
+        <script is:inline>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+      <div class="categories__header">
+        <h1 class="title">{categoryName}</h1>
       </div>
 
-      <div class="categories__cards">
+      <div class="categories__card-section">
         <ul role="list" class="link-card-grid">
-          {page.data.map((post) => (
-            <li>
-              <PostCard
-                title={post.title}
-                excerpt={post.excerpt}
-                slug={post.slug}
-                date={post.date}
-                image={post.image}
-                author={post.author}
-                categories={post.categories}
-              />
-            </li>
-          ))}
+          {
+            page.data.map((post: any) => (
+              <li>
+                <PostCard
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  slug={post.slug}
+                  date={post.date}
+                  image={post.image}
+                  author={post.author}
+                  categories={post.categories}
+                />
+              </li>
+            ))
+          }
         </ul>
       </div>
 
-      {page.lastPage > 1 && (
-        <Pagination
-          currentPage={page.currentPage}
-          totalPages={page.lastPage}
-          baseUrl={`/categories/${categorySlug}`}
-          page={page}
-        />
-      )}
+      {
+        page.lastPage > 1 && (
+          <Pagination
+            currentPage={page.currentPage}
+            totalPages={page.lastPage}
+            baseUrl={`/categories/${categorySlug}`}
+            page={page}
+          />
+        )
+      }
     </section>
   </main>
 </Layout>
@@ -74,34 +95,42 @@ const { slug } = Astro.params;
   @use "@sass/mixins" as *;
 
   main {
-    margin: 10rem auto;
+    margin: 5rem auto 2rem auto;
     width: 100%;
     height: 100%;
   }
 
   .categories {
-    max-width: 1300px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // max-width: 1300px;
     margin: 0 auto;
+
   }
 
-  .categories__cards {
+  .categories__ads {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .categories__card-section {
     width: 100%;
   }
-
-  .category-header {
-    margin-bottom: 2rem;
+  .categories__header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     text-align: center;
+    margin: 2rem auto 2rem auto;
+    &__title {
+      font-size: 2.5rem;
+      text-align: center;
+      font-weight: 700;
+      transition: color 0.3s ease-in-out;
+      margin-bottom: 0.5rem;
+    }
   }
-
-  .categories__title {
-    font-size: 2.5rem;
-    text-align: center;
-    font-weight: 700;
-    color: v.$french-violet;
-    transition: color 0.3s ease-in-out;
-    margin-bottom: 0.5rem;
-  }
-
   .category-description {
     color: var(--textColor);
     font-size: 1.1rem;
