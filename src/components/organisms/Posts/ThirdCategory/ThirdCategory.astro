@@ -9,11 +9,10 @@ import type { CategoryWithPosts } from "@src/types/category.type";
 
 interface Props extends CategoryWithPosts {}
 const { slug, name, posts } = Astro.props;
-
-const DEFAULT_POST = posts?.[0];
+const DEFAULT_POST = posts[0];
 ---
 
-{DEFAULT_POST && (
+
   <section class="web-dev">
     <a href={`/categories/${slug}`} class="web-dev__link">
       <Title titleDesc={name} class="web-dev__title " />
@@ -35,4 +34,3 @@ const DEFAULT_POST = posts?.[0];
 
   </section>
 </div>
-)}

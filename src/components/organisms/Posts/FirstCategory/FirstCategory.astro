@@ -8,24 +8,22 @@ interface Props extends CategoryWithPosts {}
 const { slug, name, posts } = Astro.props;
 ---
 
-{posts && posts.length > 0 && (
-  <!-- Renderizado de los posts -->
-  <div class="categories__container">
-    <section class="category">
-      <a href={`/categories/${slug}`} class="category__link">
-        <Title titleDesc={name} class="category__link__title" />
-      </a>
-      <ul class="link-card-grid">
-        {
-          posts.slice(0, 4).map((post) => {
-            return (
-              <li>
-                <PostCard {...post} />
-              </li>
-            );
-          })
-        }
-      </ul>
-    </section>
-  </div>
-)}
+<!-- Renderizado de los posts -->
+<div class="categories__container">
+  <section class="category">
+    <a href={`/categories/${slug}`} class="category__link">
+      <Title titleDesc={name} class="category__link__title" />
+    </a>
+    <ul class="link-card-grid">
+      {
+        posts.slice(0, 4).map((post) => {
+          return (
+            <li>
+              <PostCard {...post} />
+            </li>
+          );
+        })
+      }
+    </ul>
+  </section>
+</div>
