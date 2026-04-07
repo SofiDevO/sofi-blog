@@ -127,9 +127,10 @@ const keyWords = post?.tags?.nodes
     `script>`;
 
   const postContainer = document.querySelector("#post");
-  const headings = postContainer?.querySelectorAll("h2, h3");
+  const headings = postContainer?.querySelectorAll(".wp-block-heading");
 
   headings?.forEach((heading) => {
+    if (heading.classList.contains("title__text")) return;
     heading.insertAdjacentHTML("beforebegin", adBlock);
   });
 
