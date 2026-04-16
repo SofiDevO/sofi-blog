@@ -1,81 +1,50 @@
 ---
 import Title from "@src/components/atoms/Title/Title.astro";
 
-import Categories from "../components/Categories.astro";
+import SwiperCarousel from "@src/shared/components/SwiperCarousel/SwiperCarousel.astro";
 import type { CategoryWithPosts } from "@src/types/category.type";
 import PostCard from "../components/PostCard/PostCard.astro";
-interface Props extends CategoryWithPosts {}
-const { slug, name, posts } = Astro.props;
+
+type Variant = "default" | "horizontal" | "compact";
+interface Props extends CategoryWithPosts {
+  variant?: Variant;
+}
+const { slug, name, posts, variant } = Astro.props;
 ---
 
-<script
-
-  src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"
-></script>
-
-
-
 <section class="fourth-category">
-   <a href={`/categories/${slug}`} class="web-dev__link">
-      <Title titleDesc={name} class="web-dev__title text-left" />
-    </a>
+  <a href={`/categories/${slug}`} class="web-dev__link">
+    <Title titleDesc={name} class="web-dev__title text-left" />
+  </a>
   <div class="swiper">
-    <swiper-container
-
+    <SwiperCarousel
+      class="fourth-category-swiper"
+      config={{
+        slidesPerView: 3,
+        spaceBetween: 1,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: true,
+        },
+        breakpoints: {
+          640: { slidesPerView: 1, spaceBetween: 20 },
+          768: { slidesPerView: 3, spaceBetween: 40 },
+          1024: { slidesPerView: 3, spaceBetween: 50 },
+        },
+        navigation: true,
+        pagination: true,
+        loop: true,
+      }}
     >
       {
         posts.map((post) => {
           return (
             <swiper-slide>
-              <PostCard {...post} class="slider__card"/>
+              <PostCard variant={variant} {...post} class="slider__card" />
             </swiper-slide>
           );
         })
       }
-    </swiper-container>
+    </SwiperCarousel>
   </div>
 </section>
-
-
-
-
-<script>
-  const swiperEl = document.querySelector('swiper-container') as HTMLElement & { initialize: () => void };
-  Object.assign(swiperEl, {
-    slidesPerView: 3,
-    spaceBetween: 1,
-    autoplay: {
-      delay: 2500,
-      disableOnInteraction: true,
-    }  ,
-    breakpoints: {
-      640: {
-        slidesPerView: 1,
-        spaceBetween: 20,
-      },
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 40,
-      },
-      1024: {
-        slidesPerView: 3,
-        spaceBetween: 50,
-      },
-    },
-
-    navigation: true,
-    pagination: true,
-    loop: true
-  });
-  swiperEl.initialize();
-</script>
-<!--
-
-slides-per-view="3"
-      speed="500"
-      loop="true"
-      navigation="true"
-      mousewheel="true"
-      keyboard="true"
-      grab-cursor="true"
--->

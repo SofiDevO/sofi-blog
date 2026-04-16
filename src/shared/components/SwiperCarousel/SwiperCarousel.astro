@@ -1,0 +1,39 @@
+---
+interface Props {
+  class?: string;
+  config?: Record<string, any>;
+}
+
+const { class: className = "", config = {} } = Astro.props;
+const configString = JSON.stringify(config);
+---
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
+<swiper-container 
+  class={`reusable-swiper ${className}`}
+  init="false" 
+  data-swiper-config={configString}
+>
+  <slot />
+</swiper-container>
+
+<script>
+  const initSwipers = () => {
+    const swiperEls = document.querySelectorAll(".reusable-swiper");
+    swiperEls.forEach((el) => {
+      const swiperEl = el as HTMLElement & { swiper?: any; initialize: () => void };
+      if (swiperEl.swiper) return;
+
+      const configStr = swiperEl.getAttribute("data-swiper-config");
+      const config = configStr ? JSON.parse(configStr) : {};
+
+      Object.assign(swiperEl, config);
+
+      swiperEl.initialize();
+    });
+  };
+
+  initSwipers();
+  document.addEventListener("astro:page-load", initSwipers);
+</script>

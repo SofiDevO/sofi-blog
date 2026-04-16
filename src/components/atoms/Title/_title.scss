@@ -1,8 +1,8 @@
-@use "@sass/mixins" as  *;
+@use "@sass/mixins" as *;
 @use "@sass/variables" as *;
 
 .title {
-  &.category__title{
+  &.category__title {
     @include titleType("big");
   }
 }
@@ -11,6 +11,7 @@
 
 .title.title-base {
   @include text-gradient();
+  // text-transform: capitalize;
 }
 
 .title.title-ufo {
@@ -23,4 +24,5 @@
 
 .title {
   @include text-gradient();
+  text-transform: capitalize;
 }

@@ -10,9 +10,7 @@ import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.ast
 import FourthCategory from "@src/components/organisms/Posts/FourthCategory/FourthCategory.astro";
 import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
 const categoriesWithPosts = await getCategoriesWithPosts();
-export const prerender = true;
-
-
+// export const prerender = true;
 ---
 
 <Layout>
@@ -20,13 +18,60 @@ export const prerender = true;
     <Hero title="Bienvenidos al SofiBlog" />
   </BackgroundGradient>
   <DividerTop fill="shape-fill-darkPurple" />
-  {categoriesWithPosts["tutoriales"] && <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />}
+  <script
+    is:inline
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+    crossorigin="anonymous"></script>
+  <!-- banerHorzontal -->
+  <ins
+    class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-3828278469742835"
+    data-ad-slot="1391467357"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+  <script is:inline>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  {
+    categoriesWithPosts["noticias-dev"] && (
+      <FourthCategory
+        {...categoriesWithPosts["noticias-dev"][0]}
+        variant="horizontal"
+      />
+    )
+  }
+  {
+    categoriesWithPosts["tutoriales"] && (
+      <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />
+    )
+  }
   <DividerTop fill="shape-fill-white" />
-  {categoriesWithPosts["aprender-a-programar"] && <SecondCategory {...categoriesWithPosts["aprender-a-programar"][0]} />}
+  {
+    categoriesWithPosts["aprender-a-programar"] && (
+      <SecondCategory {...categoriesWithPosts["aprender-a-programar"][0]} />
+    )
+  }
   <DividerBottom fill="shape-fill-white" />
-  {categoriesWithPosts["astro"] && <ThirdCategory {...categoriesWithPosts["astro"][0]} />}
+  {
+    categoriesWithPosts["astro"] && (
+      <ThirdCategory {...categoriesWithPosts["astro"][0]} />
+    )
+  }
   <DividerTop fill="shape-fill-white" />
-  {categoriesWithPosts["javascript"] && <SecondCategory reverse={true} {...categoriesWithPosts["javascript"][0]} />}
+  {
+    categoriesWithPosts["javascript"] && (
+      <SecondCategory
+        reverse={true}
+        {...categoriesWithPosts["javascript"][0]}
+      />
+    )
+  }
   <DividerBottom fill="shape-fill-white" />
-  {categoriesWithPosts["personal"] && <FourthCategory {...categoriesWithPosts["personal"][0]} />}
+  {
+    categoriesWithPosts["personal"] && (
+      <FourthCategory {...categoriesWithPosts["personal"][0]} />
+    )
+  }
 </Layout>

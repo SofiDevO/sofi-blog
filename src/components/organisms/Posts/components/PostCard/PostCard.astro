@@ -1,12 +1,12 @@
 ---
-import type { Post } from "@src/types/post.type.ts";
-import { formatedDateShort } from "@utils/formatedDate";
 import DateTag from "@atoms/DateTag/DateTag.astro";
 import Categories from "@organisms/Posts/components/Categories.astro";
+import type { Post } from "@src/types/post.type.ts";
 
 interface Props extends Post {
   key?: string;
   class?: string;
+  variant?: "default" | "horizontal" | "compact";
 }
 
 const {
@@ -17,21 +17,19 @@ const {
   author,
   categories,
   date,
-  class: className,
+  class: className = "",
+  variant = "default",
   ...rest
 } = Astro.props;
 ---
 
-<article
-  class={`post-card className ${className}`}
-  {...rest}
->
+<article class={`post-card post-card--${variant} ${className}`} {...rest}>
   <!-- Imagen del post -->
   <div class="post-card__image-container">
     <img
       alt={title}
       src={image?.mediaItemUrl || "/img/defaultBanner.png"}
-      srcset={image?.srcSet }
+      srcset={image?.srcSet}
       sizes={image?.sizes}
       class="post-card__image"
     />
@@ -48,33 +46,49 @@ const {
         class="post-card__author-image"
       />
       <div class="post-card__author-info">
-        <p class="post-card__author-name">{author?.firstName} {author?.lastName}</p>
-        <DateTag date={date} />
+        <p class="post-card__author-name">
+          {author?.firstName}
+          {author?.lastName}
+        </p>
+        {
+          (variant === "default" || variant === "compact") && (
+            <DateTag date={date} />
+          )
+        }
       </div>
     </div>
     <!-- Título -->
     <a href={`/blog/${slug}`}>
       <h3 class="post-card__title group">
         {title}
-        <iconify-icon
-          icon="ri:links-line"
-          class="group-hover:opacity-100 opacity-0 transition-all duration-200 ease-linear"
-        ></iconify-icon>
+        {
+          variant === "default" && (
+            <iconify-icon
+              icon="ri:links-line"
+              class="group-hover:opacity-100 opacity-0 transition-all duration-200 ease-linear"
+            />
+          )
+        }
       </h3>
     </a>
 
     <!-- Descripción -->
-    <fragment
-      class="post-card__excerpt"
-      set:html={excerpt.replace(/\[.*?\]/g, "...")}
-    />
+    {
+      (variant === "default" || variant === "horizontal") && (
+        <fragment
+          class="post-card__excerpt"
+          set:html={excerpt.replace(/\[.*?\]/g, "...")}
+        />
+      )
+    }
 
     <!-- Categorías -->
-    <div class="post-card__categories">
-      {
-       categories&&
-        <Categories categories={categories}   />
-      }
-    </div>
+    {
+      variant === "default" && categories && (
+        <div class="post-card__categories">
+          <Categories categories={categories} />
+        </div>
+      )
+    }
   </div>
 </article>
