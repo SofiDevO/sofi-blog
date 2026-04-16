@@ -15,7 +15,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
     <article class="sticky-post">
       <a
         class="sticky-post__link sticky-post__link--container "
-        href={`/blog/${getStickyPost.slug}`}
+        href={`/post/${getStickyPost.slug}`}
       >
         <img
           class="sticky-post__image"
@@ -33,7 +33,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
         />
         <a
           class="sticky-post__button"
-          href={`/blog/${getStickyPost.slug}`}
+          href={`/post/${getStickyPost.slug}`}
           transition:name={`styckyPost-${getStickyPost.title}`}
         >
           Leer más...
@@ -44,7 +44,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
     <article class="sticky-post">
       <a
         class="sticky-post__link  "
-        href={`/blog/${MostrecentPost[0].slug}`}
+        href={`/post/${MostrecentPost[0].slug}`}
         aria-label={`Leer mas sobre ${MostrecentPost[0].title}`}
       >
 
@@ -70,7 +70,7 @@ const MostrecentPost = cardsData?.posts?.nodes?.sort(
         <a
           aria-label={`Leer mas sobre ${MostrecentPost[0].title}`}
           class="sticky-post__button"
-          href={`/blog/${MostrecentPost[0].slug}`}
+          href={`/post/${MostrecentPost[0].slug}`}
           transition:name={`styckyPost-${MostrecentPost[0].title}`}
         >
           Leer más...

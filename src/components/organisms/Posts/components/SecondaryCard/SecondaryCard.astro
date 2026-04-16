@@ -16,7 +16,7 @@ const { title, slug, excerpt, image, categories, showMeta=true } = Astro.props;
     />
   </div>
   <div class={`secondary-card__content ${showMeta ? "" : "secondary-card__content--hide-excerpt"}`}>
-    <a href={`/blog/${slug}`}
+    <a href={`/post/${slug}`}
     aria-label={`Read more about ${title}`}
     class="secondary-card__title">
       {title}

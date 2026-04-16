@@ -9,7 +9,7 @@ const { title, slug, excerpt, image, categories, date, author } = Astro.props;
 
 <article class="card-big">
   <div class="card-big__container">
-  <a href={`/blog/${slug}`} class="card-big__image__container">
+  <a href={`/post/${slug}`} class="card-big__image__container">
     <img
       alt={title}
       src={image?.mediaItemUrl}
@@ -30,7 +30,7 @@ const { title, slug, excerpt, image, categories, date, author } = Astro.props;
   </a>
 </div>
   <div class="card-big__content">
-    <a href={`/blog/${slug}`} class="card-big__content__link">
+    <a href={`/post/${slug}`} class="card-big__content__link">
       <h2 class="card-big__title">{title}</h2>
     </a>
     <Fragment set:html={excerpt} />

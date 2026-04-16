@@ -34,7 +34,7 @@ const posts = queryPosts?.posts?.edges || [];
                 <div class="post-card-content">
                   <h3>{post.node.title}</h3>
                   <a
-                    href={`/blog/${post.node.slug || post.node.id}`}
+                    href={`/post/${post.node.slug || post.node.id}`}
                     class="read-more"
                   >
                     Ver post &rarr;
