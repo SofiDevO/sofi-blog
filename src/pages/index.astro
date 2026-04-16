@@ -18,6 +18,15 @@ const categoriesWithPosts = await getCategoriesWithPosts();
     <Hero title="Bienvenidos al SofiBlog" />
   </BackgroundGradient>
   <DividerTop fill="shape-fill-darkPurple" />
+
+  {
+    categoriesWithPosts["noticias-dev"] && (
+      <FourthCategory
+        {...categoriesWithPosts["noticias-dev"][0]}
+        variant="horizontal"
+      />
+    )
+  }
   <script
     is:inline
     async
@@ -34,14 +43,6 @@ const categoriesWithPosts = await getCategoriesWithPosts();
   <script is:inline>
     (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
-  {
-    categoriesWithPosts["noticias-dev"] && (
-      <FourthCategory
-        {...categoriesWithPosts["noticias-dev"][0]}
-        variant="horizontal"
-      />
-    )
-  }
   {
     categoriesWithPosts["tutoriales"] && (
       <FirstCategory {...categoriesWithPosts["tutoriales"][0]} />
