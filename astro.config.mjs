@@ -1,6 +1,6 @@
-import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
+import { defineConfig } from "astro/config";
 
 import vercel from "@astrojs/vercel";
 
@@ -65,11 +65,14 @@ export default defineConfig({
                   "@services/": "src/services/",
                   "@data/": "src/data/",
                   "@sass/": "src/sass/",
-                  "@img/": "public/img/"
+                  "@img/": "public/img/",
                 };
                 for (const [alias, folder] of Object.entries(aliases)) {
                   if (url.startsWith(alias)) {
-                    return new URL("./" + folder + url.slice(alias.length), import.meta.url);
+                    return new URL(
+                      "./" + folder + url.slice(alias.length),
+                      import.meta.url,
+                    );
                   }
                 }
                 return null;

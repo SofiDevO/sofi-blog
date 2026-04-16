@@ -3,11 +3,11 @@ const SECRET_PASSWORD = import.meta.env.SECRET_PASSWORD;
 import { wpquery } from "@src/data/wordpress";
 
 const postComment = async (input, postId = null, parentId = null) => {
-    const headers = {
-        'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
-    }
+  const headers = {
+    Authorization: "Basic " + btoa(SECRET_USER + ":" + SECRET_PASSWORD),
+  };
 
-    const query = `
+  const query = `
       mutation postComment(
             $author: String = "Juan Perez",
             $authorUrl: String = "https://itssofi.dev/#portfolio",
@@ -24,7 +24,7 @@ const postComment = async (input, postId = null, parentId = null) => {
         }
         }
     `;
-    const response = await wpquery({query, variables:input, headers});
-    return response;
-}
+  const response = await wpquery({ query, variables: input, headers });
+  return response;
+};
 export default postComment;
