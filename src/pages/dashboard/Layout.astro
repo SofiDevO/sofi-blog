@@ -1,0 +1,369 @@
+---
+import ThemeIcon from "@src/components/atoms/ThemeIcon.astro";
+import BaseHead from "@src/components/BaseHead.astro";
+import DashboardSidebar from "./_components/DashboardSidebar.astro";
+const pathName = Astro.url.pathname;
+export const prerender = true;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    {
+      pathName === "/" ? (
+        <BaseHead />
+      ) : (
+        <BaseHead
+          title={
+            pathName.charAt(1).toUpperCase() + pathName.slice(2).split("/")[0]
+          }
+        />
+      )
+    }
+  </head>
+
+  <body>
+    <ThemeIcon />
+    <main>
+      <div class="dashboard" id="dashboardLayout">
+        <DashboardSidebar class="dashboard__sidebar">
+          <nav class="dashboard__sidebar-menu" slot="sidebar-menu">
+            <a href="/dashboard" class="menu-item active">
+              <iconify-icon icon="mdi:account-details" width="24" height="24"
+              ></iconify-icon>
+              <span class="menu-text">Mis datos</span>
+            </a>
+            <a href="/dashboard/mis-posts" class="menu-item">
+              <iconify-icon icon="mdi:post" width="24" height="24"
+              ></iconify-icon>
+              <span class="menu-text">Posts publicados</span>
+            </a>
+            <a href="/" class="menu-item">
+              <iconify-icon icon="mdi:arrow-left" width="24" height="24"
+              ></iconify-icon>
+              <span class="menu-text">Volver al blog</span>
+            </a>
+          </nav>
+
+          <div class="sidebar-footer" slot="sidebar-footer">
+            <form action="/api/auth/signout" method="POST">
+              <button type="submit" class="logout-btn">
+                <iconify-icon icon="mdi:logout" width="24" height="24"
+                ></iconify-icon>
+                <span class="menu-text">Cerrar Sesión</span>
+              </button>
+            </form>
+          </div>
+        </DashboardSidebar>
+
+        <main class="main-content">
+          <slot />
+        </main>
+      </div>
+    </main>
+  </body>
+</html>
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("toggleDashboardSidebar");
+    const sidebar = document.querySelector(".dashboard__sidebar");
+    const icon = toggleBtn?.querySelector("iconify-icon");
+
+    // Recuperar el estado de colapso desde localStorage
+    const isCollapsed =
+      localStorage.getItem("dashboardSidebarCollapsed") === "true";
+    if (!isCollapsed) {
+      sidebar?.classList.add("active"); // active => open
+      if (icon) icon.setAttribute("icon", "mdi:menu-open");
+    } else {
+      if (icon) icon.setAttribute("icon", "mdi:menu");
+    }
+
+    toggleBtn?.addEventListener("click", () => {
+      sidebar?.classList.toggle("active");
+      const nowCollapsed = !sidebar?.classList.contains("active");
+
+      if (icon) {
+        icon.setAttribute("icon", nowCollapsed ? "mdi:menu" : "mdi:menu-open");
+      }
+
+      localStorage.setItem("sidebarCollapsed", nowCollapsed ? "true" : "false");
+    });
+  });
+</script>
+
+<style lang="scss" is:global>
+  @use "@sass/_variables.scss" as *;
+
+  .dashboard {
+    --sidebar-width: 7rem;
+    --sidebar-padding: 2.4rem 0rem;
+
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr auto;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "sidebar main";
+    width: 100%;
+    min-height: 100vh;
+    color: #fff;
+    transition: grid-template-columns 0.3s ease;
+
+    &:has(.dashboard__sidebar.active) {
+      --sidebar-width: 25rem;
+      --sidebar-padding: 2.4rem 1.6rem;
+    }
+  }
+
+  .dashboard__sidebar:not(.active) {
+    .menu-text {
+      display: none;
+      opacity: 0;
+    }
+
+    .menu-item,
+    .logout-btn {
+      justify-content: center;
+      padding: 1.2rem 0;
+    }
+
+    .sidebar-header {
+      justify-content: center;
+    }
+  }
+
+  .dashboard__sidebar {
+    position: sticky;
+    top: 0;
+    grid-area: sidebar;
+    background-color: $bgDark;
+    padding: var(--sidebar-padding);
+    height: 100%;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: padding 0.3s ease;
+    height: 100dvh;
+
+    &-header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 3.2rem;
+
+      .toggle-btn {
+        background: transparent;
+        border: none;
+        color: #b3b3b3;
+        cursor: pointer;
+        padding: 0.8rem;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        transition:
+          background 0.3s,
+          color 0.3s;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+        }
+      }
+    }
+
+    &-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+      flex: 1;
+
+      .menu-item {
+        color: #b3b3b3;
+        text-decoration: none;
+        padding: 1.2rem 1.6rem;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 1.6rem;
+
+        &:hover,
+        &.active {
+          color: white;
+          background-color: $light-violet;
+        }
+      }
+    }
+
+    &-footer {
+      margin-top: auto;
+      padding-top: 1.6rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+      form {
+        display: block;
+        width: 100%;
+      }
+
+      .logout-btn {
+        background: transparent;
+        border: none;
+        color: #ff5252;
+        width: 100%;
+        text-align: left;
+        padding: 1.2rem 1.6rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        transition:
+          background 0.3s ease,
+          color 0.3s ease;
+        white-space: nowrap;
+        font-size: 1.6rem;
+
+        &:hover {
+          background-color: rgba(255, 82, 82, 0.1);
+          color: #ff8a80;
+        }
+      }
+    }
+  }
+
+  .main-content {
+    grid-area: main;
+    padding: 4.8rem 6.4rem;
+    margin-top: 50px;
+    width: 100%;
+
+    h1 {
+      color: $aqua;
+      margin-top: 0;
+      margin-bottom: 3.2rem;
+    }
+  }
+
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3.2rem;
+  }
+
+  .avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+
+    .avatar-wrapper {
+      position: relative;
+      width: 15rem;
+      height: 15rem;
+      border-radius: 50%;
+      overflow: hidden;
+      cursor: pointer;
+      display: block;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .avatar-hover-edit {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        color: white;
+      }
+
+      &:hover {
+        img {
+          transform: scale(1.05);
+        }
+
+        .avatar-hover-edit {
+          opacity: 1;
+        }
+      }
+    }
+
+    .gravatar-warning {
+      font-size: 1.3rem;
+      color: #999;
+      text-align: center;
+      max-width: 250px;
+    }
+  }
+
+  .user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    width: 100%;
+
+    .detail-group {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.6rem;
+      border-radius: 5px;
+
+      label {
+        color: $aqua;
+        font-size: 1.4rem;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        margin: 0;
+        font-size: 1.8rem;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-layout {
+      grid-template-areas:
+        "sidebar"
+        "main";
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .dashboard-layout.collapsed {
+      grid-template-columns: 1fr;
+
+      .menu-text {
+        display: inline;
+      }
+
+      .sidebar-header {
+        display: none;
+      }
+    }
+
+    .sidebar {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .main-content {
+      padding: 2.4rem;
+    }
+  }
+</style>

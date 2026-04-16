@@ -1,22 +1,53 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
 import { isLoggedIn } from "@src/services/auth";
+
 const { cookies } = Astro;
-const data = isLoggedIn(cookies);
-if (data) {
+const user = isLoggedIn(cookies);
+
+if (user) {
   return Astro.redirect("/dashboard");
+} else if (cookies.has("accessToken")) {
+  cookies.delete("accessToken", { path: "/" });
 }
+
+const error = Astro.url.searchParams.get("error");
+const message = Astro.url.searchParams.get("message");
+const success = Astro.url.searchParams.get("success");
 ---
+
 <Layout title="Login">
   <div class="container__login">
-    <form action="/api/auth/login" method="post" id="loginForm">
+    <form action="/api/auth/login" method="POST" id="loginForm">
+      {success === "registered" && (
+        <div class="success-message">
+          Registro exitoso. Ahora puedes iniciar sesión.
+        </div>
+      )}
+      {error && (
+        <div class="error-message">
+          {message === "invalid_credentials" 
+            ? "Usuario o contraseña incorrectos" 
+            : "Por favor, completa todos los campos"}
+        </div>
+      )}
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        autocomplete="username"
+        required
+      />
       <label for="password">Password</label>
-      <input type="password" name="password" id="password" required />
-      <button type="submit">
-        Login
-      </button>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        autocomplete="current-password"
+        required
+      />
+      <button type="submit"> Login </button>
     </form>
   </div>
 </Layout>
@@ -41,12 +72,31 @@ if (data) {
 
   button {
     padding: 0.5rem;
-    background: #673AB7;
+    background: #673ab7;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
-  textarea:focus, input:focus {
+  textarea:focus,
+  input:focus {
     color: #201b2b79;
+  }
+  .error-message {
+    background-color: #ff5252;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .success-message {
+    background-color: #4caf50;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
   }
 </style>

@@ -1,0 +1,178 @@
+---
+import { isLoggedIn } from "@src/services/auth";
+import { getPostsByUserID } from "@src/services/getPostsBySlug";
+import Layout from "./Layout.astro";
+
+export const prerender = false;
+const { cookies } = Astro;
+const user = isLoggedIn(cookies);
+if (!user) {
+  return Astro.redirect("/login");
+}
+const queryPosts = await getPostsByUserID(user.id);
+const posts = queryPosts?.posts?.edges || [];
+---
+
+<Layout>
+  <section class="posts-section">
+    <h1>Mis Posts</h1>
+
+    {
+      posts.length > 0 ? (
+        <div class="posts-grid">
+          {posts.map((post: any) => {
+            const image =
+              post.node.featuredImage?.node?.mediaItemUrl ||
+              "/img/branding/logo.webp";
+            const altText =
+              post.node.featuredImage?.node?.altText || post.node.title;
+            return (
+              <article class="post-card">
+                <div class="post-card-image">
+                  <img src={image} alt={altText} loading="lazy" />
+                </div>
+                <div class="post-card-content">
+                  <h3>{post.node.title}</h3>
+                  <a
+                    href={`/blog/${post.node.slug || post.node.id}`}
+                    class="read-more"
+                  >
+                    Ver post &rarr;
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="no-posts">Aún no has publicado ningún post.</p>
+      )
+    }
+  </section>
+</Layout>
+
+<style lang="scss">
+  @use "@sass/_variables.scss" as *;
+
+  .main-content {
+    grid-area: main;
+    padding: 4.8rem 6.4rem;
+    margin-top: 50px;
+    width: 100%;
+
+    h1 {
+      color: $aqua;
+      margin-top: 0;
+      margin-bottom: 3.2rem;
+    }
+  }
+
+  .posts-section {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+    gap: 2.4rem;
+  }
+
+  .post-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+    transition:
+      transform 0.2s ease,
+      background 0.3s ease;
+    min-height: 25rem;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .post-card-image {
+      height: 15rem;
+      width: 100%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+    }
+
+    &:hover .post-card-image img {
+      transform: scale(1.05);
+    }
+
+    .post-card-content {
+      padding: 2.4rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 2rem;
+        margin-top: 0;
+        margin-bottom: 1.6rem;
+        color: #fff;
+      }
+
+      .read-more {
+        color: $aqua;
+        text-decoration: none;
+        font-weight: bold;
+        align-self: flex-start;
+        margin-top: auto;
+        font-size: 1.6rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .no-posts {
+    color: #999;
+    font-size: 1.8rem;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-layout {
+      grid-template-areas:
+        "sidebar"
+        "main";
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .dashboard-layout.collapsed {
+      grid-template-columns: 1fr;
+
+      .menu-text {
+        display: inline;
+      }
+      .sidebar-header {
+        display: none;
+      }
+    }
+
+    .sidebar {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .main-content {
+      padding: 2.4rem;
+    }
+  }
+</style>

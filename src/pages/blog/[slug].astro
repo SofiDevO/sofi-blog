@@ -94,6 +94,21 @@ const keyWords = post?.tags?.nodes
             </div>
           </Comments>
         </PostDetail>
+        <script
+          is:inline
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+          crossorigin="anonymous"></script>
+        <ins
+          class="adsbygoogle"
+          style="display:block"
+          data-ad-format="fluid"
+          data-ad-layout-key="-fb+5w+4e-db+86"
+          data-ad-client="ca-pub-3828278469742835"
+          data-ad-slot="6132125318"></ins>
+        <script is:inline>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
       </div>
       <!-- Aside -->
       <SideBar>
@@ -105,34 +120,34 @@ const keyWords = post?.tags?.nodes
   <div class="progress"></div>
 </Layout>
 
-<script>
-  import { commentsController } from "@controllers/comments.controller";
-  import { InsertButtonCopy } from "@pages/blog/button-copy";
-  commentsController();
-  InsertButtonCopy();
-
+<script is:inline>
   const adBlock =
     `<script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
      crossorigin="anonymous"></` +
     `script>
 <ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-3828278469742835"
-     data-ad-slot="9333003725"></ins>
+          style="display:block"
+          data-ad-format="fluid"
+          data-ad-layout-key="-fb+5w+4e-db+86"
+          data-ad-client="ca-pub-3828278469742835"
+          data-ad-slot="6132125318"></ins>
 <script is:inline>
      (adsbygoogle = window.adsbygoogle || []).push({});
 </` +
     `script>`;
-
   const postContainer = document.querySelector("#post");
   const headings = postContainer?.querySelectorAll(".wp-block-heading");
-
   headings?.forEach((heading) => {
     if (heading.classList.contains("title__text")) return;
     heading.insertAdjacentHTML("beforebegin", adBlock);
   });
+</script>
+
+<script>
+  import { commentsController } from "@controllers/comments.controller";
+  import { InsertButtonCopy } from "@pages/blog/button-copy";
+  commentsController();
+  InsertButtonCopy();
 
   const tocBase = document.querySelector("#toc_container");
 

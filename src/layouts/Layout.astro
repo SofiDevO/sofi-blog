@@ -18,15 +18,16 @@ const slug = Astro.url.pathname.split("/").pop();
     <BaseHead title={title} description={description} image={image} />
     <!-- Google tag (gtag.js) -->
     <script
+      is:inline
       defer
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-4HD0MHWJHW"></script>
     <slot name="head" />
     <script
+      is:inline
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
   </head>
   <body>
     {

@@ -1,0 +1,20 @@
+---
+
+---
+
+<aside class="dashboard__sidebar">
+  <div class="dashboard__sidebar-header">
+    <button
+      id="toggleDashboardSidebar"
+      class="toggle-btn"
+      aria-label="Colapsar sidebar"
+    >
+      <iconify-icon icon="mdi:menu-open" width="24" height="24"></iconify-icon>
+    </button>
+  </div>
+  <slot name="sidebar-menu" />
+
+  <div class="dashboard__sidebar-footer">
+    <slot name="sidebar-footer" />
+  </div>
+</aside>

@@ -76,6 +76,13 @@ export async function getPostsByUserID( id ) {
                     node {
                         id
                         title
+                        slug
+                        featuredImage {
+                            node {
+                                mediaItemUrl
+                                altText
+                            }
+                        }
                     }
                 }
             }

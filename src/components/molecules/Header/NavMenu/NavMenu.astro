@@ -45,7 +45,10 @@ const CategoryList: PropsCategoryList[] = flatListToHierarchical(menuItems);
             <li class="dropdown__list">
               {element.children.length > 0 ? (
                 <>
-                  <a href={`/categories/${element.slug}`} aria-label={`go to ${element.label.toLowerCase()}`}>
+                  <a
+                    href={`/categories/${element.slug}`}
+                    aria-label={`go to ${element.label.toLowerCase()}`}
+                  >
                     {element.label}
                     <iconify-icon
                       class="dropdown__icon dropdown__list__icon"
@@ -79,6 +82,6 @@ const CategoryList: PropsCategoryList[] = flatListToHierarchical(menuItems);
       </ol>
     </li>
     <MoreInfo />
+    <a href="/login" class="header__support"> Login </a>
   </ul>
-  <a href="/support" class="header__support"> Apoyar este sitio 💚 </a>
 </nav>

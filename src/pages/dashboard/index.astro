@@ -1,0 +1,66 @@
+---
+import { wpquery } from "@src/data/wordpress";
+import { isLoggedIn } from "@src/services/auth";
+import Layout from "./Layout.astro";
+
+export const prerender = false;
+const { cookies } = Astro;
+const user = isLoggedIn(cookies);
+if (!user) {
+  return Astro.redirect("/login");
+}
+
+const query = `
+  query getUserById {
+    user(id: "${user.id}", idType: DATABASE_ID) {
+      name
+      email
+      firstName
+      lastName
+      avatar {
+        url
+      }
+    }
+  }
+`;
+const response = await wpquery({ query });
+const freshUser = (response as any)?.user || user;
+---
+
+<Layout>
+  <section class="profile-section">
+    <h1>Mi Perfil</h1>
+
+    <div class="avatar-container">
+      <a
+        href="https://gravatar.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="avatar-wrapper"
+      >
+        <img
+          src={freshUser.avatar?.url || freshUser.avatar || ""}
+          alt={`Avatar de ${freshUser.name}`}
+        />
+        <div class="avatar-hover-edit">
+          <iconify-icon icon="mdi:pencil" width="30" height="30"></iconify-icon>
+        </div>
+      </a>
+      <span class="gravatar-warning">
+        Tu foto de perfil se gestiona a través de Gravatar. Haz clic para
+        cambiarla.
+      </span>
+    </div>
+
+    <div class="user-details">
+      <div class="detail-group">
+        <label>Nombre:</label>
+        <p>{freshUser.name}</p>
+      </div>
+      <div class="detail-group">
+        <label>Email:</label>
+        <p>{freshUser.email}</p>
+      </div>
+    </div>
+  </section>
+</Layout>

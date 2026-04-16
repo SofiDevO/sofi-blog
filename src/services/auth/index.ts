@@ -1,46 +1,37 @@
-import WPAPI from 'wpapi';
-import Jwt from 'jsonwebtoken';
+import { wpquery } from "@src/data/wordpress";
+import type { LoggedUser } from "@src/types/loggedUser.type";
+import type {
+  RegisterUser,
+  RegisterUserResponse,
+} from "@src/types/registerUser.type";
 import type { AstroCookies } from "astro";
-import type { LoggedUser } from '@src/types/loggedUser.type';
-import type { RegisterUser, RegisterUserResponse } from '@src/types/registerUser.type';
-import { wpquery } from '@src/data/wordpress';
+import Jwt from "jsonwebtoken";
 
-import { getUserByName } from './getUserByName';
-
-// Workaround for buffer-equal-constant-time ESM compatibility
-import { createRequire } from 'module';
-try {
-  const require = createRequire(import.meta.url);
-  require('buffer-equal-constant-time');
-} catch (e) {
-  // Silently ignore if not needed
-}
-
-const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD   } = import.meta.env
+const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD } = import.meta
+  .env;
 
 interface UserEmailResponse {
-    users: {
-        nodes: Array<{
-            email: string;
-            id: string;
-            name: string;
-            firstName: string;
-            lastName: string;
-            avatar: {
-                url: string;
-                size: number;
-                default: string;
-            };
-        }>;
-    };
+  users: {
+    nodes: Array<{
+      email: string;
+      id: string;
+      name: string;
+      firstName: string;
+      lastName: string;
+      avatar: {
+        url: string;
+        size: number;
+        default: string;
+      };
+    }>;
+  };
 }
 
 interface CreateUserResponse {
-    createUser: {
-        user: RegisterUserResponse;
-    };
+  createUser: {
+    user: RegisterUserResponse;
+  };
 }
-
 
 /**
  * Checks if a user is logged in by verifying the access token stored in cookies.
@@ -49,81 +40,86 @@ interface CreateUserResponse {
  * @returns {LoggedUser | null} - Returns the logged user data if the user is logged in,
  * or null if the user is not logged in or the token is invalid.
  */
-export function isLoggedIn(cookies: AstroCookies): LoggedUser | null {
-    const accessToken = cookies.get("accessToken")?.value;
-    if (!accessToken ) return null;
-    try {
-        const decoded = Jwt.verify(accessToken, SECRET_KEY);
-        return decoded as LoggedUser;
+export function isLoggedIn(cookies: AstroCookies): LoggedUser {
+  const accessToken = cookies.get("accessToken")?.value;
+  if (!accessToken) return null;
+  try {
+    const decoded = Jwt.verify(accessToken, SECRET_KEY);
+    return decoded as LoggedUser;
+  } catch (error) {
+    if (error instanceof Jwt.TokenExpiredError) {
+      console.error("Token Expired:", error.message);
+      return null;
     }
-    catch (error) {
-        if (error instanceof Jwt.TokenExpiredError) {
-            console.error("Token Expired:", error.message);
-            return null;
-        }
 
-        if (error instanceof Jwt.JsonWebTokenError) {
-            console.error("Invalid Token:", error.message);
-            return null;
-        }
-        console.error(error);
-        return null;
+    if (error instanceof Jwt.JsonWebTokenError) {
+      console.error("Invalid Token:", error.message);
+      return null;
     }
+    console.error(error);
+    return null;
+  }
 }
 
 /**
  * Verifies if a user is valid by checking the credentials against the WordPress REST API.
+ *
+ * @param {string} user - The username to verify.
+ * @param {string} password - The password to verify.
+ * @returns {Promise<WP_User | null>} - Returns the user data if the credentials are valid, or
+ * null if the credentials are invalid.
  */
-export async function isValidUser(user: string, password: string): Promise<any> {
-    try {
-        const url = new URL(WPGRAPHQL_URL);
-        const  endpoint = `${url.protocol}//${url.hostname}/wp-json`;
-
-        const wp = new WPAPI({
-            endpoint: endpoint,
-            username: user,
-            password: password,
-        });
-
-        let userData = await wp.users().me();
-        userData.website = userData.url;
-
-        if (userData.id) {
-            const userEmail = await getUserByName(user);
-            // Check if userEmail has the expected structure
-            if (
-                userEmail &&
-                typeof userEmail === 'object' &&
-                'users' in userEmail
-            ) {
-                const typedUserEmail = userEmail as UserEmailResponse;
-                if (
-                    typedUserEmail.users &&
-                    Array.isArray(typedUserEmail.users.nodes) &&
-                    typedUserEmail.users.nodes.length > 0
-                ) {
-                    userData.email = typedUserEmail.users.nodes[0].email;
-                }
+export async function isValidUser(username: string, password: string) {
+  try {
+    const query = `
+      mutation LoginUser($username: String!, $password: String!) {
+        login(input: {
+          clientMutationId: "uniqueId",
+          username: $username,
+          password: $password
+        }) {
+          authToken
+          refreshToken
+          user {
+            id
+            databaseId
+            name
+            firstName
+            lastName
+            email
+            avatar {
+              url
             }
+          }
         }
+      }
+    `;
 
-        /* const userData = await wp.users().me(); */
+    const variables = { username, password };
 
-        return userData;
+    // WPGraphQL JWT Authentication working natively
+    // but the wpquery standard method might send them, which is fine.
+    const response: any = await wpquery({ query, variables });
 
-    } catch (error) {
-        const err = error as any;
-        if(err.code ===  "incorrect_password" || err.code === "invalid_username") {
-            console.error("Invalid Credentials:", err.message);
-            return null;
-        }
-        if (err.code === "rest_not_logged_in") {
-            console.error("Wordpress connection error:", err.message);
-            return null;
-        }
-        console.error(err.code, err.message);
-        return null;
+    if (response?.login?.user) {
+      const user = response.login.user;
+      return {
+        id: user.databaseId || user.id,
+        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        avatar: user.avatar?.url || "",
+        authToken: response.login.authToken,
+        refreshToken: response.login.refreshToken,
+      };
     }
+
+    return null;
+  } catch (error: any) {
+    console.error(error);
+    return null;
+  }
 }
 
 /**
@@ -133,8 +129,10 @@ export async function isValidUser(user: string, password: string): Promise<any> 
  * @returns {Promise<RegisterUserResponse>} - The registered user data if the registration is
  * successful, or null if the registration fails.
  */
-export async function registerUser(user: RegisterUser): Promise<RegisterUserResponse | null> {
-    const query = `
+export async function registerUser(
+  user: RegisterUser,
+): Promise<RegisterUserResponse> {
+  const query = `
         mutation createUser(
             $username: String = "",
             $password: String = "",
@@ -157,16 +155,16 @@ export async function registerUser(user: RegisterUser): Promise<RegisterUserResp
                 }
             }
         }
-    `
-    try {
-        const headers = {
-            'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
-        }
+    `;
+  try {
+    const headers = {
+      Authorization: "Basic " + btoa(SECRET_USER + ":" + SECRET_PASSWORD),
+    };
 
-        const response = await wpquery({query, variables:user, headers});
-        const typedResponse = response as CreateUserResponse;
-        return typedResponse.createUser.user as RegisterUserResponse;
-    } catch (error) {
-        return null;
-    }
+    const response = await wpquery({ query, variables: user, headers });
+    const typedResponse = response as CreateUserResponse;
+    return typedResponse.createUser.user as RegisterUserResponse;
+  } catch (error) {
+    return null;
+  }
 }

@@ -6,15 +6,22 @@ interface WPGraphQLParams {
   headers?: object;
 }
 
-
-
-export async function wpquery<T>({ query, variables = {}, headers = {} }: WPGraphQLParams): Promise<T> {
-
+export async function wpquery<T>({
+  query,
+  variables = {},
+  headers = {},
+}: WPGraphQLParams): Promise<T> {
+  const authHeaders = {
+    Authorization:
+      "Basic " +
+      btoa(import.meta.env.SECRET_USER + ":" + import.meta.env.SECRET_PASSWORD),
+  };
   const res = await fetch(baseURL, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
       ...headers,
+      ...authHeaders,
     },
     body: JSON.stringify({
       query,
@@ -26,4 +33,4 @@ export async function wpquery<T>({ query, variables = {}, headers = {} }: WPGrap
   }
   const { data } = await res.json();
   return data as T;
-};
+}

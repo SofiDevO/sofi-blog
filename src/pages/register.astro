@@ -1,16 +1,31 @@
 ---
 import Layout from "@src/layouts/Layout.astro";
 import { isLoggedIn } from "@src/services/auth";
-export const prerender = false;
+
 const { cookies } = Astro;
-const data = isLoggedIn(cookies);
-if (data) {
+const user = isLoggedIn(cookies);
+
+if (user) {
   return Astro.redirect("/dashboard");
+} else if (cookies.has("accessToken")) {
+  cookies.delete("accessToken", { path: "/" });
 }
+
+export const prerender = false;
+
+const error = Astro.url.searchParams.get("error");
 ---
-<Layout title="Login">
+
+<Layout title="Register">
   <div class="container__login">
     <form action="/api/auth/register" method="post" id="loginForm">
+      {error && (
+        <div class="error-message">
+          {error === "missing-fields" 
+            ? "Por favor, completa todos los campos requeridos." 
+            : "No se pudo registrar el usuario. El nombre de usuario o email ya existen, o hubo un problema."}
+        </div>
+      )}
       <div class="form__group">
         <div>
           <label for="firstName">First Name:</label>
@@ -18,7 +33,7 @@ if (data) {
         </div>
         <div>
           <label for="lastName">Last Name:</label>
-          <input type="text" name="firstName" id="firstName" required />
+          <input type="text" name="lastName" id="lastName" required />
         </div>
       </div>
       <label for="username">Username:</label>
@@ -27,9 +42,7 @@ if (data) {
       <input type="email" name="email" id="email" required />
       <label for="password">Password</label>
       <input type="password" name="password" id="password" required />
-      <button type="submit">
-        Register
-      </button>
+      <button type="submit"> Register </button>
     </form>
   </div>
 </Layout>
@@ -54,12 +67,32 @@ if (data) {
 
   button {
     padding: 0.5rem;
-    background: #673AB7;
+    background: #673ab7;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
-  textarea:focus, input:focus {
+  textarea:focus,
+  input:focus {
     color: #201b2b79;
+  }
+  .error-message {
+    background-color: #ff5252;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .form__group {
+    display: flex;
+    gap: 1rem;
+  }
+  .form__group > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
   }
 </style>
