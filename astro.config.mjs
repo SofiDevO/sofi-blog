@@ -11,10 +11,6 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://sofidev.blog/",
-  redirects: {
-    "/blog": "/post",
-    "/blog/[...slug]": "/post/[...slug]",
-  },
   prefetch: {
     prefetchAll: true,
   },

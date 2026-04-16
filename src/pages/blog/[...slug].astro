@@ -1,0 +1,4 @@
+---
+const { slug } = Astro.params;
+return Astro.redirect(slug ? `/post/${slug}` : '/post', 301);
+---
