@@ -7,8 +7,10 @@ import type {
 import type { AstroCookies } from "astro";
 import Jwt from "jsonwebtoken";
 
-const { SECRET_KEY, WPGRAPHQL_URL, SECRET_USER, SECRET_PASSWORD } = import.meta
-  .env;
+const SECRET_KEY = import.meta.env.SECRET_KEY;
+const WPGRAPHQL_URL = import.meta.env.WPGRAPHQL_URL;
+const SECRET_USER = import.meta.env.SECRET_USER;
+const SECRET_PASSWORD = import.meta.env.SECRET_PASSWORD;
 
 interface UserEmailResponse {
   users: {

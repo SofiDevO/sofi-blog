@@ -24,6 +24,9 @@ A modern, fast, and SEO-optimized blog platform built with Astro and powered by 
 - **Authentication**: JWT tokens
 - **Build Tools**: Vite, npm
 
+## ⚠️ Upgrading to Astro v6
+
+If you are migrating from previous versions or experiencing issues with Sass (`@use`) imports or missing environment variables (e.g., `jsonwebtoken` signature errors), please review the [Astro v6 Upgrade Guide](./DOCS.md).
 
 ## 🚀 Quick Start
 

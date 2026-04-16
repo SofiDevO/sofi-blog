@@ -1,5 +1,6 @@
 import { wpquery } from "@src/data/wordpress";
-const { SECRET_USER, SECRET_PASSWORD   } = import.meta.env
+const SECRET_USER = import.meta.env.SECRET_USER;
+const SECRET_PASSWORD = import.meta.env.SECRET_PASSWORD;
 
 export const getCommentsByPostSlug = async (slug) => {
 

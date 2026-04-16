@@ -43,6 +43,43 @@ export default defineConfig({
       },
     }),
   ],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+          importers: [
+            {
+              findFileUrl(url) {
+                const aliases = {
+                  "@src/": "src/",
+                  "@components/": "src/components/",
+                  "@atoms/": "src/components/atoms/",
+                  "@molecules/": "src/components/molecules/",
+                  "@organisms/": "src/components/organisms/",
+                  "@layouts/": "src/layouts/",
+                  "@utils/": "src/utils/",
+                  "@content/": "src/content/",
+                  "@pages/": "src/pages/",
+                  "@controllers/": "src/controllers/",
+                  "@services/": "src/services/",
+                  "@data/": "src/data/",
+                  "@sass/": "src/sass/",
+                  "@img/": "public/img/"
+                };
+                for (const [alias, folder] of Object.entries(aliases)) {
+                  if (url.startsWith(alias)) {
+                    return new URL("./" + folder + url.slice(alias.length), import.meta.url);
+                  }
+                }
+                return null;
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
   output: "server",
   adapter: vercel(),
 });

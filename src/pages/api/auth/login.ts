@@ -2,7 +2,7 @@ import { isValidUser } from "@src/services/auth";
 import type { APIRoute } from "astro";
 import Jwt from "jsonwebtoken";
 
-const { SECRET_KEY } = import.meta.env;
+const SECRET_KEY = import.meta.env.SECRET_KEY;
 
 const ERRORS = {
   missingFields: "missing_fields",
@@ -25,9 +25,16 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   if (!data)
     return redirect(`/login?error=true&message=${ERRORS.invalidCredentials}`);
 
-  const token = Jwt.sign(data, SECRET_KEY, { expiresIn: "1h" });
-
-  cookies.set("accessToken", token, { path: "/", httpOnly: true });
-
-  return redirect("/dashboard");
+  try {
+    const token = Jwt.sign(data, SECRET_KEY, { expiresIn: "1h" });
+    cookies.set("accessToken", token, { path: "/", httpOnly: true });
+    return redirect("/dashboard");
+  } catch (error) {
+    console.error("JWT SIGN ERROR:", error);
+    console.log("SECRET_KEY value:", SECRET_KEY);
+    return new Response(
+      JSON.stringify({ error: error.message, SECRET_KEY: Boolean(SECRET_KEY) }),
+      { status: 500 },
+    );
+  }
 };

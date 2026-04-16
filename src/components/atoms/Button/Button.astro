@@ -6,9 +6,6 @@ const {
   class: className,
   ...rest
 } = Astro.props;
-
-
-
 ---
 
 {
@@ -23,12 +20,7 @@ const {
       <slot />
     </a>
   ) : (
-    <button
-      class={`${className} `}
-      {...rest}
-      type="button"
-      id={id}
-    >
+    <button class={`${className} `} {...rest} type="button" id={id}>
       <slot />
     </button>
   )
@@ -38,10 +30,11 @@ const {
   @use "@sass/variables" as *;
   @use "@sass/mixins" as *;
 
-  a, button {
-    @include flexConfig(start,center );
+  a,
+  button {
+    @include flexConfig(start, center);
     gap: 1rem;
-    background:$french-violet;
+    background: $french-violet;
     padding: 1rem 2rem;
     border-radius: 12px;
     width: 100%;
