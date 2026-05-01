@@ -7,15 +7,11 @@
   margin: 0 auto;
   @include flexConfig(center ,flex-start);
   flex-direction: column;
-  gap: 5rem;
-  padding: 20rem 0;
+  gap: 3rem;
+  padding: 20rem 0 2rem 0;
   height: fit-content;
 }
-.slider__card {
-  max-width: 40rem;
-  min-width: 40rem;
-  max-height: 20rem;
-}
+
 
 :host {
   --swiper-navigation-size: 217px;

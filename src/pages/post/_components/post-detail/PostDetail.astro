@@ -7,32 +7,37 @@ const { post, author } = Astro.props;
 
 <article class="flex flex-col w-full overflow-x-clip">
   <!-- Author Info -->
-  <div class="flex gap-3 items-center my-5 px-3 group">
-    <img
-      id="author-image"
-      class="w-24 h-24 group-hover:scale-110 rounded-full"
-      src={author.avatar?.url}
-      alt={author.name}
-    />
-    <div class="flex flex-col items-center gap-5">
-      <p class="text-2xl font-bold">
-        {author.firstName}
-        {author.lastName}
-      </p>
-      <p class="font-bold text-2xl">
-        Tiempo de lectura
-        <span class="text-violet-700"> {post.seo.readingTime} minutes</span>
-      </p>
-      <p class="font-bold text-2xl">
-        Fecha de publicación
-        <DateTag isShort={false} date={post.date} />
-      </p>
+  <div
+    class="flex items-center justify-between my-10 px-4 shadow-md rounded-lg w-full bg-violet-500/20"
+  >
+    <div class="flex gap-4 items-center justify-start group ">
+      <img
+        id="author-image"
+        class="w-20 h-20 group-hover:scale-110 rounded-full"
+        src={author.avatar?.url}
+        alt={author.name}
+      />
+      <div class="flex flex-col gap-1">
+        <p class="text-2xl font-bold !m-0 text-gradient">
+          {author.firstName}
+          {author.lastName}
+        </p>
+        <p class="font-bold text-2xl !m-0">
+          Tiempo de lectura
+          <span class="text-violet-700"> {post.seo.readingTime} minutes</span>
+        </p>
+      </div>
+    </div>
+    <div class="flex flex-col gap-1">
+      <div class="flex flex-col items-center gap-2">
+        <p class="font-bold text-2xl">
+          Fecha de publicación
+          <DateTag isShort={false} date={post.date} />
+        </p>
+      </div>
     </div>
   </div>
-  <div
-    class="post-container"
-    id="container-post"
-  >
+  <div class="post-container" id="container-post">
     <dialog
       class="w-full open:flex justify-center items-center h-full fixed bg-black/95 left-0 top-0 p-5"
     >

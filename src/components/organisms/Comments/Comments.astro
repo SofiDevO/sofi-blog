@@ -21,7 +21,7 @@ let comments = post?.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
     comments.length > 0 ? (
       <h2 class="text-2xl font-bold mb-5">Comentarios 🦝:</h2>
     ) : (
-      <h2>Rompe el Hielo🦝</h2>
+      <h2>Rompe el Hielo</h2>
     )
   }
   <Comment comment={null} />
