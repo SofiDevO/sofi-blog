@@ -102,44 +102,12 @@ figure {
 
 
 
-table {
-  width: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-collapse: collapse;
-}
-
-tr:nth-of-type(odd) {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-table thead th,
-table tfoot th {
-  font-size: 1.8rem;
-  font-weight: bold;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-table caption {
-  padding: 1rem;
-}
-
-table th,
-table td {
-  font-size: 1.5rem;
-  font-weight: 700;
-  padding: 1rem;
-  border: 1px solid lightgrey;
-}
 
 .text-gradient {
   @include text-gradient();
 }
 
-#post {
-  h1 {
-    @include text-gradient();
-  }
-}
+
 
 // Sidebar Card Styles
 .sidebar-card {

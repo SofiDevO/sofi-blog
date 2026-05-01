@@ -2,24 +2,92 @@
 @use "@sass/mixins" as *;
 
 #post {
-
-  h1 {
-    @include text-gradient("dark");
-  }
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
   h2 {
+    @include text-gradient;
     font-size: 2.5rem;
-    font-weight: 700;
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin-top: 2.8rem;
+    margin-bottom: 1rem;
   }
 
   h3 {
+    @include text-gradient;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    margin-top: 2.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  h4 {
     font-size: 1.8rem;
     font-weight: 700;
+    line-height: 1.4;
+    margin-top: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  p {
+    font-size: 1.7rem;
+    line-height: 1.8;
+    margin-bottom: 1.4rem;
   }
 
   a {
     color: v.$french-violet;
     font-weight: 600;
+    text-underline-offset: 3px;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      text-decoration-color: currentColor;
+    }
+  }
+
+  a:is(.wp-block-button__link, .wp-element-button) {
+    color: v.$ufo-green;
+    background-color: v.$dark-violet;
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      background-color: v.$light-violet;
+    }
+  }
+
+    table {
+      border: .1rem solid rgba(0, 0, 0, 0.162);
+      border-radius: 9px;
+      overflow: auto;
+      table-layout: auto;
+      width: 100%;
+      background: rgb(231, 236, 246);
+      thead > tr:is(:first-child) {
+        background:rgb(188, 194, 213);
+      }
+      tr:nth-of-type(odd) {
+        background:rgb(217, 213, 225);
+      }
+    }
+
+  table th,
+  table td {
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 1rem 0.8rem;
+    // border: 1px solid rgba(61, 61, 61, 0.285);
   }
 
   .shiki {
@@ -27,25 +95,41 @@
     max-height: 600px;
 
   }
-   .wp-block-image{
+
+  .wp-block-image {
     width: 100%;
     max-width: 100%;
     height: 100%;
   }
-  figure {
-   margin: 0 auto;
-   width: 100%;
-   max-width: 100%;
-   height: 100%;
-   & img {
-     width: 100%;
-     max-width: 100%;
-     margin: 0 auto;
-     border-radius: 1.2rem;
-     height: 100%;
-   }
 
- }
+  figure {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+
+    & img {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 1.2rem;
+      height: 100%;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 8px 32px rgba(102, 0, 204, 0.3);
+      }
+    }
+
+    figcaption {
+      text-align: center;
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 0.6rem;
+      font-style: italic;
+    }
+  }
+
   div[data-code-block-pro-font-family] {
     display: flex;
     width: 100%;
@@ -55,6 +139,7 @@
     flex-direction: column;
     overflow: hidden;
     border-radius: 1.2rem;
+
     // flex-wrap: wrap;
     kbd,
     samp,
@@ -82,12 +167,38 @@
   .wp-block-list {
     display: flex;
     flex-wrap: wrap;
+    padding-left: 2rem;
+    margin-bottom: 1.4rem;
+    gap: 0.4rem;
 
     li {
       width: 100%;
       list-style: disc;
       font-size: 1.6rem;
       font-weight: 500;
+      line-height: 1.7;
+    }
+  }
+
+  .wp-block-quote,
+  blockquote {
+    border-left: 4px solid v.$french-violet;
+    padding: 1.2rem 1.6rem;
+    margin: 1.6rem 0;
+    background: rgba(102, 0, 204, 0.08);
+    border-radius: 0 0.6rem 0.6rem 0;
+    font-style: italic;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    cite {
+      display: block;
+      margin-top: 0.8rem;
+      font-size: 1.4rem;
+      font-style: normal;
+      color: v.$light-violet;
     }
   }
 
@@ -173,6 +284,82 @@
 
     &:has(.line-numbers) {
       padding-left: 4rem;
+    }
+  }
+
+  #container-post {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    img {
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.88;
+      }
+    }
+  }
+
+  dialog {
+    z-index: 1500;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    transition:
+      opacity 0.3s ease,
+      display 0.3s ease allow-discrete;
+
+    img {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      border: solid 1px rgb(255, 255, 255, 0.1);
+      cursor: default !important;
+      border-radius: 8px;
+    }
+
+    &:open {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+
+      img {
+        scale: 1;
+        transition: scale 0.4s ease;
+        object-fit: contain;
+        width: 100%;
+        max-width: 1200px;
+        height: auto;
+      }
+
+      @starting-style {
+        scale: 0;
+        opacity: 0;
+
+        img {
+          scale: 0.75;
+        }
+      }
+    }
+  }
+}
+
+
+.dark {
+  #post {
+
+    table {
+      background: rgb(28, 34, 47);
+      thead > tr:is(:first-child) {
+        background:rgb(42, 55, 93);
+      }
+      tr:nth-of-type(odd) {
+        background:rgb(48, 44, 56);
+      }
     }
   }
 }

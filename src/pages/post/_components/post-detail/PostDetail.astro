@@ -5,7 +5,7 @@ import { replaceIframes } from "@src/utils/index";
 const { post, author } = Astro.props;
 ---
 
-<article class="flex flex-col w-full overflow-x-clip ">
+<article class="flex flex-col w-full overflow-x-clip">
   <!-- Author Info -->
   <div class="flex gap-3 items-center my-5 px-3 group">
     <img
@@ -30,7 +30,7 @@ const { post, author } = Astro.props;
     </div>
   </div>
   <div
-    class="w-full flex flex-col items-start gap-10 justify-center self-center text-left"
+    class="post-container"
     id="container-post"
   >
     <dialog
@@ -48,65 +48,31 @@ const { post, author } = Astro.props;
   </div>
 </article>
 
-
-
-
-
-<style>
-  #container-post {
-    img {
-      cursor: pointer;
-    }
-  }
-
-  dialog {
-    z-index: 1500;
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-
-
-    transition:
-      opacity 0.3s ease,
-      display 0.3s ease allow-discrete;
-
-    img {
-      width: 100%;
-      max-width: 1200px;
-      height: auto;
-      border: solid 1px rgb(255, 255, 255, 0.1);
-      cursor: default !important;
-      border-radius: 8px;
-    }
-
-    &:open {
-      opacity: 1;
-      transition: opacity 0.3s ease;
-
-      img {
-        scale: 1;
-        transition: scale 0.4s ease;
-        object-fit: contain;
-        width: 100%;
-        max-width: 1200px;
-        height: auto;
-      }
-
-      @starting-style {
-        scale: 0;
-        opacity: 0;
-
-        img {
-          scale: 0.75;
-        }
-      }
-    }
-  }
-
-</style>
+<script is:inline>
+  const adBlock =
+    `<script  async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+     crossorigin="anonymous"></` +
+    `script>
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-format="fluid"
+        data-ad-layout-key="-fb+5w+4e-db+86"
+        data-ad-client="ca-pub-3828278469742835"
+        data-ad-slot="6132125318">
+    </ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </` +
+    `script>`;
+  const postContainer = document.querySelector("#post");
+  const headings = postContainer?.querySelectorAll(".wp-block-heading");
+  headings?.forEach((heading) => {
+    if (heading.classList.contains("title__text")) return;
+    heading.insertAdjacentHTML("beforebegin", adBlock);
+  });
+</script>
 
 <script>
-  import { fastYoutube } from "@src/utils/fast-youtube";
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("container-post") as HTMLElement;
     const allImages = container.querySelectorAll<HTMLImageElement>("img");

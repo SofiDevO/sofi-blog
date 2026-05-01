@@ -9,6 +9,11 @@
     flex-basis: 20%;
     padding: 0 1rem 1rem 1rem;
     gap: 1rem;
+    @include respond-to('medium') {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding-top: 2rem;
+        margin-top: 5rem;
+    }
 
     .title {
         font-size: 2.5rem;
