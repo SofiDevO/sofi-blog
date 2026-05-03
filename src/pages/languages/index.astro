@@ -1,20 +1,88 @@
 ---
-import Layout from '@layouts/Layout.astro';
-import { getLanguages } from '@services/querys/languages/getLanguages';
+import Layout from "@layouts/Layout.astro";
+import { getLanguages } from "@services/querys/languages/getLanguages";
 const languages = await getLanguages();
-
 console.log(languages);
+
+const sortByoldest = languages.sort((a, b) => {
+  const dateA = new Date(a.date) as unknown as number;
+  const dateB = new Date(b.date) as unknown as number;
+  return dateA - dateB;
+});
 
 ---
 
 <Layout title="Aprender a programar">
-    <h1>Languages</h1>
-    {
-        languages.map(language => (
-            <div >
-                <img src={language.curso.icon.node.mediaItemUrl} alt={language.curso.icon.node.altText} />
-                <div set:html={language.curso.description}></div>
+  <section class="languages" id="languages">
+    <h1 class="text-gradient">Languages</h1>
+    <div class="languages__container">
+      {
+        sortByoldest.map((language) => (
+          <div class="card">
+            <img
+              class="card__icon"
+              src={language.curso.icon.node.mediaItemUrl}
+              alt={language.curso.icon.node.altText}
+            />
+            <div class="card__content">
+              <h2 class="card__title">{language.title}</h2>
+              <div class="card__excerp" set:html={language.curso.excerp} />
+              <a class="card__link" href={`/languages/${language.slug}`}>
+                Ver Lenguaje
+              </a>
             </div>
+          </div>
         ))
-    }
+      }
+    </div>
+  </section>
 </Layout>
+
+<style lang="scss">
+  @use "@sass/variables" as *;
+  @use "@sass/mixins" as *;
+
+  .languages {
+      width: 100%;
+      max-width: 1100px;
+      height: 100%;
+        margin: 0 auto;
+      padding: 1rem;
+    @include flexConfig();
+    flex-direction: column;
+    margin-top: 15rem;
+    gap: 2rem;
+    &__container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+      width: 100%;
+      gap: 2rem;
+    }
+  }
+  .card {
+    @include flexConfig();
+    // flex-wrap: wrap;
+    background: rgba(140, 55, 209, 0.371);
+    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.25);
+    padding: 0.2rem 1rem;
+    border-radius: 9px;
+    &__content {
+      @include flexConfig(start, start);
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    &__icon {
+      width: 20rem;
+      height: 20rem;
+    }
+    &__link{
+        background: $french-violet;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+  }
+</style>

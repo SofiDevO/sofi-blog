@@ -7,19 +7,33 @@ export interface Languages {
 }
 
 export interface Node {
+  title: string
+  slug: string
   curso: Curso
+  date:string
 }
 
 export interface Curso {
   description: string
+  modulo: Modulo
   icon: Icon
+  excerp: string
 }
 
-export interface Icon {
-  node: Node2
+export interface Modulo {
+  nodes: Node2[]
 }
 
 export interface Node2 {
+  slug: string
+  title: string
+}
+
+export interface Icon {
+  node: Node3
+}
+
+export interface Node3 {
   altText: string
   mediaItemUrl: string
   sizes: string

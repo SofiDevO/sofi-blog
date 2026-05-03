@@ -7,8 +7,21 @@ export const getLanguages = async () => {
         query NewQuery {
           languages {
             nodes {
+              title
+              slug
+              date
               curso {
                 description
+                modulo {
+                  nodes {
+                    slug
+                    ... on Module {
+                      title
+                      slug
+                      }
+                      }
+                      }
+                excerp
                 icon {
                   node {
                     altText
@@ -20,7 +33,7 @@ export const getLanguages = async () => {
               }
             }
           }
-      }
+        }
     `,
   });
 
