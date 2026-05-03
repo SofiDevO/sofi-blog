@@ -1,0 +1,20 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { getLanguages } from '@services/querys/languages/getLanguages';
+const languages = await getLanguages();
+
+console.log(languages);
+
+---
+
+<Layout title="Aprender a programar">
+    <h1>Languages</h1>
+    {
+        languages.map(language => (
+            <div >
+                <img src={language.curso.icon.node.mediaItemUrl} alt={language.curso.icon.node.altText} />
+                <div set:html={language.curso.description}></div>
+            </div>
+        ))
+    }
+</Layout>
