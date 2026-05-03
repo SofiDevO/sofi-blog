@@ -10,17 +10,8 @@ export const getLanguages = async () => {
               title
               slug
               date
+              databaseId
               curso {
-                description
-                modulo {
-                  nodes {
-                    slug
-                    ... on Module {
-                      title
-                      slug
-                      }
-                      }
-                      }
                 excerp
                 icon {
                   node {

@@ -7,6 +7,7 @@ import SecondCategory from "@organisms/Posts/SecondCategory/SecondCategory.astro
 import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
 import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
 import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
+import Infinitecarousel from "@src/components/organisms/infinite-carousel/Infinitecarousel.astro";
 import FourthCategory from "@src/components/organisms/Posts/FourthCategory/FourthCategory.astro";
 import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
 const categoriesWithPosts = await getCategoriesWithPosts();
@@ -18,15 +19,15 @@ const categoriesWithPosts = await getCategoriesWithPosts();
     <Hero title="Bienvenidos al SofiBlog" />
   </BackgroundGradient>
   <DividerTop fill="shape-fill-darkPurple" />
-
   {
     categoriesWithPosts["noticias-dev"] && (
       <FourthCategory
         {...categoriesWithPosts["noticias-dev"][0]}
         variant="horizontal"
-      />
-    )
-  }
+        />
+      )
+    }
+    <Infinitecarousel />
   <script
     is:inline
     async

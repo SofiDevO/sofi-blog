@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { getLanguages } from "@services/querys/languages/getLanguages";
 const languages = await getLanguages();
-console.log(languages);
+// console.log(languages);
 
 const sortByoldest = languages.sort((a, b) => {
   const dateA = new Date(a.date) as unknown as number;
@@ -46,11 +46,12 @@ const sortByoldest = languages.sort((a, b) => {
       width: 100%;
       max-width: 1100px;
       height: 100%;
+      min-height: 100dvh;
         margin: 0 auto;
       padding: 1rem;
     @include flexConfig();
     flex-direction: column;
-    margin-top: 15rem;
+
     gap: 2rem;
     &__container {
       display: grid;
@@ -61,7 +62,6 @@ const sortByoldest = languages.sort((a, b) => {
   }
   .card {
     @include flexConfig();
-    // flex-wrap: wrap;
     background: rgba(140, 55, 209, 0.371);
     box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.25);
     padding: 0.2rem 1rem;

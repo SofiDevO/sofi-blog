@@ -1,4 +1,4 @@
-export interface LanguagesResponse {
+export interface LanguageDetailResponse {
   languages: Languages
 }
 
@@ -7,31 +7,34 @@ export interface Languages {
 }
 
 export interface Node {
-  title: string
-  slug: string
   curso: Curso
-  date:string
+  slug: string
+  title: string
 }
 
 export interface Curso {
+  description: string
   icon: Icon
-  excerp: string
-}
-
-export interface Node2 {
-  slug: string
-  title: string
+  modulo?: Modulo
 }
 
 export interface Icon {
-  node: Node3
+  node: Node2
+}
+
+export interface Node2 {
+  srcSet: string
+  sizes: string
+  mediaItemUrl: string
+}
+
+export interface Modulo {
+  nodes: Node3[]
 }
 
 export interface Node3 {
-  altText: string
-  mediaItemUrl: string
-  sizes: string
-  srcSet: string
+  title: string
+  slug: string
 }
 
 export interface Extensions {

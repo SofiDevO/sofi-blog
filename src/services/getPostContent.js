@@ -1,7 +1,6 @@
 import { wpquery } from "@src/data/wordpress";
 
 export const PostContentData =
-
 await wpquery({
   query: `
     query getPostContent {

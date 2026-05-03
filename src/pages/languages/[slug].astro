@@ -1,7 +1,42 @@
 ---
+export const prerender = true;
+import { getLanguageDetail } from "@src/services/querys/languages/getLanguageDetail";
+import type { Node } from "@src/types/LanguageDetail.type";
+import Layout from "@layouts/Layout.astro";
 
+export async function getStaticPaths() {
+  const data = await getLanguageDetail();
+  return data?.map((language: Node) => ({
+    params: { slug: language.slug },
+    props: { language },
+  }));
+}
+
+const { language } = Astro.props as { language: Node };
+const { title, curso } = language;
+const { description, icon, modulo } = curso;
 ---
 
+<Layout title={title}>
+  <section class="language">
+    <img
+      src={icon.node.mediaItemUrl}
+      srcset={icon.node.srcSet}
+      sizes={icon.node.sizes}
+      alt={title}
+    />
+    <h1>{title}</h1>
+    <div set:html={description} ></div>
 
-
-<h1>Language detail</h1>
+    {modulo?.nodes && modulo.nodes.length > 0 && (
+      <>
+        {modulo.nodes.map((mod) => (
+          <details>
+            <summary>Modulos</summary>
+            <a href={`/languages/${language.slug}/module/${mod.slug}`}>{mod.title}</a>
+          </details>
+        ))}
+      </>
+    )}
+  </section>
+</Layout>
