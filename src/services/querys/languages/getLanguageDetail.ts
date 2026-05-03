@@ -8,7 +8,6 @@ export const getLanguageDetail = async () => {
             languages {
                 nodes {
                 curso {
-                    description
                     icon {
                     node {
                         srcSet(size: MEDIUM)
@@ -27,6 +26,7 @@ export const getLanguageDetail = async () => {
                 }
                 slug
                 title
+                content(format: RENDERED)
                 }
             }
             }

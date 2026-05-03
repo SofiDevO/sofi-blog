@@ -10,10 +10,10 @@ export interface Node {
   curso: Curso
   slug: string
   title: string
+  content: string
 }
 
 export interface Curso {
-  description: string
   icon: Icon
   modulo?: Modulo
 }

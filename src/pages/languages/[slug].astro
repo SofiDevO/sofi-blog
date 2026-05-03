@@ -9,16 +9,17 @@ export async function getStaticPaths() {
   return data?.map((language: Node) => ({
     params: { slug: language.slug },
     props: { language },
+
   }));
 }
 
 const { language } = Astro.props as { language: Node };
-const { title, curso } = language;
-const { description, icon, modulo } = curso;
+const { title, curso, content } = language;
+const {  icon, modulo } = curso;
 ---
 
 <Layout title={title}>
-  <section class="language">
+  <section class="language " id="post">
     <img
       src={icon.node.mediaItemUrl}
       srcset={icon.node.srcSet}
@@ -26,7 +27,7 @@ const { description, icon, modulo } = curso;
       alt={title}
     />
     <h1>{title}</h1>
-    <div set:html={description} ></div>
+    <div set:html={content} ></div>
 
     {modulo?.nodes && modulo.nodes.length > 0 && (
       <>
