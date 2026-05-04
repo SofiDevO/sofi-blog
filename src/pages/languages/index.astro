@@ -10,18 +10,13 @@ const sortByoldest = languages.sort((a, b) => {
   const dateB = new Date(b.date) as unknown as number;
   return dateA - dateB;
 });
-
 ---
 
 <Layout title="Aprender a programar">
   <section class="languages" id="languages">
     <h1 class="text-gradient">Languages</h1>
     <div class="languages__container">
-      {
-        sortByoldest.map((language) => (
-          <LanguageCard language={language} />
-        ))
-      }
+      {sortByoldest.map((language) => <LanguageCard language={language} />)}
     </div>
   </section>
 </Layout>
@@ -31,21 +26,23 @@ const sortByoldest = languages.sort((a, b) => {
   @use "@sass/mixins" as *;
 
   .languages {
-      width: 100%;
-      max-width: 1100px;
-      height: 100%;
-      min-height: 100dvh;
-        margin: 0 auto;
-      padding: 1rem;
+    width: 100%;
+    max-width: 1100px;
+    height: 100%;
+    min-height: 100dvh;
+    margin: 0 auto;
+    padding: 1rem;
     @include flexConfig();
+    margin-top:6rem;
     flex-direction: column;
     gap: 2rem;
     &__container {
+      height: 100%;
+      padding: 1rem;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
       width: 100%;
       gap: 2rem;
     }
   }
-
 </style>
