@@ -1,9 +1,8 @@
 ---
-import type { GetStaticPaths } from "astro";
-export const prerender = true;
 import Layout from "@layouts/Layout.astro";
 import { getLanguageDetail } from "@src/services/querys/languages/getLanguageDetail";
 import type { Node } from "@src/types/LanguageDetail.type";
+export const prerender = true;
 
 export async function getStaticPaths() {
   const data = await getLanguageDetail();
@@ -65,10 +64,10 @@ const { icon, modulo } = curso;
       font-weight: 700;
     }
     &__container {
-    @include flexConfig(center, flex-start);
-     gap: 2rem;
-     padding: 0 1rem;
-     @include respond-to("medium") {
+      @include flexConfig(center, flex-start);
+      gap: 2rem;
+      padding: 0 1rem;
+      @include respond-to("medium") {
         flex-direction: column;
         align-items: center;
       }
@@ -84,7 +83,7 @@ const { icon, modulo } = curso;
         width: 80%;
         max-width: none;
       }
-      &:hover{
+      &:hover {
         filter: drop-shadow(0 0 0.75rem $ufo-green);
         transition: filter 1s ease-in-out;
       }

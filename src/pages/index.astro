@@ -58,24 +58,24 @@ const categoriesWithPosts = await getCategoriesWithPosts();
     )
   }
   <DividerBottom fill="shape-fill-white" />
-    <div class="add__block">
+  <div class="add__block">
     <script
-    is:inline
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
-    crossorigin="anonymous"></script>
-  <!-- banerHorzontal -->
-  <ins
-    class="adsbygoogle"
-    style="display:block"
-    data-ad-client="ca-pub-3828278469742835"
-    data-ad-slot="1391467357"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
-  <script is:inline>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-    </div>
+      is:inline
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+      crossorigin="anonymous"></script>
+    <!-- banerHorzontal -->
+    <ins
+      class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-3828278469742835"
+      data-ad-slot="1391467357"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
   {
     categoriesWithPosts["astro"] && (
       <ThirdCategory {...categoriesWithPosts["astro"][0]} />
@@ -118,9 +118,13 @@ const categoriesWithPosts = await getCategoriesWithPosts();
 
 <style lang="scss">
   .add__block {
-    // background:black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // background: black;
     width: 100%;
     max-width: 900px;
+    height: auto;
     display: flex;
     justify-content: center;
     margin: 4rem auto;

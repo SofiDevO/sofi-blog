@@ -14,7 +14,24 @@ const sortByoldest = languages.sort((a, b) => {
 
 <Layout title="Aprender a programar">
   <section class="languages" id="languages">
+    <script
+      is:inline
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"
+      crossorigin="anonymous"></script>
+    <!-- banerHorzontal -->
+    <ins
+      class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-3828278469742835"
+      data-ad-slot="1391467357"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script is:inline>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
     <h1 class="text-gradient">Languages</h1>
+
     <div class="languages__container">
       {sortByoldest.map((language) => <LanguageCard language={language} />)}
     </div>
@@ -33,7 +50,7 @@ const sortByoldest = languages.sort((a, b) => {
     margin: 0 auto;
     padding: 1rem;
     @include flexConfig();
-    margin-top:6rem;
+    margin-top: 6rem;
     flex-direction: column;
     gap: 2rem;
     &__container {
