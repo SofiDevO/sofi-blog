@@ -27,7 +27,7 @@ if (!post) {
 }
 
 const { id } = post;
-console.log({id});
+console.log({ id });
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
@@ -120,7 +120,6 @@ const keyWords = post?.tags?.nodes
 
   <div class="progress"></div>
 </Layout>
-
 
 <script>
   import { commentsController } from "@controllers/comments.controller";

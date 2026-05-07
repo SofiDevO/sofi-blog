@@ -2,7 +2,6 @@
 import Layout from "@layouts/Layout.astro";
 import { getLanguageDetail } from "@src/services/querys/languages/getLanguageDetail";
 import type { Node } from "@src/types/LanguageDetail.type";
-export const prerender = true;
 
 export async function getStaticPaths() {
   const data = await getLanguageDetail();
@@ -49,6 +48,38 @@ const { icon, modulo } = curso;
     </div>
   </section>
 </Layout>
+
+<script>
+  import { InsertButtonCopy } from "@pages/post/button-copy";
+  InsertButtonCopy();
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("post") as HTMLElement;
+    const allImages = container.querySelectorAll<HTMLImageElement>("img");
+    const dialog = container.querySelector("dialog") as HTMLDialogElement;
+    const body = document.querySelector("body") as HTMLBodyElement;
+
+    allImages.forEach((image) => {
+      image.addEventListener("click", () => {
+        dialog.open = true;
+        body.classList.add("overflow-hidden");
+        const imageSrc = image.getAttribute("src");
+        const imageAlt = image.getAttribute("alt") || "Image";
+        const imageRender = document.createElement("img");
+        imageRender.src = imageSrc || "";
+        imageRender.alt = imageAlt;
+        dialog.appendChild(imageRender);
+      });
+    });
+
+    dialog.addEventListener("click", () => {
+      dialog.close();
+      body.classList.remove("overflow-hidden");
+      dialog.innerHTML = "";
+    });
+  });
+</script>
 
 <style lang="scss">
   @use "@sass/variables" as *;
