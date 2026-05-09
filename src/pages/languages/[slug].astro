@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { getLanguageDetail } from "@src/services/querys/languages/getLanguageDetail";
 import type { Node } from "@src/types/LanguageDetail.type";
+export const prerender = true;
 
 export async function getStaticPaths() {
   const data = await getLanguageDetail();
