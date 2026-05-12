@@ -10,7 +10,7 @@ const { post, author } = Astro.props;
   <div
     class="flex items-center justify-between my-10 px-4 shadow-md rounded-lg w-full bg-violet-500/20"
   >
-    <div class="flex gap-4 items-center justify-start group ">
+    <div class="flex gap-4 items-center justify-start group">
       <img
         id="author-image"
         class="w-20 h-20 group-hover:scale-110 rounded-full"
@@ -39,7 +39,7 @@ const { post, author } = Astro.props;
   </div>
   <div class="post-container" id="container-post">
     <dialog
-      class="w-full open:flex justify-center items-center h-full fixed bg-black/95 left-0 top-0 p-5"
+      class="popup__image w-full open:flex justify-center items-center h-full fixed left-0 top-0 p-5"
     >
     </dialog>
     {
@@ -102,5 +102,26 @@ const { post, author } = Astro.props;
       body.classList.remove("overflow-hidden");
       dialog.innerHTML = "";
     });
+  });
+</script>
+
+<script is:inline>
+  const pintItButton = document.querySelectorAll(
+    ".pinsavepinterest-pin-it-button",
+  );
+  pintItButton.forEach((button) => {
+    const href = button?.getAttribute("href");
+    if (!href) return;
+
+    const updatedHref = href.replace(
+      /url=https?:\/\/[^&]*/,
+      (match) =>
+        "url=" +
+        match
+          .slice(4)
+          .replace(/https?:\/\/[^/]+/, "https://www.sofidev.blog/post/"),
+    );
+
+    button.setAttribute("href", updatedHref);
   });
 </script>
