@@ -30,13 +30,12 @@ const { icon, modulo } = curso;
       <div class="language__content">
         <h1 class="text-gradient language__title">{title}</h1>
         <div set:html={content} />
-
         {
           modulo?.nodes && modulo.nodes.length > 0 && (
             <>
               {modulo.nodes.map((mod) => (
-                <details>
-                  <summary>Modulos</summary>
+                <details id="acordion" class="language__acordion">
+                  <summary class="language__sumary">Modulos</summary>
                   <a href={`/languages/${language.slug}/module/${mod.slug}`}>
                     {mod.title}
                   </a>
@@ -119,6 +118,25 @@ const { icon, modulo } = curso;
         filter: drop-shadow(0 0 0.75rem $ufo-green);
         transition: filter 1s ease-in-out;
       }
+    }
+    &__acordion {
+      width: 100%;
+      border-radius: 5px;
+      padding: 1rem;
+      margin-top: 1rem;
+      color: #33ff76;
+      background-color: #4118919e;
+      border: 1px solid #00ffff6b;
+      font-weight: 600;
+      cursor: pointer;
+      &::-webkit-details-marker {
+        display: none;
+      }
+    }
+    & #acordion > a {
+      font-size: 2rem;
+      font-weight: 700;
+      color: rgba(70, 216, 179, 0.849);
     }
   }
 </style>
