@@ -1,6 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { getLanguageDetail } from "@src/services/querys/languages/getLanguageDetail";
+import BackArrow from "@src/shared/icons/BackArrow.astro";
 import type { Node } from "@src/types/LanguageDetail.type";
 export const prerender = true;
 
@@ -19,6 +20,9 @@ const { icon, modulo } = curso;
 
 <Layout title={title}>
   <section class="language" id="post">
+    <header class="language__header"><a href="/languages" class="header__back-btn">
+      <BackArrow width={30} height={30} />
+    </a></header>
     <div class="language__container">
       <img
         class="language__icon"
