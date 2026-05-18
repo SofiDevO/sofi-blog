@@ -142,6 +142,10 @@
     overflow: hidden;
     border-radius: 1.2rem;
 
+    @include respond-to("medium") {
+      max-width: 35rem;
+    }
+
     // flex-wrap: wrap;
     kbd,
     samp,
