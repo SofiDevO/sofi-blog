@@ -2,47 +2,64 @@
 const { language } = Astro.props;
 ---
 
-<div class="language__card">
-  <img
-    class="language__card-icon"
-    src={language.curso.icon.node.mediaItemUrl}
-    alt={language.curso.icon.node.altText}
-  />
-  <div class="language__card-content">
-    <h2 class="language__card-title">{language.title}</h2>
-    <div class="language__card-excerp" set:html={language.curso.excerp} />
-    <a class="language__card-link" href={`/languages/${language.slug}`}>
+<div class="card">
+  <div class="card__icon">
+    <img
+      src={language.curso.icon.node.mediaItemUrl}
+      alt={language.curso.icon.node.altText}
+    />
+  </div>
+  <div class="card__content">
+    <h2 class="card__content__title">{language.title}</h2>
+    <div class="card__content__excerp" set:html={language.curso.excerp} />
+    <a class="card__content__link" href={`/languages/${language.slug}`}>
       Ver Lenguaje
     </a>
   </div>
 </div>
 
-<style is:inline lang="scss">
+<style lang="scss">
   @use "@sass/variables" as *;
   @use "@sass/mixins" as *;
-  .language__card {
+  .card {
     @include flexConfig();
-    background: rgba(0, 0, 0, 0.371);
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.25);
-    padding: 0.2rem 1rem;
+    gap: 1rem;
+    background: rgba(48, 9, 83, 0.747);
+    box-shadow: 2px 2px 2px 0px rgba(109, 7, 204, 0.25);
+    padding: 0.5rem 1rem;
+    width: 100%;
+    height: 100%;
     border-radius: 9px;
-    &-content {
+    &__icon {
+      flex-basis: auto;
+      width: 10rem;
+      height: 10rem;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    &__content {
       @include flexConfig(start, start);
       flex-direction: column;
       gap: 1rem;
-      padding: 1rem;
-    }
-    &-icon {
-      width: 2rem;
-      height: 2rem;
-    }
-    &-link {
-      background: $french-violet;
+      flex-basis: 70%;
       color: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      text-decoration: none;
-      font-weight: bold;
+      &__excerp {
+        p {
+          font-size: 1.4rem !important;
+          margin: 0 !important;
+        }
+      }
+      &__link {
+        background: $french-violet;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+      }
     }
   }
 </style>
