@@ -34,7 +34,7 @@ const { class: className, ...rest } = Astro.props;
   form?.addEventListener("submit", handleSearch);
 
   async function handleSearch(event: Event) {
-    if (window.location.pathname !== "/" ) {
+    if (window.location.pathname !== "/") {
       return;
     }
     event.preventDefault();
@@ -82,4 +82,17 @@ const { class: className, ...rest } = Astro.props;
   async function setCachedResults(results) {
     localStorage.setItem(CACHE_NAME, JSON.stringify(results));
   }
+
+  document.addEventListener("click", (event: MouseEvent) => {
+    if (!form.contains(event.target as Node)) {
+      results.innerHTML = "";
+    }
+  });
+
+  document.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      results.innerHTML = "";
+      input.blur();
+    }
+  });
 </script>
