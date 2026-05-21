@@ -1,6 +1,7 @@
 export function replaceIframes(html: string): string {
-    const iframeRegex = /<iframe([^>]+?)>/g;
+    const iframeRegex = /<iframe([^>]+?)>(?:[\s\S]*?<\/iframe>)?/g;
     return html.replace(iframeRegex, (_, attributes) => {
-        return `<fast-youtube ${attributes}></fast-youtube>`;
+        const cleanAttr = attributes.endsWith('/') ? attributes.slice(0, -1) : attributes;
+        return `<fast-youtube ${cleanAttr}></fast-youtube>`;
     });
 }

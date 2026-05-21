@@ -78,6 +78,7 @@ const { post, author } = Astro.props;
 </script>
 
 <script>
+  import "@src/utils/fast-youtube";
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("container-post") as HTMLElement;
     const allImages = container.querySelectorAll<HTMLImageElement>("img");
