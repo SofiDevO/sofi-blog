@@ -2,6 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { getLanguages } from "@services/querys/languages/getLanguages";
 import LanguageCard from "./components/LanguageCard.astro";
+export const prerender = true;
 const languages = await getLanguages();
 // console.log(languages);
 
