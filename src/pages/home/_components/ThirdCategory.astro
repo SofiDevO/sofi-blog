@@ -1,0 +1,31 @@
+---
+import CardBig from "@/pages/home/_components/CardBig.astro";
+import CardBento from "@/pages/post/_components/CardBento.astro";
+import Title from "@/shared/ui/Title/Title.astro";
+import type { CategoryWithPosts } from "@/types/category.type";
+
+interface Props extends CategoryWithPosts {}
+const { slug, name, posts } = Astro.props;
+const DEFAULT_POST = posts[0];
+---
+
+<section class="web-dev">
+  <a href={`/categories/${slug}`} class="web-dev__link">
+    <Title titleDesc={name} class="web-dev__title" />
+  </a>
+  <div class="web-dev__container web-dev__container--reverse">
+    <ul class="web-dev__grid-container">
+      {
+        posts.slice(1, 6).map((post, index) => {
+          return (
+            <li class={`web-dev__grid-item web-dev__grid-item--${index + 1}`}>
+              <CardBento {...post} index={index} />
+            </li>
+          );
+        })
+      }
+    </ul>
+    <!-- CARD GRANDE -->
+    <CardBig {...DEFAULT_POST} />
+  </div>
+</section>

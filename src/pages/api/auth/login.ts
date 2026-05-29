@@ -1,4 +1,4 @@
-import { isValidUser } from "@src/services/auth";
+import { isValidUser } from "@/services/auth";
 import type { APIRoute } from "astro";
 import Jwt from "jsonwebtoken";
 

@@ -1,10 +1,10 @@
 ---
-import PostCard from "@organisms/Posts/components/PostCard/PostCard.astro";
-import Title from "@src/components/atoms/Title/Title.astro";
-import ResultadosPopUp from "@src/components/organisms/Posts/Resultados/ResultadosPopUp.astro";
-import Layout from "@src/layouts/Layout.astro";
-import { searchPosts } from "@src/services/getResults";
-import Pagination from "@atoms/Pagination/Pagination.astro";
+import PostCard from "@/shared/components/PostCard/PostCard.astro";
+import Title from "@/shared/ui/Title/Title.astro";
+import ResultadosPopUp from "@/pages/categories/_components/ResultadosPopUp.astro";
+import Layout from "@/layouts/Layout.astro";
+import { searchPosts } from "@/services/querys/posts/getResults";
+import Pagination from "@/shared/components/Pagination/Pagination.astro";
 
 const { url, request } = Astro;
 const search = url.searchParams.get("search");

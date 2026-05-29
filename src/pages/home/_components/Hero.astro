@@ -1,0 +1,49 @@
+---
+import SearchForm from "@/shared/components/SearchForm/SearchForm.astro";
+import Title from "@/shared/ui/Title/Title.astro";
+import StickyPost from "./StickyPost.astro";
+
+const { title } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero__container">
+    <Title titleDesc={title} class="hero__title" />
+    <p class="hero__desc">Programación y recursos útiles en un solo lugar</p>
+  </div>
+  <SearchForm />
+  <StickyPost />
+</section>
+
+<style lang="scss">
+  @use "@sass/variables" as *;
+  @use "@sass/mixins" as *;
+
+  .hero {
+    @include flexConfig();
+    flex-direction: column;
+    width: 100%;
+    @extend %max-width;
+    padding: 0 2rem;
+    padding-block: 10rem;
+    writing-mode: horizontal-tb;
+    min-height: 100dvh;
+    &__container {
+      max-width: 750px;
+      text-align: center;
+    }
+    &__title {
+      @include titleType("bigger");
+      @include respond-to("medium") {
+        @include titleType("medium");
+      }
+    }
+    &__desc {
+      text-wrap: balance;
+      color: white;
+      font-size: 2rem;
+      margin-bottom: 5rem;
+      font-weight: 400;
+    }
+  }
+</style>

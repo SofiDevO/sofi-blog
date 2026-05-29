@@ -1,7 +1,7 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Title from "@src/components/atoms/Title/Title.astro";
-import { getCategoriesWithPosts } from "@src/services/categoriesWithPosts";
+import Layout from "@/layouts/Layout.astro";
+import Title from "@/shared/ui/Title/Title.astro";
+import { getCategoriesWithPosts } from "@/services/querys/posts/getCategoriesWithPosts";
 const categoriesWithPosts = await getCategoriesWithPosts();
 
 const categories = Object.keys(categoriesWithPosts);

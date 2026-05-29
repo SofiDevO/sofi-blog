@@ -1,5 +1,5 @@
-import { wpquery } from "@src/data/wordpress";
-import type { ModuleDetailResponse, ModuleNode } from "@src/types/moduleDetail.type";
+import { wpquery } from "@/services/wordpress";
+import type { ModuleDetailResponse, ModuleNode } from "@/types/moduleDetail.type";
 
 export const getModuleDetail = async (): Promise<ModuleNode[]> => {
   const data = await wpquery<ModuleDetailResponse>({

@@ -1,0 +1,99 @@
+---
+import InputComponent from "@/shared/ui/InputComponent.astro";
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<form
+  action="/resultados"
+  method="get"
+  id="search-form"
+  class={`search ${className}`}
+  {...rest}
+>
+  <label for="search" class="search__label">
+    <InputComponent
+      type="text"
+      placeHolder="Buscar"
+      name="search"
+      id="search"
+      class="search__input"
+      required
+    />
+  </label>
+  <InputComponent type="submit" value="Buscar" class="search__submit" />
+  <div id="search__results"></div>
+</form>
+
+<script>
+  const CACHE_NAME = "search-results";
+
+  const form = document.getElementById("search-form");
+  const input = document.getElementById("search") as HTMLInputElement;
+  const results = document.getElementById("search__results");
+
+  form?.addEventListener("submit", handleSearch);
+
+  async function handleSearch(event: Event) {
+    if (window.location.pathname !== "/") {
+      return;
+    }
+    event.preventDefault();
+    const query = input.value.trim();
+
+    if (query.length < 3) return;
+
+    // const cachedResultsArray = await getCachedResults();
+    // const cachedResult = cachedResultsArray.find(item => item.query === query);
+    // if (cachedResult) {
+    //   results.innerHTML = cachedResult.data;
+    //   return;
+    // }
+
+    const url = `/resultados?search=${query}`;
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      });
+      if (!response.ok) {
+        console.error("Error fetching search results");
+        return;
+      }
+      let data = await response.text();
+      data.replace("!DOCTYPE html>", "");
+
+      results.innerHTML = data;
+
+      const newResult = { query, data };
+      // cachedResultsArray.push(newResult);
+      // await setCachedResults(cachedResultsArray);
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
+  }
+
+  async function getCachedResults() {
+    const cachedResults = localStorage.getItem(CACHE_NAME);
+    return cachedResults ? JSON.parse(cachedResults) : [];
+  }
+
+  async function setCachedResults(results) {
+    localStorage.setItem(CACHE_NAME, JSON.stringify(results));
+  }
+
+  document.addEventListener("click", (event: MouseEvent) => {
+    if (!form.contains(event.target as Node)) {
+      results.innerHTML = "";
+    }
+  });
+
+  document.addEventListener("keydown", (event: KeyboardEvent) => {
+    if (event.key === "Escape") {
+      results.innerHTML = "";
+      input.blur();
+    }
+  });
+</script>

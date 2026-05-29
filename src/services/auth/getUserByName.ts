@@ -1,4 +1,4 @@
-import { wpquery } from "@src/data/wordpress";
+import { wpquery } from "@/services/wordpress";
 
 const SECRET_USER = import.meta.env.SECRET_USER;
 const SECRET_PASSWORD = import.meta.env.SECRET_PASSWORD;

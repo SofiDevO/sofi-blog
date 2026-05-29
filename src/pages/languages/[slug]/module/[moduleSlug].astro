@@ -1,9 +1,9 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import { getLanguageDetail } from "@src/services/querys/languages/getLanguageDetail";
-import { getModuleDetail } from "@src/services/querys/modules/getModuleDetail";
-import BackArrow from "@src/shared/icons/BackArrow.astro";
-import type { ModuleNode } from "@src/types/moduleDetail.type";
+import Layout from "@/layouts/Layout.astro";
+import { getLanguageDetail } from "@/services/querys/languages/getLanguageDetail";
+import { getModuleDetail } from "@/services/querys/modules/getModuleDetail";
+import BackArrow from "@/shared/icons/BackArrow.astro";
+import type { ModuleNode } from "@/types/moduleDetail.type";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -83,7 +83,7 @@ const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
 </Layout>
 
 <script>
-  import { InsertButtonCopy } from "@pages/post/button-copy";
+  import { InsertButtonCopy } from "@/pages/post/button-copy";
   InsertButtonCopy();
 </script>
 <script>

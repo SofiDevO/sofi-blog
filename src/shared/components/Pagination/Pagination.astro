@@ -1,0 +1,126 @@
+---
+const { currentPage, totalPages, baseUrl, page, query } = Astro.props;
+
+// Función para generar URL de página específica
+function getPageUrl(pageNum) {
+  if (query) {
+    const newQuery = new URLSearchParams(query);
+    if (pageNum === 1) {
+      newQuery.delete("page");
+    } else {
+      newQuery.set("page", pageNum);
+    }
+    const queryString = newQuery.toString();
+    return queryString ? `${baseUrl}?${queryString}` : baseUrl;
+  }
+  return pageNum === 1 ? baseUrl : `${baseUrl}/${pageNum}`;
+}
+
+const prevUrl =
+  page?.url?.prev || (currentPage > 1 ? getPageUrl(currentPage - 1) : null);
+const nextUrl =
+  page?.url?.next ||
+  (currentPage < totalPages ? getPageUrl(currentPage + 1) : null);
+---
+
+<section class="pagination">
+  <div class="pagination__container">
+    {/* Botón Anterior */}
+    {
+      prevUrl ? (
+        <a
+          aria-label="Ir a la página anterior"
+          data-astro-prefetch="hover"
+          href={prevUrl}
+          class="pagination__link"
+        >
+          Anterior
+        </a>
+      ) : (
+        <a
+          aria-label="Ir a la página anterior"
+          class="pagination__link pagination__link--disabled"
+        >
+          Anterior
+        </a>
+      )
+    }
+
+    {/* Números de página */}
+    {
+      Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+        <a
+          aria-label={`Ir a la página ${pageNum}`}
+          data-astro-prefetch="hover"
+          href={getPageUrl(pageNum)}
+          class:list={[
+            "pagination__link",
+            pageNum === currentPage ? "pagination__link--current" : "",
+          ]}
+        >
+          {pageNum}
+        </a>
+      ))
+    }
+
+    {/* Botón Siguiente */}
+    {
+      nextUrl ? (
+        <a
+          aria-label="Ir a la página siguiente"
+          data-astro-prefetch="hover"
+          href={nextUrl}
+          class="pagination__link"
+        >
+          Siguiente
+        </a>
+      ) : (
+        <a
+          aria-label="Ir a la página siguiente"
+          class="pagination__link pagination__link--disabled"
+        >
+          Siguiente
+        </a>
+      )
+    }
+  </div>
+</section>
+
+<style lang="scss" define:vars={{ baseUrl }}>
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as *;
+  .pagination {
+    @include flexConfig(center);
+    margin-top: auto;
+    &__container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-self: center;
+      margin: auto;
+      justify-self: center;
+    }
+    &__link {
+      padding: 5px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      background-color: v.$french-violet;
+      &--disabled {
+        pointer-events: none;
+        background-color: rgba(102, 102, 102, 0.637);
+      }
+      &--active {
+        background-color: v.$french-violet;
+        color: white;
+        pointer-events: initial;
+      }
+      &--current {
+        background-color: #300068;
+        color: v.$ufo-green;
+        pointer-events: initial;
+      }
+    }
+  }
+</style>

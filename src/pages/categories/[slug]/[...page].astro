@@ -1,8 +1,8 @@
 ---
-import Pagination from "../../../components/atoms/Pagination/Pagination.astro";
-import PostCard from "../../../components/organisms/Posts/components/PostCard/PostCard.astro";
+import Pagination from "@/shared/components/Pagination/Pagination.astro";
+import PostCard from "@/shared/components/PostCard/PostCard.astro";
 import Layout from "../../../layouts/Layout.astro";
-import { getCategoriesWithPosts } from "../../../services/categoriesWithPosts";
+import { getCategoriesWithPosts } from "@/services/querys/posts/getCategoriesWithPosts";
 
 export const prerender = true;
 
