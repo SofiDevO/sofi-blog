@@ -70,7 +70,7 @@ export const getPostsBySlug = async (slug: string): Promise<Post | null> => {
   }
 };
 
-export async function getPostsByUserID(id) {
+export async function getPostsByUserID(id: string | number): Promise<any> {
   const query = `
         query getPostsByUserrId {
             posts(where: {author: ${id}}) {
@@ -90,6 +90,6 @@ export async function getPostsByUserID(id) {
             }
         }
     `;
-  const data = await wpquery({ query });
+  const data = await wpquery<any>({ query });
   return data;
 }

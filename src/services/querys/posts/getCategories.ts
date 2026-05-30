@@ -20,7 +20,7 @@ export const categoryData = async () => {
   } catch (error) {
     console.log(error);
   }
-};import { wpquery } from "@/services/wordpress";
+};
 
 export const getCategorieBySlug = async (slug) => {
   try {

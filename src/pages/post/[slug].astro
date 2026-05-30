@@ -31,7 +31,7 @@ console.log({ id });
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
 
-const { date } = Astro?.props;
+
 const category = post?.categories?.nodes?.[0];
 const author = post.author?.node;
 const keyWords = post?.tags?.nodes

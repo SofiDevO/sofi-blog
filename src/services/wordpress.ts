@@ -6,7 +6,7 @@ interface WPGraphQLParams {
   headers?: object;
 }
 
-export async function wpquery<T>({
+export async function wpquery<T = any>({
   query,
   variables = {},
   headers = {},

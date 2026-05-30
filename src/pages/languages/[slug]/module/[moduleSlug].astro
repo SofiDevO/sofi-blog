@@ -116,6 +116,7 @@ const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
 </script>
 
 <style lang="scss">
+  @use "sass:color";
   @use "@sass/variables" as *;
   @use "@sass/mixins" as *;
 
@@ -186,7 +187,7 @@ const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
       transition: background 0.3s ease-in-out;
 
       &:hover {
-        background: lighten($french-violet, 10%);
+        background: color.adjust($french-violet, $lightness: 10%);
       }
     }
   }
