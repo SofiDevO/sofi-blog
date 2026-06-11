@@ -1,8 +1,8 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { getLanguageDetail } from "@/services/querys/languages/getLanguageDetail";
-import BackArrow from "@/shared/icons/BackArrow.astro";
-import type { Node } from "@/types/LanguageDetail.type";
+import Layout from "@layouts/Layout.astro";
+import { getLanguageDetail } from "@services/querys/languages/getLanguageDetail";
+import BackArrow from "@shared/icons/BackArrow.astro";
+import type { Node } from "@types/LanguageDetail.type";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -20,9 +20,11 @@ const { icon, modulo } = curso;
 
 <Layout title={title}>
   <section class="language" id="post">
-    <header class="language__header"><a href="/languages" class="header__back-btn">
-      <BackArrow width={30} height={30} />
-    </a></header>
+    <header class="language__header">
+      <a href="/languages" class="header__back-btn">
+        <BackArrow width={30} height={30} />
+      </a>
+    </header>
     <div class="language__container">
       <img
         class="language__icon"
@@ -54,7 +56,7 @@ const { icon, modulo } = curso;
 </Layout>
 
 <script>
-  import { InsertButtonCopy } from "@/pages/post/button-copy";
+  import { InsertButtonCopy } from "@pages/post/button-copy";
   InsertButtonCopy();
 </script>
 <script>

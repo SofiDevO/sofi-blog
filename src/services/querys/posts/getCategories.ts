@@ -1,4 +1,4 @@
-import { wpquery } from "@/services/wordpress";
+import { wpquery } from "@services/wordpress";
 
 export const categoryData = async () => {
   try {
@@ -80,20 +80,20 @@ export const getCategorieBySlug = async (slug) => {
     }
 
     const categoryData = data.categories?.edges?.map((category) => {
-        const { posts, ...restCategory } = category.node;
-        return {
-            ...restCategory,
-            posts: posts?.nodes?.map((post) => {
-                const { featuredImage, author, excerpt, categories, ...rest } = post;
-                return {
-                    excerpt: post.excerpt.replace(/\[.*?\]/g, "..."),
-                    image: post?.featuredImage?.node,
-                    author: post.author?.node,
-                    categories: post?.categories?.nodes,
-                    ...rest,
-                };
-            }),
-        };
+      const { posts, ...restCategory } = category.node;
+      return {
+        ...restCategory,
+        posts: posts?.nodes?.map((post) => {
+          const { featuredImage, author, excerpt, categories, ...rest } = post;
+          return {
+            excerpt: post.excerpt.replace(/\[.*?\]/g, "..."),
+            image: post?.featuredImage?.node,
+            author: post.author?.node,
+            categories: post?.categories?.nodes,
+            ...rest,
+          };
+        }),
+      };
     });
     return categoryData[0];
   } catch (error) {

@@ -1,9 +1,9 @@
-import { wpquery } from "@/services/wordpress";
+import { wpquery } from "@services/wordpress";
 
 export const getLogo = async () => {
-    try {
-        const data = await wpquery({
-            query: `
+  try {
+    const data = await wpquery({
+      query: `
                 query getLogo {
                     allSettings {
                         generalSettingsDescription
@@ -15,17 +15,16 @@ export const getLogo = async () => {
                     }
                     }
             `,
-        });
-        return data;
-
-    } catch (error) {
-        console.log(error);
-    }
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const data = await getLogo();
-export const logoItems =  {
-    siteLogo: data.siteLogo.link,
-    siteTitle: data.allSettings.generalSettingsTitle,
-    siteSlogan: data.allSettings.generalSettingsDescription
-  }
+export const logoItems = {
+  siteLogo: data.siteLogo.link,
+  siteTitle: data.allSettings.generalSettingsTitle,
+  siteSlogan: data.allSettings.generalSettingsDescription,
+};

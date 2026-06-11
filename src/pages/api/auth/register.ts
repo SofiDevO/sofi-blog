@@ -1,4 +1,4 @@
-import { registerUser } from "@/services/auth";
+import { registerUser } from "@services/auth";
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request, redirect }) => {

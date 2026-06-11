@@ -1,4 +1,4 @@
-import { wpquery } from "@/services/wordpress";
+import { wpquery } from "@services/wordpress";
 
 /**
  * Fetch menu data by menu ID.

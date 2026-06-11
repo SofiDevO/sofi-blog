@@ -1,7 +1,7 @@
 @use "@sass/variables" as v;
 @use "@sass/mixins" as *;
-@use "@/shared/ui/Logo/_logo.scss";
-@use "@/shared/ui/HamburgerBtn/_hamburger.scss";
+@use "@shared/ui/Logo/_logo.scss";
+@use "@shared/ui/HamburgerBtn/_hamburger.scss";
 
 .header {
   --background-color-theme: #040208;

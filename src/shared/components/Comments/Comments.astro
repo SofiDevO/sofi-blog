@@ -1,12 +1,12 @@
 ---
+import { isLoggedIn } from "@services/auth";
 import {
   getCommentsByPostSlug,
   getRepliesByCommentId,
-} from "@/services/querys/posts/getComments";
-import Comment from "@/shared/components/Comment/Comment.astro";
-import CommentForm from "@/shared/components/CommentForm/CommentForm.astro";
-import { isLoggedIn } from "@/services/auth";
-import { getPostsBySlug } from "@/services/querys/posts/getPostBySlug";
+} from "@services/querys/posts/getComments";
+import { getPostsBySlug } from "@services/querys/posts/getPostBySlug";
+import Comment from "@shared/components/Comment/Comment.astro";
+import CommentForm from "@shared/components/CommentForm/CommentForm.astro";
 
 const { slug, postID } = Astro.props;
 const { cookies } = Astro;
@@ -27,19 +27,21 @@ let comments = post?.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
   <Comment comment={null} />
   {
     comments.length > 0 &&
-    comments.map(async (comment: typeof comments[number], index: number) => {
-        const areFirstTwoComments = index < 2;
-        const replies = await getRepliesByCommentId(comment.id);
-        return (
-          <Comment {...comment}>
-            {replies.length > 0 &&
-              areFirstTwoComments &&
-              replies.slice(0, 2).map((reply) => {
-                return <Comment {...reply} isReply />;
-              })}
-          </Comment>
-        );
-      })
+      comments.map(
+        async (comment: (typeof comments)[number], index: number) => {
+          const areFirstTwoComments = index < 2;
+          const replies = await getRepliesByCommentId(comment.id);
+          return (
+            <Comment {...comment}>
+              {replies.length > 0 &&
+                areFirstTwoComments &&
+                replies.slice(0, 2).map((reply) => {
+                  return <Comment {...reply} isReply />;
+                })}
+            </Comment>
+          );
+        },
+      )
   }
   <CommentForm postId={postID} {isLogged} />
 </section>

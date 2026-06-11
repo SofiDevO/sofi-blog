@@ -1,6 +1,6 @@
 const SECRET_USER = import.meta.env.SECRET_USER;
 const SECRET_PASSWORD = import.meta.env.SECRET_PASSWORD;
-import { wpquery } from "@/services/wordpress";
+import { wpquery } from "@services/wordpress";
 
 const postComment = async (input, postId = null, parentId = null) => {
   const headers = {

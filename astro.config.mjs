@@ -1,6 +1,7 @@
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
+import path from "node:path";
 
 import vercel from "@astrojs/vercel";
 
@@ -44,6 +45,21 @@ export default defineConfig({
     }),
   ],
   vite: {
+    resolve: {
+      alias: {
+        "@src": path.resolve("./src"),
+        "@layouts": path.resolve("./src/layouts"),
+        "@shared": path.resolve("./src/shared"),
+        "@utils": path.resolve("./src/utils"),
+        "@content": path.resolve("./src/content"),
+        "@pages": path.resolve("./src/pages"),
+        "@services": path.resolve("./src/services"),
+        "@sass": path.resolve("./src/sass"),
+        "@data": path.resolve("./src/data"),
+        "@controllers": path.resolve("./src/controllers"),
+        "@img": path.resolve("./public/img"),
+      },
+    },
     css: {
       preprocessorOptions: {
         scss: {
@@ -53,8 +69,8 @@ export default defineConfig({
               findFileUrl(url) {
                 const aliases = {
                   "@src/": "src/",
-                  "@shared/": "src/shared/",
                   "@layouts/": "src/layouts/",
+                  "@shared/": "src/shared/",
                   "@utils/": "src/utils/",
                   "@content/": "src/content/",
                   "@pages/": "src/pages/",

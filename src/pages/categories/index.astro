@@ -1,7 +1,7 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Title from "@/shared/ui/Title/Title.astro";
-import { getCategoriesWithPosts } from "@/services/querys/posts/getCategoriesWithPosts";
+import Layout from "@layouts/Layout.astro";
+import { getCategoriesWithPosts } from "@services/querys/posts/getCategoriesWithPosts";
+import Title from "@shared/ui/Title/Title.astro";
 const categoriesWithPosts = await getCategoriesWithPosts();
 
 const categories = Object.keys(categoriesWithPosts);
@@ -17,7 +17,12 @@ export const prerender = true;
       Object.keys(categoriesWithPosts).map((category) => (
         <li>
           <article class="category__card">
-            <a aria-label={`Ver los post de la categoría ${category}`} href={`/categories/${category}`}>{category}</a>
+            <a
+              aria-label={`Ver los post de la categoría ${category}`}
+              href={`/categories/${category}`}
+            >
+              {category}
+            </a>
           </article>
         </li>
       ))
@@ -25,15 +30,15 @@ export const prerender = true;
   </ul>
 </Layout>
 
-<style is:inline  lang="scss">
-    @use "@sass/variables" as v;
-    @use "@sass/mixins" as  *;
+<style is:inline lang="scss">
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as *;
   main {
     padding-top: 10rem;
   }
 
   .category__grid {
-    @extend %max-width;;
+    @extend %max-width;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -48,7 +53,7 @@ export const prerender = true;
     font-size: 1.7rem;
     cursor: pointer;
     color: white;
-    transition: all .3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     &:hover {
       background-color: #300073;
     }

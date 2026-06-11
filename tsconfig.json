@@ -7,16 +7,13 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@src/": ["src/"],
-      "@shared/": ["src/shared/"],
-      "@layouts/": ["src/layouts/"],
-      "@utils/": ["src/utils/"],
-      "@content/": ["src/content/"],
-      "@pages/": ["src/pages/"],
-      "@controllers/": ["src/controllers/"],
-      "@services/": ["src/services/"],
-      "@sass/": ["src/sass/"],
-      "@img/": ["public/img/"]
+      "@src/*": ["src/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@shared/*": ["src/shared/*"],
+      "@utils/*": ["src/utils/*"],
+      "@content/*": ["src/content/*"],
+      "@pages/*": ["src/pages/*"],
+      "@services/*": ["src/services/*"]
     }
   }
 }

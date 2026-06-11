@@ -1,6 +1,6 @@
 ---
 export const prerender = true;
-import { getLanguages } from "@/services/querys/languages/getLanguages";
+import { getLanguages } from "@services/querys/languages/getLanguages";
 
 const data = await getLanguages();
 const carouselData = data?.map((language) => ({

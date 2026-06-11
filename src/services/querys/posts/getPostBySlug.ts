@@ -1,5 +1,5 @@
-import { wpquery } from "@/services/wordpress";
-import type { Post } from "@/types/post.type";
+import { wpquery } from "@services/wordpress";
+import type { Post } from "@types/post.type";
 interface PostContentResponse {
   postBy: Post;
 }

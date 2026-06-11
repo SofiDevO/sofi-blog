@@ -1,6 +1,6 @@
 ---
-import { fetchMenuData } from "@/services/querys/pages/getMenu";
-import { flatListToHierarchical } from "@/utils/flatListToHierarchical";
+import { fetchMenuData } from "@services/querys/pages/getMenu";
+import { flatListToHierarchical } from "@utils/flatListToHierarchical";
 
 const pagePathname = Astro.url.pathname;
 const menuData: any = await fetchMenuData("menu");

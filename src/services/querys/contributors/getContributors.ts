@@ -1,11 +1,16 @@
-import { wpquery } from "@/services/wordpress";
-import type { CardContributtor, SocialLinks } from "@/types/contributtors.types";
-import { querycontributors } from "@/services/querys/contributors/contributors";
-import type { ContributorResponse, Node } from "@/types/contributorResponse.type";
+import { querycontributors } from "@services/querys/contributors/contributors";
+import { wpquery } from "@services/wordpress";
+import type {
+  ContributorResponse,
+  Node,
+} from "@types/contributorResponse.type";
+import type { CardContributtor, SocialLinks } from "@types/contributtors.types";
 
 export const getContributtors: () => Promise<CardContributtor[]> = async () => {
   try {
-    const response = await wpquery<ContributorResponse>({ query: querycontributors });
+    const response = await wpquery<ContributorResponse>({
+      query: querycontributors,
+    });
 
     if (!response?.contributtors?.nodes) {
       console.warn("No contributors data found in response");
@@ -14,42 +19,42 @@ export const getContributtors: () => Promise<CardContributtor[]> = async () => {
 
     const nodes: Node[] = response.contributtors.nodes;
 
-  return nodes.map((user: Node): CardContributtor => {
-    const bannerNode = user.contribuidores?.banner?.node;
-    const profileNode = user.contribuidores?.profilepic?.node;
-    const socialLinks: SocialLinks = user?.contribuidores?.socialLinks;
+    return nodes.map((user: Node): CardContributtor => {
+      const bannerNode = user.contribuidores?.banner?.node;
+      const profileNode = user.contribuidores?.profilepic?.node;
+      const socialLinks: SocialLinks = user?.contribuidores?.socialLinks;
 
-    const base: CardContributtor = {
-      customcolor: user.contribuidores?.customcolor,
-      email: user.contribuidores?.email,
-      name: user.contribuidores?.name || "Nombre no disponible",
-      rol: user.contribuidores?.rol || [],
-      slug: user.slug,
-      socialLinks: socialLinks || {},
-      ...(bannerNode
-        ? {
-            banner: {
-              altText: bannerNode.altText,
-              mediaItemUrl: bannerNode.mediaItemUrl,
-              sizes: bannerNode.sizes,
-              srcSet: bannerNode.srcSet,
-            },
-          }
-        : {}),
-      ...(profileNode
-        ? {
-            profilepic: {
-              altText: profileNode.altText,
-              mediaItemUrl: profileNode.mediaItemUrl,
-              sizes: profileNode.sizes,
-              srcSet: profileNode.srcSet,
-            },
-          }
-        : {}),
-    };
+      const base: CardContributtor = {
+        customcolor: user.contribuidores?.customcolor,
+        email: user.contribuidores?.email,
+        name: user.contribuidores?.name || "Nombre no disponible",
+        rol: user.contribuidores?.rol || [],
+        slug: user.slug,
+        socialLinks: socialLinks || {},
+        ...(bannerNode
+          ? {
+              banner: {
+                altText: bannerNode.altText,
+                mediaItemUrl: bannerNode.mediaItemUrl,
+                sizes: bannerNode.sizes,
+                srcSet: bannerNode.srcSet,
+              },
+            }
+          : {}),
+        ...(profileNode
+          ? {
+              profilepic: {
+                altText: profileNode.altText,
+                mediaItemUrl: profileNode.mediaItemUrl,
+                sizes: profileNode.sizes,
+                srcSet: profileNode.srcSet,
+              },
+            }
+          : {}),
+      };
 
-    return base;
-  });
+      return base;
+    });
   } catch (error) {
     console.error("Error fetching contributors:", error);
     return [];

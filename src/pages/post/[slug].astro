@@ -1,12 +1,12 @@
 ---
 export const prerender = true;
-import Layout from "@/layouts/Layout.astro";
-import SideBar from "@/shared/components/SideBar/SideBar.astro";
-import SideBarContent from "@/shared/components/SideBar/SideBarContent.astro";
-import Loader from "@/shared/ui/Loader.astro";
-import Title from "@/shared/ui/Title/Title.astro";
-import Comments from "@/shared/components/Comments/Comments.astro";
-import { PostContentData } from "@/services/querys/posts/getPostContent";
+import Layout from "@layouts/Layout.astro";
+import { PostContentData } from "@services/querys/posts/getPostContent";
+import Comments from "@shared/components/Comments/Comments.astro";
+import SideBar from "@shared/components/SideBar/SideBar.astro";
+import SideBarContent from "@shared/components/SideBar/SideBarContent.astro";
+import Loader from "@shared/ui/Loader.astro";
+import Title from "@shared/ui/Title/Title.astro";
 import PostDetail from "./_components/post-detail/PostDetail.astro";
 const { slug } = Astro.params;
 
@@ -30,7 +30,6 @@ const { id } = post;
 console.log({ id });
 const postImage =
   post?.featuredImage?.node?.mediaItemUrl || "/img/branding/logo.png";
-
 
 const category = post?.categories?.nodes?.[0];
 const author = post.author?.node;
@@ -122,8 +121,8 @@ const keyWords = post?.tags?.nodes
 </Layout>
 
 <script>
-  import { commentsController } from "@/controllers/comments.controller";
-  import { InsertButtonCopy } from "@/pages/post/button-copy";
+  import { commentsController } from "@controllers/comments.controller";
+  import { InsertButtonCopy } from "@pages/post/button-copy";
   commentsController();
   InsertButtonCopy();
 

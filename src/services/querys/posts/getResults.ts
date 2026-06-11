@@ -1,8 +1,8 @@
-import { wpquery } from "@/services/wordpress";
-export const getResults = async (search) =>{
- try{
-  const data = await wpquery({
-    query: `
+import { wpquery } from "@services/wordpress";
+export const getResults = async (search) => {
+  try {
+    const data = await wpquery({
+      query: `
        query getResults(first: 500) {
         posts(where: {search: "${search}"}) {
             nodes {
@@ -38,20 +38,19 @@ export const getResults = async (search) =>{
             }
         }
         }
-    `
-})
-    console.log(data)
-  return data;
- } catch (error) {
-  console.log(error)
- }
-}
+    `,
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-
-export const searchPosts = async (search) =>{
-    try{
-        const data = await wpquery({
-            query: `
+export const searchPosts = async (search) => {
+  try {
+    const data = await wpquery({
+      query: `
        query getResults {
         posts(where: {search: "${search}"}) {
             nodes {
@@ -87,19 +86,21 @@ export const searchPosts = async (search) =>{
             }
         }
         }
-    `
+    `,
+    });
+    const results = data?.posts?.nodes
+      ? data.posts.nodes.map((post) => {
+          const { featuredImage, categories, author, ...rest } = post;
+          return {
+            image: featuredImage?.node || "",
+            categories: categories?.nodes || [],
+            author: author?.node,
+            ...rest,
+          };
         })
-        const results = data?.posts?.nodes ? data.posts.nodes.map((post) => {
-            const { featuredImage, categories, author, ...rest } = post;
-            return {
-                image: featuredImage?.node || "",
-                categories: categories?.nodes || [],
-                author: author?.node,
-                ...rest,
-            };
-        }) : [];
-        return results
-    } catch (error) {
-        console.log(error)
-    }
-}
+      : [];
+    return results;
+  } catch (error) {
+    console.log(error);
+  }
+};

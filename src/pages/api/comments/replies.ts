@@ -1,8 +1,8 @@
+import { isLoggedIn } from "@services/auth";
+import { getRepliesByCommentId } from "@services/querys/posts/getComments";
+import postComment from "@services/querys/posts/postComment";
+import { sanitizeHtml } from "@utils/sanatizeHtml";
 import type { APIRoute } from "astro";
-import { getRepliesByCommentId } from "@/services/querys/posts/getComments";
-import postComment from "@/services/querys/posts/postComment";
-import { isLoggedIn } from "@/services/auth";
-import { sanitizeHtml } from "@/utils/sanatizeHtml";
 
 export const GET: APIRoute = async ({ url }) => {
   const id = url.searchParams.get("commentId") || undefined;

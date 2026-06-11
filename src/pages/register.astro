@@ -1,6 +1,6 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { isLoggedIn } from "@/services/auth";
+import Layout from "@layouts/Layout.astro";
+import { isLoggedIn } from "@services/auth";
 
 const { cookies } = Astro;
 const user = isLoggedIn(cookies);
@@ -19,13 +19,15 @@ const error = Astro.url.searchParams.get("error");
 <Layout title="Register">
   <div class="container__login">
     <form action="/api/auth/register" method="post" id="loginForm">
-      {error && (
-        <div class="error-message">
-          {error === "missing-fields" 
-            ? "Por favor, completa todos los campos requeridos." 
-            : "No se pudo registrar el usuario. El nombre de usuario o email ya existen, o hubo un problema."}
-        </div>
-      )}
+      {
+        error && (
+          <div class="error-message">
+            {error === "missing-fields"
+              ? "Por favor, completa todos los campos requeridos."
+              : "No se pudo registrar el usuario. El nombre de usuario o email ya existen, o hubo un problema."}
+          </div>
+        )
+      }
       <div class="form__group">
         <div>
           <label for="firstName">First Name:</label>

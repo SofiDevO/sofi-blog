@@ -1,10 +1,10 @@
 ---
-import PostCard from "@/shared/components/PostCard/PostCard.astro";
-import Title from "@/shared/ui/Title/Title.astro";
-import ResultadosPopUp from "@/pages/categories/_components/ResultadosPopUp.astro";
-import Layout from "@/layouts/Layout.astro";
-import { searchPosts } from "@/services/querys/posts/getResults";
-import Pagination from "@/shared/components/Pagination/Pagination.astro";
+import Layout from "@layouts/Layout.astro";
+import ResultadosPopUp from "@pages/categories/_components/ResultadosPopUp.astro";
+import { searchPosts } from "@services/querys/posts/getResults";
+import Pagination from "@shared/components/Pagination/Pagination.astro";
+import PostCard from "@shared/components/PostCard/PostCard.astro";
+import Title from "@shared/ui/Title/Title.astro";
 
 const { url, request } = Astro;
 const search = url.searchParams.get("search");
@@ -12,8 +12,6 @@ const header = request.headers.get("X-Requested-With");
 
 const pathname = url.pathname;
 const posts = search && search === "" ? [] : await searchPosts(search);
-
-
 
 // Configuración de paginación
 const postsPerPage = 4;
@@ -29,20 +27,16 @@ let padding = "9rem";
 if (pathname === "/") {
   padding = "0";
 }
-
 ---
-
-
-
 
 {
   header !== "XMLHttpRequest" ? (
-
     <Layout title="Resultados" class="main">
       <section class="results">
         <Title titleDesc={`Resultados de ${search}`} class="results__title " />
         <ul role="list" class="link-card-grid">
-          {paginatedPosts.length !== 0 && paginatedPosts.map((post) => <PostCard {...post} />)}
+          {paginatedPosts.length !== 0 &&
+            paginatedPosts.map((post) => <PostCard {...post} />)}
         </ul>
         {totalPages > 1 && (
           <Pagination
@@ -59,9 +53,9 @@ if (pathname === "/") {
   )
 }
 
-<style lang="scss"  define:vars={{padding}}>
+<style lang="scss" define:vars={{ padding }}>
   @use "@sass/variables" as v;
-  @use "@sass/mixins" as  *;
+  @use "@sass/mixins" as *;
 
   .results {
     padding: var(--padding) 0;

@@ -1,7 +1,6 @@
 ---
-import Title from "@/shared/ui/Title/Title.astro";
-import SecondaryCard from "@/pages/home/_components/SecondaryCard.astro";
-import Button from "@/shared/ui/Button/Button.astro";
+import SecondaryCard from "@pages/home/_components/SecondaryCard.astro";
+import Button from "@shared/ui/Button/Button.astro";
 const { search, posts } = Astro.props;
 ---
 
@@ -18,7 +17,7 @@ const { search, posts } = Astro.props;
 
 <style is:inline>
   @use "@sass/variables" as v;
-  @use "@sass/mixins" as  *;
+  @use "@sass/mixins" as *;
   .resultados-popup {
     display: flex;
     flex-direction: column;

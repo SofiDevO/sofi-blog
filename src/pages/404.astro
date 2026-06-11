@@ -1,6 +1,6 @@
 ---
-import Button from "@/shared/ui/Button/Button.astro";
-import Title from "@/shared/ui/Title/Title.astro";
+import Button from "@shared/ui/Button/Button.astro";
+import Title from "@shared/ui/Title/Title.astro";
 import LayoutNoHeader from "../layouts/LayoutNoHeader.astro";
 export const prerender = true;
 ---
@@ -12,9 +12,17 @@ export const prerender = true;
       <p class="error__message">
         La pagina a la que tratas de acceder no existe
       </p>
-      <img class="error__image" src="/img/sofi-laptop.gif" alt="logo"  width="300" height="200" />
+      <img
+        class="error__image"
+        src="/img/sofi-laptop.gif"
+        alt="logo"
+        width="300"
+        height="200"
+      />
     </div>
-    <Button id="backButton" href="/" class="error__button"> Volver al inicio </Button>
+    <Button id="backButton" href="/" class="error__button">
+      Volver al inicio
+    </Button>
   </section>
 </LayoutNoHeader>
 
@@ -59,5 +67,4 @@ export const prerender = true;
     font-size: 1.8rem;
     color: aqua;
   }
-
 </style>

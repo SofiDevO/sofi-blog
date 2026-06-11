@@ -1,5 +1,5 @@
 ---
-import { cardsData as data } from "@/services/querys/posts/getPosts";
+import { cardsData as data } from "@services/querys/posts/getPosts";
 
 const cardsData = await data();
 const getStickyPost = cardsData?.posts?.nodes.find(

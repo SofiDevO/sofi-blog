@@ -1,8 +1,8 @@
 ---
-import CardBig from "@/pages/home/_components/CardBig.astro";
-import CardBento from "@/pages/post/_components/CardBento.astro";
-import Title from "@/shared/ui/Title/Title.astro";
-import type { CategoryWithPosts } from "@/types/category.type";
+import CardBig from "@pages/home/_components/CardBig.astro";
+import CardBento from "@pages/post/_components/CardBento.astro";
+import Title from "@shared/ui/Title/Title.astro";
+import type { CategoryWithPosts } from "@types/category.type";
 
 interface Props extends CategoryWithPosts {}
 const { slug, name, posts } = Astro.props;

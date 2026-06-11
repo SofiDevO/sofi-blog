@@ -1,15 +1,15 @@
 ---
-import BackgroundGradient from "@/shared/ui/BackgroundGradient.astro";
-import DividerBottom from "@/shared/ui/DividerBottom.astro";
-import DividerTop from "@/shared/ui/DividerTop.astro";
+import BackgroundGradient from "@shared/ui/BackgroundGradient.astro";
+import DividerBottom from "@shared/ui/DividerBottom.astro";
+import DividerTop from "@shared/ui/DividerTop.astro";
 import "./_support.scss";
 
-import Layout from "@/layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 import Contributtors from "./components/contributtors/Contributtors.astro";
 import GithubAnim from "./components/github-anim/GithubAnim.astro";
 import SuportHero from "./components/SupportHero.astro";
 
-import { getAboutPage } from "@/services/querys/pages/getAboutPage";
+import { getAboutPage } from "@services/querys/pages/getAboutPage";
 
 const about = await getAboutPage(337);
 console.log(about);
@@ -36,9 +36,8 @@ console.log(pageData.content[2].attributes.content);
 <style is:inline>
   main {
     background: black;
-    @media  (width <= 768px) {
-
-      padding-top:4rem;
+    @media (width <= 768px) {
+      padding-top: 4rem;
     }
   }
 </style>

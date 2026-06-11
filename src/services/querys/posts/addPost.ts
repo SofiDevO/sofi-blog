@@ -1,8 +1,7 @@
-import { wpquery } from "@/services/wordpress";
+import { wpquery } from "@services/wordpress";
 
-
-export async function addPost( authorId, title, content, slug) {
-    const query = `
+export async function addPost(authorId, title, content, slug) {
+  const query = `
        mutation MyMutation {
             createPost(
                 input: {content: "Esto es una prueba", authorId: "1", title: "Esto tambien", slug: "miamssdasdasdasssi-gp-2023d"}
@@ -14,7 +13,7 @@ export async function addPost( authorId, title, content, slug) {
         }
   `;
 
-    const variables = {};
-    const data = await wpquery({ query, variables });
-    return data;
+  const variables = {};
+  const data = await wpquery({ query, variables });
+  return data;
 }

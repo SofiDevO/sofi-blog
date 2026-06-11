@@ -1,6 +1,6 @@
-import { wpquery } from "@/services/wordpress";
-import type { CategoryWithPosts } from "@/types/category.type";
-import type { Post } from "@/types/post.type";
+import { wpquery } from "@services/wordpress";
+import type { CategoryWithPosts } from "@types/category.type";
+import type { Post } from "@types/post.type";
 
 export const getCategoriesWithPosts = async () => {
   const categories: { categories?: { nodes?: any[] } } = await wpquery({

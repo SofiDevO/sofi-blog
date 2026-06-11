@@ -1,15 +1,14 @@
-import { wpquery } from "@/services/wordpress";
+import { wpquery } from "@services/wordpress";
 const SECRET_USER = import.meta.env.SECRET_USER;
 const SECRET_PASSWORD = import.meta.env.SECRET_PASSWORD;
 
 export const getCommentsByPostSlug = async (slug) => {
-
-    const headers = {
-        'Authorization': 'Basic ' + btoa(SECRET_USER + ':' + SECRET_PASSWORD)
-    }
-    try {
-        const data = await wpquery({
-            query: `
+  const headers = {
+    Authorization: "Basic " + btoa(SECRET_USER + ":" + SECRET_PASSWORD),
+  };
+  try {
+    const data = await wpquery({
+      query: `
                 query getComments {
                     postBy(slug: "${slug}") {
                         comments(last: 100) {
@@ -27,7 +26,7 @@ export const getCommentsByPostSlug = async (slug) => {
                                                 name
                                             }
                                           }
-                                        } 
+                                        }
                                     }
                                 }
                                 id
@@ -38,30 +37,28 @@ export const getCommentsByPostSlug = async (slug) => {
                     }
                 }
             `,
-          headers: headers
-        });
+      headers: headers,
+    });
 
-        if (data.postBy === null) {
-            throw new Error("Post not found");
-        }
-        const filterReplies = (comment) => {
-            return comment.parentId === null
-        }
-
-        const comments = data.postBy.comments.nodes.filter(filterReplies)
-
-        return comments
+    if (data.postBy === null) {
+      throw new Error("Post not found");
     }
-    catch (error) {
-        return []
-    }
+    const filterReplies = (comment) => {
+      return comment.parentId === null;
+    };
 
-}
+    const comments = data.postBy.comments.nodes.filter(filterReplies);
+
+    return comments;
+  } catch (error) {
+    return [];
+  }
+};
 
 export const getRepliesByCommentId = async (id) => {
-    try {
-        const data = await wpquery({
-            query: `
+  try {
+    const data = await wpquery({
+      query: `
                 query getRepliesByCommentId {
                     comment(id: "${id}") {
                         replies(where: {orderby: COMMENT_DATE}) {
@@ -84,10 +81,9 @@ export const getRepliesByCommentId = async (id) => {
                     }
                 }
             `,
-        });
-        return data.comment.replies.nodes
-    }
-    catch (error) {
-        return []
-    }
-}
+    });
+    return data.comment.replies.nodes;
+  } catch (error) {
+    return [];
+  }
+};

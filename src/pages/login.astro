@@ -1,6 +1,6 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import { isLoggedIn } from "@/services/auth";
+import Layout from "@layouts/Layout.astro";
+import { isLoggedIn } from "@services/auth";
 
 const { cookies } = Astro;
 const user = isLoggedIn(cookies);
@@ -19,18 +19,22 @@ const success = Astro.url.searchParams.get("success");
 <Layout title="Login">
   <div class="container__login">
     <form action="/api/auth/login" method="POST" id="loginForm">
-      {success === "registered" && (
-        <div class="success-message">
-          Registro exitoso. Ahora puedes iniciar sesión.
-        </div>
-      )}
-      {error && (
-        <div class="error-message">
-          {message === "invalid_credentials" 
-            ? "Usuario o contraseña incorrectos" 
-            : "Por favor, completa todos los campos"}
-        </div>
-      )}
+      {
+        success === "registered" && (
+          <div class="success-message">
+            Registro exitoso. Ahora puedes iniciar sesión.
+          </div>
+        )
+      }
+      {
+        error && (
+          <div class="error-message">
+            {message === "invalid_credentials"
+              ? "Usuario o contraseña incorrectos"
+              : "Por favor, completa todos los campos"}
+          </div>
+        )
+      }
       <label for="username">Username:</label>
       <input
         type="text"
