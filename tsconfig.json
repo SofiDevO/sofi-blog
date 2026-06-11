@@ -7,9 +7,16 @@
     "allowJs": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/layouts/*": ["./src/layouts/*"],
-      "@/components/*": ["./src/components/*"]
+      "@src/": ["src/"],
+      "@shared/": ["src/shared/"],
+      "@layouts/": ["src/layouts/"],
+      "@utils/": ["src/utils/"],
+      "@content/": ["src/content/"],
+      "@pages/": ["src/pages/"],
+      "@controllers/": ["src/controllers/"],
+      "@services/": ["src/services/"],
+      "@sass/": ["src/sass/"],
+      "@img/": ["public/img/"]
     }
   }
 }
