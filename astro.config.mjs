@@ -57,7 +57,7 @@ export default defineConfig({
         "@sass": path.resolve("./src/sass"),
         "@data": path.resolve("./src/data"),
         "@controllers": path.resolve("./src/controllers"),
-        "@img": path.resolve("./public/img"),
+
       },
     },
     css: {
@@ -77,7 +77,7 @@ export default defineConfig({
                   "@controllers/": "src/controllers/",
                   "@services/": "src/services/",
                   "@sass/": "src/sass/",
-                  "@img/": "public/img/",
+
                   "@types/": "src/types/",
                 };
                 for (const [alias, folder] of Object.entries(aliases)) {

@@ -9,7 +9,7 @@
     "dev:vault": "infisical run --env=dev -- astro dev --port 4321",
     "start": "infisical run --env=dev -- astro dev --port 4321",
     "build": "astro check && astro build",
-    "build:vault": "infisical run --env=prod -- astro check && astro build",
+    "build:vault": "infisical run --env=prod -- pnpm run build",
     "preview": "infisical run --env=prod -- astro preview"
   },
   "keywords": [

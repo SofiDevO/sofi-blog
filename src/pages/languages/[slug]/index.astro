@@ -2,7 +2,7 @@
 import Layout from "@layouts/Layout.astro";
 import { getLanguageDetail } from "@services/querys/languages/getLanguageDetail";
 import BackArrow from "@shared/icons/BackArrow.astro";
-import type { Node } from "@types/LanguageDetail.type";
+import type { Node } from "@src/types/LanguageDetail.type";
 export const prerender = true;
 
 export async function getStaticPaths() {

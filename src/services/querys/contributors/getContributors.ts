@@ -3,8 +3,8 @@ import { wpquery } from "@services/wordpress";
 import type {
   ContributorResponse,
   Node,
-} from "@types/contributorResponse.type";
-import type { CardContributtor, SocialLinks } from "@types/contributtors.types";
+} from "@src/types/contributorResponse.type";
+import type { CardContributtor, SocialLinks } from "@src/types/contributtors.types";
 
 export const getContributtors: () => Promise<CardContributtor[]> = async () => {
   try {

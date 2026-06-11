@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import { getLanguageDetail } from "@services/querys/languages/getLanguageDetail";
 import { getModuleDetail } from "@services/querys/modules/getModuleDetail";
 import BackArrow from "@shared/icons/BackArrow.astro";
-import type { ModuleNode } from "@types/moduleDetail.type";
+import type { ModuleNode } from "@src/types/moduleDetail.type";
 export const prerender = true;
 
 export async function getStaticPaths() {

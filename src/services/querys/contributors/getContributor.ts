@@ -1,7 +1,7 @@
 import { queryContributor } from "@services/querys/contributors/contributor";
 import { wpquery } from "@services/wordpress";
-import type { Contributtor } from "@types/contributtors.types";
-import type { Post } from "@types/post.type";
+import type { Contributtor } from "@src/types/contributtors.types";
+import type { Post } from "@src/types/post.type";
 
 export async function getContributor(slug: string): Promise<Contributtor> {
   try {

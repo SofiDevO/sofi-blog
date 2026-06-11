@@ -2,7 +2,7 @@ import { wpquery } from "@services/wordpress";
 import type {
   ModuleDetailResponse,
   ModuleNode,
-} from "@types/moduleDetail.type";
+} from "@src/types/moduleDetail.type";
 
 export const getModuleDetail = async (): Promise<ModuleNode[]> => {
   const data = await wpquery<ModuleDetailResponse>({
