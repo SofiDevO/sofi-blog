@@ -1,0 +1,180 @@
+---
+export const prerender = true;
+import { getLanguages } from "@/services/querys/languages/getLanguages";
+
+const data = await getLanguages();
+const carouselData = data?.map((language) => ({
+  name: language.title,
+  icon: language.curso.icon.node.mediaItemUrl,
+  slug: language.slug,
+  date: language.date,
+}));
+
+const itemCount = carouselData.length;
+// duración total = cantidad de ítems * tiempo por ítem (1.2s recomendado para buena lectura)
+const duration = `${itemCount * 1.2}s`;
+const sortByoldest = carouselData.sort((a, b) => {
+  const dateA = new Date(a.date) as unknown as number;
+  const dateB = new Date(b.date) as unknown as number;
+  return dateA - dateB;
+});
+---
+
+<section id="skills" class="skills">
+  <div class="skills__header">
+    <a href="/languages">
+      <h2 class="skills__title text-gradient">Aprender a programar</h2>
+    </a>
+  </div>
+
+  <div
+    class="slider"
+    style={`--item-count: ${itemCount}; --animation-duration: ${duration};`}
+  >
+    <div class="slide__track">
+      {
+        [...sortByoldest, ...sortByoldest, ...sortByoldest].map((data, i) => (
+          <a
+            class="slide"
+            href={`/languages/${data.slug}`}
+            style={`--item-index: ${i % itemCount};`}
+          >
+            <div class="tag">{data.name}</div>
+            <img src={data.icon} alt={data.name} width="150" height="150" />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@sass/variables" as v;
+  @use "@sass/mixins" as *;
+
+  .skills {
+    width: 100%;
+    max-width: fit-content;
+    margin: 8rem auto;
+    padding: 5rem 0;
+
+    &__header {
+      margin-bottom: 2.5rem;
+    }
+
+    &__title {
+      @include titleType("medium");
+      margin-bottom: 1.4rem;
+    }
+
+    &__subtitle {
+      font-size: 1.25rem;
+    }
+  }
+
+  .slider {
+    --item-size: 8rem;
+    --gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      width: 150px;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        var(--bg-color) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 2;
+      width: 150px;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        var(--bg-color) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotateZ(180deg);
+    }
+  }
+
+  .slide__track {
+    margin: 0 auto;
+    @include flexConfig(flex-end, center);
+    gap: var(--gap, 1.5rem);
+    padding: 3rem 0;
+    width: calc((var(--item-size) + var(--gap)) * var(--item-count) * 3);
+    animation: scroll var(--animation-duration) linear infinite;
+    box-sizing: border-box;
+
+    &:has(> .slide:hover) {
+      animation-play-state: paused;
+    }
+  }
+
+  .slide {
+    width: var(--item-size, 8rem);
+    height: var(--item-size, 8rem);
+    padding: 1rem;
+    @include flexConfig();
+    // background: rgba(15, 222, 230, 0.267);
+    // backdrop-filter: blur(10px);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    text-decoration: none;
+    // delay escalonado basado en el índice del ítem
+    animation-delay: calc(var(--item-index, 0) * -0.1s);
+
+    &:hover {
+      background: #51168880;
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    .tag {
+      position: absolute;
+      background: v.$bgDark;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 5px;
+      z-index: 2;
+      opacity: 0;
+      font-size: 12px;
+      transition: all 0.2s ease-in-out;
+      @include font-family("textos");
+    }
+
+    &:hover .tag {
+      transform: translateY(-4.2rem);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      // mueve exactamente 1 set de ítems para el loop perfecto
+      transform: translateX(
+        calc(-1 * (var(--item-size) + var(--gap)) * var(--item-count))
+      );
+    }
+  }
+</style>

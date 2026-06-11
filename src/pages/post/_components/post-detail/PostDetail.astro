@@ -1,7 +1,7 @@
 ---
-import DateTag from "@src/components/atoms/DateTag/DateTag.astro";
-import Loader from "@src/components/atoms/Loader/Loader.astro";
-import { replaceIframes } from "@src/utils/index";
+import DateTag from "@/shared/ui/DateTag.astro";
+import Loader from "@/shared/ui/Loader.astro";
+import { replaceIframes } from "@/utils/index";
 const { post, author } = Astro.props;
 ---
 
@@ -78,7 +78,7 @@ const { post, author } = Astro.props;
 </script>
 
 <script>
-  import "@src/utils/fast-youtube";
+  import "@/utils/fast-youtube";
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("container-post") as HTMLElement;
     const allImages = container.querySelectorAll<HTMLImageElement>("img");

@@ -1,0 +1,194 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getLanguageDetail } from "@/services/querys/languages/getLanguageDetail";
+import { getModuleDetail } from "@/services/querys/modules/getModuleDetail";
+import BackArrow from "@/shared/icons/BackArrow.astro";
+import type { ModuleNode } from "@/types/moduleDetail.type";
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const [languages, modules] = await Promise.all([
+    getLanguageDetail(),
+    getModuleDetail(),
+  ]);
+  const modulesBySlug = new Map(modules.map((m: ModuleNode) => [m.slug, m]));
+
+  const paths: {
+    params: { slug: string; moduleSlug: string };
+    props: { module: ModuleNode; languageSlug: string };
+  }[] = [];
+
+  for (const language of languages ?? []) {
+    for (const mod of language.curso?.modulo?.nodes ?? []) {
+      const moduleDetail = modulesBySlug.get(mod.slug);
+      if (!moduleDetail) continue;
+      paths.push({
+        params: { slug: language.slug, moduleSlug: mod.slug },
+        props: { module: moduleDetail, languageSlug: language.slug },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { module, languageSlug } = Astro.props as {
+  module: ModuleNode;
+  languageSlug: string;
+};
+const { title, content, featuredImage, moduleFields } = module;
+const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
+---
+
+<Layout title={title}>
+  <section class="module" id="module">
+    <header class="module__header">
+      <a href={`/languages/${languageSlug}`} class="header__back-btn">
+        <BackArrow width={30} height={30} />
+      </a>
+    </header>
+
+    <div class="module__container">
+      {
+        featuredImage && (
+          <img
+            class="module__icon"
+            src={featuredImage.node.mediaItemUrl}
+            srcset={featuredImage.node.srcSet}
+            sizes={featuredImage.node.sizes}
+            alt={featuredImage.node.altText}
+          />
+        )
+      }
+
+      <div class="module__content">
+        <h1 class="text-gradient module__title">{title}</h1>
+        <div set:html={content} />
+
+        {
+          recursos && (
+            <a
+              class="module__resource-btn"
+              href={recursos}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📎 Descargar recursos
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { InsertButtonCopy } from "@/pages/post/button-copy";
+  InsertButtonCopy();
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("module") as HTMLElement;
+    const allImages = container.querySelectorAll<HTMLImageElement>("img");
+    const dialog = container.querySelector("dialog") as HTMLDialogElement;
+    const body = document.querySelector("body") as HTMLBodyElement;
+
+    allImages.forEach((image) => {
+      image.addEventListener("click", () => {
+        if (!dialog) return;
+        dialog.open = true;
+        body.classList.add("overflow-hidden");
+        const imageSrc = image.getAttribute("src");
+        const imageAlt = image.getAttribute("alt") || "Image";
+        const imageRender = document.createElement("img");
+        imageRender.src = imageSrc || "";
+        imageRender.alt = imageAlt;
+        dialog.appendChild(imageRender);
+      });
+    });
+
+    dialog?.addEventListener("click", () => {
+      dialog.close();
+      body.classList.remove("overflow-hidden");
+      dialog.innerHTML = "";
+    });
+  });
+</script>
+
+<style lang="scss">
+  @use "sass:color";
+  @use "@sass/variables" as *;
+  @use "@sass/mixins" as *;
+
+  .module {
+    width: 100%;
+    max-width: 1100px;
+    margin: 10rem auto;
+    padding: 1rem;
+
+    &__header {
+      margin-bottom: 2rem;
+    }
+
+    &__title {
+      font-size: 5rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+
+    &__container {
+      @include flexConfig(center, flex-start);
+      gap: 2rem;
+      padding: 0 1rem;
+
+      @include respond-to("medium") {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    &__icon {
+      position: sticky;
+      top: 4rem;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+
+      @include respond-to("medium") {
+        position: static;
+        width: 80%;
+        max-width: none;
+      }
+
+      &:hover {
+        filter: drop-shadow(0 0 0.75rem $ufo-green);
+        transition: filter 1s ease-in-out;
+      }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    &__resource-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: $french-violet;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      width: fit-content;
+      transition: background 0.3s ease-in-out;
+
+      &:hover {
+        background: color.adjust($french-violet, $lightness: 10%);
+      }
+    }
+  }
+</style>

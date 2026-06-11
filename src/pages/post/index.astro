@@ -1,14 +1,15 @@
 ---
-import DividerTop from "@atoms/DividerTop/DividerTop.astro";
-import Layout from "@layouts/Layout.astro";
-import Hero from "@organisms/Hero/Hero.astro";
-import FirstCategory from "@organisms/Posts/FirstCategory/FirstCategory.astro";
-import SecondCategory from "@organisms/Posts/SecondCategory/SecondCategory.astro";
-import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
-import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
-import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
-import FourthCategory from "@src/components/organisms/Posts/FourthCategory/FourthCategory.astro";
-import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCategoriesWithPosts } from "@/services/querys/posts/getCategoriesWithPosts";
+import BackgroundGradient from "@/shared/ui/BackgroundGradient.astro";
+import DividerBottom from "@/shared/ui/DividerBottom.astro";
+import DividerTop from "@/shared/ui/DividerTop.astro";
+import FirstCategory from "../home/_components/FirstCategory.astro";
+import FourthCategory from "../home/_components/FourthCategory.astro";
+import Hero from "../home/_components/Hero.astro";
+import SecondCategory from "../home/_components/SecondCategory.astro";
+import ThirdCategory from "../home/_components/ThirdCategory.astro";
+
 const categoriesWithPosts = await getCategoriesWithPosts();
 export const prerender = true;
 ---
@@ -115,7 +116,7 @@ export const prerender = true;
       <FourthCategory {...categoriesWithPosts["escritura"][0]} />
     )
   }
-   <script
+  <script
     is:inline
     async
     src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835"

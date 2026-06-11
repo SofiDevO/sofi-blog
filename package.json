@@ -21,7 +21,11 @@
   "license": "ISC",
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+<<<<<<< HEAD
     "@astrojs/react": "^5.0.7",
+=======
+    "@astrojs/react": "^5.0.6",
+>>>>>>> c04bf9f08c5f716826bdade1db4edd6054f25991
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/tailwind": "^6.0.2",
     "@astrojs/vercel": "^10.0.8",
@@ -29,11 +33,14 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@wp-block-tools/styles": "^1.6.1",
+<<<<<<< HEAD
     "astro": "^6.4.5",
+=======
+    "astro": "^6.4.2",
+>>>>>>> c04bf9f08c5f716826bdade1db4edd6054f25991
     "astro-robots-txt": "^1.0.0",
     "astro-sst": "^3.1.4",
     "dotenv": "^16.4.5",
-    "fs": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

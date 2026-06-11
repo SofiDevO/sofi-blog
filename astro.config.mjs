@@ -53,17 +53,13 @@ export default defineConfig({
               findFileUrl(url) {
                 const aliases = {
                   "@src/": "src/",
-                  "@components/": "src/components/",
-                  "@atoms/": "src/components/atoms/",
-                  "@molecules/": "src/components/molecules/",
-                  "@organisms/": "src/components/organisms/",
+                  "@shared/": "src/shared/",
                   "@layouts/": "src/layouts/",
                   "@utils/": "src/utils/",
                   "@content/": "src/content/",
                   "@pages/": "src/pages/",
                   "@controllers/": "src/controllers/",
                   "@services/": "src/services/",
-                  "@data/": "src/data/",
                   "@sass/": "src/sass/",
                   "@img/": "public/img/",
                 };

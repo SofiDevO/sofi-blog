@@ -1,9 +1,9 @@
-import { wpquery } from "@src/data/wordpress";
-import type { LoggedUser } from "@src/types/loggedUser.type";
+import { wpquery } from "@/services/wordpress";
+import type { LoggedUser } from "@/types/loggedUser.type";
 import type {
   RegisterUser,
   RegisterUserResponse,
-} from "@src/types/registerUser.type";
+} from "@/types/registerUser.type";
 import type { AstroCookies } from "astro";
 import Jwt from "jsonwebtoken";
 

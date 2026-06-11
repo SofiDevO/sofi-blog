@@ -1,0 +1,45 @@
+---
+import {
+  getCommentsByPostSlug,
+  getRepliesByCommentId,
+} from "@/services/querys/posts/getComments";
+import Comment from "@/shared/components/Comment/Comment.astro";
+import CommentForm from "@/shared/components/CommentForm/CommentForm.astro";
+import { isLoggedIn } from "@/services/auth";
+import { getPostsBySlug } from "@/services/querys/posts/getPostBySlug";
+
+const { slug, postID } = Astro.props;
+const { cookies } = Astro;
+
+const post = await getPostsBySlug(slug);
+const isLogged = isLoggedIn(cookies);
+let comments = post?.commentCount == 0 ? [] : await getCommentsByPostSlug(slug);
+---
+
+<section class="flex flex-col mt-14 w-full gap-5" id="comments">
+  {
+    comments.length > 0 ? (
+      <h2 class="text-2xl font-bold mb-5">Comentarios 🦝:</h2>
+    ) : (
+      <h2>Rompe el Hielo</h2>
+    )
+  }
+  <Comment comment={null} />
+  {
+    comments.length > 0 &&
+    comments.map(async (comment: typeof comments[number], index: number) => {
+        const areFirstTwoComments = index < 2;
+        const replies = await getRepliesByCommentId(comment.id);
+        return (
+          <Comment {...comment}>
+            {replies.length > 0 &&
+              areFirstTwoComments &&
+              replies.slice(0, 2).map((reply) => {
+                return <Comment {...reply} isReply />;
+              })}
+          </Comment>
+        );
+      })
+  }
+  <CommentForm postId={postID} {isLogged} />
+</section>

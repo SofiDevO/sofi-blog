@@ -1,0 +1,49 @@
+---
+import PostCard from "@/shared/components/PostCard/PostCard.astro";
+import SwiperCarousel from "@/shared/components/SwiperCarousel/SwiperCarousel.astro";
+import Title from "@/shared/ui/Title/Title.astro";
+import type { CategoryWithPosts } from "@/types/category.type";
+
+type Variant = "default" | "horizontal" | "compact";
+interface Props extends CategoryWithPosts {
+  variant?: Variant;
+}
+const { slug, name, posts, variant } = Astro.props;
+---
+
+<section class="fourth-category">
+  <a href={`/categories/${slug}`} class="web-dev__link">
+    <Title titleDesc={name} class="web-dev__title text-left" />
+  </a>
+  <div class="swiper">
+    <SwiperCarousel
+      class="fourth-category-swiper"
+      config={{
+        slidesPerView: 1,
+        spaceBetween: 140,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: true,
+        },
+        breakpoints: {
+          640: { slidesPerView: 1, spaceBetween: 140 },
+          768: { slidesPerView: 2, spaceBetween: 40 },
+          1024: { slidesPerView: 3, spaceBetween: 50 },
+        },
+        navigation: true,
+        pagination: false,
+        loop: true,
+      }}
+    >
+      {
+        posts.map((post) => {
+          return (
+            <swiper-slide>
+              <PostCard variant={variant} {...post} class="slider__card" />
+            </swiper-slide>
+          );
+        })
+      }
+    </SwiperCarousel>
+  </div>
+</section>

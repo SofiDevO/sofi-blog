@@ -2,19 +2,41 @@
 @use "@sass/variables" as *;
 @use "@sass/base/base" as *;
 @use "@sass/animations" as animations;
-@use "@atoms/Title/title" as title;
-@use "@organisms/Posts/components/PostCard/post-card" as postCard;
-@use "@atoms/SocialIcons/social-icons" as socialIcons;
-@use "@molecules/Header/header" as header;
-@use "@organisms/Posts/FirstCategory/tutoriales" as tutoriales;
-@use "@molecules/Comment/comment" as comment;
-@use "@molecules/SearchForm/search-form" as searchForm;
-@use "@organisms/Comments/comments" as comments;
-@use "@pages/post/post" as post;
-@use "@organisms/Posts/SecondCategory/desarrollo-web" as web;
-@use "@organisms/Posts/FourthCategory/fourth-category" as fourthCategory;
-@use "@organisms/Posts/components/CardBig/card-big" as cardBig;
 
-@use "@molecules/sideBar/side-bar" as sideBar;
-@use "@molecules/footer/footer" as footer;
-@use "@molecules/CommentForm/comment-form" as commentForm;
+// UI
+@use "@shared/ui/DividerBottom/divider-bottom" as dividerBottom;
+@use "@shared/ui/Logo/logo" as logo;
+@use "@shared/ui/Title/title" as title;
+@use "@shared/ui/SocialIcons/social-icons" as socialIcons;
+@use "@shared/ui/HamburgerBtn/hamburger" as hamburger;
+
+
+
+// Components
+@use "@shared/components/SideBar/side-bar" as sideBar;
+@use "@shared/components/SideBar/cards-sidebar/card-sidebar" as cardSidebar;
+@use "@shared/components/Comment/comment" as comment;
+@use "@shared/components/Comments/comments" as comments;
+@use "@shared/components/Header/header" as header;
+@use "@shared/components/Footer/footer" as footer;
+@use "@shared/components/SearchForm/search-form" as searchForm;
+@use "@shared/components/CommentForm/comment-form" as commentForm;
+@use "@shared/components/MobileMenu/menu" as menu;
+@use "@shared/components/CookiesBanner/cookies-banner" as cookiesBanner;
+@use "@shared/components/PostCard/post-card" as postCard;
+
+// Pages
+@use "@pages/dashboard/dashboard" as dashboard;
+@use "@pages/support/support" as support;
+@use "@pages/support/components/contributtors/contributor-card/contributor-card" as contributorCard;
+@use "@pages/support/components/contributtors/contributtors" as contributtors;
+@use "@pages/support/components/github-anim/github-anim" as githubAnim;
+@use "@pages/support/contributor/contributor" as contributor;
+@use "@pages/post/post" as post;
+@use "@pages/privacy-policy/privacy-policy" as privacyPolicy;
+
+// Home specific components
+@use "@pages/home/_components/tutoriales" as tutoriales;
+@use "@pages/home/_components/desarrollo-web" as web;
+@use "@pages/home/_components/fourth-category" as fourthCategory;
+@use "@pages/home/_components/card-big" as cardBig;

@@ -1,15 +1,16 @@
 ---
-import DividerTop from "@atoms/DividerTop/DividerTop.astro";
-import Layout from "@layouts/Layout.astro";
-import Hero from "@organisms/Hero/Hero.astro";
-import FirstCategory from "@organisms/Posts/FirstCategory/FirstCategory.astro";
-import SecondCategory from "@organisms/Posts/SecondCategory/SecondCategory.astro";
-import { getCategoriesWithPosts } from "@services/categoriesWithPosts";
-import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
-import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
-import Infinitecarousel from "@src/components/organisms/infinite-carousel/Infinitecarousel.astro";
-import FourthCategory from "@src/components/organisms/Posts/FourthCategory/FourthCategory.astro";
-import ThirdCategory from "@src/components/organisms/Posts/ThirdCategory/ThirdCategory.astro";
+import Layout from "@/layouts/Layout.astro";
+import FirstCategory from "@/pages/home/_components/FirstCategory.astro";
+import FourthCategory from "@/pages/home/_components/FourthCategory.astro";
+import Hero from "@/pages/home/_components/Hero.astro";
+import Infinitecarousel from "@/pages/home/_components/InfiniteCarousel.astro";
+import SecondCategory from "@/pages/home/_components/SecondCategory.astro";
+import ThirdCategory from "@/pages/home/_components/ThirdCategory.astro";
+import { getCategoriesWithPosts } from "@/services/querys/posts/getCategoriesWithPosts";
+import BackgroundGradient from "@/shared/ui/BackgroundGradient.astro";
+import DividerBottom from "@/shared/ui/DividerBottom.astro";
+import DividerTop from "@/shared/ui/DividerTop.astro";
+
 const categoriesWithPosts = await getCategoriesWithPosts();
 // export const prerender = true;
 ---

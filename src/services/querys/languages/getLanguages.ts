@@ -1,5 +1,5 @@
-import { wpquery } from "@src/data/wordpress";
-import type { LanguagesResponse } from "@src/types/languages.type";
+import { wpquery } from "@/services/wordpress";
+import type { LanguagesResponse } from "@/types/languages.type";
 
 export const getLanguages = async () => {
   const data = await wpquery<LanguagesResponse>({

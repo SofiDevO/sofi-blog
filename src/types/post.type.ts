@@ -3,6 +3,8 @@ import type { Author } from './author.type';
 
 export interface Post {
   title: string;
+  id?: string;
+  content?: string;
   slug: string;
   excerpt: string;
   date?: string;
@@ -12,6 +14,7 @@ export interface Post {
   seo?: Seo;
   isSticky?: boolean;
   altdescription?: string;
+  commentCount?: number;
 }
 
 export type FeaturedImage = {

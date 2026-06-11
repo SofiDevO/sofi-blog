@@ -1,15 +1,15 @@
 ---
-import BackgroundGradient from "@src/components/atoms/BackgroundGradient/BackgroundGradient.astro";
-import DividerBottom from "@src/components/atoms/DividerBottom/DividerBottom.astro";
-import DividerTop from "@src/components/atoms/DividerTop/DividerTop.astro";
+import BackgroundGradient from "@/shared/ui/BackgroundGradient.astro";
+import DividerBottom from "@/shared/ui/DividerBottom.astro";
+import DividerTop from "@/shared/ui/DividerTop.astro";
 import "./_support.scss";
 
-import Layout from "@src/layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 import Contributtors from "./components/contributtors/Contributtors.astro";
 import GithubAnim from "./components/github-anim/GithubAnim.astro";
 import SuportHero from "./components/SupportHero.astro";
 
-import { getAboutPage } from "@src/services/getAboutPage";
+import { getAboutPage } from "@/services/querys/pages/getAboutPage";
 
 const about = await getAboutPage(337);
 console.log(about);
