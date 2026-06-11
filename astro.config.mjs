@@ -78,6 +78,7 @@ export default defineConfig({
                   "@services/": "src/services/",
                   "@sass/": "src/sass/",
                   "@img/": "public/img/",
+                  "@types/": "src/types/",
                 };
                 for (const [alias, folder] of Object.entries(aliases)) {
                   if (url.startsWith(alias)) {
