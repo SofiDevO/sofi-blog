@@ -56,6 +56,7 @@
         @extend .comment-form__input;
         min-height: 20dvh;
     }
+
     &__submit-btn {
         background-color: $french-violet;
         color: white;
@@ -67,7 +68,7 @@
         transition: background-color 0.2s ease-in-out;
 
         &:hover {
-         opacity: 0.9;
+            opacity: 0.9;
         }
 
         &:focus {
@@ -91,5 +92,109 @@
         &--hidden {
             display: none;
         }
+    }
+}
+
+.comment-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 2.5rem 2rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(102, 0, 204, 0.12) 0%, rgba(88, 236, 255, 0.06) 100%);
+    border: 1px solid rgba(102, 0, 204, 0.25);
+    backdrop-filter: blur(8px);
+    animation: ctaFadeIn 0.4s ease both;
+
+    &__icon {
+        display: block;
+        font-size: 3rem;
+        line-height: 1;
+        color: $light-violet;
+        filter: drop-shadow(0 0 12px rgba(102, 0, 204, 0.5));
+    }
+
+    &__title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, $french-violet, $aqua);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0;
+    }
+
+    &__description {
+        font-size: 1rem;
+        color: var(--mainColor);
+        opacity: 0.75;
+        max-width: 38ch;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 0.5rem;
+    }
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.6rem 1.4rem;
+        border-radius: 0.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+
+        &--primary {
+            background: linear-gradient(135deg, $french-violet, $light-violet);
+            color: #fff !important;
+            box-shadow: 0 4px 18px rgba(102, 0, 204, 0.35);
+
+            &:hover {
+                box-shadow: 0 6px 24px rgba(102, 0, 204, 0.5);
+            }
+        }
+
+        &--secondary {
+            background: transparent;
+            color: $light-violet;
+            border: 1.5px solid $light-violet;
+
+            &:hover {
+                background: rgba(138, 90, 232, 0.1);
+                box-shadow: 0 4px 14px rgba(138, 90, 232, 0.2);
+            }
+        }
+    }
+}
+
+@keyframes ctaFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

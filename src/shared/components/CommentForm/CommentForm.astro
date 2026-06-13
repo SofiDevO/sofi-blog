@@ -1,68 +1,60 @@
 ---
-const { postId = null, isLogged = false  } = Astro.props;
-const hidden = isLogged;
+const { postId = null, isLogged = false } = Astro.props;
 ---
 
 
-<form method="post" id="comment-form" class="comment-form">
-  {
-    isLogged && (
-      <h3 class="comment-form__title">Conectado como <span class="comment-form__title-username">{ isLogged.name }</span>. Deja un comentario</h3>
-    )
-  }
-  <input type="hidden" name="postId" value={postId} />
-  <input type="hidden" name="parentId" value="" />
-  <div class={`comment-form__field ${hidden ? 'comment-form__field--hidden' : ''}`}>
-    <label for="author" class="comment-form__label">Nombre</label>
-    <input
-      id="author"
-      name="author"
-      type="text"
-      class="comment-form__input"
-    />
-  </div>
-  <div class={`comment-form__field ${hidden ? 'comment-form__field--hidden' : ''}`}>
-    <label for="authorEmail" class="comment-form__label">Correo electrónico</label>
-    <input
-      id="authorEmail"
-      name="authorEmail"
-      type="email"
-      class="comment-form__input"
-    />
-  </div>
-  <div class={`comment-form__field ${hidden ? 'comment-form__field--hidden' : ''}`}>
-    <label   for="authorUrl" class="comment-form__label">Sitio web (opcional)</label>
-    <input
-      id="authorUrl"
-      name="authorUrl"
-      type="url"
-      class="comment-form__input"
-    />
-  </div>
-  <div class="comment-form__field">
-    <label for="content" class="comment-form__label">Comentario</label>
-    <textarea
-      id="content"
-      name="content"
-      required
-      class="comment-form__textarea"
-    ></textarea>
-  </div>
-  <button
-    type="submit"
-    id="add-comment"
-    class="comment-form__submit-btn"
-  >
-    Publicar Comentario
-  </button>
-  <p id="success-message" class="comment-form__message comment-form__message--success comment-form__message--hidden">Comentario publicado exitosamente.</p>
-  <p id="error-message" class="comment-form__message comment-form__message--error comment-form__message--hidden">Hubo un problema al publicar tu comentario.</p>
-</form>
+{
+  isLogged ? (
+    <form method="post" id="comment-form" class="comment-form">
+      <h3 class="comment-form__title">
+        Conectado como <span class="comment-form__title-username">{isLogged.name}</span>. Deja un comentario
+      </h3>
+      <input type="hidden" name="postId" value={postId} />
+      <input type="hidden" name="parentId" value="" />
+      <div class="comment-form__field">
+        <label for="content" class="comment-form__label">Comentario</label>
+        <textarea
+          id="content"
+          name="content"
+          required
+          class="comment-form__textarea"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        id="add-comment"
+        class="comment-form__submit-btn"
+      >
+        Publicar Comentario
+      </button>
+      <p id="success-message" class="comment-form__message comment-form__message--success comment-form__message--hidden">Comentario publicado exitosamente.</p>
+      <p id="error-message" class="comment-form__message comment-form__message--error comment-form__message--hidden">Hubo un problema al publicar tu comentario.</p>
+    </form>
+  ) : (
+    <div class="comment-cta" id="comment-cta">
+      <iconify-icon icon="material-symbols:chat-bubble-outline-rounded" class="comment-cta__icon" aria-hidden="true" noobserver></iconify-icon>
+      <h3 class="comment-cta__title">¿Tienes algo que decir?</h3>
+      <p class="comment-cta__description">
+        Únete a la conversación. Crea una cuenta gratis o inicia sesión para dejar tu comentario.
+      </p>
+      <div class="comment-cta__actions">
+        <a href="/register" id="cta-register" class="comment-cta__btn comment-cta__btn--primary">
+          Crear cuenta gratis
+        </a>
+        <a href="/login" id="cta-login" class="comment-cta__btn comment-cta__btn--secondary">
+          Iniciar sesión
+        </a>
+      </div>
+    </div>
+  )
+}
 
 <script>
-  const form = document.getElementById("comment-form") as HTMLFormElement;
+  const form = document.getElementById("comment-form") as HTMLFormElement | null;
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");
+
+  if (!form) return;
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();

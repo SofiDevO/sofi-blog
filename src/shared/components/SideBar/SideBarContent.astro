@@ -1,6 +1,6 @@
 ---
 import { getCategoriesWithPosts } from "@services/querys/posts/getCategoriesWithPosts";
-const { category } = Astro.props;
+const { category, currentSlug = null } = Astro.props;
 
 import Button from "@shared/ui/Button/Button.astro";
 import SocialIcons from "@shared/ui/SocialIcons/SocialIcons.astro";
@@ -8,7 +8,10 @@ import CardSidebar from "./cards-sidebar/CardSidebar.astro";
 const sidecardData = await getCategoriesWithPosts();
 const categoryName = category.name.toLowerCase().replaceAll(" ", "-");
 
-const posts = sidecardData?.[categoryName]?.[0]?.posts?.slice?.(0, 3);
+const allPosts = sidecardData?.[categoryName]?.[0]?.posts ?? [];
+const posts = allPosts
+  .filter((post: { slug: string }) => post.slug !== currentSlug)
+  .slice(0, 3);
 ---
 
 <div id="toc_container-new"></div>
