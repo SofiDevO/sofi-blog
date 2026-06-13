@@ -54,8 +54,7 @@ const { postId = null, isLogged = false } = Astro.props;
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");
 
-  if (!form) return;
-
+  if (form) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
@@ -117,5 +116,7 @@ const { postId = null, isLogged = false } = Astro.props;
         console.error(error)
     }
 
-}
+  }
+
+} // end if (form)
 </script>
