@@ -1,0 +1,7 @@
+// Dashboard styles entry point
+// Each partial owns its section — import order matters for cascade.
+
+@use "./styles/layout";
+@use "./styles/sidebar";
+@use "./styles/profile";
+@use "./styles/posts";

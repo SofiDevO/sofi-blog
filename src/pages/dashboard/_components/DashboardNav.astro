@@ -1,0 +1,51 @@
+---
+import { isLoggedIn } from "@services/auth";
+
+interface MenuItem {
+  href: string;
+  label: string;
+  icon: string;
+  requiredRoles?: string[];
+}
+
+const pathName = Astro.url.pathname;
+const { cookies } = Astro;
+const user = isLoggedIn(cookies);
+
+const menuItems: MenuItem[] = [
+  { href: "/dashboard",           label: "Mis datos",        icon: "mdi:account-details" },
+  { href: "/dashboard/mis-posts", label: "Posts publicados", icon: "mdi:post", requiredRoles: ["author", "administrator"] },
+];
+
+const visibleMenuItems = menuItems.filter((item) => {
+  if (!item.requiredRoles) return true;
+  if (!user || !user.roles) return false;
+  // Check if user has at least one of the required roles
+  return item.requiredRoles.some((role) => user.roles.includes(role));
+});
+
+function isActive(href: string): boolean {
+  return href === "/dashboard"
+    ? pathName === "/dashboard"
+    : pathName.startsWith(href);
+}
+---
+
+<nav class="dashboard__sidebar-menu">
+  {
+    visibleMenuItems.map(({ href, label, icon }) => (
+      <a
+        data-astro-prefetch="hover"
+        href={href}
+        class={`menu-item ${isActive(href) ? "active" : ""}`}
+      >
+        <iconify-icon icon={icon} width="24" height="24" />
+        <span class="menu-text">{label}</span>
+      </a>
+    ))
+  }
+  <a data-astro-prefetch="hover" href="/" class="menu-item">
+    <iconify-icon icon="mdi:arrow-left" width="24" height="24"></iconify-icon>
+    <span class="menu-text">Volver al blog</span>
+  </a>
+</nav>

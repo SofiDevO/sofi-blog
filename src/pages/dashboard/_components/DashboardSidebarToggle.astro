@@ -1,0 +1,28 @@
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("toggleDashboardSidebar");
+    const sidebar = document.querySelector(".dashboard__sidebar");
+    const icon = toggleBtn?.querySelector("iconify-icon");
+
+    // Recuperar el estado de colapso desde localStorage
+    const isCollapsed =
+      localStorage.getItem("dashboardSidebarCollapsed") === "true";
+    if (!isCollapsed) {
+      sidebar?.classList.add("active"); // active => open
+      if (icon) icon.setAttribute("icon", "mdi:menu-open");
+    } else {
+      if (icon) icon.setAttribute("icon", "mdi:menu");
+    }
+
+    toggleBtn?.addEventListener("click", () => {
+      sidebar?.classList.toggle("active");
+      const nowCollapsed = !sidebar?.classList.contains("active");
+
+      if (icon) {
+        icon.setAttribute("icon", nowCollapsed ? "mdi:menu" : "mdi:menu-open");
+      }
+
+      localStorage.setItem("sidebarCollapsed", nowCollapsed ? "true" : "false");
+    });
+  });
+</script>

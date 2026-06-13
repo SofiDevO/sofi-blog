@@ -92,6 +92,11 @@ export async function isValidUser(username: string, password: string) {
             avatar {
               url
             }
+            roles {
+              nodes {
+                name
+              }
+            }
           }
         }
       }
@@ -105,6 +110,7 @@ export async function isValidUser(username: string, password: string) {
 
     if (response?.login?.user) {
       const user = response.login.user;
+      const roles: string[] = user.roles?.nodes?.map((r: { name: string }) => r.name) ?? [];
       return {
         id: user.databaseId || user.id,
         name: user.name,
@@ -112,6 +118,7 @@ export async function isValidUser(username: string, password: string) {
         lastName: user.lastName,
         email: user.email,
         avatar: user.avatar?.url || "",
+        roles,
         authToken: response.login.authToken,
         refreshToken: response.login.refreshToken,
       };

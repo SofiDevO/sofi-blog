@@ -1,0 +1,127 @@
+@use "@sass/variables" as *;
+
+.dashboard__sidebar:not(.active) {
+  .menu-text {
+    display: none;
+    opacity: 0;
+  }
+
+  .menu-item,
+  .logout-btn {
+    justify-content: center;
+    padding: 1.2rem 0;
+  }
+
+  .sidebar-header {
+    justify-content: center;
+  }
+}
+
+.dashboard__sidebar {
+  position: sticky;
+  top: 0;
+  grid-area: sidebar;
+  background-color: $bgDark;
+  padding: var(--sidebar-padding);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: padding 0.3s ease;
+  height: 100dvh;
+
+  &-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 3.2rem;
+
+    .toggle-btn {
+      background: transparent;
+      border: none;
+      color: #b3b3b3;
+      cursor: pointer;
+      padding: 0.8rem;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      transition:
+        background 0.3s,
+        color 0.3s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+    }
+  }
+
+  &-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    flex: 1;
+
+    .menu-item {
+      color: #b3b3b3;
+      text-decoration: none;
+      padding: 1.2rem 1.6rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 1.6rem;
+
+      &:hover,
+      &.active {
+        color: white;
+        background-color: $light-violet;
+      }
+    }
+  }
+
+  &-footer {
+    margin-top: auto;
+    padding-top: 1.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    form {
+      display: block;
+      width: 100%;
+    }
+
+    .logout-btn {
+      background: transparent;
+      border: none;
+      color: #ff5252;
+      width: 100%;
+      text-align: left;
+      padding: 1.2rem 1.6rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition:
+        background 0.3s ease,
+        color 0.3s ease;
+      white-space: nowrap;
+      font-size: 1.6rem;
+
+      &:hover {
+        background-color: rgba(255, 82, 82, 0.1);
+        color: #ff8a80;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard__sidebar {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}

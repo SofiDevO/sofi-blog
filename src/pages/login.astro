@@ -1,6 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { isLoggedIn } from "@services/auth";
+import PasswordInput from "@shared/components/PasswordInput/PasswordInput.astro";
 
 const { cookies } = Astro;
 const user = isLoggedIn(cookies);
@@ -43,20 +44,19 @@ const success = Astro.url.searchParams.get("success");
         autocomplete="username"
         required
       />
-      <label for="password">Password</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        autocomplete="current-password"
-        required
-      />
+      <PasswordInput autocomplete="current-password" />
       <button type="submit"> Login </button>
+      <div class="form__cta">
+        <span>
+          ¿No tienes una cuenta? <a href="/register">Registrate</a>
+        </span>
+      </div>
     </form>
   </div>
 </Layout>
 
-<style>
+<style lang="scss">
+  @use "@sass/variables.scss" as *;
   .container__login {
     display: flex;
     justify-content: center;
@@ -69,6 +69,7 @@ const success = Astro.url.searchParams.get("success");
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    color: white;
     background: #1f2335;
     padding: 2rem;
     border-radius: 10px;
@@ -80,6 +81,12 @@ const success = Astro.url.searchParams.get("success");
     border: none;
     border-radius: 5px;
     cursor: pointer;
+  }
+  input {
+    border-radius: 10px;
+    padding: 0.25rem 0.5rem;
+    color: black;
+    width: 100%;
   }
   textarea:focus,
   input:focus {
@@ -102,5 +109,18 @@ const success = Astro.url.searchParams.get("success");
     text-align: center;
     font-size: 1rem;
     margin-bottom: 0.5rem;
+  }
+  .form__cta {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    & a {
+      color: $ufo-green;
+      text-decoration: none;
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 </style>

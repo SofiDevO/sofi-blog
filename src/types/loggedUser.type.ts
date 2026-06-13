@@ -12,6 +12,7 @@ export interface LoggedUser {
     exp: number;
     email: string;
     website: string;
+    roles: string[];
 }
 interface Avatar {
     '24': string;

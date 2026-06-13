@@ -1,0 +1,47 @@
+@use "@sass/variables" as *;
+
+.dashboard {
+  --sidebar-width: 7rem;
+  --sidebar-padding: 2.4rem 0rem;
+
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr auto;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "sidebar main";
+  width: 100%;
+  min-height: 100vh;
+  color: #fff;
+  transition: grid-template-columns 0.3s ease;
+
+  &:has(.dashboard__sidebar.active) {
+    --sidebar-width: 25rem;
+    --sidebar-padding: 2.4rem 1.6rem;
+  }
+}
+
+.main-content {
+  grid-area: main;
+  padding: 4.8rem 6.4rem;
+  margin-top: 50px;
+  width: 100%;
+
+  h1 {
+    color: $aqua;
+    margin-top: 0;
+    margin-bottom: 3.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    grid-template-areas:
+      "sidebar"
+      "main";
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .main-content {
+    padding: 2.4rem;
+  }
+}

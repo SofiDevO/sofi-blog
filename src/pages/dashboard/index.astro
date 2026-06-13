@@ -1,6 +1,7 @@
 ---
 import { isLoggedIn } from "@services/auth";
 import { wpquery } from "@services/wordpress";
+import Title from "@src/shared/ui/Title/Title.astro";
 import Layout from "./Layout.astro";
 
 export const prerender = false;
@@ -29,7 +30,7 @@ const freshUser = (response as any)?.user || user;
 
 <Layout>
   <section class="profile-section">
-    <h1>Mi Perfil</h1>
+    <Title titleDesc="Mi Perfil" />
 
     <div class="avatar-container">
       <a

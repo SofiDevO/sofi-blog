@@ -12,9 +12,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://sofidev.blog/",
-  prefetch: {
-    prefetchAll: true,
-  },
+  prefetch: true,
   integrations: [
     react(),
     tailwind(),
@@ -57,7 +55,6 @@ export default defineConfig({
         "@sass": path.resolve("./src/sass"),
         "@data": path.resolve("./src/data"),
         "@controllers": path.resolve("./src/controllers"),
-
       },
     },
     css: {
