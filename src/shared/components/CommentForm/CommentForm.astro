@@ -2,46 +2,69 @@
 const { postId = null, isLogged = false } = Astro.props;
 ---
 
-
 {
   isLogged ? (
     <form method="post" id="comment-form" class="comment-form">
       <h3 class="comment-form__title">
-        Conectado como <span class="comment-form__title-username">{isLogged.name}</span>. Deja un comentario
+        Conectado como{" "}
+        <span class="comment-form__title-username">{isLogged.name}</span>. Deja
+        un comentario
       </h3>
       <input type="hidden" name="postId" value={postId} />
       <input type="hidden" name="parentId" value="" />
       <div class="comment-form__field">
-        <label for="content" class="comment-form__label">Comentario</label>
+        <label for="content" class="comment-form__label">
+          Comentario
+        </label>
         <textarea
           id="content"
           name="content"
           required
           class="comment-form__textarea"
-        ></textarea>
+        />
       </div>
-      <button
-        type="submit"
-        id="add-comment"
-        class="comment-form__submit-btn"
-      >
+      <button type="submit" id="add-comment" class="comment-form__submit-btn">
         Publicar Comentario
       </button>
-      <p id="success-message" class="comment-form__message comment-form__message--success comment-form__message--hidden">Comentario publicado exitosamente.</p>
-      <p id="error-message" class="comment-form__message comment-form__message--error comment-form__message--hidden">Hubo un problema al publicar tu comentario.</p>
+      <p
+        id="success-message"
+        class="comment-form__message comment-form__message--success comment-form__message--hidden"
+      >
+        Comentario publicado exitosamente.
+      </p>
+      <p
+        id="error-message"
+        class="comment-form__message comment-form__message--error comment-form__message--hidden"
+      >
+        Hubo un problema al publicar tu comentario.
+      </p>
     </form>
   ) : (
     <div class="comment-cta" id="comment-cta">
-      <iconify-icon icon="material-symbols:chat-bubble-outline-rounded" class="comment-cta__icon" aria-hidden="true" noobserver></iconify-icon>
+      <iconify-icon
+        icon="material-symbols:chat-bubble-outline-rounded"
+        class="comment-cta__icon"
+        aria-hidden="true"
+        noobserver
+      />
       <h3 class="comment-cta__title">¿Tienes algo que decir?</h3>
       <p class="comment-cta__description">
-        Únete a la conversación. Crea una cuenta gratis o inicia sesión para dejar tu comentario.
+        Únete a la conversación. Crea una cuenta gratis o inicia sesión para
+        dejar tu comentario.
       </p>
       <div class="comment-cta__actions">
-        <a href="/register" id="cta-register" class="comment-cta__btn comment-cta__btn--primary">
+        <a
+          href="/register"
+          id="cta-register"
+          class="comment-cta__btn comment-cta__btn--primary"
+        >
           Crear cuenta gratis
         </a>
-        <a href="/login" id="cta-login" class="comment-cta__btn comment-cta__btn--secondary">
+        <a
+          href="/login"
+          id="cta-login"
+          class="comment-cta__btn comment-cta__btn--secondary"
+        >
           Iniciar sesión
         </a>
       </div>
@@ -50,73 +73,75 @@ const { postId = null, isLogged = false } = Astro.props;
 }
 
 <script>
-  const form = document.getElementById("comment-form") as HTMLFormElement | null;
+  const form = document.getElementById(
+    "comment-form",
+  ) as HTMLFormElement | null;
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");
 
   if (form) {
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const formData = new FormData(form);
-    try {
-      const commentData = await sendComment(formData);
-      insertComment(commentData.data);
-
-    } catch (error) {
-      console.error("Error al enviar el comentario:", error);
-      successMessage.classList.add("comment-form__message--hidden");
-      errorMessage.classList.remove("comment-form__message--hidden");
-    }
-  });
-
-  function insertComment(comment: any) {
-
-    const template = document.querySelector("[data-template-comment]");
-    const comments = comment.parent !== "" 
-      ? document.querySelector(`[data-replies][data-commentid="${comment.parent}"]`)
-      : null;
-    
-    const clone = template.cloneNode(true) as HTMLElement;
-    clone.removeAttribute("hidden");
-
-    const [autor, content, date] = [
-      clone.querySelector("[data-comment-author]") as HTMLElement || undefined,
-      clone.querySelector("[data-comment-content]") as HTMLElement || undefined,
-      clone.querySelector(".comment__date") as HTMLElement || undefined
-    ]
-
-    const fecha = new Date();
-
-    const formatt = fecha.toLocaleDateString('es-ES', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      try {
+        const commentData = await sendComment(formData);
+        insertComment(commentData.data);
+      } catch (error) {
+        console.error("Error al enviar el comentario:", error);
+        successMessage.classList.add("comment-form__message--hidden");
+        errorMessage.classList.remove("comment-form__message--hidden");
+      }
     });
-    
-    date ? (date.innerText = formatt) : null;
-    content ? (content.innerHTML = comment.content) : null;
-    autor ? (autor.innerText = comment.author) : null;
-    
-    comments 
-      ? comments.appendChild(clone) 
-      : template.insertAdjacentElement("afterend", clone);
-  }
 
-  async function sendComment(formData: FormData) {
-    try {
-        const res = await fetch(`/api/comments/replies`,{
-            method: 'POST',
-            body:formData
-        })
+    function insertComment(comment: any) {
+      const template = document.querySelector("[data-template-comment]");
+      const comments =
+        comment.parent !== ""
+          ? document.querySelector(
+              `[data-replies][data-commentid="${comment.parent}"]`,
+            )
+          : null;
+
+      const clone = template.cloneNode(true) as HTMLElement;
+      clone.removeAttribute("hidden");
+
+      const [autor, content, date] = [
+        (clone.querySelector("[data-comment-author]") as HTMLElement) ||
+          undefined,
+        (clone.querySelector("[data-comment-content]") as HTMLElement) ||
+          undefined,
+        (clone.querySelector(".comment__date") as HTMLElement) || undefined,
+      ];
+
+      const fecha = new Date();
+
+      const formatt = fecha.toLocaleDateString("es-ES", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+
+      date ? (date.innerText = formatt) : null;
+      content ? (content.innerHTML = comment.content) : null;
+      autor ? (autor.innerText = comment.author) : null;
+
+      comments
+        ? comments.appendChild(clone)
+        : template.insertAdjacentElement("afterend", clone);
+    }
+
+    async function sendComment(formData: FormData) {
+      try {
+        const res = await fetch(`/api/comments/replies`, {
+          method: "POST",
+          body: formData,
+        });
         const data = await res.json();
         return data;
-
-    } catch (error) {
-        console.error(error)
+      } catch (error) {
+        console.error(error);
+      }
     }
-
-  }
-
-} // end if (form)
+  } // end if (form)
 </script>
