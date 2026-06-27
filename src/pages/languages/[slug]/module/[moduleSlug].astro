@@ -38,6 +38,7 @@ const { module, languageSlug } = Astro.props as {
 };
 const { title, content, featuredImage, moduleFields } = module;
 const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
+const multimedia = moduleFields?.multimedia;
 ---
 
 <Layout title={title}>
@@ -63,6 +64,8 @@ const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
 
       <div class="module__content">
         <h1 class="text-gradient module__title">{title}</h1>
+
+        <div set:html={multimedia} />
         <div set:html={content} />
 
         {

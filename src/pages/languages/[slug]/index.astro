@@ -38,16 +38,20 @@ const { icon, modulo } = curso;
         <div set:html={content} />
         {
           modulo?.nodes && modulo.nodes.length > 0 && (
-            <>
+            <ul id="acordion" class="language__acordion">
               {modulo.nodes.map((mod) => (
-                <details id="acordion" class="language__acordion">
-                  <summary class="language__sumary">Modulos</summary>
-                  <a href={`/languages/${language.slug}/module/${mod.slug}`}>
-                    {mod.title}
-                  </a>
-                </details>
+                <>
+                  <li class="language__sumary">
+                    <a
+                      data-astro-prefetch="hover"
+                      href={`/languages/${language.slug}/module/${mod.slug}`}
+                    >
+                      {mod.title}
+                    </a>
+                  </li>
+                </>
               ))}
-            </>
+            </ul>
           )
         }
       </div>
@@ -139,10 +143,10 @@ const { icon, modulo } = curso;
         display: none;
       }
     }
-    & #acordion > a {
-      font-size: 2rem;
-      font-weight: 700;
-      color: rgba(70, 216, 179, 0.849);
-    }
+  }
+  #acordion > li > a {
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgba(70, 216, 179, 0.849);
   }
 </style>

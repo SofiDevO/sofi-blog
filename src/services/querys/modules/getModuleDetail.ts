@@ -19,6 +19,7 @@ export const getModuleDetail = async (): Promise<ModuleNode[]> => {
                   mediaItemUrl
                 }
               }
+              multimedia
             }
             content(format: RENDERED)
             date
