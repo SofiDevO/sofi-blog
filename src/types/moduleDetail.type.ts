@@ -3,7 +3,7 @@ export interface ModuleDetailResponse {
 }
 
 export interface Modules {
-  nodes: Node[]
+  nodes: ModuleNode[]
 }
 
 export interface ModuleNode {
