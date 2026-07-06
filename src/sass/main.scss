@@ -32,7 +32,7 @@
 @use "@pages/support/components/contributtors/contributtors" as contributtors;
 @use "@pages/support/components/github-anim/github-anim" as githubAnim;
 @use "@pages/support/contributor/contributor" as contributor;
-@use "@pages/post/post" as post;
+@use "@sass/post" as post;
 @use "@pages/privacy-policy/privacy-policy" as privacyPolicy;
 
 // Home specific components
