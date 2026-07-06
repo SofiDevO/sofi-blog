@@ -11,9 +11,14 @@ const { title, description, image } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} image={image}>
-  <slot />
+  <div class="post-container" id="post">
+    <dialog
+      class="popup__image w-full open:flex justify-center items-center h-full fixed left-0 top-0 p-5"
+    >
+    </dialog>
+    <slot />
+  </div>
 </BaseLayout>
-
 <style is:global lang="scss">
   @use "@sass/variables" as *;
   @use "@sass/mixins" as *;
@@ -144,3 +149,32 @@ const { title, description, image } = Astro.props;
     }
   }
 </style>
+
+<script>
+  import "@utils/fast-youtube";
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("container-post") as HTMLElement;
+    const allImages = container.querySelectorAll<HTMLImageElement>("img");
+    const dialog = container.querySelector("dialog") as HTMLDialogElement;
+    const body = document.querySelector("body") as HTMLBodyElement;
+
+    allImages.forEach((image) => {
+      image.addEventListener("click", () => {
+        dialog.open = true;
+        body.classList.add("overflow-hidden");
+        const imageSrc = image.getAttribute("src");
+        const imageAlt = image.getAttribute("alt") || "Image";
+        const imageRender = document.createElement("img");
+        imageRender.src = imageSrc || "";
+        imageRender.alt = imageAlt;
+        dialog.appendChild(imageRender);
+      });
+    });
+
+    dialog.addEventListener("click", () => {
+      dialog.close();
+      body.classList.remove("overflow-hidden");
+      dialog.innerHTML = "";
+    });
+  });
+</script>

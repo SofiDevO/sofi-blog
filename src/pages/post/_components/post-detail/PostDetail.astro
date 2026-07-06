@@ -42,6 +42,7 @@ const { post, author } = Astro.props;
       class="popup__image w-full open:flex justify-center items-center h-full fixed left-0 top-0 p-5"
     >
     </dialog>
+
     {
       post.content ? (
         <Fragment set:html={replaceIframes(post.content) || ""} />
@@ -107,6 +108,7 @@ const { post, author } = Astro.props;
 </script>
 
 <script is:inline>
+  const pathName = window.location.pathname;
   const pintItButton = document.querySelectorAll(
     ".pinsavepinterest-pin-it-button",
   );
@@ -120,7 +122,7 @@ const { post, author } = Astro.props;
         "url=" +
         match
           .slice(4)
-          .replace(/https?:\/\/[^/]+/, "https://www.sofidev.blog/post/"),
+          .replace(/https?:\/\/[^/]+/, `https://www.sofidev.blog/${pathName}`),
     );
 
     button.setAttribute("href", updatedHref);

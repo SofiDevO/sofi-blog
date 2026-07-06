@@ -46,7 +46,9 @@
     text-underline-offset: 3px;
     text-decoration: underline;
     text-decoration-color: transparent;
-    transition: text-decoration-color 0.2s ease, color 0.2s ease;
+    transition:
+      text-decoration-color 0.2s ease,
+      color 0.2s ease;
 
     &:hover {
       text-decoration-color: currentColor;
@@ -68,7 +70,7 @@
   }
 
   table {
-    border: .1rem solid rgba(0, 0, 0, 0.162);
+    border: 0.1rem solid rgba(0, 0, 0, 0.162);
     border-radius: 9px;
     overflow: auto;
     table-layout: auto;
@@ -95,7 +97,6 @@
   .shiki {
     overflow-x: scroll;
     max-height: 600px;
-
   }
 
   .wp-block-image {
@@ -169,7 +170,6 @@
     width: 100%;
   }
 
-
   .wp-block-list {
     display: flex;
     flex-wrap: wrap;
@@ -213,9 +213,6 @@
     max-width: 100%;
   }
 
-
-
-
   /* width */
   ::-webkit-scrollbar {
     width: 2.4px;
@@ -252,7 +249,6 @@
     }
   }
 
-
   .line-numbers {
     position: absolute;
     left: 0;
@@ -264,7 +260,7 @@
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: column;
-    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-family: "JetBrains Mono", "Courier New", monospace;
     font-size: 1.2rem;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.5);
@@ -328,12 +324,12 @@
       border: solid 1px rgb(255, 255, 255, 0.1);
       cursor: default;
       border-radius: 8px;
-
     }
 
     &:open {
       opacity: 1;
       transition: opacity 0.3s ease;
+      overflow-y: auto;
 
       img {
         scale: 1;
@@ -341,6 +337,7 @@
         object-fit: contain;
         width: fit-content;
         height: auto;
+        z-index: 300;
       }
 
       @starting-style {
@@ -375,7 +372,6 @@
 
 .dark {
   #post {
-
     table {
       background: rgb(28, 34, 47);
 
