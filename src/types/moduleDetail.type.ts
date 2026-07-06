@@ -17,6 +17,8 @@ export interface ModuleNode {
 }
 
 export interface ModuleFields {
+  leccion?: string | null
+  modulo?: string | null
   recursos?: Recursos
   multimedia?: string
 }

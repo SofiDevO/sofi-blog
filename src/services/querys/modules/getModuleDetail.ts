@@ -14,6 +14,8 @@ export const getModuleDetail = async (): Promise<ModuleNode[]> => {
             slug
             title
             moduleFields {
+              leccion
+              modulo
               recursos {
                 node {
                   mediaItemUrl

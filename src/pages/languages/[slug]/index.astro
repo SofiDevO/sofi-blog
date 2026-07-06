@@ -3,6 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import { getLanguageDetail } from "@services/querys/languages/getLanguageDetail";
 import BackArrow from "@shared/icons/BackArrow.astro";
 import type { Node } from "@src/types/LanguageDetail.type";
+import { groupLessonsByModule } from "@utils/groupModules";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -16,6 +17,8 @@ export async function getStaticPaths() {
 const { language } = Astro.props as { language: Node };
 const { title, curso, content } = language;
 const { icon, modulo } = curso;
+
+const modulesGrouped = groupLessonsByModule(modulo?.nodes || []);
 ---
 
 <Layout title={title}>
@@ -37,21 +40,33 @@ const { icon, modulo } = curso;
         <h1 class="text-gradient language__title">{title}</h1>
         <div set:html={content} />
         {
-          modulo?.nodes && modulo.nodes.length > 0 && (
-            <ul id="acordion" class="language__acordion">
-              {modulo.nodes.map((mod) => (
-                <>
-                  <li class="language__sumary">
-                    <a
-                      data-astro-prefetch="hover"
-                      href={`/languages/${language.slug}/module/${mod.slug}`}
-                    >
-                      {mod.title}
-                    </a>
-                  </li>
-                </>
+          modulesGrouped && Object.keys(modulesGrouped).length > 0 && (
+            <div class="language__accordion-container">
+              {Object.entries(modulesGrouped).map(([moduleName, lessons]) => (
+                <details class="language__accordion" open>
+                  <summary class="language__summary">
+                    <span>{moduleName}</span>
+                  </summary>
+                  <ul class="language__lessons">
+                    {lessons.map((lesson) => (
+                      <li class="language__lesson">
+                        <a
+                          data-astro-prefetch="hover"
+                          href={`/languages/${language.slug}/module/${lesson.slug}`}
+                        >
+                          {lesson.moduleFields?.leccion && (
+                            <span class="lesson__number">
+                              {lesson.moduleFields.leccion}:{" "}
+                            </span>
+                          )}
+                          <span class="lesson__title">{lesson.title}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               ))}
-            </ul>
+            </div>
           )
         }
       </div>
@@ -129,24 +144,93 @@ const { icon, modulo } = curso;
         transition: filter 1s ease-in-out;
       }
     }
-    &__acordion {
+    &__accordion-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2rem;
       width: 100%;
-      border-radius: 5px;
-      padding: 1rem;
-      margin-top: 1rem;
+    }
+    &__accordion {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 255, 255, 0.25);
+      background-color: rgba(65, 24, 145, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+
+      &[open] {
+        border-color: rgba(0, 255, 255, 0.5);
+        background-color: rgba(65, 24, 145, 0.4);
+        box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
+      }
+    }
+    &__summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
       color: #33ff76;
-      background-color: #4118919e;
-      border: 1px solid #00ffff6b;
-      font-weight: 600;
+      font-size: 2rem;
+      font-weight: 700;
       cursor: pointer;
+      user-select: none;
+      list-style: none;
+      transition: background-color 0.2s ease;
+
       &::-webkit-details-marker {
         display: none;
       }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #00ffff;
+      }
+
+      &::after {
+        content: "►";
+        font-size: 1.2rem;
+        color: #00ffff;
+        transition: transform 0.3s ease;
+      }
     }
-  }
-  #acordion > li > a {
-    font-size: 2rem;
-    font-weight: 700;
-    color: rgba(70, 216, 179, 0.849);
+    &__accordion[open] &__summary {
+      border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+      &::after {
+        transform: rotate(90deg);
+      }
+    }
+    &__lessons {
+      list-style: none;
+      padding: 1.25rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+    &__lesson {
+      a {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: rgba(70, 216, 179, 0.9);
+        text-decoration: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: #33ff76;
+          transform: translateX(4px);
+        }
+      }
+      .lesson__number {
+        color: #a855f7;
+        font-weight: 700;
+      }
+      .lesson__title {
+        flex: 1;
+      }
+    }
   }
 </style>

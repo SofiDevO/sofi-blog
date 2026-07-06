@@ -35,6 +35,10 @@ export interface Modulo {
 export interface Node3 {
   title: string
   slug: string
+  moduleFields?: {
+    leccion?: string | null
+    modulo?: string | null
+  } | null
 }
 
 export interface Extensions {

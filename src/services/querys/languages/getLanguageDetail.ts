@@ -20,6 +20,10 @@ export const getLanguageDetail = async () => {
                         ... on Module {
                         title
                         slug
+                        moduleFields {
+                          leccion
+                          modulo
+                        }
                         }
                     }
                     }
