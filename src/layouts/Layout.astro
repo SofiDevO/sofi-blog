@@ -7,7 +7,14 @@ import Header from "@shared/components/Header/Header.astro";
 import MobileMenu from "@shared/components/MobileMenu/MobileMenu.astro";
 import ThemeIcon from "@shared/components/ThemeIcon.astro";
 
-const { title, description, image, class: ClassList, ...rest } = Astro.props;
+const {
+  title,
+  description,
+  showHeader = true,
+  image,
+  class: ClassList,
+  ...rest
+} = Astro.props;
 const path = Astro.url.pathname;
 const slug = Astro.url.pathname.split("/").pop();
 ---
@@ -36,7 +43,7 @@ const slug = Astro.url.pathname.split("/").pop();
       )
     }
     <ButtonToTop />
-    <Header />
+    {showHeader && <Header />}
     <MobileMenu />
     <slot name="hero" />
     <main class={ClassList} {...rest}>
