@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SofiBlog - Cursor Rules
 
 ## AI Context
@@ -68,3 +69,9 @@ Pages:
 - Cookie: `accessToken` (HttpOnly, SameSite=Strict), signed with `SECRET_KEY` env var
 - Comment proxy: client -> `/api/comments/replies` -> WPGraphQL (never direct from browser)
 - Learning paths: `/languages/[slug]/module/[moduleSlug]` two-level nested routing
+=======
+before starting any task or writing any code you must read , understand and follow  the project rules,guidlines and dcontext defined in
+/home/sofidev/obsidian-sofi/04_PROYECTOS/CONTEXT_AI
+
+then, you cuould find specific context about this proyect in  /home/sofidev/obsidian-sofi/04_PROYECTOS/sofi-blog
+>>>>>>> 3b8750e196ddd079eaa966a1d68742856ca8c496

@@ -69,6 +69,7 @@ export class fastYoutube extends HTMLElement {
                 margin: 0 auto;
                 height: 100%;
                 aspect-ratio: 16/9;
+                max-height: 75dvh !important;
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -84,6 +85,10 @@ export class fastYoutube extends HTMLElement {
             }
 
             fast-youtube, iframe {
+            width:100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
                 border-radius: 20px;
                 border: 2px solid #362548;
             }

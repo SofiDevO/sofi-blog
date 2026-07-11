@@ -1,11 +1,12 @@
 ---
-import Layout from "../../layouts/Layout.astro";
 import { getLanguageDetail } from "@services/querys/languages/getLanguageDetail";
 import { getModuleDetail } from "@services/querys/modules/getModuleDetail";
 import BackArrow from "@shared/icons/BackArrow.astro";
 import type { Node3 } from "@src/types/LanguageDetail.type";
 import type { ModuleNode } from "@src/types/moduleDetail.type";
+import { replaceIframes } from "@src/utils";
 import { groupLessonsByModule } from "@utils/groupModules";
+import Layout from "../../layouts/Layout.astro";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -55,7 +56,7 @@ const multimedia = moduleFields?.multimedia;
 const modulesGrouped = groupLessonsByModule(languageLessons);
 ---
 
-<Layout title={title}>
+<Layout title={title} showHeader={false}>
   <section class="module" id="post">
     <header class="module__header">
       <a href={`/languages/${languageSlug}`} class="header__back-btn">
@@ -64,47 +65,17 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
     </header>
 
     <div class="module__container">
-      {
-        featuredImage && (
-          <img
-            class="module__icon"
-            src={featuredImage.node.mediaItemUrl}
-            srcset={featuredImage.node.srcSet}
-            sizes={featuredImage.node.sizes}
-            alt={featuredImage.node.altText}
-          />
-        )
-      }
-
-      <div class="module__content">
-        {
-          moduleFields?.modulo && (
-            <span class="module__category">{moduleFields.modulo}</span>
-          )
-        }
-        <h1 class="text-gradient module__title">
-          {moduleFields?.leccion ? `${moduleFields.leccion}: ` : ""}
-          {title}
-        </h1>
-
-        <div set:html={multimedia} />
-        <div set:html={content} />
-
-        {
-          recursos && (
-            <a
-              class="module__resource-btn"
-              href={recursos}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              📎 Descargar recursos
-            </a>
-          )
-        }
-      </div>
-
       <aside class="module__sidebar">
+        <div class="module__panel-header">
+          <button
+            id="toggleModuleSidebar"
+            class="toggle-btn"
+            aria-label="Colapsar sidebar"
+          >
+            <iconify-icon icon="mdi:menu-open" width="24" height="24"
+            ></iconify-icon>
+          </button>
+        </div>
         {
           modulesGrouped && Object.keys(modulesGrouped).length > 0 && (
             <div class="language__accordion-container">
@@ -136,13 +107,112 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
           )
         }
       </aside>
+      <main class="module__main-video">
+        <h1 class="text-gradient module__title">
+          {moduleFields?.leccion ? `${moduleFields.leccion}: ` : ""}
+          {title}
+        </h1>
+
+        <div
+          class="module__main-video-content"
+          set:html={replaceIframes(multimedia) || ""}
+        />
+      </main>
+      <aside class="module__complementary">
+        <div class="module__panel-header">
+          <button
+            id="toggleComplementarySidebar"
+            class="toggle-btn"
+            aria-label="Colapsar panel derecho"
+          >
+            <iconify-icon icon="mdi:menu-open" width="24" height="24"
+            ></iconify-icon>
+          </button>
+        </div>
+        <div class="module__complementary-content">
+          <div set:html={replaceIframes(content) || ""} />
+
+          {
+            recursos && (
+              <a
+                class="module__resource-btn"
+                href={recursos}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                📎 Descargar recursos
+              </a>
+            )
+          }
+        </div>
+      </aside>
     </div>
   </section>
 </Layout>
 
 <script>
   import { InsertButtonCopy } from "@pages/post/button-copy";
+  import "@utils/fast-youtube";
   InsertButtonCopy();
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggleBtn = document.getElementById("toggleModuleSidebar");
+    const sidebar = document.querySelector(".module__sidebar");
+    const icon = toggleBtn?.querySelector("iconify-icon");
+
+    const isCollapsed =
+      localStorage.getItem("moduleSidebarCollapsed") === "true";
+    if (!isCollapsed) {
+      sidebar?.classList.add("active");
+      if (icon) icon.setAttribute("icon", "mdi:menu-open");
+    } else {
+      if (icon) icon.setAttribute("icon", "mdi:menu");
+    }
+
+    toggleBtn?.addEventListener("click", () => {
+      sidebar?.classList.toggle("active");
+      const nowCollapsed = !sidebar?.classList.contains("active");
+
+      if (icon) {
+        icon.setAttribute("icon", nowCollapsed ? "mdi:menu" : "mdi:menu-open");
+      }
+
+      localStorage.setItem(
+        "moduleSidebarCollapsed",
+        nowCollapsed ? "true" : "false",
+      );
+    });
+
+    const toggleCompBtn = document.getElementById("toggleComplementarySidebar");
+    const compSidebar = document.querySelector(".module__complementary");
+    const compIcon = toggleCompBtn?.querySelector("iconify-icon");
+
+    const isCompCollapsed =
+      localStorage.getItem("complementarySidebarCollapsed") === "true";
+    if (!isCompCollapsed) {
+      compSidebar?.classList.add("active");
+      if (compIcon) compIcon.setAttribute("icon", "mdi:menu-open");
+    } else {
+      if (compIcon) compIcon.setAttribute("icon", "mdi:menu");
+    }
+
+    toggleCompBtn?.addEventListener("click", () => {
+      compSidebar?.classList.toggle("active");
+      const nowCompCollapsed = !compSidebar?.classList.contains("active");
+
+      if (compIcon) {
+        compIcon.setAttribute(
+          "icon",
+          nowCompCollapsed ? "mdi:menu" : "mdi:menu-open",
+        );
+      }
+
+      localStorage.setItem(
+        "complementarySidebarCollapsed",
+        nowCompCollapsed ? "true" : "false",
+      );
+    });
+  });
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -180,29 +250,61 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
 
   .module {
     width: 100%;
-    max-width: 1100px;
-    margin: 10rem auto;
+    // max-width: 1100px;
+    margin: 0 auto !important;
     padding: 1rem;
 
     &__header {
       margin-bottom: 2rem;
+      & a {
+        display: flex;
+        align-items: center;
+        background-color: $bgDark;
+        padding: 0.8rem 1rem;
+        border-radius: 0.2rem;
+        color: #33ff76;
+        width: fit-content;
+        border-radius: 10px;
+      }
     }
 
     &__title {
-      font-size: 5rem;
-      margin-bottom: 2rem;
+      font-size: 3rem;
       font-weight: 700;
     }
 
     &__container {
-      display: flex;
+      --sidebar-width: 6rem;
+      --sidebar-padding: 1rem 0;
+
+      --comp-width: 6rem;
+      --comp-padding: 1rem 0;
+
+      display: grid;
+      grid-template-columns: var(--sidebar-width) 1fr var(--comp-width);
+      gap: 2rem;
       align-items: flex-start;
-      gap: 3rem;
       padding: 0 1rem;
+      transition: grid-template-columns 0.3s ease;
+
+      &:has(.module__sidebar.active) {
+        --sidebar-width: 320px;
+        --sidebar-padding: 1rem;
+      }
+
+      &:has(.module__complementary.active) {
+        --comp-width: 750px;
+        --comp-padding: 1rem;
+      }
 
       @include respond-to("medium") {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        &:has(.module__sidebar.active) {
+          --sidebar-width: 100%;
+        }
+        &:has(.module__complementary.active) {
+          --comp-width: 100%;
+        }
       }
     }
 
@@ -224,20 +326,107 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
         transition: filter 1s ease-in-out;
       }
     }
+    &__main-video-content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-width: 0;
+      height: fit-content;
+      background-color: #111;
+    }
 
-    &__content {
-      flex: 1;
+    &__main-video {
+      position: sticky;
+      top: 1rem;
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      width: 100%;
+      min-width: 0;
+      padding: 2rem;
+    }
+
+    &__panel-header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 1rem;
+
+      .toggle-btn {
+        background: transparent;
+        border: none;
+        color: #b3b3b3;
+        cursor: pointer;
+        padding: 0.8rem;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        transition:
+          background 0.3s,
+          color 0.3s;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: white;
+        }
+      }
+    }
+
+    &__complementary {
+      position: sticky;
+      top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+      padding: var(--comp-padding);
+      background-color: $bgDark;
+      border-radius: 8px;
+      transition: padding 0.3s ease;
+      height: fit-content;
+
+      &:not(.active) {
+        .module__complementary-content {
+          display: none;
+          opacity: 0;
+        }
+        .module__panel-header {
+          justify-content: center;
+        }
+      }
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
     }
 
     &__sidebar {
-      width: 320px;
-      flex-shrink: 0;
+      position: sticky;
+      top: 2rem;
+      z-index: 8000;
+      width: 100%;
+      padding: var(--sidebar-padding);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+      transition: padding 0.3s ease;
+      background-color: $bgDark;
+      border-radius: 8px;
+      height: fit-content;
+
+      &:not(.active) {
+        .language__accordion-container {
+          display: none;
+          opacity: 0;
+        }
+        .module__panel-header {
+          justify-content: center;
+        }
+      }
 
       @include respond-to("medium") {
-        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        position: static;
       }
     }
 

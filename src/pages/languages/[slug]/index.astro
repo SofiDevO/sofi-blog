@@ -74,6 +74,24 @@ const modulesGrouped = groupLessonsByModule(modulo?.nodes || []);
   </section>
 </Layout>
 
+<style lang="scss">
+  @use "@sass/variables.scss" as *;
+  .language {
+    &__header {
+      margin-bottom: 1rem;
+      & a {
+        display: flex;
+        align-items: center;
+        background-color: $bgDark;
+        padding: 0.8rem 1rem;
+        border-radius: 0.2rem;
+        color: #33ff76;
+        width: fit-content;
+        border-radius: 10px;
+      }
+    }
+  }
+</style>
 <script>
   import { InsertButtonCopy } from "@pages/post/button-copy";
   InsertButtonCopy();
