@@ -11,7 +11,7 @@ export interface ModuleNode {
   title: string
   databaseId: number
   moduleFields: ModuleFields
-  content: string
+  content: string | null
   date: string
   featuredImage?: FeaturedImage
 }
@@ -20,7 +20,7 @@ export interface ModuleFields {
   leccion?: string | null
   modulo?: string | null
   recursos?: Recursos
-  multimedia?: string
+  multimedia?: string | null
 }
 
 export interface Recursos {

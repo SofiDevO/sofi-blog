@@ -1,5 +1,5 @@
 export function replaceIframes(html: string | null | undefined): string {
-    if (!html || typeof html !== "string") {
+    if (html === null || html === undefined || typeof html !== "string" || html.trim() === "") {
         return "";
     }
     const iframeRegex = /<iframe([^>]+?)>(?:[\s\S]*?<\/iframe>)?/g;
