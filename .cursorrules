@@ -1,0 +1,70 @@
+# SofiBlog - Cursor Rules
+
+## AI Context
+
+The primary AI context for this project is located at:
+
+```
+/home/sofidev/obsidian-sofi/04_PROYECTOS/sofi-blog/AI_CONTEXT.md
+```
+
+Read that file at the start of every session before making any changes.
+
+Full documentation is available at:
+
+```
+/home/sofidev/obsidian-sofi/04_PROYECTOS/sofi-blog/
+```
+
+Pages:
+- 00_INDEX.md       - Navigation index
+- 01_overview.md    - Features and tech stack
+- 02_quick_start.md - Installation and scripts
+- 03_architecture.md - Directory structure and path aliases
+- 04_wordpress_setup.md - WordPress plugins and Application Passwords
+- 05_application_flow.md - SSR/SSG/auth/comments flow
+- 06_auth_setup.md  - JWT configuration (WordPress + Astro)
+- 07_styling.md     - Sass design system and Tailwind
+- 08_api_endpoints.md - Internal API routes and GraphQL query catalog
+- 09_deployment.md  - Vercel deployment and secrets
+
+---
+
+## Global Rules
+
+1. Do not use emojis in code, comments, commit messages, or responses.
+2. Follow the hybrid SSR/SSG rendering strategy: `/post/[slug]` is prerendered (SSG); all other pages are SSR.
+3. All GraphQL data fetching goes through `src/services/querys/` functions via the `src/services/wordpress.ts` client. Do not call `WPGRAPHQL_URL` directly from components or pages.
+4. All SCSS imports must use the `@sass` alias: `@use "@sass/variables" as v;`. Never use relative paths.
+5. WordPress Gutenberg content and title fields must be rendered with `set:html`, never with template interpolation `{}`.
+6. New shared components go in `src/shared/components/` or `src/shared/ui/`. Page-specific components go in the page's local `_components/` directory.
+7. Do not expose WordPress credentials, tokens, or the `WPGRAPHQL_URL` to client-side code. Use Astro SSR API routes as proxies.
+8. Protected pages and API routes must validate the `accessToken` cookie via `isLoggedIn()` on every server render.
+9. Run `pnpm build` or at minimum `astro check` before declaring any task complete.
+10. After modifying database schemas, env vars, routing, or API definitions, update the corresponding documentation page in the Obsidian notes directory.
+
+---
+
+## Path Aliases Reference
+
+| Alias | Path |
+|---|---|
+| `@src` | `src/` |
+| `@layouts` | `src/layouts/` |
+| `@shared` | `src/shared/` |
+| `@utils` | `src/utils/` |
+| `@services` | `src/services/` |
+| `@sass` | `src/sass/` |
+| `@data` | `src/data/` |
+| `@controllers` | `src/controllers/` |
+
+---
+
+## Key Conventions
+
+- SCSS color tokens: `$french-violet`, `$ufo-green`, `$light-violet`, `$dark-violet`
+- SCSS mixins: `flexConfig()`, `respond-to()`, `text-gradient`
+- Dark mode: `.dark {}` class on `<html>` element; use `.dark { .component { ... } }` pattern in SCSS
+- Cookie: `accessToken` (HttpOnly, SameSite=Strict), signed with `SECRET_KEY` env var
+- Comment proxy: client -> `/api/comments/replies` -> WPGraphQL (never direct from browser)
+- Learning paths: `/languages/[slug]/module/[moduleSlug]` two-level nested routing
