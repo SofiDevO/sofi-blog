@@ -9,12 +9,13 @@ interface Props {
 
 const { modulesGrouped, languageSlug, currentModuleSlug } = Astro.props;
 ---
+
 {
   modulesGrouped && Object.keys(modulesGrouped).length > 0 && (
-    <div class="module__lessons-container">
+    <div id="module-container" class="module__lessons-container">
       {Object.entries(modulesGrouped).map(([moduleName, lessons]) => (
         <div class="module__lessons-group">
-          <h3 class="module__lessons-title">{moduleName}</h3>
+          <h3 class="module__lessons-title">Módulo: {moduleName}</h3>
           <ul class="module__lessons-list">
             {lessons.map((lesson) => (
               <li class="module__lesson-item">
@@ -40,79 +41,79 @@ const { modulesGrouped, languageSlug, currentModuleSlug } = Astro.props;
 }
 
 <style lang="scss">
-  .module__lessons-container {
+  #module-container.module__lessons-container {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
     width: 100%;
     margin-top: 1rem;
-  }
 
-  .module__lessons-group {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 255, 255, 0.15);
-    background-color: rgba(65, 24, 145, 0.15);
-    overflow: hidden;
-    transition: all 0.3s ease;
+    .module__lessons-group {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 255, 255, 0.15);
+      background-color: rgba(65, 24, 145, 0.15);
+      overflow: hidden;
+      transition: all 0.3s ease;
 
-    &:hover {
-      border-color: rgba(0, 255, 255, 0.3);
-      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.05);
-    }
-  }
-
-  .module__lessons-title {
-    padding: 1rem 1.25rem;
-    color: #33ff76;
-    font-size: 1.5rem;
-    font-weight: 700;
-    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-    margin: 0;
-    background-color: rgba(0, 0, 0, 0.15);
-  }
-
-  .module__lessons-list {
-    list-style: none;
-    padding: 1rem 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    background-color: rgba(0, 0, 0, 0.2);
-    margin: 0;
-  }
-
-  .module__lesson-item {
-    display: flex;
-    align-items: center;
-  }
-
-  .module__lesson-link {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: rgba(70, 216, 179, 0.9);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    width: 100%;
-
-    &:hover {
-      color: #00ffff;
-      transform: translateX(3px);
+      &:hover {
+        border-color: rgba(0, 255, 255, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 255, 255, 0.05);
+      }
     }
 
-    &.active {
+    .module__lessons-title {
+      padding: 1rem 1.25rem;
       color: #33ff76;
+      font-size: 1.5rem;
       font-weight: 700;
-      border-left: 2px solid #33ff76;
-      padding-left: 0.5rem;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      margin: 0;
+      background-color: rgba(0, 0, 0, 0.15);
     }
 
-    .lesson__number {
-      color: #33ff76;
-      font-weight: 700;
+    .module__lessons-list {
+      list-style: none;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      background-color: rgba(0, 0, 0, 0.2);
+      margin: 0;
+    }
+
+    .module__lesson-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .module__lesson-link {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-size: 1.7rem;
+      font-weight: 600;
+      color: rgba(70, 216, 179, 0.9);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      width: 100%;
+
+      &:hover {
+        color: #00ffff;
+        transform: translateX(3px);
+      }
+
+      &.active {
+        color: #33ff76;
+        font-weight: 700;
+        border-left: 2px solid #33ff76;
+        padding-left: 0.5rem;
+      }
+
+      .lesson__number {
+        color: #33ff76;
+        font-weight: 700;
+      }
     }
   }
 </style>

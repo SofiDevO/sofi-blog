@@ -108,7 +108,6 @@ const { post, author } = Astro.props;
 </script>
 
 <script is:inline>
-  const pathName = window.location.pathname;
   const pintItButton = document.querySelectorAll(
     ".pinsavepinterest-pin-it-button",
   );
@@ -116,15 +115,20 @@ const { post, author } = Astro.props;
     const href = button?.getAttribute("href");
     if (!href) return;
 
-    const updatedHref = href.replace(
-      /url=https?:\/\/[^&]*/,
-      (match) =>
-        "url=" +
-        match
-          .slice(4)
-          .replace(/https?:\/\/[^/]+/, `https://www.sofidev.blog/${pathName}`),
-    );
+    try {
+      const urlObj = new URL(href);
+      const targetUrl = urlObj.searchParams.get("url");
+      if (targetUrl) {
+        const parsedTarget = new URL(targetUrl);
+        parsedTarget.hostname = "www.sofidev.blog";
+        parsedTarget.port = "";
+        parsedTarget.protocol = "https:";
 
-    button.setAttribute("href", updatedHref);
+        urlObj.searchParams.set("url", parsedTarget.toString());
+        button.setAttribute("href", urlObj.toString());
+      }
+    } catch (e) {
+      // fallback if URL parsing fails
+    }
   });
 </script>

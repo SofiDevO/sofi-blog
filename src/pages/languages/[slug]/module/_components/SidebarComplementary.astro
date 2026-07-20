@@ -1,7 +1,7 @@
 ---
-import { replaceIframes } from "@src/utils";
 import type { Node3 } from "@src/types/LanguageDetail.type";
 import type { ModuleNode } from "@src/types/moduleDetail.type";
+import { replaceIframes } from "@src/utils";
 import LessonsList from "./LessonsList.astro";
 
 interface Props {
@@ -14,10 +14,13 @@ interface Props {
 
 const { content, recursos, languageSlug, module, modulesGrouped } = Astro.props;
 ---
+
 <aside class="module__complementary">
   <div class="module__panel-header">
     <div class="module__sidebar-tabs">
-      <button class="module__tab-btn active" data-tab="content">Contenido</button>
+      <button class="module__tab-btn active" data-tab="content"
+        >Contenido</button
+      >
       <button class="module__tab-btn" data-tab="lessons">Lecciones</button>
       {
         recursos && (
@@ -32,8 +35,7 @@ const { content, recursos, languageSlug, module, modulesGrouped } = Astro.props;
       class="toggle-btn"
       aria-label="Colapsar panel derecho"
     >
-      <iconify-icon icon="mdi:menu-open" width="24" height="24"
-      ></iconify-icon>
+      <iconify-icon icon="mdi:menu-open" width="24" height="24"></iconify-icon>
     </button>
   </div>
   <div class="module__complementary-content">
@@ -61,7 +63,7 @@ const { content, recursos, languageSlug, module, modulesGrouped } = Astro.props;
             target="_blank"
             rel="noopener noreferrer"
           >
-            📎 Descargar recursos
+            Descargar recursos
           </a>
         </div>
       )
@@ -116,7 +118,7 @@ const { content, recursos, languageSlug, module, modulesGrouped } = Astro.props;
     height: fit-content;
 
     &.active {
-      width: 500px;
+      width: 520px;
       padding: 1rem;
 
       @include respond-to("medium") {
