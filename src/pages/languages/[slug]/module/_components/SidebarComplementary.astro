@@ -1,0 +1,229 @@
+---
+import { replaceIframes } from "@src/utils";
+import type { Node3 } from "@src/types/LanguageDetail.type";
+import type { ModuleNode } from "@src/types/moduleDetail.type";
+import LessonsList from "./LessonsList.astro";
+
+interface Props {
+  content: string;
+  recursos: string | null | undefined;
+  languageSlug: string;
+  module: ModuleNode;
+  modulesGrouped: Record<string, Node3[]>;
+}
+
+const { content, recursos, languageSlug, module, modulesGrouped } = Astro.props;
+---
+<aside class="module__complementary">
+  <div class="module__panel-header">
+    <div class="module__sidebar-tabs">
+      <button class="module__tab-btn active" data-tab="content">Contenido</button>
+      <button class="module__tab-btn" data-tab="lessons">Lecciones</button>
+      {
+        recursos && (
+          <button class="module__tab-btn" data-tab="resources">
+            Recursos
+          </button>
+        )
+      }
+    </div>
+    <button
+      id="toggleComplementarySidebar"
+      class="toggle-btn"
+      aria-label="Colapsar panel derecho"
+    >
+      <iconify-icon icon="mdi:menu-open" width="24" height="24"
+      ></iconify-icon>
+    </button>
+  </div>
+  <div class="module__complementary-content">
+    <!-- Panel de Contenido -->
+    <div class="module__tab-panel active" data-panel="content">
+      <div set:html={replaceIframes(content) || ""} />
+    </div>
+
+    <!-- Panel de Lecciones -->
+    <div class="module__tab-panel" data-panel="lessons">
+      <LessonsList
+        modulesGrouped={modulesGrouped}
+        languageSlug={languageSlug}
+        currentModuleSlug={module.slug}
+      />
+    </div>
+
+    <!-- Panel de Recursos -->
+    {
+      recursos && (
+        <div class="module__tab-panel" data-panel="resources">
+          <a
+            class="module__resource-btn"
+            href={recursos}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            📎 Descargar recursos
+          </a>
+        </div>
+      )
+    }
+  </div>
+</aside>
+
+<style lang="scss">
+  @use "sass:color";
+  @use "@sass/variables" as *;
+  @use "@sass/mixins" as *;
+
+  .module__panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    width: 100%;
+
+    .toggle-btn {
+      background: transparent;
+      border: none;
+      color: #b3b3b3;
+      cursor: pointer;
+      padding: 0.8rem;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      transition:
+        background 0.3s,
+        color 0.3s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+    }
+  }
+
+  .module__complementary {
+    position: sticky;
+    top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 8rem;
+    padding: 1rem 0;
+    background-color: $bgDark;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    height: fit-content;
+
+    &.active {
+      width: 500px;
+      padding: 1rem;
+
+      @include respond-to("medium") {
+        width: 100%;
+      }
+    }
+
+    @include respond-to("medium") {
+      position: static;
+      width: 100%;
+
+      &:not(.active) {
+        width: 100%;
+      }
+    }
+
+    &:not(.active) {
+      .module__sidebar-tabs {
+        display: none;
+      }
+      .module__complementary-content {
+        display: none;
+        opacity: 0;
+      }
+      .module__panel-header {
+        justify-content: center;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  .module__sidebar-tabs {
+    display: flex;
+    gap: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.25rem;
+    border-radius: 8px;
+    flex: 1;
+  }
+
+  .module__tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #b3b3b3;
+    padding: 0.5rem 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-align: center;
+    white-space: nowrap;
+
+    &:hover {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    &.active {
+      color: #33ff76;
+      background-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .module__tab-panel {
+    display: none;
+    width: 100%;
+
+    &.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+  }
+
+  .module__resource-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: $french-violet;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    width: fit-content;
+    transition: background 0.3s ease-in-out;
+
+    &:hover {
+      background: color.adjust($french-violet, $lightness: 10%);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

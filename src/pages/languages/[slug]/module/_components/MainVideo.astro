@@ -1,0 +1,49 @@
+---
+import { replaceIframes } from "@src/utils";
+
+interface Props {
+  title: string;
+  leccion?: number | string | null;
+  multimedia?: string | null;
+}
+
+const { title, leccion, multimedia } = Astro.props;
+---
+<main class="module__main-video">
+  <h1 class="text-gradient module__title">
+    {leccion ? `${leccion}: ` : ""}
+    {title}
+  </h1>
+
+  <div
+    class="module__main-video-content"
+    set:html={replaceIframes(multimedia) || ""}
+  />
+</main>
+
+<style lang="scss">
+  .module__main-video {
+    position: sticky;
+    top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+  }
+
+  .module__title {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+
+  .module__main-video-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    height: fit-content;
+    background-color: #111;
+  }
+</style>

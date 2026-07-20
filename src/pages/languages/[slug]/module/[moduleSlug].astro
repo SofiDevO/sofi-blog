@@ -4,9 +4,10 @@ import { getModuleDetail } from "@services/querys/modules/getModuleDetail";
 import BackArrow from "@shared/icons/BackArrow.astro";
 import type { Node3 } from "@src/types/LanguageDetail.type";
 import type { ModuleNode } from "@src/types/moduleDetail.type";
-import { replaceIframes } from "@src/utils";
 import { groupLessonsByModule } from "@utils/groupModules";
 import Layout from "../../layouts/Layout.astro";
+import MainVideo from "./_components/MainVideo.astro";
+import SidebarComplementary from "./_components/SidebarComplementary.astro";
 export const prerender = true;
 
 export async function getStaticPaths() {
@@ -49,7 +50,7 @@ const { module, languageSlug, languageLessons } = Astro.props as {
   languageSlug: string;
   languageLessons: Node3[];
 };
-const { title, content, featuredImage, moduleFields } = module;
+const { title, content, moduleFields } = module;
 const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
 const multimedia = moduleFields?.multimedia;
 
@@ -65,87 +66,18 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
     </header>
 
     <div class="module__container">
-      <aside class="module__sidebar">
-        <div class="module__panel-header">
-          <button
-            id="toggleModuleSidebar"
-            class="toggle-btn"
-            aria-label="Colapsar sidebar"
-          >
-            <iconify-icon icon="mdi:menu-open" width="24" height="24"
-            ></iconify-icon>
-          </button>
-        </div>
-        {
-          modulesGrouped && Object.keys(modulesGrouped).length > 0 && (
-            <div class="language__accordion-container">
-              {Object.entries(modulesGrouped).map(([moduleName, lessons]) => (
-                <details class="language__accordion" open>
-                  <summary class="language__summary">
-                    <span>{moduleName}</span>
-                  </summary>
-                  <ul class="language__lessons">
-                    {lessons.map((lesson) => (
-                      <li class="language__lesson">
-                        <a
-                          data-astro-prefetch="hover"
-                          href={`/languages/${languageSlug}/module/${lesson.slug}`}
-                        >
-                          {lesson.moduleFields?.leccion && (
-                            <span class="lesson__number">
-                              {lesson.moduleFields.leccion}:{" "}
-                            </span>
-                          )}
-                          <span class="lesson__title">{lesson.title}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ))}
-            </div>
-          )
-        }
-      </aside>
-      <main class="module__main-video">
-        <h1 class="text-gradient module__title">
-          {moduleFields?.leccion ? `${moduleFields.leccion}: ` : ""}
-          {title}
-        </h1>
-
-        <div
-          class="module__main-video-content"
-          set:html={replaceIframes(multimedia) || ""}
-        />
-      </main>
-      <aside class="module__complementary">
-        <div class="module__panel-header">
-          <button
-            id="toggleComplementarySidebar"
-            class="toggle-btn"
-            aria-label="Colapsar panel derecho"
-          >
-            <iconify-icon icon="mdi:menu-open" width="24" height="24"
-            ></iconify-icon>
-          </button>
-        </div>
-        <div class="module__complementary-content">
-          <div set:html={replaceIframes(content) || ""} />
-
-          {
-            recursos && (
-              <a
-                class="module__resource-btn"
-                href={recursos}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                📎 Descargar recursos
-              </a>
-            )
-          }
-        </div>
-      </aside>
+      <MainVideo
+        title={title}
+        leccion={moduleFields?.leccion}
+        multimedia={multimedia}
+      />
+      <SidebarComplementary
+        content={content}
+        recursos={recursos}
+        languageSlug={languageSlug}
+        module={module}
+        modulesGrouped={modulesGrouped}
+      />
     </div>
   </section>
 </Layout>
@@ -154,35 +86,7 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
   import { InsertButtonCopy } from "@pages/post/button-copy";
   import "@utils/fast-youtube";
   InsertButtonCopy();
-
   document.addEventListener("DOMContentLoaded", () => {
-    const toggleBtn = document.getElementById("toggleModuleSidebar");
-    const sidebar = document.querySelector(".module__sidebar");
-    const icon = toggleBtn?.querySelector("iconify-icon");
-
-    const isCollapsed =
-      localStorage.getItem("moduleSidebarCollapsed") === "true";
-    if (!isCollapsed) {
-      sidebar?.classList.add("active");
-      if (icon) icon.setAttribute("icon", "mdi:menu-open");
-    } else {
-      if (icon) icon.setAttribute("icon", "mdi:menu");
-    }
-
-    toggleBtn?.addEventListener("click", () => {
-      sidebar?.classList.toggle("active");
-      const nowCollapsed = !sidebar?.classList.contains("active");
-
-      if (icon) {
-        icon.setAttribute("icon", nowCollapsed ? "mdi:menu" : "mdi:menu-open");
-      }
-
-      localStorage.setItem(
-        "moduleSidebarCollapsed",
-        nowCollapsed ? "true" : "false",
-      );
-    });
-
     const toggleCompBtn = document.getElementById("toggleComplementarySidebar");
     const compSidebar = document.querySelector(".module__complementary");
     const compIcon = toggleCompBtn?.querySelector("iconify-icon");
@@ -212,10 +116,31 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
         nowCompCollapsed ? "true" : "false",
       );
     });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
+
+    // Tab switching logic
+    const tabBtns = document.querySelectorAll(".module__tab-btn");
+    const tabPanels = document.querySelectorAll(".module__tab-panel");
+
+    tabBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tabTarget = btn.getAttribute("data-tab");
+        if (!tabTarget) return;
+
+        // Update active tab button
+        tabBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // Update active panel
+        tabPanels.forEach((panel) => {
+          if (panel.getAttribute("data-panel") === tabTarget) {
+            panel.classList.add("active");
+          } else {
+            panel.classList.remove("active");
+          }
+        });
+      });
+    });
+
     const container = document.getElementById("post") as HTMLElement;
     const allImages = container.querySelectorAll<HTMLImageElement>("img");
     const dialog = container.querySelector("dialog") as HTMLDialogElement;
@@ -252,7 +177,7 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
     width: 100%;
     // max-width: 1100px;
     margin: 0 auto !important;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
 
     &__header {
       margin-bottom: 2rem;
@@ -274,37 +199,14 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
     }
 
     &__container {
-      --sidebar-width: 6rem;
-      --sidebar-padding: 1rem 0;
-
-      --comp-width: 6rem;
-      --comp-padding: 1rem 0;
-
       display: grid;
-      grid-template-columns: var(--sidebar-width) 1fr var(--comp-width);
-      gap: 2rem;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
       align-items: flex-start;
       padding: 0 1rem;
-      transition: grid-template-columns 0.3s ease;
-
-      &:has(.module__sidebar.active) {
-        --sidebar-width: 320px;
-        --sidebar-padding: 1rem;
-      }
-
-      &:has(.module__complementary.active) {
-        --comp-width: 400px;
-        --comp-padding: 1rem;
-      }
 
       @include respond-to("medium") {
         grid-template-columns: 1fr;
-        &:has(.module__sidebar.active) {
-          --sidebar-width: 100%;
-        }
-        &:has(.module__complementary.active) {
-          --comp-width: 100%;
-        }
       }
     }
 
@@ -324,135 +226,6 @@ const modulesGrouped = groupLessonsByModule(languageLessons);
       &:hover {
         filter: drop-shadow(0 0 0.75rem $ufo-green);
         transition: filter 1s ease-in-out;
-      }
-    }
-    &__main-video-content {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      min-width: 0;
-      height: fit-content;
-      background-color: #111;
-    }
-
-    &__main-video {
-      position: sticky;
-      top: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      width: 100%;
-      min-width: 0;
-      padding: 2rem;
-    }
-
-    &__panel-header {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 1rem;
-
-      .toggle-btn {
-        background: transparent;
-        border: none;
-        color: #b3b3b3;
-        cursor: pointer;
-        padding: 0.8rem;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        transition:
-          background 0.3s,
-          color 0.3s;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.1);
-          color: white;
-        }
-      }
-    }
-
-    &__complementary {
-      position: sticky;
-      top: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      width: 100%;
-      padding: var(--comp-padding);
-      background-color: $bgDark;
-      border-radius: 8px;
-      transition: padding 0.3s ease;
-      height: fit-content;
-
-      &:not(.active) {
-        .module__complementary-content {
-          display: none;
-          opacity: 0;
-        }
-        .module__panel-header {
-          justify-content: center;
-        }
-      }
-
-      &-content {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-      }
-    }
-
-    &__sidebar {
-      position: sticky;
-      top: 2rem;
-      z-index: 8000;
-      width: 100%;
-      padding: var(--sidebar-padding);
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-      transition: padding 0.3s ease;
-      background-color: $bgDark;
-      border-radius: 8px;
-      height: fit-content;
-
-      &:not(.active) {
-        .language__accordion-container {
-          display: none;
-          opacity: 0;
-        }
-        .module__panel-header {
-          justify-content: center;
-        }
-      }
-
-      @include respond-to("medium") {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        position: static;
-      }
-    }
-
-    &__category {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #a855f7;
-      text-transform: uppercase;
-      letter-spacing: 0.1rem;
-    }
-
-    &__resource-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: $french-violet;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      width: fit-content;
-      transition: background 0.3s ease-in-out;
-
-      &:hover {
-        background: color.adjust($french-violet, $lightness: 10%);
       }
     }
   }
