@@ -37,6 +37,17 @@ const modulesGroupedSorted = Object.entries(modulesGrouped).map(
 
 <Layout title={title}>
   <section class="language" id="post">
+    <script
+      is:inline
+      src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
+    <script is:inline>
+      kofiWidgetOverlay.draw("sofidev", {
+        type: "floating-chat",
+        "floating-chat.donateButton.text": "Support me",
+        "floating-chat.donateButton.background-color": "#794bc4",
+        "floating-chat.donateButton.text-color": "#fff",
+      });
+    </script>
     <header class="language__header">
       <a href="/languages" class="header__back-btn">
         <BackArrow width={30} height={30} />
