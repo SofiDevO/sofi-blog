@@ -127,8 +127,6 @@ const { post, author } = Astro.props;
         urlObj.searchParams.set("url", parsedTarget.toString());
         button.setAttribute("href", urlObj.toString());
       }
-    } catch (e) {
-      // fallback if URL parsing fails
-    }
+    } catch (e) {}
   });
 </script>

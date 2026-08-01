@@ -8,12 +8,27 @@ interface Props {
 }
 
 const { modulesGrouped, languageSlug, currentModuleSlug } = Astro.props;
+
+const sortedModules = Object.entries(modulesGrouped || {}).map(
+  ([moduleName, lessons]) => {
+    const sortedLessons = [...lessons].sort(
+      (a: any, b: any) =>
+        (a.moduleFields?.leccion ?? 0) - (b.moduleFields?.leccion ?? 0),
+    );
+
+    return {
+      moduleName,
+      lessons: sortedLessons,
+    };
+  },
+);
+console.log(sortedModules);
 ---
 
 {
-  modulesGrouped && Object.keys(modulesGrouped).length > 0 && (
+  sortedModules.length > 0 && (
     <div id="module-container" class="module__lessons-container">
-      {Object.entries(modulesGrouped).map(([moduleName, lessons]) => (
+      {sortedModules.map(({ moduleName, lessons }) => (
         <div class="module__lessons-group">
           <h3 class="module__lessons-title">Módulo: {moduleName}</h3>
           <ul class="module__lessons-list">
@@ -22,7 +37,9 @@ const { modulesGrouped, languageSlug, currentModuleSlug } = Astro.props;
                 <a
                   data-astro-prefetch="hover"
                   href={`/languages/${languageSlug}/module/${lesson.slug}`}
-                  class={`module__lesson-link ${lesson.slug === currentModuleSlug ? "active" : ""}`}
+                  class={`module__lesson-link ${
+                    lesson.slug === currentModuleSlug ? "active" : ""
+                  }`}
                 >
                   {lesson.moduleFields?.leccion && (
                     <span class="lesson__number">

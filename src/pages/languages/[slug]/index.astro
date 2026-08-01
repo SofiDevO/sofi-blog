@@ -19,6 +19,20 @@ const { title, curso, content } = language;
 const { icon, modulo } = curso;
 
 const modulesGrouped = groupLessonsByModule(modulo?.nodes || []);
+
+const modulesGroupedSorted = Object.entries(modulesGrouped).map(
+  ([moduleName, lessons]) => {
+    const sortedLessons = [...lessons].sort(
+      (a: any, b: any) =>
+        (a.moduleFields?.leccion ?? 0) - (b.moduleFields?.leccion ?? 0),
+    );
+
+    return {
+      moduleName,
+      lessons: sortedLessons,
+    };
+  },
+);
 ---
 
 <Layout title={title}>
@@ -39,13 +53,14 @@ const modulesGrouped = groupLessonsByModule(modulo?.nodes || []);
       <div class="language__content">
         <h1 class="text-gradient language__title">{title}</h1>
         <div set:html={content} />
+
         {
-          modulesGrouped && Object.keys(modulesGrouped).length > 0 && (
+          modulesGroupedSorted.length > 0 && (
             <div class="language__accordion-container">
-              {Object.entries(modulesGrouped).map(([moduleName, lessons]) => (
+              {modulesGroupedSorted.map(({ moduleName, lessons }) => (
                 <details class="language__accordion" open>
                   <summary class="language__summary">
-                    <span>{moduleName}</span>
+                    <span>Módulo: {moduleName}</span>
                   </summary>
                   <ul class="language__lessons">
                     {lessons.map((lesson) => (
@@ -84,7 +99,6 @@ const modulesGrouped = groupLessonsByModule(modulo?.nodes || []);
         align-items: center;
         background-color: $bgDark;
         padding: 0.8rem 1rem;
-        border-radius: 0.2rem;
         color: #33ff76;
         width: fit-content;
         border-radius: 10px;
@@ -92,16 +106,22 @@ const modulesGrouped = groupLessonsByModule(modulo?.nodes || []);
     }
   }
 </style>
+
 <script>
   import { InsertButtonCopy } from "@pages/post/button-copy";
   InsertButtonCopy();
 </script>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("post") as HTMLElement;
+    if (!container) return;
+
     const allImages = container.querySelectorAll<HTMLImageElement>("img");
     const dialog = container.querySelector("dialog") as HTMLDialogElement;
     const body = document.querySelector("body") as HTMLBodyElement;
+
+    if (!dialog) return;
 
     allImages.forEach((image) => {
       image.addEventListener("click", () => {
