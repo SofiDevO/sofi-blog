@@ -4,10 +4,14 @@ const { language } = Astro.props;
 
 <div class="card">
   <div class="card__icon">
-    <img
-      src={language.curso.icon.node.mediaItemUrl}
-      alt={language.curso.icon.node.altText}
-    />
+    {
+      language.curso?.icon?.node?.mediaItemUrl && (
+        <img
+          src={language.curso.icon.node.mediaItemUrl}
+          alt={language.curso.icon.node.altText || language.title}
+        />
+      )
+    }
   </div>
   <div class="card__content">
     <h2 class="card__content__title">{language.title}</h2>

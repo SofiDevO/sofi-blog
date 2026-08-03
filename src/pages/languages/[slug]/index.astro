@@ -16,7 +16,8 @@ export async function getStaticPaths() {
 
 const { language } = Astro.props as { language: Node };
 const { title, curso, content } = language;
-const { icon, modulo } = curso;
+const icon = curso?.icon;
+const modulo = curso?.modulo;
 
 const modulesGrouped = groupLessonsByModule(modulo?.nodes || []);
 
@@ -35,10 +36,10 @@ const modulesGroupedSorted = Object.entries(modulesGrouped).map(
 );
 
 const featuredImage = [
-  { image: language.featuredImage.node.mediaItemUrl },
-  { alt: language.featuredImage.node.altText },
-  { srcSet: language.featuredImage.node.srcSet },
-  { sizes: language.featuredImage.node.sizes },
+  { image: language.featuredImage?.node?.mediaItemUrl },
+  { alt: language.featuredImage?.node?.altText },
+  { srcSet: language.featuredImage?.node?.srcSet },
+  { sizes: language.featuredImage?.node?.sizes },
 ];
 console.log(language.seo?.metaDesc);
 ---
@@ -46,7 +47,7 @@ console.log(language.seo?.metaDesc);
 <Layout
   title={title}
   description={language.seo?.metaDesc}
-  image={featuredImage[0].image}
+  image={featuredImage[0]?.image}
 >
   <section class="language" id="post">
     <script
@@ -66,13 +67,17 @@ console.log(language.seo?.metaDesc);
       </a>
     </header>
     <div class="language__container">
-      <img
-        class="language__icon"
-        src={icon.node.mediaItemUrl}
-        srcset={icon.node.srcSet}
-        sizes={icon.node.sizes}
-        alt={title}
-      />
+      {
+        icon?.node?.mediaItemUrl && (
+          <img
+            class="language__icon"
+            src={icon.node.mediaItemUrl}
+            srcset={icon.node.srcSet}
+            sizes={icon.node.sizes}
+            alt={title}
+          />
+        )
+      }
       <div class="language__content">
         <h1 class="text-gradient language__title">{title}</h1>
         <div set:html={content} />

@@ -5,10 +5,10 @@ import { getLanguages } from "@services/querys/languages/getLanguages";
 const data = await getLanguages();
 const carouselData = data?.map((language) => ({
   name: language.title,
-  icon: language.curso.icon.node.mediaItemUrl,
+  icon: language.curso?.icon?.node?.mediaItemUrl || "",
   slug: language.slug,
   date: language.date,
-}));
+})) || [];
 
 const itemCount = carouselData.length;
 // duración total = cantidad de ítems * tiempo por ítem (1.2s recomendado para buena lectura)
