@@ -7,6 +7,19 @@ export const getLanguageDetail = async () => {
         query getLanguageDetail {
             languages {
                 nodes {
+                featuredImage {
+                  node {
+                    mediaItemUrl
+                    altText
+                    mediaItemUrl
+                    altText
+                    sizes(size: MEDIUM_LARGE)
+                    srcSet(size: MEDIUM)
+                  }
+                }
+                seo{
+                  metaDesc
+                }
                 curso {
                     icon {
                     node {

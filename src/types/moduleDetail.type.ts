@@ -14,6 +14,10 @@ export interface ModuleNode {
   content: string | null
   date: string
   featuredImage?: FeaturedImage
+  seo?: Seo;
+}
+export interface Seo {
+  metaDesc: string
 }
 
 export interface ModuleFields {

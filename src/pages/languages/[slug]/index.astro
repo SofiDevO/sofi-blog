@@ -33,9 +33,21 @@ const modulesGroupedSorted = Object.entries(modulesGrouped).map(
     };
   },
 );
+
+const featuredImage = [
+  { image: language.featuredImage.node.mediaItemUrl },
+  { alt: language.featuredImage.node.altText },
+  { srcSet: language.featuredImage.node.srcSet },
+  { sizes: language.featuredImage.node.sizes },
+];
+console.log(language.seo?.metaDesc);
 ---
 
-<Layout title={title}>
+<Layout
+  title={title}
+  description={language.seo?.metaDesc}
+  image={featuredImage[0].image}
+>
   <section class="language" id="post">
     <script
       is:inline

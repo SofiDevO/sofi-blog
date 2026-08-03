@@ -10,6 +10,9 @@ export const getModuleDetail = async (): Promise<ModuleNode[]> => {
       query getModuleDetail {
         modules {
           nodes {
+            seo {
+              metaDesc
+            }
             databaseId
             slug
             title

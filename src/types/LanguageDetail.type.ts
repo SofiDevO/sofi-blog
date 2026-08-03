@@ -11,6 +11,23 @@ export interface Node {
   slug: string
   title: string
   content: string
+  featuredImage?: FeaturedImage
+  seo?: Seo;
+}
+
+export interface Seo {
+  metaDesc: string
+}
+
+export interface FeaturedImage {
+  node: Node2
+}
+
+export interface Node2 {
+  srcSet: string
+  sizes: string
+  mediaItemUrl: string
+  altText: string
 }
 
 export interface Curso {

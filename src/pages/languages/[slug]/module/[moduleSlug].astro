@@ -53,11 +53,22 @@ const { module, languageSlug, languageLessons } = Astro.props as {
 const { title, content, moduleFields } = module;
 const recursos = moduleFields?.recursos?.node?.mediaItemUrl;
 const multimedia = moduleFields?.multimedia;
+const featuredImage = [
+  { image: module.featuredImage?.node?.mediaItemUrl },
+  { alt: module.featuredImage?.node?.altText },
+  { srcSet: module.featuredImage?.node?.srcSet },
+  { sizes: module.featuredImage?.node?.sizes },
+];
 
 const modulesGrouped = groupLessonsByModule(languageLessons);
 ---
 
-<Layout title={title} showHeader={false}>
+<Layout
+  title={title}
+  showHeader={false}
+  image={featuredImage[0].image}
+  description={module.seo?.metaDesc}
+>
   <section class="module" id="post">
     <header class="module__header">
       <a href={`/languages/${languageSlug}`} class="header__back-btn">
