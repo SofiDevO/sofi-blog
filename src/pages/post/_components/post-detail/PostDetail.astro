@@ -107,26 +107,35 @@ const { post, author } = Astro.props;
   });
 </script>
 
-<script is:inline>
-  const pintItButton = document.querySelectorAll(
-    ".pinsavepinterest-pin-it-button",
-  );
-  pintItButton.forEach((button) => {
-    const href = button?.getAttribute("href");
-    if (!href) return;
+<script>
+  import { normalizePinterestUrl } from "@utils/pinterestUrl.js";
 
-    try {
-      const urlObj = new URL(href);
-      const targetUrl = urlObj.searchParams.get("url");
-      if (targetUrl) {
-        const parsedTarget = new URL(targetUrl);
-        parsedTarget.hostname = "www.sofidev.blog";
-        parsedTarget.port = "";
-        parsedTarget.protocol = "https:";
+  const rewritePinterestLinks = () => {
+    const pinterestButtons = document.querySelectorAll(
+      ".pinsavepinterest-pin-it-button",
+    );
 
-        urlObj.searchParams.set("url", parsedTarget.toString());
-        button.setAttribute("href", urlObj.toString());
+    pinterestButtons.forEach((button) => {
+      const href = button.getAttribute("href");
+      if (!href) return;
+
+      const normalizedHref = normalizePinterestUrl(href);
+      if (normalizedHref !== href) {
+        button.setAttribute("href", normalizedHref);
       }
-    } catch (e) {}
+    });
+  };
+
+  rewritePinterestLinks();
+
+  const observer = new MutationObserver(() => {
+    rewritePinterestLinks();
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ["href"],
   });
 </script>
