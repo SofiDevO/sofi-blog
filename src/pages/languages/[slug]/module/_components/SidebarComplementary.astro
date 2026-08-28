@@ -83,6 +83,10 @@ const { content, recursos, languageSlug, module, modulesGrouped } = Astro.props;
     margin-bottom: 1rem;
     gap: 1rem;
     width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 9000;
+    background: black;
 
     .toggle-btn {
       background: transparent;
@@ -118,11 +122,17 @@ const { content, recursos, languageSlug, module, modulesGrouped } = Astro.props;
     height: fit-content;
 
     &.active {
-      width: 520px;
+      width: 800px;
       padding: 1rem;
 
       @include respond-to("medium") {
         width: 100%;
+      }
+      @include respond-to("laptop") {
+        width: 600px;
+      }
+      @include respond-to("large") {
+        width: 600px;
       }
     }
 

@@ -9,6 +9,7 @@ interface Props {
 
 const { title, leccion, multimedia } = Astro.props;
 ---
+
 <main class="module__main-video">
   <h1 class="text-gradient module__title">
     {leccion ? `${leccion}: ` : ""}
@@ -21,7 +22,33 @@ const { title, leccion, multimedia } = Astro.props;
   />
 </main>
 
+<script is:inline>
+  const moduleTitle = document.querySelector(".module__title");
+  const HIDE_TITLE_AT = 60;
+
+  let ticking = false;
+  const updateTitle = () => {
+    const scrolled = window.scrollY > HIDE_TITLE_AT;
+    moduleTitle.classList.toggle("module__title--hidden", scrolled);
+    ticking = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(updateTitle);
+      }
+    },
+    { passive: true },
+  );
+
+  updateTitle();
+</script>
 <style lang="scss">
+  @use "@sass/mixins" as *;
+
   .module__main-video {
     position: sticky;
     top: 1rem;
@@ -31,11 +58,26 @@ const { title, leccion, multimedia } = Astro.props;
     width: 100%;
     min-width: 0;
     padding: 1rem;
+
+    @include respond-to("medium") {
+      // position: static;
+      background: black;
+      top: 30px;
+      z-index: 900;
+      border-radius: 12px;
+    }
   }
 
   .module__title {
     font-size: 3rem;
     font-weight: 700;
+
+    &--hidden {
+      display: none;
+    }
+    @include respond-to("medium") {
+      display: none;
+    }
   }
 
   .module__main-video-content {

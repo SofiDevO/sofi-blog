@@ -4,6 +4,7 @@
   max-width: 1100px;
   margin: 0 auto;
 }
+
 // Reset padding and margin
 @mixin reset-pm {
   padding: 0;
@@ -22,29 +23,36 @@
 
 // Font family mixin
 @mixin font-family($type) {
-  @if $type == "montserrat" {
+  @if $type =="montserrat" {
     font-family: "Montserrat Variable", sans-serif;
-  } @else if $type == "fira-code" {
+  }
+
+  @else if $type =="fira-code" {
     font-family: "fira-code", sans-serif;
-  } @else if $type == "textos" {
+  }
+
+  @else if $type =="textos" {
     font-family: "Questrial", sans-serif;
   }
 }
 
 @mixin titleType($type) {
-  @if $type == "bigger" {
+  @if $type =="bigger" {
     font-size: 5rem;
     font-weight: 800;
   }
-  @else if $type == "big" {
+
+  @else if $type =="big" {
     font-size: 4rem;
     font-weight: 800;
   }
-  @else if $type == "medium" {
+
+  @else if $type =="medium" {
     font-size: 3.5rem;
     font-weight: 700;
   }
-  @else if $type == "small" {
+
+  @else if $type =="small" {
     font-size: 2.6rem;
     font-weight: 700;
   }
@@ -52,20 +60,31 @@
 
 // Responsive breakpoints
 @mixin respond-to($breakpoint) {
-  @if $breakpoint == "small" {
+  @if $breakpoint =="small" {
     @media (max-width: 320px) {
       @content;
     }
-  } @else if $breakpoint == "medium" {
+  }
+
+  @else if $breakpoint =="medium" {
     @media (max-width: 768px) {
       @content;
     }
-  } @else if $breakpoint == "large" {
-    @media screen and  (min-width: 768px) {
+  }
+
+  @else if $breakpoint =="large" {
+    @media screen and (min-width: 768px) {
       @content;
     }
   }
-  @else if $breakpoint == "ipadPro" {
+
+  @else if $breakpoint =="laptop" {
+    @media screen and (min-width: 1440px) {
+      @content;
+    }
+  }
+
+  @else if $breakpoint =="ipadPro" {
     @media (max-width: 1024px) and (max-height: 1366px) {
       @content;
     }
@@ -82,38 +101,28 @@
 
 /* bg color gradient for hero section. dark ligth theme */
 @mixin theme-gradient($mode) {
-  @if $mode == "dark" {
+  @if $mode =="dark" {
     content: "";
     position: absolute;
     background-color: v.$color-background-before;
-    background-image: radial-gradient(
-        37.88% 68.62% at 50% 0,
+    background-image: radial-gradient(37.88% 68.62% at 50% 0,
         v.$color-gradient1-start 0%,
-        v.$color-gradient1-end 80%
-      ),
-      radial-gradient(
-        10% 10% at 50% 10%,
+        v.$color-gradient1-end 80%),
+      radial-gradient(10% 10% at 50% 10%,
         v.$color-gradient2-start 0%,
         v.$color-gradient2-middle 90%,
-        v.$color-gradient2-end 100%
-      ),
-      radial-gradient(
-        100% 28.09% at 100% 10%,
+        v.$color-gradient2-end 100%),
+      radial-gradient(100% 28.09% at 100% 10%,
         v.$color-gradient3-start 0%,
         v.$color-gradient3-middle 80%,
-        v.$color-gradient3-end 100%
-      ),
-      linear-gradient(
-        180deg,
+        v.$color-gradient3-end 100%),
+      linear-gradient(180deg,
         v.$color-gradient4-start 35.79%,
         v.$color-gradient4-end 80%,
-        v.$color-background-gradient5 80%
-      ),
-      radial-gradient(
-        74.84% 135.56% at 100% 10%,
+        v.$color-background-gradient5 80%),
+      radial-gradient(74.84% 135.56% at 100% 10%,
         v.$color-gradient6-start 0%,
-        v.$color-background-gradient6 80%
-      );
+        v.$color-background-gradient6 80%);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100svh;
@@ -123,38 +132,30 @@
     left: -50px;
     right: -50px;
     width: 100%;
-  } @else if $mode == "ligth" {
+  }
+
+  @else if $mode =="ligth" {
     content: "";
     position: absolute;
     background-color: v.$color-background-before-ligth;
-    background-image: radial-gradient(
-        37.88% 68.62% at 50% 0,
+    background-image: radial-gradient(37.88% 68.62% at 50% 0,
         v.$color-gradient1-start-ligth 0%,
-        v.$color-gradient1-end-ligth 80%
-      ),
-      radial-gradient(
-        10% 10% at 50% 10%,
+        v.$color-gradient1-end-ligth 80%),
+      radial-gradient(10% 10% at 50% 10%,
         v.$color-gradient2-start-ligth 0%,
         v.$color-gradient2-middle-ligth 90%,
-        v.$color-gradient2-end-ligth 100%
-      ),
-      radial-gradient(
-        100% 28.09% at 100% 10%,
+        v.$color-gradient2-end-ligth 100%),
+      radial-gradient(100% 28.09% at 100% 10%,
         v.$color-gradient3-start-ligth 0%,
         v.$color-gradient3-middle-ligth 80%,
-        v.$color-gradient3-end-ligth 100%
-      ),
-      linear-gradient(
-        180deg,
+        v.$color-gradient3-end-ligth 100%),
+      linear-gradient(180deg,
         v.$color-gradient4-start-ligth 35.79%,
         v.$color-gradient4-end-ligth 80%,
-        v.$color-background-gradient5-ligth 80%
-      ),
-      radial-gradient(
-        74.84% 135.56% at 100% 10%,
+        v.$color-background-gradient5-ligth 80%),
+      radial-gradient(74.84% 135.56% at 100% 10%,
         v.$color-gradient6-start-ligth 0%,
-        v.$color-background-gradient6-ligth 80%
-      );
+        v.$color-background-gradient6-ligth 80%);
     background-repeat: no-repeat;
     background-size: cover;
     height: 100svh;
