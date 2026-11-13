@@ -12,6 +12,10 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
+  &[hidden] {
+    display: none;
+  }
+
   .ad-blocker-card {
     width: 100%;
     max-width: 520px;
@@ -40,6 +44,11 @@
       }
 
       strong {
+        color: v.$french-violet;
+      }
+
+      &--blocked {
+        font-weight: 700;
         color: v.$french-violet;
       }
     }

@@ -1,0 +1,85 @@
+---
+import "./_ad-blocker-overlay.scss";
+---
+
+<div class="ad-blocker-overlay" hidden>
+  <div class="ad-blocker-card">
+    <h2 id="ad-blocker-overlay-title" class="ad-blocker-title">
+      Bloqueo de anuncios detectado
+    </h2>
+    <p class="ad-blocker-text">
+      Detectamos que tu navegador está bloqueando anuncios. Esto sucede, por
+      ejemplo, cuando el bloqueador <strong>Brave</strong> está activo y omitía la mayoría de los anuncios.
+    </p>
+    <p class="ad-blocker-text">
+      Si quieres continuar navegando por el sitio, debes desactivar tu
+      bloqueador de anuncios.
+    </p>
+    <p class="ad-blocker-text ad-blocker-text--blocked">
+      NO aceptamos visitas desde navegador Brave. Usa otro navegador :D
+    </p>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const AD_DOMAINS = [
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3828278469742835",
+      "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/123456789/",
+      "https://tpc.googlesyndication.com/simgad/123456789",
+    ];
+
+    const isAdBlockerActive = async () => {
+      // 1. Probar varios dominios de anuncios: si fallan o responden de forma
+      //    instantánea (< 5ms, típico de bloqueo de Brave Shields), se detecta.
+      let blockedCount = 0;
+      const total = AD_DOMAINS.length;
+      for (const domain of AD_DOMAINS) {
+        try {
+          const startTime = performance.now();
+          await fetch(domain, {
+            method: "HEAD",
+            mode: "no-cors",
+            cache: "no-store",
+          });
+          const loadTime = performance.now() - startTime;
+          if (loadTime < 5) blockedCount += 1;
+        } catch {
+          blockedCount += 1;
+        }
+      }
+      if (blockedCount >= Math.ceil(total / 2)) {
+        return true;
+      }
+
+      // 2. Bloqueo estricto: Brave (Shields / Block scripts) detectado → overlay.
+      const nav = navigator;
+      const brands = (nav.userAgentData?.brands ?? []).map((b) =>
+        (b.brand ?? "").toLowerCase(),
+      );
+      const isBrave =
+        brands.some((b) => b.includes("brave") || b === "bra") ||
+        nav.brave?.enabled === true;
+      if (isBrave) return true;
+
+      // Cualquier otro bloqueador no detectado por el probe no bloquea los ads
+      // de esta forma: el sitio permite la navegación.
+      return false;
+    };
+
+    const run = async () => {
+      const blocked = await isAdBlockerActive();
+      const overlay = document.querySelector(".ad-blocker-overlay");
+      if (blocked && overlay) {
+        overlay.hidden = false;
+        document.body.style.overflow = "hidden";
+      }
+    };
+
+    if (document.readyState === "complete") {
+      run();
+    } else {
+      window.addEventListener("load", run);
+    }
+  })();
+</script>

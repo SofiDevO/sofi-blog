@@ -6,7 +6,7 @@ import Footer from "@shared/components/Footer/Footer.astro";
 import Header from "@shared/components/Header/Header.astro";
 import MobileMenu from "@shared/components/MobileMenu/MobileMenu.astro";
 import ThemeIcon from "@shared/components/ThemeIcon.astro";
-import AdBlockerOverlay from "@shared/components/AdBlocker/AdBlockerOverlay";
+import AdBlockerOverlay from "@shared/components/AdBlocker/AdBlockerOverlay.astro";
 
 const {
   title,
@@ -53,7 +53,7 @@ const slug = Astro.url.pathname.split("/").pop();
     <Footer />
 
     <CookiesBanner client:load />
-    <AdBlockerOverlay client:load />
+    <AdBlockerOverlay />
   </body>
 </html>
 
