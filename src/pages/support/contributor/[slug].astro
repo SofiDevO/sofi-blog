@@ -111,20 +111,18 @@ const socialLinks = Object.keys(contributor.socialLinks)
         </ul>
          {
           posts.length > 0 && (
-
+            <>
               <Title class="title title-ufo" titleDesc={`Posts de ${contributor.name}`} />
               <div class="contributor__posts">
-                {posts.slice(0, 3).map((post)  => (
-
-                  <CardSidebar
-                  {...post }
-                  />
+                {posts.slice(0, 3).map((post) => (
+                  <CardSidebar {...post} />
                 ))}
               </div>
-
+            </>
           )
         }
       </SideBar>
+    </div>
   </section>
 </BackgroundGradient>
 </Layout>
